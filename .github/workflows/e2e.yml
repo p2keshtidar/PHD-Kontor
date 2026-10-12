@@ -62,6 +62,7 @@ jobs:
         shell: bash
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
+          { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
           { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
@@ -106,22 +107,37 @@ jobs:
           flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app > /dev/null
           flutter pub get
           dart run tool/setup_platforms.dart
+      - name: Emulator starten
+        shell: bash
+        run: |
+          S=$ANDROID_HOME; export PATH="$S/platform-tools:$S/emulator:$PATH"
+          IMG="system-images;android-30;google_apis;x86_64"
+          { yes | $S/cmdline-tools/latest/bin/sdkmanager "emulator" "platform-tools" "$IMG" > /dev/null; } 2>&1 | tail -3 | tee -a /tmp/ci.log
+          echo no | $S/cmdline-tools/latest/bin/avdmanager create avd -n e2e -k "$IMG" -d pixel_5 --force 2>&1 | tail -2 | tee -a /tmp/ci.log
+          emulator -accel-check 2>&1 | tee -a /tmp/ci.log
+          nohup emulator -avd e2e -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -memory 3072 > /tmp/emulator.log 2>&1 &
+          timeout 600 adb wait-for-device
+          for i in $(seq 1 150); do
+            [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ] && break; sleep 4
+          done
+          echo "boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')" | tee -a /tmp/ci.log
+          [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ]
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
       - name: Test im Emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          arch: x86_64
-          target: google_apis
-          emulator-boot-timeout: 900
-          disable-animations: true
-          emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          working-directory: app
-          script: timeout 1500 flutter test integration_test/app_test.dart -d emulator-5554 --dart-define=API_URL=http://10.0.2.2:8080 > /tmp/ci.log 2>&1; s=$?; cat /tmp/ci.log; exit $s
+        working-directory: app
+        shell: bash
+        run: |
+          set -o pipefail
+          timeout 1500 flutter test integration_test/app_test.dart -d emulator-5554 \
+            --dart-define=API_URL=http://10.0.2.2:8080 2>&1 | tee -a /tmp/ci.log
       - name: Fehlerprotokoll
         if: failure()
         shell: bash
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
+          { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
           { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
@@ -180,13 +196,17 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          perl -e 'alarm shift; exec @ARGV' 2100 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
+          # Systemprotokoll des Simulators mitschreiben (zeigt Abstürze beim App-Start)
+          xcrun simctl spawn "$UDID" log stream --level error --style compact --predicate 'process == "Runner"' > /tmp/sim.log 2>&1 &
+          perl -e 'alarm shift; exec @ARGV' 1200 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
             | grep -vE "^\[ +\+?[0-9]+ ms\] (executing|Exit code|<- |-> )" | tee -a /tmp/ci.log
       - name: Fehlerprotokoll
         if: failure()
         shell: bash
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
+          { echo '----- Simulator -----'; tail -c 8000 /tmp/sim.log; } >> /tmp/ci.log 2>/dev/null || true
+          { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
           { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
