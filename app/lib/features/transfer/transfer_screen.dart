@@ -114,6 +114,11 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                     icon: Icons.contacts,
                     onTap: _openAddressBook,
                   ),
+                  _QuickContact(
+                    label: 'Daueraufträge',
+                    icon: Icons.event_repeat,
+                    onTap: () => context.push('/dauerauftraege'),
+                  ),
                   for (final c in list)
                     _QuickContact(
                       label: c.displayName,
@@ -123,10 +128,14 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                     ),
                 ],
               ),
-              orElse: () => Align(
-                alignment: Alignment.centerLeft,
-                child: _QuickContact(label: 'Adressbuch', icon: Icons.contacts, onTap: _openAddressBook),
-              ),
+              orElse: () => Row(children: [
+                _QuickContact(label: 'Adressbuch', icon: Icons.contacts, onTap: _openAddressBook),
+                _QuickContact(
+                  label: 'Daueraufträge',
+                  icon: Icons.event_repeat,
+                  onTap: () => context.push('/dauerauftraege'),
+                ),
+              ]),
             ),
           ),
           const SizedBox(height: 8),

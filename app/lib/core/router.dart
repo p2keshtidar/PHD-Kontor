@@ -24,6 +24,7 @@ import '../features/notifications/notifications_screen.dart';
 import '../features/profile/profile_screen.dart';
 import '../features/shell/home_shell.dart';
 import '../features/shell/splash_screen.dart';
+import '../features/standing_orders/standing_orders_screen.dart';
 import '../features/subaccounts/subaccount_screen.dart';
 import '../features/transfer/transfer_models.dart';
 import '../features/transfer/transfer_screen.dart';
@@ -83,6 +84,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, state) =>
             SubaccountScreen(accountId: int.parse(state.pathParameters['accountId']!)),
       ),
+      GoRoute(path: '/dauerauftraege', builder: (_, __) => const StandingOrdersScreen()),
       GoRoute(path: '/benachrichtigungen', builder: (_, __) => const NotificationsScreen()),
       // Phase 4: Finanzüberblick, Pläne, Kredite
       GoRoute(path: '/finanzen', builder: (_, __) => const InsightsScreen()),
