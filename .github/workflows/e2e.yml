@@ -66,7 +66,8 @@ jobs:
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
-          { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
+          { echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+            grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
 
@@ -120,7 +121,7 @@ jobs:
           { yes | $S/cmdline-tools/latest/bin/sdkmanager "emulator" "platform-tools" "$IMG" > /dev/null; } 2>&1 | tail -3 | tee -a /tmp/ci.log
           export ANDROID_AVD_HOME="$HOME/.android/avd"; mkdir -p "$ANDROID_AVD_HOME"
           echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME" >> "$GITHUB_ENV"
-          echo no | $S/cmdline-tools/latest/bin/avdmanager create avd -n e2e -k "$IMG" --force 2>&1 | tee -a /tmp/ci.log
+          echo no | $S/cmdline-tools/latest/bin/avdmanager create avd -n e2e -k "$IMG" -d pixel_5 --force 2>&1 | tee -a /tmp/ci.log
           echo "AVDs: $(emulator -list-avds | tr '\n' ' ')" | tee -a /tmp/ci.log
           emulator -accel-check 2>&1 | tee -a /tmp/ci.log || true
           ls "$S/system-images/android-30/google_apis/x86_64" > /dev/null
@@ -147,7 +148,8 @@ jobs:
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
-          { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
+          { echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+            grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
 
@@ -217,6 +219,7 @@ jobs:
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Simulator -----'; tail -c 8000 /tmp/sim.log; } >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
-          { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
+          { echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+            grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
