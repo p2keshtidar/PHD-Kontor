@@ -4,10 +4,12 @@ name: E2E
 
 on:
   workflow_dispatch:
-
-concurrency:
-  group: e2e-${{ github.ref }}
-  cancel-in-progress: true
+    inputs:
+      plattform:
+        description: Welche Plattform testen?
+        type: choice
+        options: [alle, browser, android, ios]
+        default: alle
 
 env:
   DB_URL: jdbc:postgresql://localhost:5432/girokonto
@@ -18,6 +20,7 @@ jobs:
   # ---------------------------------------------------------------- Browser (Chrome)
   web:
     name: E2E Browser (Chrome)
+    if: inputs.plattform == 'alle' || inputs.plattform == 'browser'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
@@ -70,6 +73,7 @@ jobs:
   # ---------------------------------------------------------------- Android-Emulator
   android:
     name: E2E Android-Emulator
+    if: inputs.plattform == 'alle' || inputs.plattform == 'android'
     runs-on: ubuntu-latest
     timeout-minutes: 50
     services:
@@ -147,6 +151,7 @@ jobs:
   # ---------------------------------------------------------------- iOS-Simulator
   ios:
     name: E2E iOS-Simulator
+    if: inputs.plattform == 'alle' || inputs.plattform == 'ios'
     # macos-15 mit Xcode 16: mit Xcode 26 findet "flutter test" den Dart-VM-Dienst im Simulator nicht
     runs-on: macos-15
     timeout-minutes: 60
