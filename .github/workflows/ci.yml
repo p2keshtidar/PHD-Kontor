@@ -35,8 +35,14 @@ jobs:
         shell: bash
         run: |
           if [ -f /tmp/ci.log ]; then
-            msg=$(tail -c 60000 /tmp/ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
-            echo "::error title=Protokoll::$msg"
+            # nur relevante Zeilen, in Stücken zu ca. 3.500 Zeichen (Grenze einer Annotation)
+            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by" \
+              | tail -c 30000 > /tmp/ci-short.log || true
+            split -C 3500 /tmp/ci-short.log /tmp/ci-part-
+            for f in /tmp/ci-part-*; do
+              msg=$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')
+              echo "::error title=Protokoll::$msg"
+            done
           fi
       - name: Testbericht hochladen
         if: always()
@@ -78,8 +84,14 @@ jobs:
         shell: bash
         run: |
           if [ -f /tmp/ci.log ]; then
-            msg=$(tail -c 60000 /tmp/ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
-            echo "::error title=Protokoll::$msg"
+            # nur relevante Zeilen, in Stücken zu ca. 3.500 Zeichen (Grenze einer Annotation)
+            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by" \
+              | tail -c 30000 > /tmp/ci-short.log || true
+            split -C 3500 /tmp/ci-short.log /tmp/ci-part-
+            for f in /tmp/ci-part-*; do
+              msg=$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')
+              echo "::error title=Protokoll::$msg"
+            done
           fi
       - uses: actions/upload-artifact@v4
         with:
@@ -118,8 +130,14 @@ jobs:
         shell: bash
         run: |
           if [ -f /tmp/ci.log ]; then
-            msg=$(tail -c 60000 /tmp/ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
-            echo "::error title=Protokoll::$msg"
+            # nur relevante Zeilen, in Stücken zu ca. 3.500 Zeichen (Grenze einer Annotation)
+            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by" \
+              | tail -c 30000 > /tmp/ci-short.log || true
+            split -C 3500 /tmp/ci-short.log /tmp/ci-part-
+            for f in /tmp/ci-part-*; do
+              msg=$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')
+              echo "::error title=Protokoll::$msg"
+            done
           fi
       - uses: actions/upload-artifact@v4
         with:
@@ -153,6 +171,12 @@ jobs:
         shell: bash
         run: |
           if [ -f /tmp/ci.log ]; then
-            msg=$(tail -c 60000 /tmp/ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
-            echo "::error title=Protokoll::$msg"
+            # nur relevante Zeilen, in Stücken zu ca. 3.500 Zeichen (Grenze einer Annotation)
+            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by" \
+              | tail -c 30000 > /tmp/ci-short.log || true
+            split -C 3500 /tmp/ci-short.log /tmp/ci-part-
+            for f in /tmp/ci-part-*; do
+              msg=$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')
+              echo "::error title=Protokoll::$msg"
+            done
           fi
