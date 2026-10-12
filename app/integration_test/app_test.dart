@@ -124,10 +124,15 @@ void main() {
     await pumpUntil(tester, find.byKey(const Key('extra_amount')));
     await tester.enterText(find.byKey(const Key('extra_amount')), '1000');
     await tester.pump();
+    // Tastatur schließen (verdeckt auf dem Handy sonst die Knöpfe)
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 800);
     await tester.tap(find.byKey(const Key('extra_preview')));
     await pumpUntil(tester, find.text('Du sparst Zinsen'));
     await scrollTo(tester, find.byKey(const Key('extra_pay')));
     await tester.tap(find.byKey(const Key('extra_pay')));
-    await pumpUntil(tester, find.textContaining('Sondertilgung über'));
+    // zurück im Kreditdetail: neue Zeile "Sondertilgungen" mit dem Betrag
+    await pumpUntil(tester, find.text('Sondertilgungen'));
+    expect(find.text('1.000,00 €'), findsWidgets);
   });
 }
