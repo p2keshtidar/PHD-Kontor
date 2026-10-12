@@ -1,9 +1,9 @@
 package de.frauas.girokonto.simulation;
 
 import java.time.Clock;
-import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -15,14 +15,21 @@ public class SimulationClock extends Clock {
 
     private final ZoneId zone;
     private final AtomicLong offsetDays;
+    private final Clock base;
 
     public SimulationClock(ZoneId zone) {
-        this(zone, new AtomicLong());
+        this(zone, new AtomicLong(), Clock.systemUTC());
     }
 
-    private SimulationClock(ZoneId zone, AtomicLong offsetDays) {
+    /** Für Tests: mit fester Grunduhr. */
+    SimulationClock(ZoneId zone, Clock base) {
+        this(zone, new AtomicLong(), base);
+    }
+
+    private SimulationClock(ZoneId zone, AtomicLong offsetDays, Clock base) {
         this.zone = zone;
         this.offsetDays = offsetDays;
+        this.base = base;
     }
 
     @Override
@@ -32,12 +39,18 @@ public class SimulationClock extends Clock {
 
     @Override
     public Clock withZone(ZoneId newZone) {
-        return new SimulationClock(newZone, offsetDays);
+        return new SimulationClock(newZone, offsetDays, base);
     }
 
     @Override
     public Instant instant() {
-        return Instant.now().plus(Duration.ofDays(offsetDays.get()));
+        long days = offsetDays.get();
+        if (days == 0) {
+            return base.instant();
+        }
+        // Um KALENDERTAGE verschieben, nicht um n × 24 Stunden: sonst landet man über eine
+        // Zeitumstellung (Sommer-/Winterzeit) hinweg kurz nach Mitternacht am Vortag.
+        return ZonedDateTime.ofInstant(base.instant(), zone).plusDays(days).toInstant();
     }
 
     public long getOffsetDays() {
