@@ -164,9 +164,13 @@ int _iosClassicLifecycle() {
   var changed = 0;
   final delegate = File('ios/Runner/AppDelegate.swift');
   if (delegate.existsSync() &&
-      !delegate.readAsStringSync().contains('GeneratedPluginRegistrant.register(with: self)')) {
+      !delegate.readAsStringSync().contains('Girokonto: klassischer App-Start')) {
+    // Die Kommentarzeile ist wichtig: Eine AppDelegate, die exakt der alten Flutter-Vorlage
+    // entspricht, stellt "flutter build" sonst automatisch wieder auf UIScene um.
     delegate.writeAsStringSync('''import Flutter
 import UIKit
+
+// Girokonto: klassischer App-Start ohne UIScene (siehe app/tool/setup_platforms.dart)
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
