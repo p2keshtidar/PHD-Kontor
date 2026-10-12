@@ -32,7 +32,9 @@ public class SecurityConfig {
                         // WebSocket-Handshake; angemeldet wird beim STOMP-CONNECT (WebSocketConfig)
                         .requestMatchers("/ws", "/ws/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/**").authenticated()
+                        // alles andere ist die Web-App (statische Dateien aus resources/static)
+                        .anyRequest().permitAll())
                 .exceptionHandling(e -> e.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .addFilterBefore(new JwtAuthFilter(jwtService, users), UsernamePasswordAuthenticationFilter.class);
         return http.build();

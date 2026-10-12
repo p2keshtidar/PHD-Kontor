@@ -180,3 +180,11 @@ jobs:
               echo "::error title=Protokoll::$msg"
             done
           fi
+
+  # ---------------------------------------------------------------- Docker (komplette Anwendung)
+  docker:
+    name: Docker-Image (Backend + Web-App)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - run: docker build -t girokonto .

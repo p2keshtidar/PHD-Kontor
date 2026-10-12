@@ -1,4 +1,7 @@
-# Startet die PostgreSQL-Datenbank für die Entwicklung:  docker compose up -d
+# Komplette Anwendung starten (Datenbank + Backend + Web-App):
+#   docker compose up -d --build        ->  im Browser http://localhost:8080 öffnen
+# Nur die Datenbank (zum Entwickeln mit ./gradlew bootRun):
+#   docker compose up -d db
 services:
   db:
     image: postgres:16-alpine
@@ -16,6 +19,20 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+
+  app:
+    build: .
+    container_name: girokonto-app
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/girokonto
+      DB_USER: girokonto
+      DB_PASSWORD: girokonto
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   girokonto-data:

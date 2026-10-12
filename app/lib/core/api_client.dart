@@ -38,6 +38,7 @@ class ApiClient {
 
   Future<void> _onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
+    options.baseUrl = AppConfig.apiBaseUrl;
     if (options.extra['noAuth'] != true) {
       final token = await _storage.readAccessToken();
       if (token != null) {
@@ -78,6 +79,7 @@ class ApiClient {
     final refreshToken = await _storage.readRefreshToken();
     if (refreshToken == null) return false;
     try {
+      _plain.options.baseUrl = AppConfig.apiBaseUrl;
       final response = await _plain.post<Map<String, dynamic>>(
         '/api/auth/refresh',
         data: {'refreshToken': refreshToken},

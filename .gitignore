@@ -26,3 +26,4 @@ app/android/app/release/
 Thumbs.db
 *.log
 .env
+backend/src/main/resources/static/

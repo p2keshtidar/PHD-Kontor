@@ -20,6 +20,24 @@ Plattformübergreifende App mit **Flutter** (iOS, Android, Web), Backend mit **S
 
 ---
 
+## 0. Schnellstart: fertige Apps herunterladen
+
+Bei jedem Push baut GitHub automatisch alle Apps. Download: **GitHub → Releases → „Aktuelle Version“**
+(https://github.com/p2keshtidar/girokonto/releases/tag/latest).
+
+| Datei | Wofür |
+|---|---|
+| `girokonto-server.jar` | Backend **inkl. Web-App**. Start: `java -jar girokonto-server.jar` (Java 21 + laufende PostgreSQL, z. B. `docker compose up -d db`), dann Browser: http://localhost:8080 |
+| `girokonto.apk` | Android-App. Auf dem Handy öffnen → „Installation aus unbekannten Quellen“ erlauben |
+| `girokonto-ios-unsigned.ipa` | iOS-App ohne Signatur. Mit Sideloadly/AltStore + eigener Apple-ID aufs iPhone (oder: Web-App in Safari öffnen → „Zum Home-Bildschirm“) |
+| `girokonto-web.zip` | nur die Web-App (statische Dateien) |
+
+**Alles mit einem Befehl (Docker):** `docker compose up -d --build` → http://localhost:8080 im Browser.
+
+**Handy mit dem PC verbinden:** Handy und PC im selben WLAN. In der App auf der Login-Seite unten auf
+„Server: …“ tippen und `http://<IP-deines-PCs>:8080` eintragen (IP unter Windows: `ipconfig`, macOS/Linux: `ip a` / `ifconfig`).
+Ggf. in der Windows-Firewall Port 8080 freigeben.
+
 ## 1. Ordnerstruktur
 
 ```

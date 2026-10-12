@@ -1,0 +1,7 @@
+**/build/
+**/.gradle/
+**/.dart_tool/
+app/android/
+app/ios/
+.git/
+docs/

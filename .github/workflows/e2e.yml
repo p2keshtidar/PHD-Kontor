@@ -109,14 +109,12 @@ jobs:
       - name: Test im Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
+          api-level: 29
           arch: x86_64
           target: default
-          ram-size: 3072M
-          disk-size: 6000M
           emulator-boot-timeout: 900
           disable-animations: true
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           working-directory: app
           script: timeout 1500 flutter test integration_test/app_test.dart -d emulator-5554 --dart-define=API_URL=http://10.0.2.2:8080 > /tmp/ci.log 2>&1; s=$?; cat /tmp/ci.log; exit $s
       - name: Fehlerprotokoll

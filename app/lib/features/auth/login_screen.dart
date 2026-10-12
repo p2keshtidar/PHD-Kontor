@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/api_error.dart';
+import '../../core/config.dart';
 import '../../core/validators.dart';
 import 'auth_controller.dart';
 
@@ -44,6 +45,41 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     } finally {
       if (mounted) setState(() => _loading = false);
     }
+  }
+
+  Future<void> _editServer() async {
+    final controller = TextEditingController(text: AppConfig.apiBaseUrl);
+    final result = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Server-Adresse'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Adresse des Backends, z. B. http://192.168.178.20:8080 '
+                '(IP deines PCs im selben WLAN). Leer lassen = Standard.'),
+            const SizedBox(height: 12),
+            TextField(
+              controller: controller,
+              keyboardType: TextInputType.url,
+              autofocus: true,
+              decoration: const InputDecoration(labelText: 'http://…:8080'),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(ctx), child: const Text('Abbrechen')),
+          FilledButton(
+              onPressed: () => Navigator.pop(ctx, controller.text),
+              child: const Text('Speichern')),
+        ],
+      ),
+    );
+    if (result == null) return;
+    await AppConfig.save(result);
+    if (mounted) setState(() => _error = null);
   }
 
   @override
@@ -120,6 +156,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     TextButton(
                       onPressed: _loading ? null : () => context.go('/register'),
                       child: const Text('Noch kein Konto? Jetzt registrieren'),
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton.icon(
+                      key: const Key('server_settings'),
+                      onPressed: _editServer,
+                      icon: const Icon(Icons.dns_outlined, size: 18),
+                      label: Text('Server: ${AppConfig.apiBaseUrl}',
+                          style: theme.textTheme.bodySmall),
                     ),
                   ],
                 ),
