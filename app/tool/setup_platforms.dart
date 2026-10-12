@@ -18,6 +18,7 @@ void main() {
   changed += _androidManifest();
   changed += _androidGradle();
   changed += _iosInfoPlist();
+  changed += _webNames();
   stdout.writeln(changed == 0 ? 'Alles bereits eingerichtet.' : '$changed Datei(en) angepasst.');
 }
 
@@ -40,6 +41,7 @@ int _androidManifest() {
       s = s.replaceFirst('<application', '<uses-permission android:name="$p"/>\n    <application');
     }
   }
+  s = s.replaceFirst(RegExp(r'android:label="[^"]*"'), 'android:label="Girokonto"');
   if (!s.contains('usesCleartextTraffic')) {
     s = s.replaceFirst('<application', '<application\n        android:usesCleartextTraffic="true"');
   }
@@ -108,6 +110,9 @@ int _iosInfoPlist() {
     additions.writeln('\t\t<true/>');
     additions.writeln('\t</dict>');
   }
+  s = s.replaceFirstMapped(
+      RegExp(r'(<key>CFBundleDisplayName</key>\s*<string>)[^<]*(</string>)'),
+      (m) => '${m[1]}Girokonto${m[2]}');
   if (additions.isNotEmpty) {
     final idx = s.lastIndexOf('</dict>');
     s = s.substring(0, idx) + additions.toString() + s.substring(idx);
@@ -118,4 +123,34 @@ int _iosInfoPlist() {
     return 1;
   }
   return 0;
+}
+
+int _webNames() {
+  var changed = 0;
+  final manifest = File('web/manifest.json');
+  if (manifest.existsSync()) {
+    final s = manifest.readAsStringSync();
+    final n = s
+        .replaceFirst(RegExp(r'"name":\s*"[^"]*"'), '"name": "Girokonto"')
+        .replaceFirst(RegExp(r'"short_name":\s*"[^"]*"'), '"short_name": "Girokonto"')
+        .replaceFirst(RegExp(r'"description":\s*"[^"]*"'),
+            '"description": "Smartphone-Girokonto mit Finanzassistent (Projekt Informatik, FRA-UAS)"');
+    if (n != s) {
+      manifest.writeAsStringSync(n);
+      changed++;
+    }
+  }
+  final index = File('web/index.html');
+  if (index.existsSync()) {
+    final s = index.readAsStringSync();
+    final n = s
+        .replaceFirst(RegExp(r'<title>[^<]*</title>'), '<title>Girokonto</title>')
+        .replaceFirst(RegExp(r'apple-mobile-web-app-title" content="[^"]*"'),
+            'apple-mobile-web-app-title" content="Girokonto"');
+    if (n != s) {
+      index.writeAsStringSync(n);
+      changed++;
+    }
+  }
+  return changed;
 }

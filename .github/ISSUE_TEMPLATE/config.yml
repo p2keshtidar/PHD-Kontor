@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📖 Anleitung & häufige Probleme
+    url: https://github.com/p2keshtidar/girokonto/blob/main/docs/anleitung/04-probleme.md
+    about: Vielleicht ist die Lösung schon beschrieben

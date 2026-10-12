@@ -1,29 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-/// Speichert Access- und Refresh-Token sicher auf dem Gerät
-/// (Keychain auf iOS, verschlüsselt auf Android, im Browser über WebCrypto).
+import 'key_value_store.dart';
+
+/// Speichert Access- und Refresh-Token auf dem Gerät (siehe [KeyValueStore]).
 class TokenStorage {
-  TokenStorage([FlutterSecureStorage? storage])
-      : _storage = storage ?? const FlutterSecureStorage();
+  TokenStorage([KeyValueStore? store]) : _store = store ?? KeyValueStore.instance;
 
-  final FlutterSecureStorage _storage;
+  final KeyValueStore _store;
 
   static const _accessKey = 'access_token';
   static const _refreshKey = 'refresh_token';
 
-  Future<String?> readAccessToken() => _storage.read(key: _accessKey);
+  Future<String?> readAccessToken() => _store.read(_accessKey);
 
-  Future<String?> readRefreshToken() => _storage.read(key: _refreshKey);
+  Future<String?> readRefreshToken() => _store.read(_refreshKey);
 
   Future<void> save(String accessToken, String refreshToken) async {
-    await _storage.write(key: _accessKey, value: accessToken);
-    await _storage.write(key: _refreshKey, value: refreshToken);
+    await _store.write(_accessKey, accessToken);
+    await _store.write(_refreshKey, refreshToken);
   }
 
   Future<void> clear() async {
-    await _storage.delete(key: _accessKey);
-    await _storage.delete(key: _refreshKey);
+    await _store.delete(_accessKey);
+    await _store.delete(_refreshKey);
   }
 }
 

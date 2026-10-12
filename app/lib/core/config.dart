@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'key_value_store.dart';
 
 /// Adresse des Backends.
 ///
@@ -16,7 +17,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class AppConfig {
   static const _key = 'server_url';
   static const _fromDefine = String.fromEnvironment('API_URL');
-  static const _storage = FlutterSecureStorage();
 
   static String apiBaseUrl = defaultUrl;
 
@@ -32,12 +32,10 @@ class AppConfig {
     return 'http://localhost:8080';
   }
 
-  /// Beim App-Start: gespeicherte Adresse laden (Fehler werden ignoriert).
+  /// Beim App-Start: gespeicherte Adresse laden.
   static Future<void> load() async {
-    try {
-      final saved = await _storage.read(key: _key);
-      if (saved != null && saved.isNotEmpty) apiBaseUrl = saved;
-    } catch (_) {}
+    final saved = await KeyValueStore.instance.read(_key);
+    if (saved != null && saved.isNotEmpty) apiBaseUrl = saved;
   }
 
   /// Neue Adresse setzen; leer = Standard.
@@ -48,12 +46,10 @@ class AppConfig {
     }
     if (u.isNotEmpty && !u.startsWith('http')) u = 'http://$u';
     apiBaseUrl = u.isEmpty ? defaultUrl : u;
-    try {
-      if (u.isEmpty) {
-        await _storage.delete(key: _key);
-      } else {
-        await _storage.write(key: _key, value: u);
-      }
-    } catch (_) {}
+    if (u.isEmpty) {
+      await KeyValueStore.instance.delete(_key);
+    } else {
+      await KeyValueStore.instance.write(_key, u);
+    }
   }
 }

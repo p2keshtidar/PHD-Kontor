@@ -5,6 +5,7 @@ WORKDIR /src/app
 COPY app/ .
 RUN flutter create . --platforms=web --org de.frauas --project-name girokonto_app > /dev/null \
  && flutter pub get \
+ && dart run tool/setup_platforms.dart \
  && flutter build web --release
 
 FROM eclipse-temurin:21-jdk AS jar

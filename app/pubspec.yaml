@@ -13,6 +13,7 @@ dependencies:
   go_router: ^14.2.0
   dio: ^5.4.3
   flutter_secure_storage: ^9.2.2
+  shared_preferences: ^2.3.2
   # Gerätekontakte für das Adressbuch (/F220/), nur iOS/Android
   flutter_contacts: ^1.1.9
   # Live-Benachrichtigungen über WebSocket/STOMP (/F510/)
