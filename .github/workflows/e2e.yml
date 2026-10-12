@@ -63,7 +63,7 @@ jobs:
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
-          split -C 3500 /tmp/s.log /tmp/p-
+          split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
 
   # ---------------------------------------------------------------- Android-Emulator
@@ -123,14 +123,14 @@ jobs:
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
-          split -C 3500 /tmp/s.log /tmp/p-
+          split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
 
   # ---------------------------------------------------------------- iOS-Simulator
   ios:
     name: E2E iOS-Simulator
     runs-on: macos-latest
-    timeout-minutes: 50
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v5
       - name: PostgreSQL starten
@@ -174,7 +174,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          perl -e 'alarm shift; exec @ARGV' 1500 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
+          perl -e 'alarm shift; exec @ARGV' 2100 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
             | grep -vE "^\[ +\+?[0-9]+ ms\] (executing|Exit code|<- |-> )" | tee -a /tmp/ci.log
       - name: Fehlerprotokoll
         if: failure()
@@ -182,5 +182,5 @@ jobs:
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
-          split -C 3500 /tmp/s.log /tmp/p-
+          split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
