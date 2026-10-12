@@ -133,7 +133,7 @@ void main() {
     await pumpUntil(tester, find.text('Kredit'));
 
     // Kreditplaner öffnen und Angebote vergleichen
-    await tester.tap(find.text('Kredit'));
+    await tapButton(tester, find.text('Kredit'));
     await pumpUntil(tester, find.text('Kredit planen'));
     await pumpFor(tester, 1000);
     await scrollTo(tester, find.text('Angebote vergleichen'));
