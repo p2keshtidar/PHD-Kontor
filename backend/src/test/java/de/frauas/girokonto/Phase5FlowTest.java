@@ -98,9 +98,11 @@ class Phase5FlowTest extends IntegrationTestBase {
         rich = relogin(rich);
         poor = relogin(poor);
 
-        assertThat(notificationTexts(rich)).as("Meldungen von Rosa (heute %s, vorgespult bis %s)", t, twelfth).anyMatch(s -> s.startsWith("Investrate in 3 Tagen")
+        List<String> richTexts = notificationTexts(rich);
+        assertThat(richTexts).as("Rosa %s→%s: %s", t, twelfth, String.join(" || ", richTexts)).anyMatch(s -> s.startsWith("Investrate in 3 Tagen")
                 && s.contains("100,00") && s.contains("„ETF“") && !s.contains("Achtung"));
-        assertThat(notificationTexts(poor)).as("Meldungen von Piet").anyMatch(s -> s.startsWith("Investrate in 3 Tagen") && s.contains("Achtung"));
+        List<String> poorTexts = notificationTexts(poor);
+        assertThat(poorTexts).as("Piet: %s", String.join(" || ", poorTexts)).anyMatch(s -> s.startsWith("Investrate in 3 Tagen") && s.contains("Achtung"));
 
         // Erinnerung ausschalten -> wird gespeichert
         long planId = richPlan.get("summary").get("id").asLong();
