@@ -57,6 +57,116 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
         '${formatCents(cents)} ausgezahlt');
   }
 
+  /// /K060/: Person per E-Mail, Telefonnummer oder IBAN hinzufügen
+  Future<void> _addMember(Account sub) async {
+    final controller = TextEditingController();
+    final recipient = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Unterkonto teilen'),
+        content: SingleChildScrollView(
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('Die Person kann in „${sub.name}“ einzahlen, auszahlen und die Umsätze sehen.'),
+            const SizedBox(height: 12),
+            TextField(
+              key: const Key('share_recipient'),
+              controller: controller,
+              autofocus: true,
+              decoration: const InputDecoration(labelText: 'E-Mail, Telefonnummer oder IBAN'),
+            ),
+          ]),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Abbrechen')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, controller.text), child: const Text('Teilen')),
+        ],
+      ),
+    );
+    if (recipient == null || recipient.trim().isEmpty) return;
+    await _run(() => ref.read(subaccountsRepositoryProvider).addMember(sub.id, recipient), 'Geteilt');
+    ref.invalidate(subaccountMembersProvider(sub.id));
+  }
+
+  Future<void> _removeMember(Account sub, SubaccountMember m, {required bool leave}) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(leave ? 'Austreten?' : '${m.name} entfernen?'),
+        content: Text(leave
+            ? 'Du siehst „${sub.name}“ danach nicht mehr. Das Guthaben bleibt im Unterkonto.'
+            : '${m.name} hat danach keinen Zugriff mehr auf „${sub.name}“.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Abbrechen')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(leave ? 'Austreten' : 'Entfernen')),
+        ],
+      ),
+    );
+    if (ok != true) return;
+    await _run(() => ref.read(subaccountsRepositoryProvider).removeMember(sub.id, m.userId),
+        leave ? 'Ausgetreten' : '${m.name} entfernt');
+    ref.invalidate(subaccountMembersProvider(sub.id));
+    if (leave && mounted) context.pop();
+  }
+
+  Widget _sharing(Account sub, ThemeData theme) {
+    final members = ref.watch(subaccountMembersProvider(sub.id));
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: members.when(
+          loading: () => const Padding(padding: EdgeInsets.all(16), child: LinearProgressIndicator()),
+          error: (e, _) => Padding(padding: const EdgeInsets.all(16), child: Text(apiErrorMessage(e))),
+          data: (list) {
+            final me = list.where((m) => m.you).toList();
+            return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
+                child: Row(children: [
+                  const Icon(Icons.group, size: 20),
+                  const SizedBox(width: 8),
+                  Text(list.length > 1 ? 'Geteilt' : 'Teilen', style: theme.textTheme.titleSmall),
+                ]),
+              ),
+              if (list.length == 1)
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  child: Text('Teile dieses Unterkonto, z. B. als WG-Kasse oder gemeinsames Urlaubsbudget.'),
+                ),
+              if (list.length > 1)
+                for (final m in list)
+                  ListTile(
+                    dense: true,
+                    leading: CircleAvatar(radius: 14, child: Text(m.name.isEmpty ? '?' : m.name[0])),
+                    title: Text(m.you ? '${m.name} (du)' : m.name),
+                    subtitle: m.owner ? const Text('Besitzer') : null,
+                    trailing: !sub.isForeign && !m.owner
+                        ? IconButton(
+                            tooltip: 'Entfernen',
+                            icon: const Icon(Icons.person_remove_outlined),
+                            onPressed: _busy ? null : () => _removeMember(sub, m, leave: false),
+                          )
+                        : null,
+                  ),
+              if (!sub.isForeign)
+                ListTile(
+                  key: const Key('share_add'),
+                  leading: const Icon(Icons.person_add_alt_1),
+                  title: const Text('Person hinzufügen'),
+                  onTap: _busy ? null : () => _addMember(sub),
+                )
+              else if (me.isNotEmpty)
+                ListTile(
+                  leading: Icon(Icons.logout, color: theme.colorScheme.error),
+                  title: Text('Austreten', style: TextStyle(color: theme.colorScheme.error)),
+                  onTap: _busy ? null : () => _removeMember(sub, me.first, leave: true),
+                ),
+            ]);
+          },
+        ),
+      ),
+    );
+  }
+
   Future<void> _edit(Account sub) async {
     final saved = await showDialog<bool>(
       context: context,
@@ -120,6 +230,8 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
               ),
               const SizedBox(height: 12),
               Center(child: Text(sub.name, style: theme.textTheme.titleLarge)),
+              if (sub.isForeign)
+                Center(child: Text('Geteilt von ${sub.ownerName}', style: theme.textTheme.bodySmall)),
               const SizedBox(height: 4),
               Center(
                 child: Text(formatCents(sub.balanceCents),
@@ -147,23 +259,27 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
               Text('Auf dem Girokonto verfügbar: ${formatCents(main.balanceCents)}',
                   textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
               const SizedBox(height: 16),
+              _sharing(sub, theme),
+              const SizedBox(height: 8),
               Card(
                 child: Column(children: [
-                  ListTile(
-                    leading: const Icon(Icons.edit),
-                    title: const Text('Name und Symbol ändern'),
-                    onTap: _busy ? null : () => _edit(sub),
-                  ),
+                  if (!sub.isForeign)
+                    ListTile(
+                      leading: const Icon(Icons.edit),
+                      title: const Text('Name und Symbol ändern'),
+                      onTap: _busy ? null : () => _edit(sub),
+                    ),
                   ListTile(
                     leading: const Icon(Icons.receipt_long),
                     title: const Text('Alle Umsätze'),
                     onTap: () => context.push('/umsaetze/${sub.id}'),
                   ),
-                  ListTile(
-                    leading: Icon(Icons.delete_outline, color: theme.colorScheme.error),
-                    title: Text('Unterkonto auflösen', style: TextStyle(color: theme.colorScheme.error)),
-                    onTap: _busy ? null : () => _close(sub),
-                  ),
+                  if (!sub.isForeign)
+                    ListTile(
+                      leading: Icon(Icons.delete_outline, color: theme.colorScheme.error),
+                      title: Text('Unterkonto auflösen', style: TextStyle(color: theme.colorScheme.error)),
+                      onTap: _busy ? null : () => _close(sub),
+                    ),
                 ]),
               ),
               const SizedBox(height: 8),

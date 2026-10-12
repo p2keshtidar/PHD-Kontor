@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,6 +48,33 @@ public class SubaccountController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> close(@AuthenticationPrincipal AuthUser auth, @PathVariable Long id) {
         service.close(auth.id(), id);
+        return ResponseEntity.noContent().build();
+    }
+
+    // ------------------------------------------------------------------ /K060/ Teilen
+
+    public record AddMemberRequest(String recipient) {}
+
+    @GetMapping("/{id}/members")
+    public java.util.List<SubaccountService.MemberDto> members(@AuthenticationPrincipal AuthUser auth, @PathVariable Long id) {
+        return service.members(auth.id(), id);
+    }
+
+    @PostMapping("/{id}/members")
+    public java.util.List<SubaccountService.MemberDto> addMember(@AuthenticationPrincipal AuthUser auth,
+                                                                @PathVariable Long id,
+                                                                @RequestBody AddMemberRequest r) {
+        if (r.recipient() == null || r.recipient().isBlank()) {
+            throw new de.frauas.girokonto.common.ApiException(org.springframework.http.HttpStatus.BAD_REQUEST,
+                    "RECIPIENT_MISSING", "Bitte E-Mail, Telefonnummer oder IBAN eingeben.");
+        }
+        return service.addMember(auth.id(), id, r.recipient());
+    }
+
+    @DeleteMapping("/{id}/members/{userId}")
+    public ResponseEntity<Void> removeMember(@AuthenticationPrincipal AuthUser auth, @PathVariable Long id,
+                                             @PathVariable Long userId) {
+        service.removeMember(auth.id(), id, userId);
         return ResponseEntity.noContent().build();
     }
 }

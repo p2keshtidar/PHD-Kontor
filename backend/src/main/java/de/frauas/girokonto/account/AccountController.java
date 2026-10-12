@@ -45,7 +45,9 @@ public class AccountController {
     /** Liefert nur die Konten des angemeldeten Nutzers (/NF010/). */
     @GetMapping
     public List<AccountDto> myAccounts(@AuthenticationPrincipal AuthUser auth) {
-        return accountService.listForUser(auth.id());
+        List<AccountDto> all = new java.util.ArrayList<>(accountService.listForUser(auth.id()));
+        all.addAll(accountService.sharedWithUser(auth.id()));   // /K060/ geteilte Unterkonten anderer
+        return all;
     }
 
     /**
@@ -65,7 +67,7 @@ public class AccountController {
             @RequestParam(required = false) String q,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
-        accountService.requireOwned(accountId, auth.id());
+        accountService.requireAccess(accountId, auth.id());
         BookingFilter filter = new BookingFilter(from, to, direction, minCents, maxCents, type, q);
         return bookingQueryService.find(accountId, auth.id(), filter, page, size);
     }

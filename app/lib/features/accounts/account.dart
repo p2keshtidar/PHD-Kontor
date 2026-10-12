@@ -6,6 +6,9 @@ class Account {
     required this.balanceCents,
     this.icon,
     this.iban,
+    this.shared = false,
+    this.ownerName,
+    this.memberCount = 0,
   });
 
   final int id;
@@ -16,6 +19,16 @@ class Account {
   final String? icon;
   final String? iban;
   final int balanceCents;
+
+  /// /K060/: geteiltes Unterkonto
+  final bool shared;
+
+  /// Besitzer, wenn das Unterkonto jemand anderem gehört (sonst null)
+  final String? ownerName;
+  final int memberCount;
+
+  /// Gehört jemand anderem und ist mit mir geteilt
+  bool get isForeign => ownerName != null;
 
   bool get isMain => type == 'MAIN';
   bool get isSub => type == 'SUB';
@@ -28,5 +41,8 @@ class Account {
         icon: json['icon'] as String?,
         iban: json['iban'] as String?,
         balanceCents: (json['balanceCents'] as num).toInt(),
+        shared: json['shared'] as bool? ?? false,
+        ownerName: json['ownerName'] as String?,
+        memberCount: (json['memberCount'] as num?)?.toInt() ?? 0,
       );
 }

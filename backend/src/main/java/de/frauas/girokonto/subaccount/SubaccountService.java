@@ -2,6 +2,7 @@ package de.frauas.girokonto.subaccount;
 
 import de.frauas.girokonto.account.Account;
 import de.frauas.girokonto.account.AccountDto;
+import de.frauas.girokonto.account.AccountMemberRepository;
 import de.frauas.girokonto.account.AccountRepository;
 import de.frauas.girokonto.account.AccountService;
 import de.frauas.girokonto.account.AccountStatus;
@@ -13,6 +14,8 @@ import de.frauas.girokonto.common.Money;
 import de.frauas.girokonto.config.AppProperties;
 import de.frauas.girokonto.notification.NotificationService;
 import de.frauas.girokonto.notification.NotificationType;
+import de.frauas.girokonto.transfer.Recipient;
+import de.frauas.girokonto.transfer.RecipientResolver;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
@@ -33,15 +36,25 @@ public class SubaccountService {
     private final NotificationService notifications;
     private final AppProperties props;
     private final Clock clock;
+    private final AccountMemberRepository members;
+    private final RecipientResolver recipients;
+
+    public static final int MAX_MEMBERS = 5;
+
+    /** /K060/ Mitglied eines geteilten Unterkontos (der Besitzer steht mit owner=true in der Liste). */
+    public record MemberDto(Long userId, String name, boolean owner, boolean you) {}
 
     public SubaccountService(AccountRepository accounts, AccountService accountService, BookingService bookingService,
-                             NotificationService notifications, AppProperties props, Clock clock) {
+                             NotificationService notifications, AppProperties props, Clock clock,
+                             AccountMemberRepository members, RecipientResolver recipients) {
         this.accounts = accounts;
         this.accountService = accountService;
         this.bookingService = bookingService;
         this.notifications = notifications;
         this.props = props;
         this.clock = clock;
+        this.members = members;
+        this.recipients = recipients;
     }
 
     @Transactional
@@ -86,6 +99,79 @@ public class SubaccountService {
         notifications.send(userId, NotificationType.INTERNAL, "Umbuchung",
                 Money.format(req.amountCents()) + " von „" + from.getName() + "“ nach „" + to.getName() + "“",
                 booking.getId());
+        // /K060/: die anderen Beteiligten eines geteilten Unterkontos informieren
+        String actor = accountService.ownerName(userId);
+        for (Account shared : List.of(to, from)) {
+            if (shared.getType() != AccountType.SUB || members.count(shared.getId()) == 0) {
+                continue;
+            }
+            String what = shared == to ? "eingezahlt in" : "ausgezahlt aus";
+            for (Long other : participants(shared)) {
+                if (!other.equals(userId)) {
+                    notifications.send(other, NotificationType.INTERNAL, "Geteiltes Unterkonto",
+                            actor + " hat " + Money.format(req.amountCents()) + " " + what + " „" + shared.getName() + "“",
+                            booking.getId());
+                }
+            }
+        }
+    }
+
+    // ------------------------------------------------------------------ /K060/ Teilen
+
+    @Transactional(readOnly = true)
+    public List<MemberDto> members(Long userId, Long accountId) {
+        Account a = accountService.requireAccess(accountId, userId);
+        List<MemberDto> list = new java.util.ArrayList<>();
+        list.add(new MemberDto(a.getOwnerId(), accountService.ownerName(a.getOwnerId()), true, a.getOwnerId().equals(userId)));
+        for (Long m : members.members(accountId)) {
+            list.add(new MemberDto(m, accountService.ownerName(m), false, m.equals(userId)));
+        }
+        return list;
+    }
+
+    @Transactional
+    public List<MemberDto> addMember(Long userId, Long accountId, String recipient) {
+        Account a = requireSub(userId, accountId);
+        Recipient r = recipients.resolve(recipient);
+        Long newMember = r.user().getId();
+        if (newMember.equals(userId)) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "SELF_SHARE", "Du bist schon Besitzer dieses Unterkontos.");
+        }
+        if (members.isMember(accountId, newMember)) {
+            throw new ApiException(HttpStatus.CONFLICT, "ALREADY_MEMBER", r.fullName() + " ist schon dabei.");
+        }
+        if (members.count(accountId) >= MAX_MEMBERS) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "TOO_MANY_MEMBERS",
+                    "Höchstens " + MAX_MEMBERS + " Personen pro Unterkonto.");
+        }
+        members.add(accountId, newMember, Instant.now(clock));
+        notifications.send(newMember, NotificationType.INFO, "Unterkonto geteilt",
+                accountService.ownerName(userId) + " hat „" + a.getName() + "“ mit dir geteilt. Du kannst einzahlen, "
+                        + "auszahlen und die Umsätze sehen.", null);
+        return members(userId, accountId);
+    }
+
+    /** Besitzer entfernt ein Mitglied – oder ein Mitglied tritt selbst aus. */
+    @Transactional
+    public void removeMember(Long userId, Long accountId, Long memberId) {
+        Account a = accountService.requireAccess(accountId, userId);
+        boolean owner = a.getOwnerId().equals(userId);
+        if (!owner && !memberId.equals(userId)) {
+            throw new ApiException(HttpStatus.FORBIDDEN, "FORBIDDEN", "Nur der Besitzer kann Mitglieder entfernen.");
+        }
+        if (members.remove(accountId, memberId) == 0) {
+            throw new ApiException(HttpStatus.NOT_FOUND, "MEMBER_NOT_FOUND", "Diese Person ist kein Mitglied.");
+        }
+        Long notify = owner ? memberId : a.getOwnerId();
+        notifications.send(notify, NotificationType.INFO, "Unterkonto geteilt",
+                owner ? "Du bist nicht mehr Mitglied von „" + a.getName() + "“."
+                        : accountService.ownerName(userId) + " ist aus „" + a.getName() + "“ ausgetreten.", null);
+    }
+
+    private List<Long> participants(Account a) {
+        List<Long> all = new java.util.ArrayList<>(members.members(a.getId()));
+        all.add(0, a.getOwnerId());
+        return all;
     }
 
     /** Unterkonto auflösen; Restguthaben geht aufs Girokonto (/F430/). */
@@ -102,6 +188,10 @@ public class SubaccountService {
             notifications.send(userId, NotificationType.INTERNAL, "Unterkonto aufgelöst",
                     "„" + sub.getName() + "“: " + Money.format(balance) + " aufs Girokonto gebucht", booking.getId());
         }
+        for (Long m : members.members(sub.getId())) {
+            notifications.send(m, NotificationType.INFO, "Unterkonto aufgelöst",
+                    "„" + sub.getName() + "“ wurde von " + accountService.ownerName(userId) + " aufgelöst.", null);
+        }
         sub.setStatus(AccountStatus.CLOSED);
     }
 
@@ -117,7 +207,7 @@ public class SubaccountService {
     }
 
     private Account requireMovable(Long userId, Long accountId) {
-        Account a = accountService.requireOwned(accountId, userId);
+        Account a = accountService.requireAccess(accountId, userId);   // /K060/: auch geteilte Unterkonten
         if (a.getStatus() != AccountStatus.ACTIVE || (a.getType() != AccountType.MAIN && a.getType() != AccountType.SUB)) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "NOT_MOVABLE",
                     "Umbuchungen sind nur zwischen Girokonto und Unterkonten möglich.");

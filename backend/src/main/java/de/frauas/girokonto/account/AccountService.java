@@ -8,8 +8,10 @@ import de.frauas.girokonto.common.ApiException;
 import de.frauas.girokonto.common.IbanGenerator;
 import de.frauas.girokonto.config.AppProperties;
 import de.frauas.girokonto.user.AppUser;
+import de.frauas.girokonto.user.AppUserRepository;
 import java.time.Clock;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,15 +28,20 @@ public class AccountService {
     private final IbanGenerator ibanGenerator;
     private final AppProperties props;
     private final Clock clock;
+    private final AccountMemberRepository members;
+    private final AppUserRepository users;
 
     public AccountService(AccountRepository accounts, BookingService bookingService, BookingLineRepository bookingLines,
-                          IbanGenerator ibanGenerator, AppProperties props, Clock clock) {
+                          IbanGenerator ibanGenerator, AppProperties props, Clock clock,
+                          AccountMemberRepository members, AppUserRepository users) {
         this.accounts = accounts;
         this.bookingService = bookingService;
         this.bookingLines = bookingLines;
         this.ibanGenerator = ibanGenerator;
         this.props = props;
         this.clock = clock;
+        this.members = members;
+        this.users = users;
     }
 
     /** Legt das Girokonto mit fiktiver IBAN an und bucht das Startguthaben (/F010/). */
@@ -57,10 +64,41 @@ public class AccountService {
     /** Alle aktiven Konten des Nutzers mit Kontostand (/F110/). */
     @Transactional(readOnly = true)
     public List<AccountDto> listForUser(Long userId) {
-        return accounts.findByOwnerIdAndStatusOrderByIdAsc(userId, AccountStatus.ACTIVE).stream()
-                .map(a -> new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), a.getIban(),
-                        bookingService.balanceOf(a.getId())))
-                .toList();
+        List<AccountDto> result = new ArrayList<>();
+        for (Account a : accounts.findByOwnerIdAndStatusOrderByIdAsc(userId, AccountStatus.ACTIVE)) {
+            int count = a.getType() == AccountType.SUB ? members.count(a.getId()) : 0;
+            result.add(new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), a.getIban(),
+                    bookingService.balanceOf(a.getId()), count > 0, null, count));
+        }
+        return result;
+    }
+
+    /** /K060/: Unterkonten anderer Nutzer, die mit diesem Nutzer geteilt sind. */
+    @Transactional(readOnly = true)
+    public List<AccountDto> sharedWithUser(Long userId) {
+        List<AccountDto> result = new ArrayList<>();
+        for (Long id : members.sharedWith(userId)) {
+            accounts.findById(id).filter(a -> a.getStatus() == AccountStatus.ACTIVE && a.getType() == AccountType.SUB)
+                    .ifPresent(a -> result.add(new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), null,
+                            bookingService.balanceOf(a.getId()), true, ownerName(a.getOwnerId()), members.count(a.getId()))));
+        }
+        return result;
+    }
+
+    /** /K060/: Lesen und Ein-/Auszahlen erlaubt für Besitzer und Mitglieder geteilter Unterkonten. */
+    @Transactional(readOnly = true)
+    public Account requireAccess(Long accountId, Long userId) {
+        Account account = accounts.findById(accountId).orElse(null);
+        if (account != null && (userId.equals(account.getOwnerId())
+                || (account.getType() == AccountType.SUB && account.getStatus() == AccountStatus.ACTIVE
+                        && members.isMember(accountId, userId)))) {
+            return account;
+        }
+        throw new ApiException(HttpStatus.FORBIDDEN, "FORBIDDEN", "Kein Zugriff auf dieses Konto.");
+    }
+
+    public String ownerName(Long ownerId) {
+        return users.findById(ownerId).map(u -> u.getFirstName() + " " + u.getLastName()).orElse("?");
     }
 
     /** Wirft 403, wenn das Konto nicht dem Nutzer gehört (/NF010/, Testfall T14). */

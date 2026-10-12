@@ -203,7 +203,22 @@ class _AccountTile extends StatelessWidget {
       child: ListTile(
         leading: Icon(account.isMain ? Icons.account_balance : subaccountIcon(account.icon)),
         title: Text(account.name),
-        subtitle: iban == null ? null : Text(formatIban(iban)),
+        subtitle: iban != null
+            ? Text(formatIban(iban))
+            : account.shared
+                ? Row(children: [
+                    const Icon(Icons.group, size: 14),
+                    const SizedBox(width: 4),
+                    Flexible(
+                      child: Text(
+                        account.isForeign
+                            ? 'Geteilt von ${account.ownerName}'
+                            : 'Geteilt mit ${account.memberCount} ${account.memberCount == 1 ? 'Person' : 'Personen'}',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ])
+                : null,
         trailing: Text(
           formatCents(account.balanceCents),
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),

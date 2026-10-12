@@ -1,4 +1,4 @@
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -42,14 +42,15 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
   }
 
   Future<void> _pickFile() async {
-    final picked = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: const ['csv', 'txt'],
-      withData: true,
+    const csv = XTypeGroup(
+      label: 'CSV',
+      extensions: ['csv', 'txt'],
+      mimeTypes: ['text/csv', 'text/plain', 'text/comma-separated-values', 'application/vnd.ms-excel'],
+      uniformTypeIdentifiers: ['public.comma-separated-values-text', 'public.plain-text'],
     );
-    final file = picked?.files.single;
-    if (file == null || file.bytes == null) return;
-    await _upload(file.name, () async => decodeCsvBytes(file.bytes!));
+    final XFile? file = await openFile(acceptedTypeGroups: const [csv]);
+    if (file == null) return;
+    await _upload(file.name, () async => decodeCsvBytes(await file.readAsBytes()));
   }
 
   Future<void> _sample() =>

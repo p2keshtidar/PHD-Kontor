@@ -22,8 +22,8 @@ dependencies:
   flutter_local_notifications: ^17.2.2
   # QR-Code für die Zwei-Faktor-Einrichtung (/K050/)
   qr_flutter: ^4.1.0
-  # Datei auswählen für den CSV-Import (/K040/)
-  file_picker: ^8.1.2
+  # Datei auswählen für den CSV-Import (/K040/), offizielles Paket des Flutter-Teams
+  file_selector: ^1.0.3
 
 dev_dependencies:
   flutter_test:
