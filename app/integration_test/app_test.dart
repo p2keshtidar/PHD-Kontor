@@ -51,7 +51,8 @@ Future<void> tapButton(WidgetTester tester, Finder button) async {
   rootMessengerKey.currentState?.clearSnackBars();
   await pumpFor(tester, 500);
   await scrollTo(tester, button);
-  await tester.tap(button);
+  await pumpUntil(tester, button);
+  await tester.tap(button.first);
   await tester.pump();
 }
 
@@ -133,8 +134,7 @@ void main() {
     await tester.tap(find.text('Nordlicht Kredit'));
     await pumpUntil(tester, find.text('Tilgungsplan'));
     await pumpFor(tester, 1500);
-    await scrollTo(tester, find.byType(CheckboxListTile));
-    await tester.tap(find.byType(CheckboxListTile));
+    await tapButton(tester, find.byType(CheckboxListTile));
     await pumpFor(tester, 400);
     await tapButton(tester, find.text('Kredit abschließen'));
     await pumpUntil(tester, find.text('Restschuld'), timeout: const Duration(seconds: 30));
