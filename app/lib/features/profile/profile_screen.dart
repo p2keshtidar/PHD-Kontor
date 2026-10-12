@@ -15,6 +15,7 @@ import '../insights/insights_repository.dart';
 import '../loans/loans_repository.dart';
 import '../notifications/notifications_repository.dart';
 import '../savings/plans_repository.dart';
+import 'two_factor_screen.dart';
 
 /// Profil (/F030/): Daten ansehen und ändern, Passwort ändern, abmelden.
 class ProfileScreen extends ConsumerWidget {
@@ -82,6 +83,15 @@ class ProfileScreen extends ConsumerWidget {
                 onTap: () => showDialog<void>(
                     context: context,
                     builder: (_) => const _ChangePasswordDialog()),
+              ),
+              ListTile(
+                key: const Key('profile_2fa'),
+                leading: Icon(user.twoFactorEnabled ? Icons.verified_user : Icons.security),
+                title: const Text('Zwei-Faktor-Anmeldung'),
+                subtitle: Text(user.twoFactorEnabled ? 'Aktiv' : 'Aus'),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute<void>(builder: (_) => const TwoFactorScreen())),
               ),
             ]),
           ),

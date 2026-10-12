@@ -13,10 +13,14 @@ class AuthRepository {
   final ApiClient _api;
   final TokenStorage _storage;
 
-  Future<AppUser> login(String email, String password) async {
+  Future<AppUser> login(String email, String password, {String? code}) async {
     final res = await _api.dio.post<Map<String, dynamic>>(
       '/api/auth/login',
-      data: {'email': email.trim(), 'password': password},
+      data: {
+        'email': email.trim(),
+        'password': password,
+        if (code != null && code.isNotEmpty) 'code': code.replaceAll(' ', ''),
+      },
       options: ApiClient.noAuth(),
     );
     return _storeTokens(res.data!);
@@ -102,3 +106,25 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) => AuthRepository(
       ref.watch(apiClientProvider),
       ref.watch(tokenStorageProvider),
     ));
+
+/// /K050/ Zwei-Faktor-Anmeldung einrichten und ausschalten.
+class TwoFactorRepository {
+  TwoFactorRepository(this._api);
+
+  final ApiClient _api;
+
+  /// Liefert (Schlüssel, otpauth-Link für den QR-Code).
+  Future<(String, String)> setup() async {
+    final res = await _api.dio.post<Map<String, dynamic>>('/api/me/2fa/setup', data: <String, dynamic>{});
+    return (res.data!['secret'] as String, res.data!['otpauthUri'] as String);
+  }
+
+  Future<void> enable(String code) =>
+      _api.dio.post<void>('/api/me/2fa/enable', data: {'code': code.replaceAll(' ', '')});
+
+  Future<void> disable(String password, String code) =>
+      _api.dio.post<void>('/api/me/2fa/disable', data: {'password': password, 'code': code.replaceAll(' ', '')});
+}
+
+final twoFactorRepositoryProvider = Provider<TwoFactorRepository>((ref) => TwoFactorRepository(ref.watch(apiClientProvider)));
+

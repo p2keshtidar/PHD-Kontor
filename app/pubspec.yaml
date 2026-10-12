@@ -20,6 +20,8 @@ dependencies:
   stomp_dart_client: ^2.0.0
   # Systembenachrichtigungen auf iOS/Android (/F510/)
   flutter_local_notifications: ^17.2.2
+  # QR-Code für die Zwei-Faktor-Einrichtung (/K050/)
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

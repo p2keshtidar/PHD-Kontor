@@ -35,10 +35,11 @@ public class AuthService {
     private final NotificationService notifications;
     private final AppProperties props;
     private final Clock clock;
+    private final TwoFactorService twoFactor;
 
     public AuthService(AppUserRepository users, PasswordEncoder passwordEncoder, AccountService accountService,
                        TokenService tokenService, CardService cardService, NotificationService notifications,
-                       AppProperties props, Clock clock) {
+                       AppProperties props, Clock clock, TwoFactorService twoFactor) {
         this.users = users;
         this.passwordEncoder = passwordEncoder;
         this.accountService = accountService;
@@ -47,6 +48,7 @@ public class AuthService {
         this.notifications = notifications;
         this.props = props;
         this.clock = clock;
+        this.twoFactor = twoFactor;
     }
 
     @Transactional
@@ -89,16 +91,18 @@ public class AuthService {
                     "Zu viele Fehlversuche. Bitte in " + minutes + " Minute(n) erneut versuchen.");
         }
         if (!passwordEncoder.matches(req.password(), user.getPasswordHash())) {
-            int failed = user.getFailedLogins() + 1;
-            if (failed >= props.login().maxFailedAttempts()) {
-                user.setLockedUntil(now.plus(Duration.ofMinutes(props.login().lockMinutes())));
-                user.setFailedLogins(0);
-                throw new ApiException(HttpStatus.LOCKED, "ACCOUNT_LOCKED",
-                        "Zu viele Fehlversuche. Die Anmeldung ist für " + props.login().lockMinutes()
-                                + " Minuten gesperrt.");
+            throw failedAttempt(user, now, invalidCredentials());
+        }
+        // /K050/: zweiter Faktor
+        if (user.isTotpEnabled()) {
+            if (req.code() == null || req.code().isBlank()) {
+                throw new ApiException(HttpStatus.UNAUTHORIZED, "TOTP_REQUIRED",
+                        "Bitte den 6-stelligen Code aus deiner Authenticator-App eingeben.");
             }
-            user.setFailedLogins(failed);
-            throw invalidCredentials();
+            if (!twoFactor.checkLoginCode(user, req.code())) {
+                throw failedAttempt(user, now, new ApiException(HttpStatus.UNAUTHORIZED, "TOTP_INVALID",
+                        "Der Code ist falsch oder abgelaufen."));
+            }
         }
         user.setFailedLogins(0);
         user.setLockedUntil(null);
@@ -114,6 +118,20 @@ public class AuthService {
     public void logout(Long userId) {
         users.findById(userId).ifPresent(AppUser::increaseTokenVersion);
         tokenService.revokeAll(userId);
+    }
+
+    /** Fehlversuch zählen; nach zu vielen Versuchen sperren (/F030/). */
+    private ApiException failedAttempt(AppUser user, Instant now, ApiException error) {
+        int failed = user.getFailedLogins() + 1;
+        if (failed >= props.login().maxFailedAttempts()) {
+            user.setLockedUntil(now.plus(Duration.ofMinutes(props.login().lockMinutes())));
+            user.setFailedLogins(0);
+            return new ApiException(HttpStatus.LOCKED, "ACCOUNT_LOCKED",
+                    "Zu viele Fehlversuche. Die Anmeldung ist für " + props.login().lockMinutes()
+                            + " Minuten gesperrt.");
+        }
+        user.setFailedLogins(failed);
+        return error;
     }
 
     private static ApiException invalidCredentials() {

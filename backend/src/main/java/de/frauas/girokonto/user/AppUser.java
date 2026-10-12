@@ -53,6 +53,19 @@ public class AppUser {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
+    /** /K050/: TOTP-Schlüssel (verschlüsselt), nur gesetzt wenn aktiv */
+    @Column(name = "totp_secret")
+    private String totpSecret;
+
+    @Column(name = "totp_pending_secret")
+    private String totpPendingSecret;
+
+    @Column(name = "totp_enabled", nullable = false)
+    private boolean totpEnabled;
+
+    @Column(name = "totp_last_step")
+    private Long totpLastStep;
+
     protected AppUser() {
         // für JPA
     }
@@ -87,5 +100,13 @@ public class AppUser {
     public void setFailedLogins(int failedLogins) { this.failedLogins = failedLogins; }
     public Instant getLockedUntil() { return lockedUntil; }
     public void setLockedUntil(Instant lockedUntil) { this.lockedUntil = lockedUntil; }
+    public String getTotpSecret() { return totpSecret; }
+    public void setTotpSecret(String totpSecret) { this.totpSecret = totpSecret; }
+    public String getTotpPendingSecret() { return totpPendingSecret; }
+    public void setTotpPendingSecret(String totpPendingSecret) { this.totpPendingSecret = totpPendingSecret; }
+    public boolean isTotpEnabled() { return totpEnabled; }
+    public void setTotpEnabled(boolean totpEnabled) { this.totpEnabled = totpEnabled; }
+    public Long getTotpLastStep() { return totpLastStep; }
+    public void setTotpLastStep(Long totpLastStep) { this.totpLastStep = totpLastStep; }
     public Instant getCreatedAt() { return createdAt; }
 }

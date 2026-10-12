@@ -8,6 +8,7 @@ class AppUser {
     required this.phone,
     required this.birthDate,
     required this.role,
+    this.twoFactorEnabled = false,
   });
 
   final int id;
@@ -17,6 +18,9 @@ class AppUser {
   final String phone;
   final DateTime birthDate;
   final String role;
+
+  /// /K050/
+  final bool twoFactorEnabled;
 
   String get fullName => '$firstName $lastName';
   bool get isAdmin => role == 'ADMIN';
@@ -29,5 +33,6 @@ class AppUser {
         phone: json['phone'] as String,
         birthDate: DateTime.parse(json['birthDate'] as String),
         role: json['role'] as String,
+        twoFactorEnabled: json['twoFactorEnabled'] as bool? ?? false,
       );
 }

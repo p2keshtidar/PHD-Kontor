@@ -24,3 +24,12 @@ String apiErrorMessage(Object error) {
   }
   return 'Unerwarteter Fehler. Bitte erneut versuchen.';
 }
+
+/// Fehlercode des Backends (z. B. "TOTP_REQUIRED") oder null.
+String? apiErrorCode(Object error) {
+  if (error is DioException) {
+    final data = error.response?.data;
+    if (data is Map && data['code'] is String) return data['code'] as String;
+  }
+  return null;
+}

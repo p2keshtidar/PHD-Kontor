@@ -18,6 +18,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _password = TextEditingController();
+  final _code = TextEditingController();
+  bool _needsCode = false; // /K050/: Zwei-Faktor-Code abfragen
   bool _loading = false;
   bool _obscure = true;
   String? _error;
@@ -26,6 +28,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _code.dispose();
     super.dispose();
   }
 
@@ -39,9 +42,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       // Bei Erfolg leitet der Router automatisch zur Startseite weiter.
       await ref
           .read(authControllerProvider.notifier)
-          .login(_email.text, _password.text);
+          .login(_email.text, _password.text, code: _needsCode ? _code.text : null);
     } catch (e) {
-      if (mounted) setState(() => _error = apiErrorMessage(e));
+      if (mounted) {
+        setState(() {
+          _error = apiErrorMessage(e);
+          if (apiErrorCode(e) == 'TOTP_REQUIRED') _needsCode = true;
+        });
+      }
     } finally {
       if (mounted) setState(() => _loading = false);
     }
@@ -136,6 +144,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           (v == null || v.isEmpty) ? 'Bitte Passwort eingeben' : null,
                       onFieldSubmitted: (_) => _submit(),
                     ),
+                    if (_needsCode) ...[
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        key: const Key('login_code'),
+                        controller: _code,
+                        autofocus: true,
+                        keyboardType: TextInputType.number,
+                        autofillHints: const [AutofillHints.oneTimeCode],
+                        maxLength: 6,
+                        decoration: const InputDecoration(
+                          labelText: 'Code aus der Authenticator-App',
+                          prefixIcon: Icon(Icons.verified_user),
+                          counterText: '',
+                        ),
+                        validator: (v) => (v == null || !RegExp(r'^\d{6}$').hasMatch(v.trim()))
+                            ? 'Bitte den 6-stelligen Code eingeben'
+                            : null,
+                        onFieldSubmitted: (_) => _submit(),
+                      ),
+                    ],
                     if (_error != null) ...[
                       const SizedBox(height: 16),
                       Text(_error!,

@@ -22,8 +22,8 @@ class AuthController extends AsyncNotifier<AppUser?> {
     return _repo.restoreSession();
   }
 
-  Future<void> login(String email, String password) async {
-    final user = await _repo.login(email, password);
+  Future<void> login(String email, String password, {String? code}) async {
+    final user = await _repo.login(email, password, code: code);
     state = AsyncData(user);
   }
 
@@ -47,6 +47,11 @@ class AuthController extends AsyncNotifier<AppUser?> {
   }
 
   void updateUser(AppUser user) => state = AsyncData(user);
+
+  /// Nutzerdaten neu laden (z. B. nach dem Einschalten der Zwei-Faktor-Anmeldung).
+  Future<void> reload() async {
+    state = AsyncData(await _repo.fetchMe());
+  }
 
   Future<void> logout() async {
     await _repo.logout();
