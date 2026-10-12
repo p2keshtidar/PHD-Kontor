@@ -230,7 +230,7 @@ class _AddContactDialogState extends ConsumerState<_AddContactDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Empfänger hinzufügen'),
-      content: Column(mainAxisSize: MainAxisSize.min, children: [
+      content: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
         TextField(
           controller: _recipient,
           decoration: const InputDecoration(labelText: 'IBAN, E-Mail oder Telefonnummer'),
@@ -245,7 +245,7 @@ class _AddContactDialogState extends ConsumerState<_AddContactDialog> {
             padding: const EdgeInsets.only(top: 12),
             child: Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
           ),
-      ]),
+      ])),
       actions: [
         TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Abbrechen')),
         FilledButton(onPressed: _saving ? null : _save, child: const Text('Speichern')),

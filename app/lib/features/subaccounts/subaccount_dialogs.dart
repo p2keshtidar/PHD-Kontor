@@ -142,7 +142,7 @@ class _AmountDialogState extends State<_AmountDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(widget.title),
-      content: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+      content: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         TextField(
           controller: _amount,
           autofocus: true,
@@ -155,7 +155,7 @@ class _AmountDialogState extends State<_AmountDialog> {
           onPressed: () => _amount.text = formatCents(widget.maxCents).replaceAll(' €', ''),
           child: Text('Alles (${formatCents(widget.maxCents)})'),
         ),
-      ]),
+      ])),
       actions: [
         TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Abbrechen')),
         FilledButton(onPressed: _ok, child: const Text('Umbuchen')),

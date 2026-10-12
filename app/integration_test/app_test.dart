@@ -32,6 +32,14 @@ Future<void> enter(WidgetTester tester, String label, String text) async {
   await tester.pump();
 }
 
+/// Scrollt in der aktuellen Liste, bis [target] sichtbar ist (wichtig auf kleinen Bildschirmen,
+/// weil ListView unsichtbare Einträge gar nicht erst baut).
+Future<void> scrollTo(WidgetTester tester, Finder target) async {
+  final scrollable = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
+  await tester.scrollUntilVisible(target, 250, scrollable: scrollable, maxScrolls: 80);
+  await pumpFor(tester, 300);
+}
+
 Finder navItem(String label) =>
     find.descendant(of: find.byType(NavigationBar), matching: find.text(label));
 
@@ -91,13 +99,35 @@ void main() {
 
     // Kreditplaner öffnen und Angebote vergleichen
     await tester.tap(find.text('Kredit'));
-    await pumpUntil(tester, find.text('Angebote vergleichen'));
-    await tester.ensureVisible(find.text('Angebote vergleichen'));
-    await pumpFor(tester, 400);
+    await pumpUntil(tester, find.text('Kredit planen'));
+    await pumpFor(tester, 1000);
+    await scrollTo(tester, find.text('Angebote vergleichen'));
     await tester.tap(find.text('Angebote vergleichen'));
     await pumpFor(tester, 3000);
-    final list = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
-    await tester.scrollUntilVisible(find.text('Nordlicht Kredit'), 300, scrollable: list, maxScrolls: 30);
+    await scrollTo(tester, find.text('Nordlicht Kredit'));
     expect(find.text('Nordlicht Kredit'), findsOneWidget);
+
+    // Angebot öffnen und Kredit abschließen
+    await tester.tap(find.text('Nordlicht Kredit'));
+    await pumpUntil(tester, find.text('Angebot'));
+    await pumpFor(tester, 1500);
+    await scrollTo(tester, find.byType(CheckboxListTile));
+    await tester.tap(find.byType(CheckboxListTile));
+    await pumpFor(tester, 400);
+    await scrollTo(tester, find.text('Kredit abschließen'));
+    await tester.tap(find.text('Kredit abschließen'));
+    await pumpUntil(tester, find.text('Restschuld'), timeout: const Duration(seconds: 30));
+
+    // /K020/ Sondertilgung: Vorschau berechnen und buchen
+    await scrollTo(tester, find.byKey(const Key('loan_extra_payment')));
+    await tester.tap(find.byKey(const Key('loan_extra_payment')));
+    await pumpUntil(tester, find.byKey(const Key('extra_amount')));
+    await tester.enterText(find.byKey(const Key('extra_amount')), '1000');
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('extra_preview')));
+    await pumpUntil(tester, find.text('Du sparst Zinsen'));
+    await scrollTo(tester, find.byKey(const Key('extra_pay')));
+    await tester.tap(find.byKey(const Key('extra_pay')));
+    await pumpUntil(tester, find.textContaining('Sondertilgung über'));
   });
 }

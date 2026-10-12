@@ -53,7 +53,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Server-Adresse'),
-        content: Column(
+        content: SingleChildScrollView(child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -67,7 +67,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               decoration: const InputDecoration(labelText: 'http://…:8080'),
             ),
           ],
-        ),
+        )),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx), child: const Text('Abbrechen')),

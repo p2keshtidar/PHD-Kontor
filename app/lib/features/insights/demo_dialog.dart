@@ -45,7 +45,7 @@ class _DemoDialogState extends ConsumerState<_DemoDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Beispielmonate erzeugen'),
-      content: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+      content: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Die App bucht 6 Monate mit typischen Einnahmen und Ausgaben, damit der Finanzüberblick '
             'und die Pläne etwas zum Rechnen haben. Das geht nur einmal pro Konto.'),
         const SizedBox(height: 12),
@@ -58,7 +58,7 @@ class _DemoDialogState extends ConsumerState<_DemoDialog> {
             onChanged: _busy ? null : (v) => setState(() => _profile = v!),
           ),
         if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
-      ]),
+      ])),
       actions: [
         TextButton(onPressed: _busy ? null : () => Navigator.of(context).pop(false), child: const Text('Abbrechen')),
         FilledButton(
