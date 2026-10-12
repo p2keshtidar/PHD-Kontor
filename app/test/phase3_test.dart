@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:girokonto_app/core/config.dart';
 import 'package:girokonto_app/core/realtime_service.dart';
 import 'package:girokonto_app/features/card/card_model.dart';
 import 'package:girokonto_app/features/notifications/app_notification.dart';
@@ -47,6 +48,9 @@ void main() {
   });
 
   test('WebSocket-Adresse aus der API-Adresse', () {
+    AppConfig.apiBaseUrl = 'http://localhost:8080';
     expect(RealtimeService.websocketUrl, 'ws://localhost:8080/ws');
+    AppConfig.apiBaseUrl = 'https://bank.example';
+    expect(RealtimeService.websocketUrl, 'wss://bank.example/ws');
   });
 }
