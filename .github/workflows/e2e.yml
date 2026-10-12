@@ -1,10 +1,8 @@
 # Ende-zu-Ende-Test: echtes Backend + echte App im Browser, Android-Emulator und iOS-Simulator.
-# Läuft bei jedem Push auf main und manuell über "Run workflow".
+# Läuft manuell (Actions -> E2E -> "Run workflow"), weil der Mac-Runner viele Freiminuten kostet.
 name: E2E
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 concurrency:
@@ -21,6 +19,7 @@ jobs:
   web:
     name: E2E Browser (Chrome)
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     services:
       postgres:
         image: postgres:16-alpine
@@ -31,8 +30,8 @@ jobs:
         ports: ['5432:5432']
         options: --health-cmd "pg_isready -U girokonto" --health-interval 5s --health-retries 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: '21', cache: gradle }
       - name: Backend starten
         shell: bash
@@ -63,7 +62,7 @@ jobs:
         shell: bash
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
-          grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 30000 > /tmp/s.log || true
+          { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -C 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
 
@@ -71,6 +70,7 @@ jobs:
   android:
     name: E2E Android-Emulator
     runs-on: ubuntu-latest
+    timeout-minutes: 50
     services:
       postgres:
         image: postgres:16-alpine
@@ -81,13 +81,13 @@ jobs:
         ports: ['5432:5432']
         options: --health-cmd "pg_isready -U girokonto" --health-interval 5s --health-retries 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: KVM für den Emulator freischalten
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: '21', cache: gradle }
       - name: Backend starten
         shell: bash
@@ -96,7 +96,7 @@ jobs:
           nohup java -jar build/libs/girokonto-backend-0.1.0.jar > /tmp/backend.log 2>&1 &
           for i in $(seq 1 90); do curl -sf http://localhost:8080/v3/api-docs > /dev/null && break; sleep 2; done
           curl -sf http://localhost:8080/v3/api-docs > /dev/null
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: '17' }
       - uses: subosito/flutter-action@v2
         with: { channel: stable, cache: true }
@@ -109,19 +109,22 @@ jobs:
       - name: Test im Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 31
+          api-level: 30
           arch: x86_64
-          target: google_apis
+          target: default
+          ram-size: 3072M
+          disk-size: 6000M
+          emulator-boot-timeout: 900
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           working-directory: app
-          script: flutter test integration_test/app_test.dart -d emulator-5554 --dart-define=API_URL=http://10.0.2.2:8080 > /tmp/ci.log 2>&1; s=$?; cat /tmp/ci.log; exit $s
+          script: timeout 1500 flutter test integration_test/app_test.dart -d emulator-5554 --dart-define=API_URL=http://10.0.2.2:8080 > /tmp/ci.log 2>&1; s=$?; cat /tmp/ci.log; exit $s
       - name: Fehlerprotokoll
         if: failure()
         shell: bash
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
-          grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 30000 > /tmp/s.log || true
+          { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -C 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
 
@@ -129,8 +132,9 @@ jobs:
   ios:
     name: E2E iOS-Simulator
     runs-on: macos-latest
+    timeout-minutes: 50
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: PostgreSQL starten
         run: |
           brew install postgresql@16 > /dev/null
@@ -139,7 +143,7 @@ jobs:
           for i in $(seq 1 30); do pg_isready && break; sleep 2; done
           psql postgres -c "CREATE ROLE girokonto LOGIN PASSWORD 'girokonto';"
           psql postgres -c "CREATE DATABASE girokonto OWNER girokonto;"
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: '21', cache: gradle }
       - name: Backend starten
         shell: bash
@@ -172,12 +176,13 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          flutter test integration_test/app_test.dart -d "$UDID" 2>&1 | tee -a /tmp/ci.log
+          perl -e 'alarm shift; exec @ARGV' 1500 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
+            | grep -vE "^\[ +\+?[0-9]+ ms\] (executing|Exit code|<- |-> )" | tee -a /tmp/ci.log
       - name: Fehlerprotokoll
         if: failure()
         shell: bash
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
-          grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 30000 > /tmp/s.log || true
+          { grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | tail -c 18000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -C 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
