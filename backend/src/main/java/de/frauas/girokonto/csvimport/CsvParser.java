@@ -106,9 +106,12 @@ public final class CsvParser {
                 return i;
             }
         }
+        // "beginnt mit", aber nur bis zu einem Wortende: "umsatz in eur" passt zu "umsatz",
+        // "umsatzanzeige" oder "datei erstellt am" dagegen nicht
         for (String n : names) {
             for (int i = 0; i < header.size(); i++) {
-                if (header.get(i).startsWith(n)) {
+                String h = header.get(i);
+                if (h.length() > n.length() && h.startsWith(n) && !Character.isLetter(h.charAt(n.length()))) {
                     return i;
                 }
             }

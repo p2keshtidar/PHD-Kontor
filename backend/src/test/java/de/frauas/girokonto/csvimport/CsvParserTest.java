@@ -81,6 +81,16 @@ class CsvParserTest {
     }
 
     @Test
+    void spaltennamenNurBisZumWortende() {
+        assertThat(CsvParser.findColumns(java.util.List.of("Umsatzanzeige", "Datei erstellt am: 13.10.2026")))
+                .containsExactly(-1, -1, -1, -1);
+        assertThat(CsvParser.findColumns(java.util.List.of("Buchungstag", "Wertstellung (Valuta)", "Vorgang",
+                "Buchungstext", "Umsatz in EUR"))).containsExactly(0, 4, -1, 3);
+        assertThat(CsvParser.findColumns(java.util.List.of("Buchungsdatum", "Zahlungsempfänger*in",
+                "Verwendungszweck", "Betrag (€)"))).containsExactly(0, 3, 1, 2);
+    }
+
+    @Test
     void ohneKopfzeileFehler() {
         assertThatThrownBy(() -> CsvParser.parse("a;b;c\n1;2;3\n"))
                 .isInstanceOf(IllegalArgumentException.class).hasMessageContaining("Kopfzeile");
