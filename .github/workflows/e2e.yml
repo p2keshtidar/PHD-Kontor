@@ -10,6 +10,11 @@ on:
         type: choice
         options: [alle, browser, android, ios]
         default: alle
+      android_geraet:
+        description: Android-Gerät (pixel_5 = normal, "Nexus One" = sehr klein, 320 dp)
+        type: choice
+        options: [pixel_5, Nexus One]
+        default: pixel_5
 
 env:
   DB_URL: jdbc:postgresql://localhost:5432/girokonto
@@ -121,7 +126,7 @@ jobs:
           { yes | $S/cmdline-tools/latest/bin/sdkmanager "emulator" "platform-tools" "$IMG" > /dev/null; } 2>&1 | tail -3 | tee -a /tmp/ci.log
           export ANDROID_AVD_HOME="$HOME/.android/avd"; mkdir -p "$ANDROID_AVD_HOME"
           echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME" >> "$GITHUB_ENV"
-          echo no | $S/cmdline-tools/latest/bin/avdmanager create avd -n e2e -k "$IMG" -d pixel_5 --force 2>&1 | tee -a /tmp/ci.log
+          echo no | $S/cmdline-tools/latest/bin/avdmanager create avd -n e2e -k "$IMG" -d "${{ inputs.android_geraet || 'pixel_5' }}" --force 2>&1 | tee -a /tmp/ci.log
           echo "AVDs: $(emulator -list-avds | tr '\n' ' ')" | tee -a /tmp/ci.log
           emulator -accel-check 2>&1 | tee -a /tmp/ci.log || true
           ls "$S/system-images/android-30/google_apis/x86_64" > /dev/null
