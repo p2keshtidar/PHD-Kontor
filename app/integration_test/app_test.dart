@@ -5,6 +5,7 @@
 //   flutter test integration_test/app_test.dart -d <Gerät>
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:girokonto_app/core/messenger.dart';
 import 'package:girokonto_app/main.dart' as app;
 import 'package:integration_test/integration_test.dart';
 
@@ -42,6 +43,16 @@ Future<void> scrollTo(WidgetTester tester, Finder target) async {
   final scrollable = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
   await tester.scrollUntilVisible(target, 250, scrollable: scrollable, maxScrolls: 80);
   await pumpFor(tester, 300);
+}
+
+/// Tippt einen Knopf an. Vorher werden Hinweisleisten (Live-Meldungen) geschlossen,
+/// die sonst unten über dem Knopf liegen und den Tipp abfangen können.
+Future<void> tapButton(WidgetTester tester, Finder button) async {
+  rootMessengerKey.currentState?.clearSnackBars();
+  await pumpFor(tester, 500);
+  await scrollTo(tester, button);
+  await tester.tap(button);
+  await tester.pump();
 }
 
 /// Springt in der aktuellen Liste ganz nach oben.
@@ -125,28 +136,24 @@ void main() {
     await scrollTo(tester, find.byType(CheckboxListTile));
     await tester.tap(find.byType(CheckboxListTile));
     await pumpFor(tester, 400);
-    await scrollTo(tester, find.text('Kredit abschließen'));
-    await tester.tap(find.text('Kredit abschließen'));
+    await tapButton(tester, find.text('Kredit abschließen'));
     await pumpUntil(tester, find.text('Restschuld'), timeout: const Duration(seconds: 30));
 
     // /K020/ Sondertilgung: Vorschau berechnen und buchen
-    await scrollTo(tester, find.byKey(const Key('loan_extra_payment')));
-    await tester.tap(find.byKey(const Key('loan_extra_payment')));
+    await tapButton(tester, find.byKey(const Key('loan_extra_payment')));
     await pumpUntil(tester, find.byKey(const Key('extra_amount')));
     await tester.enterText(find.byKey(const Key('extra_amount')), '1000');
     await tester.pump();
     // Tastatur schließen (verdeckt auf dem Handy sonst die Knöpfe)
     FocusManager.instance.primaryFocus?.unfocus();
     await pumpFor(tester, 800);
-    await scrollTo(tester, find.byKey(const Key('extra_preview')));
-    await tester.tap(find.byKey(const Key('extra_preview')));
+    await tapButton(tester, find.byKey(const Key('extra_preview')));
     // Die Vorschau erscheint unter dem Knopf – auf kleinen Displays außerhalb des sichtbaren Bereichs
     await pumpUntil(tester, find.byKey(const Key('extra_pay'), skipOffstage: false));
     await scrollTo(tester, find.text('Du sparst Zinsen'));
-    await scrollTo(tester, find.byKey(const Key('extra_pay')));
-    await tester.tap(find.byKey(const Key('extra_pay')));
+    await tapButton(tester, find.byKey(const Key('extra_pay')));
     // zurück im Kreditdetail: neue Zeile "Sondertilgungen" mit dem Betrag
-    await pumpUntil(tester, find.byKey(const Key('loan_extra_payment'), skipOffstage: false));
+    await pumpUntil(tester, find.byKey(const Key('loan_extra_payment')));
     await pumpFor(tester, 1500);
     await scrollToTop(tester);
     await scrollTo(tester, find.text('Sondertilgungen'));
