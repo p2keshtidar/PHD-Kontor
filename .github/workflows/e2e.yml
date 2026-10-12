@@ -110,11 +110,13 @@ jobs:
       - name: Emulator starten
         shell: bash
         run: |
+          set +o pipefail   # "yes | sdkmanager" endet absichtlich mit SIGPIPE
           S=$ANDROID_HOME; export PATH="$S/platform-tools:$S/emulator:$PATH"
           IMG="system-images;android-30;google_apis;x86_64"
           { yes | $S/cmdline-tools/latest/bin/sdkmanager "emulator" "platform-tools" "$IMG" > /dev/null; } 2>&1 | tail -3 | tee -a /tmp/ci.log
           echo no | $S/cmdline-tools/latest/bin/avdmanager create avd -n e2e -k "$IMG" -d pixel_5 --force 2>&1 | tail -2 | tee -a /tmp/ci.log
-          emulator -accel-check 2>&1 | tee -a /tmp/ci.log
+          emulator -accel-check 2>&1 | tee -a /tmp/ci.log || true
+          ls "$S/system-images/android-30/google_apis/x86_64" > /dev/null
           nohup emulator -avd e2e -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -memory 3072 > /tmp/emulator.log 2>&1 &
           timeout 600 adb wait-for-device
           for i in $(seq 1 150); do
