@@ -109,7 +109,7 @@ void main() {
 
     // Angebot öffnen und Kredit abschließen
     await tester.tap(find.text('Nordlicht Kredit'));
-    await pumpUntil(tester, find.text('Angebot'));
+    await pumpUntil(tester, find.text('Tilgungsplan'));
     await pumpFor(tester, 1500);
     await scrollTo(tester, find.byType(CheckboxListTile));
     await tester.tap(find.byType(CheckboxListTile));
