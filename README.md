@@ -66,9 +66,9 @@ Handy verbinden: App öffnen → unten auf der Login-Seite **„Server: …“**
 | 🗂️ **Unterkonten** | „Töpfe“ für Urlaub, Auto … · einzahlen, auszahlen, auflösen |
 | 🔔 **Benachrichtigungen** | live per WebSocket bei jeder Buchung |
 | 📊 **Finanzüberblick** | Einnahmen/Ausgaben pro Monat · Kategorien · „Jeden Monat übrig“ |
-| 🐷 **Sparplan** | Ziel + Datum → Ratenvorschlag · Risikostufe · Ampel „machbar?“ · Spartipps |
+| 🐷 **Sparplan** | Ziel + Datum → Ratenvorschlag · Risikostufe · Ampel „machbar?“ · Spartipps · **Erinnerung vor der Abbuchung** |
 | 📈 **Investplan** | z. B. 200 €/Monat in fiktive Fonds · Musterdepot mit Verlauf |
-| 🚗🏠 **Kreditplan** | Auto/Immobilie · Angebote von 4 fiktiven Banken vergleichen · Tilgungsplan · Abschluss simulieren |
+| 🚗🏠 **Kreditplan** | Auto/Immobilie · Angebote von 4 fiktiven Banken vergleichen · Tilgungsplan · Abschluss simulieren · **Sondertilgung** mit Vorschau (Restschuld, Laufzeit, Zinsersparnis) |
 | ⏩ **Demo-Modus** | Beispielmonate erzeugen · Admin spult die Zeit vor (Raten werden gebucht) |
 
 Demo-Admin: `admin@projektbank.de` / `admin12345`
@@ -111,10 +111,10 @@ girokonto/
 
 Bei jedem Push prüft GitHub automatisch ([Actions](https://github.com/p2keshtidar/girokonto/actions)):
 
-- **Backend:** Unit-Tests + Integrationstests mit echter PostgreSQL-Datenbank (Testfälle T01–T25 aus dem Pflichtenheft)
+- **Backend:** Unit-Tests + Integrationstests mit echter PostgreSQL-Datenbank (Testfälle T01–T25 aus dem Pflichtenheft, T26–T29 für die Kannkriterien)
 - **App:** `flutter analyze` + Unit-/Widget-Tests
 - **Builds:** Web, Android-APK, iOS, Docker-Image
-- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform wählbar): echte App im Browser (Chrome), Android-Emulator (Pixel 5, Android 11) und iOS-Simulator (iPhone, iOS 18) gegen den echten Server – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich
+- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform und Android-Gerät wählbar): echte App im Browser (Chrome), Android-Emulator (Pixel 5 oder sehr kleines Display, Android 11) und iOS-Simulator (iPhone, iOS 18) gegen den echten Server – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kreditabschluss, Sondertilgung
 
 ## 👥 Team
 

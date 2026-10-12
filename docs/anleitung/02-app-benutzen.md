@@ -60,6 +60,8 @@ Startseite → **„Neues Unterkonto“** → Name + Symbol → antippen → **E
 | 7.5 | **„Investplan“** → 200 € → „Ausgewogen“ | monatliche Rate in fiktive Fonds, Musterdepot |
 | 7.6 | **„Kredit“** → Auto, 20.000 €, 60 Monate → **„Angebote vergleichen“** | 4 Banken; günstigstes passendes Angebot ist markiert |
 | 7.7 | Angebot öffnen → **Tilgungsplan** → **Abschließen** | 20.000 € sind sofort auf dem Girokonto, Kredit erscheint im Bereich Sparen |
+| 7.8 | Kredit öffnen → **Sondertilgung** → z. B. 1.000 € → **Auswirkung berechnen** | Vorschau: Restschuld, offene Raten und Zinsersparnis vorher → nachher. **Jetzt sondertilgen** bucht den Betrag; die Rate bleibt gleich, der Kredit endet früher |
+| 7.9 | Sparplan öffnen → **Erinnerung vor der Abbuchung** | Aus / 1 / 3 / 7 Tage vorher. Standard: 3 Tage. Reicht das Guthaben nicht, warnt die Erinnerung |
 
 ## 8. Zeit vorspulen (Demo-Modus)
 
@@ -68,8 +70,8 @@ Startseite → **„Neues Unterkonto“** → Name + Symbol → antippen → **E
 3. **Profil → Demo-Modus → „+3 Monate“**.
 4. Abmelden und wieder als normaler Nutzer anmelden.
 
-👀 Spar-, Invest- und Kreditraten wurden gebucht, das Depot hat einen Kursverlauf, die Restschuld ist gesunken, und es gibt neue Benachrichtigungen.
+👀 Spar-, Invest- und Kreditraten wurden gebucht, das Depot hat einen Kursverlauf, die Restschuld ist gesunken, und es gibt neue Benachrichtigungen – darunter die **Erinnerungen** „Sparrate in 3 Tagen“.
 
 ---
 
-✅ Damit hast du alle Musskriterien aus dem [Pflichtenheft](../pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) einmal gesehen.
+✅ Damit hast du alle Musskriterien und die Kannkriterien /K010/ und /K020/ aus dem [Pflichtenheft](../pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) einmal gesehen.
