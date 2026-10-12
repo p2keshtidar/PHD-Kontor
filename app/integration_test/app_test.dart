@@ -120,6 +120,18 @@ void main() {
     await tester.tap(find.text('Erzeugen'));
     await pumpUntil(tester, find.text('Jeden Monat übrig'), timeout: const Duration(seconds: 60));
 
+    // /K040/ CSV-Import: Finanzüberblick öffnen, Beispieldatei importieren, zurück
+    await tester.tap(find.text('Jeden Monat übrig'));
+    await pumpUntil(tester, find.byKey(const Key('csv_import_open')));
+    await tester.tap(find.byKey(const Key('csv_import_open')));
+    await pumpUntil(tester, find.byKey(const Key('csv_sample')));
+    await tapButton(tester, find.byKey(const Key('csv_sample')));
+    await pumpUntil(tester, find.text('33 Umsätze importiert'), timeout: const Duration(seconds: 30));
+    await tester.pageBack();
+    await pumpFor(tester, 800);
+    await tester.pageBack();
+    await pumpUntil(tester, find.text('Kredit'));
+
     // Kreditplaner öffnen und Angebote vergleichen
     await tester.tap(find.text('Kredit'));
     await pumpUntil(tester, find.text('Kredit planen'));
