@@ -7,6 +7,7 @@ import '../../core/money.dart';
 import 'demo_dialog.dart';
 import 'insights_models.dart';
 import 'insights_repository.dart';
+import 'csv_import_screen.dart';
 
 /// Finanzüberblick (/F560/ bis /F590/): Einnahmen und Ausgaben je Monat, Kategorien, Durchschnitt.
 class InsightsScreen extends ConsumerStatefulWidget {
@@ -30,7 +31,17 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
     final overview = ref.watch(overviewProvider);
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Finanzüberblick')),
+      appBar: AppBar(title: const Text('Finanzüberblick'), actions: [
+        IconButton(
+          key: const Key('csv_import_open'),
+          tooltip: 'Umsätze anderer Bank importieren (CSV)',
+          icon: const Icon(Icons.upload_file),
+          onPressed: () async {
+            await Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const CsvImportScreen()));
+            _refreshAll();
+          },
+        ),
+      ]),
       body: RefreshIndicator(
         onRefresh: () async {
           _refreshAll();
@@ -54,7 +65,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         const Text('Noch keine Einnahmen und Ausgaben', style: TextStyle(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 6),
-                        const Text('Erzeuge Beispielmonate, um den Finanzüberblick und die Planung auszuprobieren.'),
+                        const Text('Erzeuge Beispielmonate oder importiere die Umsätze deiner echten Bank als CSV-Datei.'),
                         const SizedBox(height: 12),
                         FilledButton.icon(
                           onPressed: () async {
@@ -62,6 +73,16 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                           },
                           icon: const Icon(Icons.auto_awesome),
                           label: const Text('Beispielmonate erzeugen'),
+                        ),
+                        const SizedBox(height: 8),
+                        OutlinedButton.icon(
+                          onPressed: () async {
+                            await Navigator.of(context)
+                                .push(MaterialPageRoute<void>(builder: (_) => const CsvImportScreen()));
+                            _refreshAll();
+                          },
+                          icon: const Icon(Icons.upload_file),
+                          label: const Text('CSV-Datei importieren'),
                         ),
                       ]),
                     ),

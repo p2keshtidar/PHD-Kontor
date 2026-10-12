@@ -19,13 +19,13 @@ public class CategoryService {
     static {
         KEYWORDS.put(Category.WOHNEN, List.of("miete", "strom", "nebenkosten", "gas", "wasser", "hausverwaltung"));
         KEYWORDS.put(Category.VERTRAEGE, List.of("versicherung", "handy", "mobilfunk", "internet", "streaming",
-                "abo", "mitglied", "fitness", "semesterticket", "rundfunk"));
+                "abo", "mitglied", "fitness", "semesterticket", "rundfunk", "netflix", "spotify", "telekom", "vodafone"));
         KEYWORDS.put(Category.LEBENSMITTEL, List.of("supermarkt", "bäckerei", "baeckerei", "markt", "lebensmittel",
-                "metzgerei", "bio"));
-        KEYWORDS.put(Category.MOBILITAET, List.of("tank", "bahn", "ticket", "bus", "parken", "taxi", "werkstatt"));
+                "metzgerei", "bio", "rewe", "lidl", "aldi", "edeka", "netto", "penny", "kaufland"));
+        KEYWORDS.put(Category.MOBILITAET, List.of("tank", "bahn", "ticket", "bus", "parken", "taxi", "werkstatt", "aral", "shell", "esso"));
         KEYWORDS.put(Category.FREIZEIT, List.of("kino", "restaurant", "café", "cafe", "bar", "konzert", "pizz",
                 "imbiss", "theater", "bowling", "zoo", "freizeit"));
-        KEYWORDS.put(Category.SHOPPING, List.of("shop", "elektro", "mode", "kleidung", "drogerie", "buch", "möbel"));
+        KEYWORDS.put(Category.SHOPPING, List.of("shop", "elektro", "mode", "kleidung", "drogerie", "buch", "möbel", "amazon", "zalando"));
     }
 
     public Category categorize(BookingType type, String description, long amountCents) {

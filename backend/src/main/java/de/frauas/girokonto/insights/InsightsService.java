@@ -66,6 +66,18 @@ public class InsightsService {
             }
         }, main.getId(), Timestamp.from(from), Timestamp.from(to));
 
+        // /K040/: importierte Umsätze anderer Banken (CSV) zählen mit
+        jdbc.query("""
+                SELECT booked_on, category, amount_cents FROM imported_transaction
+                 WHERE user_id = ? AND booked_on >= ? AND booked_on < ?
+                """, rs -> {
+            YearMonth ym = YearMonth.from(rs.getDate("booked_on").toLocalDate());
+            Map<Category, Long> m = sums.get(ym);
+            if (m != null) {
+                m.merge(Category.valueOf(rs.getString("category")), rs.getLong("amount_cents"), Long::sum);
+            }
+        }, userId, java.sql.Date.valueOf(first.atDay(1)), java.sql.Date.valueOf(current.plusMonths(1).atDay(1)));
+
         List<MonthSummaryDto> result = new ArrayList<>();
         for (var e : sums.entrySet()) {
             result.add(summarize(e.getKey(), e.getKey().isBefore(current), e.getValue()));
