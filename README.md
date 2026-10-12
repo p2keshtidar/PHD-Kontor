@@ -7,6 +7,7 @@ Betreuung: Prof. Dr.-Ing. Ruth Schorr
 
 [![CI](https://github.com/p2keshtidar/girokonto/actions/workflows/ci.yml/badge.svg)](https://github.com/p2keshtidar/girokonto/actions/workflows/ci.yml)
 [![Release](https://github.com/p2keshtidar/girokonto/actions/workflows/release.yml/badge.svg)](https://github.com/p2keshtidar/girokonto/releases/tag/latest)
+[![E2E](https://github.com/p2keshtidar/girokonto/actions/workflows/e2e.yml/badge.svg)](https://github.com/p2keshtidar/girokonto/actions/workflows/e2e.yml)
 ![Plattformen](https://img.shields.io/badge/Plattformen-Android%20%7C%20iOS%20%7C%20Browser-0a7cff)
 ![Flutter](https://img.shields.io/badge/App-Flutter-02569B?logo=flutter)
 ![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot%203-6DB33F?logo=springboot)
@@ -113,7 +114,7 @@ Bei jedem Push prüft GitHub automatisch ([Actions](https://github.com/p2keshtid
 - **Backend:** Unit-Tests + Integrationstests mit echter PostgreSQL-Datenbank (Testfälle T01–T25 aus dem Pflichtenheft)
 - **App:** `flutter analyze` + Unit-/Widget-Tests
 - **Builds:** Web, Android-APK, iOS, Docker-Image
-- **Ende-zu-Ende** (manuell startbar): echte App im Browser, Android-Emulator und iOS-Simulator gegen den echten Server
+- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform wählbar): echte App im Browser (Chrome), Android-Emulator (Pixel 5, Android 11) und iOS-Simulator (iPhone, iOS 18) gegen den echten Server – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich
 
 ## 👥 Team
 
