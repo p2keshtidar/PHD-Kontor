@@ -18,8 +18,9 @@ Future<void> pumpUntil(WidgetTester tester, Finder finder, {Duration timeout = c
   }
   // Zur Fehlersuche: alle sichtbaren Texte ausgeben
   final texts = find.byType(Text).evaluate().map((e) => (e.widget as Text).data ?? '').where((t) => t.isNotEmpty);
-  final fields = find.byType(EditableText).evaluate().map((e) => 'Eingabe:${(e.widget as EditableText).controller.text}');
-  throw TestFailure('Nicht gefunden nach ${timeout.inSeconds} s: $finder\nSichtbar: ${[...texts, ...fields].take(60).join(' | ')}');
+  // ignore: avoid_print
+  print('SICHTBAR: ${texts.take(60).join(' | ')}');
+  throw TestFailure('Nicht gefunden nach ${timeout.inSeconds} s: $finder');
 }
 
 Future<void> pumpFor(WidgetTester tester, [int ms = 800]) async {
@@ -40,6 +41,13 @@ Future<void> enter(WidgetTester tester, String label, String text) async {
 Future<void> scrollTo(WidgetTester tester, Finder target) async {
   final scrollable = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
   await tester.scrollUntilVisible(target, 250, scrollable: scrollable, maxScrolls: 80);
+  await pumpFor(tester, 300);
+}
+
+/// Springt in der aktuellen Liste ganz nach oben.
+Future<void> scrollToTop(WidgetTester tester) async {
+  final scrollable = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
+  tester.state<ScrollableState>(scrollable).position.jumpTo(0);
   await pumpFor(tester, 300);
 }
 
@@ -132,11 +140,16 @@ void main() {
     await pumpFor(tester, 800);
     await scrollTo(tester, find.byKey(const Key('extra_preview')));
     await tester.tap(find.byKey(const Key('extra_preview')));
-    await pumpUntil(tester, find.text('Du sparst Zinsen'));
+    // Die Vorschau erscheint unter dem Knopf – auf kleinen Displays außerhalb des sichtbaren Bereichs
+    await pumpUntil(tester, find.byKey(const Key('extra_pay'), skipOffstage: false));
+    await scrollTo(tester, find.text('Du sparst Zinsen'));
     await scrollTo(tester, find.byKey(const Key('extra_pay')));
     await tester.tap(find.byKey(const Key('extra_pay')));
     // zurück im Kreditdetail: neue Zeile "Sondertilgungen" mit dem Betrag
-    await pumpUntil(tester, find.text('Sondertilgungen'));
+    await pumpUntil(tester, find.byKey(const Key('loan_extra_payment'), skipOffstage: false));
+    await pumpFor(tester, 1500);
+    await scrollToTop(tester);
+    await scrollTo(tester, find.text('Sondertilgungen'));
     expect(find.text('1.000,00 €'), findsWidgets);
   });
 }

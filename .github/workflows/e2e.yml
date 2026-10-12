@@ -72,7 +72,7 @@ jobs:
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Anfragen (letzte 40) -----'; grep -E "Completed [0-9]{3}|^.*DispatcherServlet.*(POST|PUT|DELETE)" /tmp/backend.log | sed -E 's/^.*DispatcherServlet *: //' | tail -40; } >> /tmp/req.log 2>/dev/null || true
-          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "SICHTBAR:|overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
@@ -124,13 +124,19 @@ jobs:
           set +o pipefail   # "yes | sdkmanager" endet absichtlich mit SIGPIPE
           S=$ANDROID_HOME; export PATH="$S/platform-tools:$S/emulator:$PATH"
           IMG="system-images;android-30;google_apis;x86_64"
-          { yes | $S/cmdline-tools/latest/bin/sdkmanager "emulator" "platform-tools" "$IMG" > /dev/null; } 2>&1 | tail -3 | tee -a /tmp/ci.log
+          # Download mit Wiederholung (bricht bei GitHub manchmal ab)
+          for try in 1 2 3; do
+            { yes | $S/cmdline-tools/latest/bin/sdkmanager "emulator" "platform-tools" "$IMG" > /dev/null; } 2>&1 | tail -3 | tee -a /tmp/ci.log
+            [ -f "$S/system-images/android-30/google_apis/x86_64/system.img" ] && break
+            echo "Systemabbild unvollständig, Versuch $try" | tee -a /tmp/ci.log
+            rm -rf "$S/system-images/android-30/google_apis/x86_64"; sleep 10
+          done
           export ANDROID_AVD_HOME="$HOME/.android/avd"; mkdir -p "$ANDROID_AVD_HOME"
           echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME" >> "$GITHUB_ENV"
           echo no | $S/cmdline-tools/latest/bin/avdmanager create avd -n e2e -k "$IMG" -d "${{ inputs.android_geraet || 'pixel_5' }}" --force 2>&1 | tee -a /tmp/ci.log
           echo "AVDs: $(emulator -list-avds | tr '\n' ' ')" | tee -a /tmp/ci.log
           emulator -accel-check 2>&1 | tee -a /tmp/ci.log || true
-          ls "$S/system-images/android-30/google_apis/x86_64" > /dev/null
+          ls "$S/system-images/android-30/google_apis/x86_64/system.img"
           nohup emulator -avd e2e -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -memory 3072 > /tmp/emulator.log 2>&1 &
           timeout 600 adb wait-for-device
           for i in $(seq 1 150); do
@@ -155,7 +161,7 @@ jobs:
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Anfragen (letzte 40) -----'; grep -E "Completed [0-9]{3}|^.*DispatcherServlet.*(POST|PUT|DELETE)" /tmp/backend.log | sed -E 's/^.*DispatcherServlet *: //' | tail -40; } >> /tmp/req.log 2>/dev/null || true
-          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "SICHTBAR:|overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
@@ -227,7 +233,7 @@ jobs:
           { echo '----- Simulator -----'; tail -c 8000 /tmp/sim.log; } >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Anfragen (letzte 40) -----'; grep -E "Completed [0-9]{3}|^.*DispatcherServlet.*(POST|PUT|DELETE)" /tmp/backend.log | sed -E 's/^.*DispatcherServlet *: //' | tail -40; } >> /tmp/req.log 2>/dev/null || true
-          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "SICHTBAR:|overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
