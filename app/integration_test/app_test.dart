@@ -121,10 +121,12 @@ void main() {
     await pumpUntil(tester, find.text('Jeden Monat übrig'), timeout: const Duration(seconds: 60));
 
     // /K040/ CSV-Import: Finanzüberblick öffnen, Beispieldatei importieren, zurück
-    await tester.tap(find.text('Jeden Monat übrig'));
+    await tapButton(tester, find.text('Jeden Monat übrig'));
     await pumpUntil(tester, find.byKey(const Key('csv_import_open')));
+    await pumpFor(tester, 1500); // Seitenübergang abwarten
     await tester.tap(find.byKey(const Key('csv_import_open')));
     await pumpUntil(tester, find.byKey(const Key('csv_sample')));
+    await pumpFor(tester, 1000);
     await tapButton(tester, find.byKey(const Key('csv_sample')));
     await pumpUntil(tester, find.text('33 Umsätze importiert'), timeout: const Duration(seconds: 30));
     await tester.pageBack();
