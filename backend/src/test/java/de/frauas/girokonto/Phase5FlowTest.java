@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import de.frauas.girokonto.booking.BookingLineRepository;
 import de.frauas.girokonto.loan.LoanMath;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +60,13 @@ class Phase5FlowTest extends IntegrationTestBase {
 
     private JsonNode getJson(TestUser u, String path) throws Exception {
         return json.readTree(mvc.perform(get(path).header("Authorization", u.bearer()))
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString());
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8));
     }
 
     private JsonNode postJson(TestUser u, String path, String body, int expected) throws Exception {
         String r = mvc.perform(post(path).header("Authorization", u.bearer())
                         .contentType(MediaType.APPLICATION_JSON).content(body))
-                .andExpect(status().is(expected)).andReturn().getResponse().getContentAsString();
+                .andExpect(status().is(expected)).andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         return r.isEmpty() ? null : json.readTree(r);
     }
 
