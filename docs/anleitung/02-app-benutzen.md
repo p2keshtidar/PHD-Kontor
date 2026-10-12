@@ -72,6 +72,39 @@ Startseite → **„Neues Unterkonto“** → Name + Symbol → antippen → **E
 
 👀 Spar-, Invest- und Kreditraten wurden gebucht, das Depot hat einen Kursverlauf, die Restschuld ist gesunken, und es gibt neue Benachrichtigungen – darunter die **Erinnerungen** „Sparrate in 3 Tagen“.
 
+## 9. Weitere Funktionen (Kannkriterien)
+
+### 9.1 Dauerauftrag (/K030/)
+1. **Überweisen** → oben in der Leiste **„Daueraufträge“** → **„Neuer Dauerauftrag“**.
+2. Empfänger (E-Mail des zweiten Nutzers), Betrag `50`, Zweck „Miete Anteil“, **monatlich**, Ausführungstag z. B. **5** → **Einrichten**.
+3. Antippen → Betrag oder Tag ändern, **pausieren** oder **löschen**.
+4. Zum Ausprobieren als Admin vorspulen (Abschnitt 8): Am 5. wird überwiesen, beide bekommen eine Meldung. Reicht das Geld nicht, kommt „Dauerauftrag nicht ausgeführt“.
+
+### 9.2 Zwei-Faktor-Anmeldung (/K050/)
+1. Auf dem Handy eine Authenticator-App installieren (Google Authenticator, Microsoft Authenticator, 2FAS …).
+2. **Profil → Zwei-Faktor-Anmeldung → Einrichten**.
+3. QR-Code mit der Authenticator-App scannen (oder Schlüssel abtippen).
+4. Den 6-stelligen Code eingeben → **Bestätigen und einschalten**.
+5. Abmelden und neu anmelden: Nach dem Passwort fragt die App nach dem Code.
+6. Ausschalten: gleiche Seite → Passwort + Code.
+
+> Die Uhrzeit auf Handy und PC muss stimmen (automatische Zeit einschalten), sonst passen die Codes nicht.
+
+### 9.3 CSV-Import (/K040/)
+1. **Sparen → „Jeden Monat übrig“** → oben rechts Symbol **Datei hochladen**.
+2. **„Beispieldatei importieren“** – oder im echten Online-Banking die Umsätze als CSV exportieren und **„CSV-Datei auswählen“**.
+3. Ergebnis: Anzahl, Zeitraum, Einnahmen, Ausgaben. Zurück im Finanzüberblick sind die Monate gefüllt.
+4. Die Kontostände in der App ändern sich **nicht** – es ist Geld bei einer anderen Bank. Ein zweiter Import derselben Datei legt nichts doppelt an. Import löschen: in der Liste „Bisherige Importe“.
+
+### 9.4 Unterkonto teilen (/K060/)
+1. Startseite → Unterkonto öffnen (oder neu anlegen, z. B. „WG-Kasse“).
+2. Im Kasten **„Teilen“** → **Person hinzufügen** → E-Mail des zweiten Nutzers.
+3. Beim zweiten Nutzer erscheint „WG-Kasse – Geteilt von …“ auf der Startseite. Er kann **einzahlen**, **auszahlen** und die Umsätze sehen. Bei jeder Bewegung bekommt der andere eine Meldung.
+4. Nur der Besitzer kann umbenennen, Personen entfernen und auflösen (das Geld geht dann an den Besitzer). Mitglieder können **austreten**.
+
+### 9.5 Meldungen bei geschlossener App (/K070/, Android)
+App anmelden, dann komplett schließen. Vom zweiten Konto Geld überweisen. Nach spätestens ca. 15 Minuten erscheint die Systembenachrichtigung. Details: [Push-Benachrichtigungen](../technik/push.md).
+
 ---
 
-✅ Damit hast du alle Musskriterien und die Kannkriterien /K010/ und /K020/ aus dem [Pflichtenheft](../pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) einmal gesehen.
+✅ Damit hast du alle Musskriterien und alle Kannkriterien /K010/–/K070/ aus dem [Pflichtenheft](../pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) einmal gesehen.

@@ -61,11 +61,12 @@ Handy verbinden: App öffnen → unten auf der Login-Seite **„Server: …“**
 | Bereich | Funktionen |
 |---|---|
 | 🏦 **Girokonto** | Registrierung mit fiktiver IBAN und 1.000 € Startguthaben · Umsätze mit Suche und Filter · Kategorien |
-| 💸 **Überweisen** | per IBAN, E-Mail oder Telefonnummer · Adressbuch · Abgleich mit Handy-Kontakten · Tageslimit |
+| 💸 **Überweisen** | per IBAN, E-Mail oder Telefonnummer · Adressbuch · Abgleich mit Handy-Kontakten · Tageslimit · **Daueraufträge** (monatlich bis jährlich) |
 | 💳 **Karte** | virtuelle Debitkarte · Daten nur mit Passwort · sperren/entsperren · Limit · Demo-Kartenzahlung |
-| 🗂️ **Unterkonten** | „Töpfe“ für Urlaub, Auto … · einzahlen, auszahlen, auflösen |
-| 🔔 **Benachrichtigungen** | live per WebSocket bei jeder Buchung |
-| 📊 **Finanzüberblick** | Einnahmen/Ausgaben pro Monat · Kategorien · „Jeden Monat übrig“ |
+| 🗂️ **Unterkonten** | „Töpfe“ für Urlaub, Auto … · einzahlen, auszahlen, auflösen · **mit anderen teilen** (z. B. WG-Kasse) |
+| 🔔 **Benachrichtigungen** | live per WebSocket bei jeder Buchung · Android: auch bei **geschlossener App** (Hintergrund-Abfrage) |
+| 📊 **Finanzüberblick** | Einnahmen/Ausgaben pro Monat · Kategorien · „Jeden Monat übrig“ · **CSV-Import** von Umsätzen echter Banken |
+| 🔐 **Sicherheit** | Passwort-Hash, JWT, Sperre nach Fehlversuchen · **Zwei-Faktor-Anmeldung** mit Authenticator-App |
 | 🐷 **Sparplan** | Ziel + Datum → Ratenvorschlag · Risikostufe · Ampel „machbar?“ · Spartipps · **Erinnerung vor der Abbuchung** |
 | 📈 **Investplan** | z. B. 200 €/Monat in fiktive Fonds · Musterdepot mit Verlauf |
 | 🚗🏠 **Kreditplan** | Auto/Immobilie · Angebote von 4 fiktiven Banken vergleichen · Tilgungsplan · Abschluss simulieren · **Sondertilgung** mit Vorschau (Restschuld, Laufzeit, Zinsersparnis) |
@@ -84,6 +85,7 @@ Demo-Admin: `admin@projektbank.de` / `admin12345`
 | 🛠️ [Anleitung: Entwickeln](docs/anleitung/03-entwickeln.md) | Projekt aus dem Code starten, Tests, Git-Arbeitsweise |
 | 🆘 [Häufige Probleme](docs/anleitung/04-probleme.md) | Lösungen für typische Fehler |
 | 🏗️ [Architektur](docs/technik/architektur.md) | Wie Backend und App aufgebaut sind |
+| 🔔 [Push-Benachrichtigungen](docs/technik/push.md) | Hintergrund-Abfrage und Weg zu echtem Push (Firebase/APNs) |
 | 📄 [Pflichtenheft v0.2](docs/pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) | Anforderungen (Muss-/Kannkriterien, Tests) |
 | 🏃 [Scrum](docs/scrum/README.md) | Team, Rollen, Sprints, Meeting-Protokolle |
 | ✅ [Backlog (Issues)](https://github.com/p2keshtidar/girokonto/issues) · [Sprints (Milestones)](https://github.com/p2keshtidar/girokonto/milestones) | Aufgaben und Stand |
@@ -111,7 +113,7 @@ girokonto/
 
 Bei jedem Push prüft GitHub automatisch ([Actions](https://github.com/p2keshtidar/girokonto/actions)):
 
-- **Backend:** Unit-Tests + Integrationstests mit echter PostgreSQL-Datenbank (Testfälle T01–T25 aus dem Pflichtenheft, T26–T29 für die Kannkriterien)
+- **Backend:** Unit-Tests + Integrationstests mit echter PostgreSQL-Datenbank (Testfälle T01–T25 aus dem Pflichtenheft, T26–T40 für die Kannkriterien /K010/–/K060/)
 - **App:** `flutter analyze` + Unit-/Widget-Tests
 - **Builds:** Web, Android-APK, iOS, Docker-Image
 - **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform und Android-Gerät wählbar): echte App im Browser (Chrome), Android-Emulator (Pixel 5 oder sehr kleines Display, Android 11) und iOS-Simulator (iPhone, iOS 18) gegen den echten Server – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kreditabschluss, Sondertilgung
