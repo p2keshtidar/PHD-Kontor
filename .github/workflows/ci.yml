@@ -27,7 +27,17 @@ jobs:
           java-version: '21'
           cache: gradle
       - run: chmod +x gradlew
-      - run: ./gradlew test --no-daemon
+      - run: set -o pipefail; ./gradlew test --no-daemon 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      # Bei Fehlern das Ende des Protokolls als Annotation anzeigen (auch ohne Log-Download lesbar)
+      - name: Fehlerprotokoll
+        if: failure()
+        shell: bash
+        run: |
+          if [ -f /tmp/ci.log ]; then
+            msg=$(tail -c 60000 /tmp/ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
+            echo "::error title=Protokoll::$msg"
+          fi
       - name: Testbericht hochladen
         if: always()
         uses: actions/upload-artifact@v4
@@ -50,12 +60,27 @@ jobs:
           channel: stable
           cache: true
       - run: flutter --version
-      - run: flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app
-      - run: flutter pub get
-      - run: dart run tool/setup_platforms.dart
-      - run: flutter analyze --no-fatal-infos
-      - run: flutter test
-      - run: flutter build web --release
+      - run: set -o pipefail; flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; flutter pub get 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; dart run tool/setup_platforms.dart 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; flutter analyze --no-fatal-infos 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; flutter test 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; flutter build web --release 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      # Bei Fehlern das Ende des Protokolls als Annotation anzeigen (auch ohne Log-Download lesbar)
+      - name: Fehlerprotokoll
+        if: failure()
+        shell: bash
+        run: |
+          if [ -f /tmp/ci.log ]; then
+            msg=$(tail -c 60000 /tmp/ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
+            echo "::error title=Protokoll::$msg"
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: web-build
@@ -78,11 +103,24 @@ jobs:
         with:
           channel: stable
           cache: true
-      - run: flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app
-      - run: flutter pub get
-      - run: dart run tool/setup_platforms.dart
+      - run: set -o pipefail; flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; flutter pub get 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; dart run tool/setup_platforms.dart 2>&1 | tee -a /tmp/ci.log
+        shell: bash
       # Für den Android-Emulator zeigt 10.0.2.2 auf den eigenen PC
-      - run: flutter build apk --debug --dart-define=API_URL=http://10.0.2.2:8080
+      - run: set -o pipefail; flutter build apk --debug --dart-define=API_URL=http://10.0.2.2:8080 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      # Bei Fehlern das Ende des Protokolls als Annotation anzeigen (auch ohne Log-Download lesbar)
+      - name: Fehlerprotokoll
+        if: failure()
+        shell: bash
+        run: |
+          if [ -f /tmp/ci.log ]; then
+            msg=$(tail -c 60000 /tmp/ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
+            echo "::error title=Protokoll::$msg"
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: android-apk
@@ -101,7 +139,20 @@ jobs:
         with:
           channel: stable
           cache: true
-      - run: flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app
-      - run: flutter pub get
-      - run: dart run tool/setup_platforms.dart
-      - run: flutter build ios --simulator --debug
+      - run: set -o pipefail; flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; flutter pub get 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; dart run tool/setup_platforms.dart 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      - run: set -o pipefail; flutter build ios --simulator --debug 2>&1 | tee -a /tmp/ci.log
+        shell: bash
+      # Bei Fehlern das Ende des Protokolls als Annotation anzeigen (auch ohne Log-Download lesbar)
+      - name: Fehlerprotokoll
+        if: failure()
+        shell: bash
+        run: |
+          if [ -f /tmp/ci.log ]; then
+            msg=$(tail -c 60000 /tmp/ci.log | sed -e 's/%/%25/g' -e 's/\r/%0D/g' | awk '{printf "%s%%0A", $0}')
+            echo "::error title=Protokoll::$msg"
+          fi
