@@ -9,7 +9,8 @@
 // Das Skript ist idempotent (mehrfach ausführbar) und ergänzt:
 //   Android: Internet-, Kontakte- und Benachrichtigungs-Berechtigung, http zum Backend (Entwicklung),
 //            Core Library Desugaring für flutter_local_notifications
-//   iOS:     Beschreibung für den Kontakte-Zugriff, lokale http-Verbindungen
+//   iOS:     Beschreibung für den Kontakte-Zugriff, lokale http-Verbindungen,
+//            klassischer App-Start ohne UIScene (sonst stürzt flutter_contacts 1.x beim Start ab)
 
 import 'dart:io';
 
@@ -18,6 +19,7 @@ void main() {
   changed += _androidManifest();
   changed += _androidGradle();
   changed += _iosInfoPlist();
+  changed += _iosClassicLifecycle();
   changed += _webNames();
   stdout.writeln(changed == 0 ? 'Alles bereits eingerichtet.' : '$changed Datei(en) angepasst.');
 }
@@ -150,6 +152,59 @@ int _webNames() {
     if (n != s) {
       index.writeAsStringSync(n);
       changed++;
+    }
+  }
+  return changed;
+}
+
+/// Neue Flutter-Versionen (ab 3.38) erzeugen iOS-Projekte mit UIScene. Dann gibt es beim
+/// Registrieren der Plugins noch kein Fenster, und flutter_contacts 1.x stürzt ab
+/// ("Unexpectedly found nil" in SwiftFlutterContactsPlugin.swift). Darum: klassischer Start.
+int _iosClassicLifecycle() {
+  var changed = 0;
+  final delegate = File('ios/Runner/AppDelegate.swift');
+  if (delegate.existsSync() &&
+      !delegate.readAsStringSync().contains('GeneratedPluginRegistrant.register(with: self)')) {
+    delegate.writeAsStringSync('''import Flutter
+import UIKit
+
+@main
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+    GeneratedPluginRegistrant.register(with: self)
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+}
+''');
+    stdout.writeln('Angepasst: ${delegate.path}');
+    changed++;
+  }
+  final plist = File('ios/Runner/Info.plist');
+  if (plist.existsSync()) {
+    final s = plist.readAsStringSync();
+    final key = s.indexOf('<key>UIApplicationSceneManifest</key>');
+    if (key >= 0) {
+      // zugehöriges <dict> ... </dict> inklusive verschachtelter dicts finden
+      final start = s.indexOf('<dict>', key);
+      var depth = 0;
+      var end = -1;
+      final tag = RegExp(r'<dict>|</dict>|<dict/>');
+      for (final m in tag.allMatches(s, start)) {
+        if (m[0] == '<dict>') depth++;
+        if (m[0] == '</dict>') depth--;
+        if (depth == 0) {
+          end = m.end;
+          break;
+        }
+      }
+      if (end > 0) {
+        plist.writeAsStringSync(s.substring(0, key) + s.substring(end).replaceFirst(RegExp(r'^\s*\n'), '\n'));
+        stdout.writeln('Angepasst: ${plist.path} (UIScene entfernt)');
+        changed++;
+      }
     }
   }
   return changed;
