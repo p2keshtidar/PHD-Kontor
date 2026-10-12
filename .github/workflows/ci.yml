@@ -36,7 +36,7 @@ jobs:
         run: |
           if [ -f /tmp/ci.log ]; then
             # nur relevante Zeilen, in Stücken zu ca. 3.500 Zeichen (Grenze einer Annotation)
-            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by" \
+            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by|requires|dependency|> " \
               | tail -c 30000 > /tmp/ci-short.log || true
             split -C 3500 /tmp/ci-short.log /tmp/ci-part-
             for f in /tmp/ci-part-*; do
@@ -85,7 +85,7 @@ jobs:
         run: |
           if [ -f /tmp/ci.log ]; then
             # nur relevante Zeilen, in Stücken zu ca. 3.500 Zeichen (Grenze einer Annotation)
-            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by" \
+            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by|requires|dependency|> " \
               | tail -c 30000 > /tmp/ci-short.log || true
             split -C 3500 /tmp/ci-short.log /tmp/ci-part-
             for f in /tmp/ci-part-*; do
@@ -131,7 +131,7 @@ jobs:
         run: |
           if [ -f /tmp/ci.log ]; then
             # nur relevante Zeilen, in Stücken zu ca. 3.500 Zeichen (Grenze einer Annotation)
-            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by" \
+            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by|requires|dependency|> " \
               | tail -c 30000 > /tmp/ci-short.log || true
             split -C 3500 /tmp/ci-short.log /tmp/ci-part-
             for f in /tmp/ci-part-*; do
@@ -172,7 +172,7 @@ jobs:
         run: |
           if [ -f /tmp/ci.log ]; then
             # nur relevante Zeilen, in Stücken zu ca. 3.500 Zeichen (Grenze einer Annotation)
-            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by" \
+            grep -v "(created)" /tmp/ci.log | grep -iE "error|warning|fail|exception|expected|actual|•|\.dart:[0-9]+|what went wrong|caused by|requires|dependency|> " \
               | tail -c 30000 > /tmp/ci-short.log || true
             split -C 3500 /tmp/ci-short.log /tmp/ci-part-
             for f in /tmp/ci-part-*; do

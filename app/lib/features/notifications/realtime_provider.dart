@@ -11,6 +11,7 @@ import '../card/card_repository.dart';
 import '../insights/insights_repository.dart';
 import '../loans/loans_repository.dart';
 import '../savings/plans_repository.dart';
+import 'background_check.dart';
 import 'local_notifications.dart';
 import 'notifications_repository.dart';
 
@@ -32,6 +33,8 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
       ref.invalidate(netWorthProvider);
       ref.invalidate(monthsProvider);
 
+      BackgroundCheck.markShown(n.id); // /K070/: im Hintergrund nicht noch einmal melden
+
       final inForeground =
           WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
       if (inForeground) {
@@ -45,6 +48,7 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
     },
   );
   LocalNotifications.init().whenComplete(service.start);
+  BackgroundCheck.start(); // /K070/ Android: auch bei geschlossener App nach Meldungen schauen
   ref.onDispose(service.stop);
   return service;
 });

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/api_client.dart';
+import '../notifications/background_check.dart';
 import 'app_user.dart';
 import 'auth_repository.dart';
 
@@ -54,6 +55,7 @@ class AuthController extends AsyncNotifier<AppUser?> {
   }
 
   Future<void> logout() async {
+    await BackgroundCheck.stop(); // /K070/ keine Hintergrundabfragen mehr
     await _repo.logout();
     state = const AsyncData(null);
   }

@@ -24,6 +24,8 @@ dependencies:
   qr_flutter: ^4.1.0
   # Datei auswählen für den CSV-Import (/K040/), offizielles Paket des Flutter-Teams
   file_selector: ^1.0.3
+  # Benachrichtigungen bei geschlossener App: Hintergrund-Abfrage auf Android (/K070/)
+  workmanager: ^0.10.10
 
 dev_dependencies:
   flutter_test:

@@ -11,7 +11,8 @@ class LocalNotifications {
       (defaultTargetPlatform == TargetPlatform.android ||
           defaultTargetPlatform == TargetPlatform.iOS);
 
-  static Future<void> init() async {
+  /// [requestPermission]: im Hintergrund (ohne sichtbare App) nicht nachfragen.
+  static Future<void> init({bool requestPermission = true}) async {
     if (!isSupported || _ready) return;
     try {
       const settings = InitializationSettings(
@@ -20,9 +21,11 @@ class LocalNotifications {
       );
       await _plugin.initialize(settings);
       // Android 13+: Erlaubnis für Benachrichtigungen erfragen
-      await _plugin
+      if (requestPermission) {
+        await _plugin
           .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-          ?.requestNotificationsPermission();
+            ?.requestNotificationsPermission();
+      }
       _ready = true;
     } catch (e) {
       debugPrint('Lokale Benachrichtigungen nicht verfügbar: $e');
