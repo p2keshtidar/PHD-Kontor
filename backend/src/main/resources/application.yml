@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: girokonto
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/girokonto}
+    username: ${DB_USER:girokonto}
+    password: ${DB_PASSWORD:girokonto}
+  jpa:
+    # Das Schema wird ausschließlich über Flyway-Migrationen (db/migration) verwaltet.
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+
+server:
+  port: ${PORT:8080}
+
+app:
+  jwt:
+    # Nur für die Entwicklung! Im Betrieb über die Umgebungsvariable JWT_SECRET setzen (Base64, mind. 32 Byte).
+    secret: ${JWT_SECRET:1ne2R3UORTd0dfO73zFIRmS24V7dyK6l18u2fM8IyCPSbV4eztOqvRPT69Yo7u9z}
+    access-token-minutes: 15
+    refresh-token-days: 7
+  bank:
+    # Fiktive Bankleitzahl (beginnt mit 0, gehört daher garantiert keiner echten Bank). Offener Punkt O4.
+    blz: "00010001"
+    name: "Projektbank"
+  start-balance-cents: 100000
+  login:
+    max-failed-attempts: 5
+    lock-minutes: 5
+  transfer:
+    # Tageslimit für Überweisungen (/F230/): 5.000 €
+    daily-limit-cents: 500000
+    max-amount-cents: 500000
+  card:
+    # Schlüssel für die Verschlüsselung der Kartennummern (Base64, 32 Byte). Im Betrieb über CARD_KEY setzen.
+    encryption-key: ${CARD_KEY:q3Jm0QbN8y4k9tXc2Vh7LpZr5Wd1Fs6Ge0Ua3Ti8Ko4=}
+    bin: "999999"
+    default-daily-limit-cents: 100000
+    max-daily-limit-cents: 200000
+  subaccounts:
+    max-per-user: 10
+  admin:
+    # Wird beim ersten Start angelegt; darf die Simulationszeit vorspulen (/F950/)
+    email: ${ADMIN_EMAIL:admin@projektbank.de}
+    password: ${ADMIN_PASSWORD:admin12345}
+  simulation:
+    zone: Europe/Berlin
+  cors:
+    allowed-origin-patterns:
+      - "http://localhost:*"
+      - "http://127.0.0.1:*"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

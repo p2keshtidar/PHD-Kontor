@@ -1,0 +1,107 @@
+# Prüft bei jedem Push: Backend-Tests, App-Tests und die Builds für alle drei Plattformen (/NF070/).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------- Backend
+  backend:
+    name: Backend (Tests mit PostgreSQL)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - run: chmod +x gradlew
+      - run: ./gradlew test --no-daemon
+      - name: Testbericht hochladen
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-testbericht
+          path: backend/build/reports/tests/test
+          if-no-files-found: ignore
+
+  # ---------------------------------------------------------------- App: Analyse + Tests + Web
+  app:
+    name: App (Analyse, Tests, Web-Build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter --version
+      - run: flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app
+      - run: flutter pub get
+      - run: dart run tool/setup_platforms.dart
+      - run: flutter analyze --no-fatal-infos
+      - run: flutter test
+      - run: flutter build web --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-build
+          path: app/build/web
+
+  # ---------------------------------------------------------------- Android
+  android:
+    name: Android (APK)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app
+      - run: flutter pub get
+      - run: dart run tool/setup_platforms.dart
+      # Für den Android-Emulator zeigt 10.0.2.2 auf den eigenen PC
+      - run: flutter build apk --debug --dart-define=API_URL=http://10.0.2.2:8080
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: app/build/app/outputs/flutter-apk/app-debug.apk
+
+  # ---------------------------------------------------------------- iOS
+  ios:
+    name: iOS (Build ohne Signatur)
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app
+      - run: flutter pub get
+      - run: dart run tool/setup_platforms.dart
+      - run: flutter build ios --simulator --debug

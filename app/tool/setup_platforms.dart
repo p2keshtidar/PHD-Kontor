@@ -1,0 +1,121 @@
+// Richtet die Plattform-Ordner (android/, ios/, web/) für dieses Projekt ein.
+//
+// Ausführen im Ordner app/, NACH "flutter create" und "flutter pub get":
+//
+//   flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app
+//   flutter pub get
+//   dart run tool/setup_platforms.dart
+//
+// Das Skript ist idempotent (mehrfach ausführbar) und ergänzt:
+//   Android: Internet-, Kontakte- und Benachrichtigungs-Berechtigung, http zum Backend (Entwicklung),
+//            Core Library Desugaring für flutter_local_notifications
+//   iOS:     Beschreibung für den Kontakte-Zugriff, lokale http-Verbindungen
+
+import 'dart:io';
+
+void main() {
+  var changed = 0;
+  changed += _androidManifest();
+  changed += _androidGradle();
+  changed += _iosInfoPlist();
+  stdout.writeln(changed == 0 ? 'Alles bereits eingerichtet.' : '$changed Datei(en) angepasst.');
+}
+
+int _androidManifest() {
+  final file = File('android/app/src/main/AndroidManifest.xml');
+  if (!file.existsSync()) {
+    stdout.writeln('Übersprungen: ${file.path} fehlt (erst "flutter create" ausführen).');
+    return 0;
+  }
+  var s = file.readAsStringSync();
+  final original = s;
+
+  const permissions = [
+    'android.permission.INTERNET',
+    'android.permission.READ_CONTACTS',
+    'android.permission.POST_NOTIFICATIONS',
+  ];
+  for (final p in permissions) {
+    if (!s.contains('"$p"')) {
+      s = s.replaceFirst('<application', '<uses-permission android:name="$p"/>\n    <application');
+    }
+  }
+  if (!s.contains('usesCleartextTraffic')) {
+    s = s.replaceFirst('<application', '<application\n        android:usesCleartextTraffic="true"');
+  }
+  if (s != original) {
+    file.writeAsStringSync(s);
+    stdout.writeln('Angepasst: ${file.path}');
+    return 1;
+  }
+  return 0;
+}
+
+int _androidGradle() {
+  final kts = File('android/app/build.gradle.kts');
+  final groovy = File('android/app/build.gradle');
+  final file = kts.existsSync() ? kts : groovy;
+  if (!file.existsSync()) {
+    stdout.writeln('Übersprungen: android/app/build.gradle(.kts) fehlt.');
+    return 0;
+  }
+  final isKts = file.path.endsWith('.kts');
+  var s = file.readAsStringSync();
+  final original = s;
+
+  final enableLine = isKts ? 'isCoreLibraryDesugaringEnabled = true' : 'coreLibraryDesugaringEnabled true';
+  if (!s.contains('oreLibraryDesugaringEnabled')) {
+    if (s.contains('compileOptions {')) {
+      s = s.replaceFirst('compileOptions {', 'compileOptions {\n        $enableLine');
+    } else {
+      s = s.replaceFirst(RegExp(r'android\s*\{'), 'android {\n    compileOptions {\n        $enableLine\n    }');
+    }
+  }
+
+  final depLine = isKts
+      ? 'coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")'
+      : "coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'";
+  if (!s.contains('desugar_jdk_libs')) {
+    // eigener dependencies-Block am Ende der Datei (Gradle erlaubt mehrere)
+    s = '${s.trimRight()}\n\ndependencies {\n    $depLine\n}\n';
+  }
+
+  if (s != original) {
+    file.writeAsStringSync(s);
+    stdout.writeln('Angepasst: ${file.path}');
+    return 1;
+  }
+  return 0;
+}
+
+int _iosInfoPlist() {
+  final file = File('ios/Runner/Info.plist');
+  if (!file.existsSync()) {
+    stdout.writeln('Übersprungen: ${file.path} fehlt.');
+    return 0;
+  }
+  var s = file.readAsStringSync();
+  final original = s;
+  final additions = StringBuffer();
+  if (!s.contains('NSContactsUsageDescription')) {
+    additions.writeln('\t<key>NSContactsUsageDescription</key>');
+    additions.writeln('\t<string>Damit du Freunde findest, die diese App nutzen, und ihnen Geld senden kannst.</string>');
+  }
+  if (!s.contains('NSAppTransportSecurity')) {
+    additions.writeln('\t<key>NSAppTransportSecurity</key>');
+    additions.writeln('\t<dict>');
+    additions.writeln('\t\t<key>NSAllowsLocalNetworking</key>');
+    additions.writeln('\t\t<true/>');
+    additions.writeln('\t</dict>');
+  }
+  if (additions.isNotEmpty) {
+    final idx = s.lastIndexOf('</dict>');
+    s = s.substring(0, idx) + additions.toString() + s.substring(idx);
+  }
+  if (s != original) {
+    file.writeAsStringSync(s);
+    stdout.writeln('Angepasst: ${file.path}');
+    return 1;
+  }
+  return 0;
+}
