@@ -47,6 +47,20 @@ class LoansRepository {
     final res = await _api.dio.get<Map<String, dynamic>>('/api/loans/$id');
     return LoanDetail.fromJson(res.data!);
   }
+
+  /// /K020/: Vorschau einer Sondertilgung
+  Future<ExtraPreview> previewExtra(int id, int amountCents) async {
+    final res = await _api.dio.post<Map<String, dynamic>>('/api/loans/$id/extra-payment/preview',
+        data: {'amountCents': amountCents});
+    return ExtraPreview.fromJson(res.data!);
+  }
+
+  /// /K020/: Sondertilgung buchen
+  Future<LoanDetail> extraPayment(int id, int amountCents) async {
+    final res = await _api.dio.post<Map<String, dynamic>>('/api/loans/$id/extra-payment',
+        data: {'amountCents': amountCents});
+    return LoanDetail.fromJson(res.data!);
+  }
 }
 
 final loansRepositoryProvider = Provider<LoansRepository>((ref) => LoansRepository(ref.watch(apiClientProvider)));

@@ -65,6 +65,13 @@ public class SavingsPlan {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
+    /** /K010/: Erinnerung so viele Tage vor der Abbuchung (0 = aus) */
+    @Column(name = "reminder_days", nullable = false)
+    private int reminderDays = 3;
+
+    @Column(name = "last_reminded_month")
+    private String lastRemindedMonth;
+
     protected SavingsPlan() {
     }
 
@@ -109,6 +116,10 @@ public class SavingsPlan {
     public String getLastExecutedMonth() { return lastExecutedMonth; }
     public void setLastExecutedMonth(String lastExecutedMonth) { this.lastExecutedMonth = lastExecutedMonth; }
     public Instant getCreatedAt() { return createdAt; }
+    public int getReminderDays() { return reminderDays; }
+    public void setReminderDays(int reminderDays) { this.reminderDays = reminderDays; }
+    public String getLastRemindedMonth() { return lastRemindedMonth; }
+    public void setLastRemindedMonth(String lastRemindedMonth) { this.lastRemindedMonth = lastRemindedMonth; }
 
     public boolean isOpen() {
         return status == PlanStatus.ACTIVE || status == PlanStatus.PAUSED;

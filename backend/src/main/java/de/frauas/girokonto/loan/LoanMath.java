@@ -5,6 +5,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /** Annuitätenrechnung (Pflichtenheft Kap. 8.5). Beträge in Cent, Zinssatz in Prozent p. a. */
 public final class LoanMath {
@@ -42,18 +43,30 @@ public final class LoanMath {
 
     /** Vollständiger Tilgungsplan; die letzte Rate wird so angepasst, dass die Restschuld genau 0 ist. */
     public static List<Row> schedule(long principalCents, BigDecimal ratePercent, int months) {
-        long rate = annuity(principalCents, ratePercent, months);
-        List<Row> rows = new ArrayList<>(months);
-        long remaining = principalCents;
-        for (int m = 1; m <= months && remaining > 0; m++) {
+        return schedule(principalCents, ratePercent, annuity(principalCents, ratePercent, months), months, Map.of());
+    }
+
+    /**
+     * Tilgungsplan mit fester Monatsrate und Sondertilgungen (/K020/).
+     *
+     * @param extras Sondertilgung je Monat: Schlüssel = gezahlt nach Rate Nr. X (0 = vor der ersten Rate).
+     *               Sie senkt die Restschuld sofort; die Rate bleibt gleich, darum endet der Kredit früher.
+     *               {@link Row#remainingCents()} ist die Restschuld nach Rate und Sondertilgung.
+     */
+    public static List<Row> schedule(long principalCents, BigDecimal ratePercent, long rateCents, int maxMonths,
+                                     Map<Integer, Long> extras) {
+        List<Row> rows = new ArrayList<>(maxMonths);
+        long remaining = Math.max(0, principalCents - extras.getOrDefault(0, 0L));
+        for (int m = 1; m <= maxMonths && remaining > 0; m++) {
             long interest = interest(remaining, ratePercent);
-            long principal = rate - interest;
-            long thisRate = rate;
-            if (m == months || principal >= remaining) {
+            long principal = rateCents - interest;
+            long thisRate = rateCents;
+            if (m == maxMonths || principal >= remaining) {
                 principal = remaining;
                 thisRate = interest + remaining;
             }
             remaining -= principal;
+            remaining -= Math.min(remaining, extras.getOrDefault(m, 0L));
             rows.add(new Row(m, thisRate, interest, principal, remaining));
         }
         return rows;

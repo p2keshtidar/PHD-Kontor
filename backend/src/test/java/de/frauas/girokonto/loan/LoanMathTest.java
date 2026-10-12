@@ -41,4 +41,37 @@ class LoanMathTest {
         assertThat(LoanMath.annuity(max, rate, 60)).isLessThanOrEqualTo(38_286);
         assertThat(max).isBetween(1_999_000L, 2_000_200L);
     }
+
+    @Test
+    void ohneSondertilgungGleicherPlanWieVorher() {
+        BigDecimal rate = new BigDecimal("5.59");
+        List<LoanMath.Row> a = LoanMath.schedule(2_000_000, rate, 60);
+        List<LoanMath.Row> b = LoanMath.schedule(2_000_000, rate, 38_286, 60, java.util.Map.of());
+        assertThat(b).isEqualTo(a);
+    }
+
+    @Test
+    void K020_sondertilgungVerkuerztLaufzeitUndSpartZinsen() {
+        BigDecimal rate = new BigDecimal("5.59");
+        List<LoanMath.Row> ohne = LoanMath.schedule(2_000_000, rate, 60);
+        List<LoanMath.Row> mit = LoanMath.schedule(2_000_000, rate, 38_286, 60, java.util.Map.of(12, 500_000L));
+        assertThat(mit.size()).isLessThan(ohne.size());
+        assertThat(mit.get(mit.size() - 1).remainingCents()).isZero();
+        // Tilgung aus Raten + Sondertilgung = Kreditbetrag
+        assertThat(mit.stream().mapToLong(LoanMath.Row::principalCents).sum() + 500_000).isEqualTo(2_000_000);
+        long zinsenOhne = ohne.stream().mapToLong(LoanMath.Row::interestCents).sum();
+        long zinsenMit = mit.stream().mapToLong(LoanMath.Row::interestCents).sum();
+        assertThat(zinsenMit).isLessThan(zinsenOhne);
+        // bis einschließlich Monat 12 identisch, Restschuld danach um 5.000 € niedriger
+        assertThat(mit.subList(0, 11)).isEqualTo(ohne.subList(0, 11));
+        assertThat(mit.get(11).remainingCents()).isEqualTo(ohne.get(11).remainingCents() - 500_000);
+    }
+
+    @Test
+    void K020_sondertilgungVorDerErstenRate() {
+        BigDecimal rate = new BigDecimal("5.59");
+        List<LoanMath.Row> mit = LoanMath.schedule(2_000_000, rate, 38_286, 60, java.util.Map.of(0, 1_000_000L));
+        assertThat(mit.get(0).interestCents()).isEqualTo(LoanMath.interest(1_000_000, rate));
+        assertThat(mit.size()).isLessThan(30);
+    }
 }

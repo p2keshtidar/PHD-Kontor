@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
 import '../../core/money.dart';
+import 'extra_payment_screen.dart';
 import 'loan_models.dart';
 import 'loans_repository.dart';
 import 'schedule_table.dart';
@@ -45,7 +46,7 @@ class LoanDetailScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(6),
       ),
       const SizedBox(height: 4),
-      Text('${l.paidInstallments} von ${l.termMonths} Raten bezahlt · ${l.progressPercent.toStringAsFixed(0)} % getilgt'),
+      Text('${l.paidInstallments} von ${l.totalInstallments} Raten bezahlt · ${l.progressPercent.toStringAsFixed(0)} % getilgt'),
       const SizedBox(height: 12),
       Card(
         child: Column(children: [
@@ -54,9 +55,24 @@ class LoanDetailScreen extends ConsumerWidget {
           _row('Monatsrate', formatCents(l.monthlyRateCents)),
           if (l.nextDueDate != null) _row('Nächste Rate', formatDate(l.nextDueDate!)),
           _row('Beginn', formatDate(l.startDate)),
+          if (l.isActive && l.expectedEndDate != null)
+            _row('Voraussichtlich abbezahlt', formatMonthYear(l.expectedEndDate!)),
           _row('Zinskosten gesamt', formatCents(d.totalInterestCents)),
+          if (l.extraPaidCents > 0) _row('Sondertilgungen', formatCents(l.extraPaidCents)),
+          if (d.interestSavedCents > 0) _row('Gesparte Zinsen', formatCents(d.interestSavedCents)),
         ]),
       ),
+      if (l.isActive) ...[
+        const SizedBox(height: 8),
+        FilledButton.tonalIcon(
+          key: const Key('loan_extra_payment'),
+          onPressed: () => Navigator.of(context).push(
+            MaterialPageRoute<void>(builder: (_) => ExtraPaymentScreen(loan: l)),
+          ),
+          icon: const Icon(Icons.bolt),
+          label: const Text('Sondertilgung'),
+        ),
+      ],
       const SizedBox(height: 12),
       Text('Tilgungsplan', style: theme.textTheme.titleMedium),
       ScheduleTable(rows: d.schedule),

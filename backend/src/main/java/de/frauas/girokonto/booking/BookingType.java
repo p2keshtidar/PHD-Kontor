@@ -20,5 +20,7 @@ public enum BookingType {
     /** Auszahlung eines Kredits (Phase 4) */
     LOAN_PAYOUT,
     /** Monatliche Kreditrate (Phase 4) */
-    LOAN_RATE
+    LOAN_RATE,
+    /** Sondertilgung eines Kredits (/K020/) */
+    LOAN_EXTRA
 }

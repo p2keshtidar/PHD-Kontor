@@ -185,6 +185,9 @@ public class SavingsPlanService implements DailyJob {
         }
         SavingsPlan plan = plans.save(new SavingsPlan(userId, accountId, r.type(), r.name().trim(), r.icon(),
                 r.targetCents(), r.targetDate(), r.monthlyRateCents(), r.executionDay(), r.riskLevel(), now));
+        if (r.reminderDays() != null) {
+            plan.setReminderDays(r.reminderDays());
+        }
         return detail(userId, plan.getId());
     }
 
@@ -217,6 +220,9 @@ public class SavingsPlanService implements DailyJob {
         }
         if (r.paused() != null) {
             p.setStatus(r.paused() ? PlanStatus.PAUSED : PlanStatus.ACTIVE);
+        }
+        if (r.reminderDays() != null) {
+            p.setReminderDays(r.reminderDays());
         }
         validateNumbers(p.getType(), p.getTargetCents(), p.getTargetDate(), p.getMonthlyRateCents(), false);
         return detail(userId, planId);
@@ -270,6 +276,39 @@ public class SavingsPlanService implements DailyJob {
             Long id = p.getId();
             tx.executeWithoutResult(s -> execute(id, date));
         }
+        for (SavingsPlan p : plans.findByStatusAndReminderDaysGreaterThan(PlanStatus.ACTIVE, 0)) {
+            Long id = p.getId();
+            tx.executeWithoutResult(s -> remind(id, date));
+        }
+    }
+
+    /**
+     * /K010/: Erinnerung {@code reminderDays} Tage vor der Abbuchung, höchstens einmal pro Monat.
+     * Reicht das Guthaben heute nicht für die Rate, enthält die Meldung eine Warnung.
+     */
+    void remind(Long planId, LocalDate today) {
+        SavingsPlan p = plans.findById(planId).orElseThrow();
+        if (p.getStatus() != PlanStatus.ACTIVE || p.getReminderDays() <= 0) {
+            return;
+        }
+        LocalDate due = today.plusDays(p.getReminderDays());
+        String ym = YearMonth.from(due).toString();
+        if (due.getDayOfMonth() != p.getExecutionDay() || ym.equals(p.getLastExecutedMonth())
+                || ym.equals(p.getLastRemindedMonth())) {
+            return;
+        }
+        p.setLastRemindedMonth(ym);
+        long rate = p.getMonthlyRateCents();
+        long balance = bookingService.balanceOf(accountService.mainAccount(p.getUserId()).getId());
+        String what = p.getType() == PlanType.INVEST ? "Investrate" : "Sparrate";
+        String days = p.getReminderDays() == 1 ? "morgen" : "in " + p.getReminderDays() + " Tagen";
+        String body = "Am " + due.format(java.time.format.DateTimeFormatter.ofPattern("dd.MM.")) + " werden "
+                + Money.format(rate) + " für „" + p.getName() + "“ abgebucht.";
+        if (balance < rate) {
+            body += " Achtung: Auf dem Girokonto sind nur " + Money.format(balance)
+                    + " – bitte rechtzeitig Geld einzahlen, sonst wird die Rate ausgesetzt.";
+        }
+        notifications.send(p.getUserId(), NotificationType.SAVING_RATE, what + " " + days, body, null);
     }
 
     void execute(Long planId, LocalDate date) {
@@ -452,7 +491,7 @@ public class SavingsPlanService implements DailyJob {
         }
         return new Summary(p.getId(), p.getType(), p.getName(), p.getIcon(), p.getStatus(), p.getRiskLevel(),
                 p.getTargetCents(), p.getTargetDate(), p.getMonthlyRateCents(), p.getExecutionDay(), value,
-                p.getDepositedCents(), progress, projected, onTrack, next, p.getAccountId());
+                p.getDepositedCents(), progress, projected, onTrack, next, p.getAccountId(), p.getReminderDays());
     }
 
     // ------------------------------------------------------------------ Hilfsfunktionen

@@ -77,6 +77,29 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
         'Gilt ab der nächsten Rate');
   }
 
+  /// /K010/: Erinnerung vor der Abbuchung einstellen
+  Future<void> _changeReminder(PlanSummary p) async {
+    final days = await showDialog<int>(
+      context: context,
+      builder: (ctx) => SimpleDialog(
+        title: const Text('Erinnerung an die Rate'),
+        children: [
+          for (final d in reminderOptions.entries)
+            SimpleDialogOption(
+              onPressed: () => Navigator.of(ctx).pop(d.key),
+              child: ListTile(
+                title: Text(d.value),
+                trailing: d.key == p.reminderDays ? const Icon(Icons.check) : null,
+              ),
+            ),
+        ],
+      ),
+    );
+    if (days == null || days == p.reminderDays) return;
+    await _run(() => ref.read(plansRepositoryProvider).update(p.id, {'reminderDays': days}),
+        days == 0 ? 'Erinnerung ausgeschaltet' : 'Erinnerung: ${reminderOptions[days]}');
+  }
+
   Future<void> _togglePause(PlanSummary p) =>
       _run(() => ref.read(plansRepositoryProvider).update(p.id, {'paused': !p.isPaused}),
           p.isPaused ? 'Plan fortgesetzt' : 'Plan pausiert');
@@ -247,6 +270,15 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
               leading: const Icon(Icons.tune),
               title: const Text('Risikostufe ändern'),
               onTap: _busy ? null : () => _changeRisk(p),
+            ),
+            ListTile(
+              key: const Key('plan_reminder'),
+              leading: Icon(p.reminderDays > 0
+                  ? Icons.notifications_active_outlined
+                  : Icons.notifications_off_outlined),
+              title: const Text('Erinnerung vor der Abbuchung'),
+              subtitle: Text(reminderOptions[p.reminderDays] ?? '${p.reminderDays} Tage vorher'),
+              onTap: _busy ? null : () => _changeReminder(p),
             ),
             ListTile(
               leading: Icon(p.isPaused ? Icons.play_arrow : Icons.pause),

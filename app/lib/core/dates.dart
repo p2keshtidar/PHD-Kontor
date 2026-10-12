@@ -22,3 +22,11 @@ String dayHeader(DateTime d, DateTime now) {
   if (diff == 1) return 'Gestern';
   return formatDate(l);
 }
+
+const _monthNames = [
+  'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+  'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember',
+];
+
+/// "März 2030"
+String formatMonthYear(DateTime d) => '${_monthNames[d.month - 1]} ${d.year}';

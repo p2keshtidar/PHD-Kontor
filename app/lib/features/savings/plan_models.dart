@@ -79,6 +79,7 @@ class PlanSummary {
     this.projectedDate,
     this.onTrack,
     this.nextExecutionDate,
+    this.reminderDays = 3,
   });
 
   final int id;
@@ -102,6 +103,9 @@ class PlanSummary {
   final bool? onTrack;
   final DateTime? nextExecutionDate;
 
+  /// /K010/: Erinnerung so viele Tage vor der Abbuchung (0 = aus)
+  final int reminderDays;
+
   bool get isInvest => type == 'INVEST';
   bool get isOpen => status == 'ACTIVE' || status == 'PAUSED';
   bool get isPaused => status == 'PAUSED';
@@ -123,6 +127,7 @@ class PlanSummary {
         projectedDate: _date(j['projectedDate']),
         onTrack: j['onTrack'] as bool?,
         nextExecutionDate: _date(j['nextExecutionDate']),
+        reminderDays: (j['reminderDays'] as num?)?.toInt() ?? 3,
       );
 }
 
@@ -214,3 +219,11 @@ class PlanDetail {
         tips: (j['tips'] as List<dynamic>).map((e) => SavingTip.fromJson(e as Map<String, dynamic>)).toList(),
       );
 }
+
+/// /K010/: Auswahl für die Erinnerung (Tage vor der Abbuchung)
+const reminderOptions = <int, String>{
+  0: 'Aus',
+  1: '1 Tag vorher',
+  3: '3 Tage vorher',
+  7: '7 Tage vorher',
+};

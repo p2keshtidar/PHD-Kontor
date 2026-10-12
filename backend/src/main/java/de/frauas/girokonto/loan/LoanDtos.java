@@ -57,7 +57,7 @@ public final class LoanDtos {
             List<Offer> offers) {}
 
     public record ScheduleRow(int month, LocalDate dueDate, long rateCents, long interestCents,
-                              long principalCents, long remainingCents, boolean paid) {}
+                              long principalCents, long remainingCents, boolean paid, long extraCents) {}
 
     public record LoanDto(
             Long id,
@@ -76,7 +76,29 @@ public final class LoanDtos {
             long remainingCents,
             double progressPercent,
             Loan.Status status,
-            Long accountId) {}
+            Long accountId,
+            int remainingInstallments,
+            LocalDate expectedEndDate,
+            long extraPaidCents) {}
 
-    public record LoanDetail(LoanDto loan, long totalInterestCents, List<ScheduleRow> schedule) {}
+    public record LoanDetail(LoanDto loan, long totalInterestCents, long interestSavedCents, List<ScheduleRow> schedule,
+                             List<ExtraPaymentDto> extraPayments) {}
+
+    /** /K020/ */
+    public record ExtraPaymentRequest(
+            @NotNull(message = "Betrag fehlt.") Long amountCents) {}
+
+    public record ExtraPaymentDto(Long id, long amountCents, LocalDate paidOn, int afterInstallment) {}
+
+    /** Vorschau einer Sondertilgung: was ändert sich? */
+    public record ExtraPreview(
+            long amountCents,
+            long remainingBeforeCents,
+            long remainingAfterCents,
+            int installmentsBefore,
+            int installmentsAfter,
+            LocalDate endBefore,
+            LocalDate endAfter,
+            long interestSavedCents,
+            long availableCents) {}
 }

@@ -41,6 +41,8 @@ public class CategoryService {
                 return Category.KREDIT_AUSZAHLUNG;
             case LOAN_RATE:
                 return Category.KREDIT;
+            case LOAN_EXTRA:
+                return Category.SONDERTILGUNG;
             default:
                 break;
         }

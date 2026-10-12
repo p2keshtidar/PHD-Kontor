@@ -22,7 +22,9 @@ public final class PlanDtos {
             Long targetCents,
             LocalDate targetDate,
             Long monthlyRateCents,
-            @NotNull(message = "Risikostufe fehlt.") RiskLevel riskLevel) {}
+            @NotNull(message = "Risikostufe fehlt.") RiskLevel riskLevel,
+            @Min(value = 0, message = "Erinnerung 0 bis 10 Tage.") @Max(value = 10, message = "Erinnerung 0 bis 10 Tage.")
+            Integer reminderDays) {}
 
     public record CheckResult(
             Long requiredRateCents,
@@ -45,7 +47,9 @@ public final class PlanDtos {
             @NotNull(message = "Monatsrate fehlt.") Long monthlyRateCents,
             @NotNull @Min(value = 1, message = "Ausführungstag 1 bis 28.") @Max(value = 28, message = "Ausführungstag 1 bis 28.")
             Integer executionDay,
-            @NotNull(message = "Risikostufe fehlt.") RiskLevel riskLevel) {}
+            @NotNull(message = "Risikostufe fehlt.") RiskLevel riskLevel,
+            @Min(value = 0, message = "Erinnerung 0 bis 10 Tage.") @Max(value = 10, message = "Erinnerung 0 bis 10 Tage.")
+            Integer reminderDays) {}
 
     public record UpdateRequest(
             @Size(max = 60) String name,
@@ -55,7 +59,9 @@ public final class PlanDtos {
             LocalDate targetDate,
             Long targetCents,
             RiskLevel riskLevel,
-            Boolean paused) {}
+            Boolean paused,
+            @Min(value = 0, message = "Erinnerung 0 bis 10 Tage.") @Max(value = 10, message = "Erinnerung 0 bis 10 Tage.")
+            Integer reminderDays) {}
 
     public record Summary(
             Long id,
@@ -74,7 +80,8 @@ public final class PlanDtos {
             LocalDate projectedDate,
             Boolean onTrack,
             LocalDate nextExecutionDate,
-            Long accountId) {}
+            Long accountId,
+            int reminderDays) {}
 
     public record Position(Fund fund, String label, double units, double price, long valueCents,
                            long investedCents, double weightPercent) {}

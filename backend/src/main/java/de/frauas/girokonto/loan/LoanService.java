@@ -12,6 +12,8 @@ import de.frauas.girokonto.common.ApiException;
 import de.frauas.girokonto.common.Money;
 import de.frauas.girokonto.insights.OverviewDto;
 import de.frauas.girokonto.loan.LoanDtos.Affordability;
+import de.frauas.girokonto.loan.LoanDtos.ExtraPaymentDto;
+import de.frauas.girokonto.loan.LoanDtos.ExtraPreview;
 import de.frauas.girokonto.loan.LoanDtos.LoanDetail;
 import de.frauas.girokonto.loan.LoanDtos.LoanDto;
 import de.frauas.girokonto.loan.LoanDtos.Offer;
@@ -27,7 +29,9 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +48,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 public class LoanService implements DailyJob {
 
     private final LoanRepository loans;
+    private final LoanExtraPaymentRepository extras;
     private final AccountRepository accounts;
     private final AccountService accountService;
     private final BookingService bookingService;
@@ -52,10 +57,11 @@ public class LoanService implements DailyJob {
     private final TransactionTemplate tx;
     private final Clock clock;
 
-    public LoanService(LoanRepository loans, AccountRepository accounts, AccountService accountService,
+    public LoanService(LoanRepository loans, LoanExtraPaymentRepository extras, AccountRepository accounts, AccountService accountService,
                        BookingService bookingService, SavingsPlanService savings, NotificationService notifications,
                        TransactionTemplate tx, Clock clock) {
         this.loans = loans;
+        this.extras = extras;
         this.accounts = accounts;
         this.accountService = accountService;
         this.bookingService = bookingService;
@@ -121,7 +127,7 @@ public class LoanService implements DailyJob {
         }
         return LoanMath.schedule(principal, rate, term).stream()
                 .map(r -> new ScheduleRow(r.month(), start.plusMonths(r.month()), r.rateCents(), r.interestCents(),
-                        r.principalCents(), r.remainingCents(), r.month() <= paid))
+                        r.principalCents(), r.remainingCents(), r.month() <= paid, 0))
                 .toList();
     }
 
@@ -189,7 +195,7 @@ public class LoanService implements DailyJob {
             lines.add(new BookingService.Line(accountService.systemAccount("ZINSEN").getId(), interest));
         }
         Booking b = bookingService.post(BookingType.LOAN_RATE,
-                "Kreditrate " + number + "/" + loan.getTermMonths() + " – " + loan.getBankName(),
+                "Kreditrate " + number + "/" + plannedRows(loan, Map.of()).size() + " – " + loan.getBankName(),
                 "loan:" + loan.getId() + ":" + number, loan.getUserId(), lines);
         loan.installmentPaid();
 
@@ -214,12 +220,108 @@ public class LoanService implements DailyJob {
 
     @Transactional(readOnly = true)
     public LoanDetail detail(Long userId, Long loanId) {
-        Loan l = loans.findByIdAndUserId(loanId, userId)
-                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "LOAN_NOT_FOUND", "Kredit nicht gefunden."));
-        List<ScheduleRow> rows = schedule(l.getPrincipalCents(), l.getInterestRate(), l.getTermMonths(),
-                l.getStartDate(), l.getPaidInstallments());
+        Loan l = requireLoan(userId, loanId);
+        List<LoanExtraPayment> paid = extras.findByLoanIdOrderByIdAsc(l.getId());
+        Map<Integer, Long> extraMap = extraMap(paid);
+        List<ScheduleRow> rows = plannedRows(l, Map.of()).stream()
+                .map(r -> new ScheduleRow(r.month(), l.getStartDate().plusMonths(r.month()), r.rateCents(),
+                        r.interestCents(), r.principalCents(), r.remainingCents(), r.month() <= l.getPaidInstallments(),
+                        extraMap.getOrDefault(r.month(), 0L)))
+                .toList();
         long totalInterest = rows.stream().mapToLong(ScheduleRow::interestCents).sum();
-        return new LoanDetail(toDto(l), totalInterest, rows);
+        long withoutExtras = LoanMath.schedule(l.getPrincipalCents(), l.getInterestRate(), l.getTermMonths()).stream()
+                .mapToLong(LoanMath.Row::interestCents).sum();
+        List<ExtraPaymentDto> extraDtos = paid.stream()
+                .map(e -> new ExtraPaymentDto(e.getId(), e.getAmountCents(), e.getPaidOn(), e.getAfterInstallment()))
+                .toList();
+        return new LoanDetail(toDto(l), totalInterest, Math.max(0, withoutExtras - totalInterest), rows, extraDtos);
+    }
+
+    // ------------------------------------------------------------------ Sondertilgung (/K020/)
+
+    /** Was würde eine Sondertilgung bewirken? (ohne zu buchen) */
+    @Transactional(readOnly = true)
+    public ExtraPreview previewExtra(Long userId, Long loanId, long amount) {
+        Loan l = requireActive(userId, loanId);
+        long remaining = -bookingService.balanceOf(l.getAccountId());
+        validateExtra(amount, remaining);
+        List<LoanMath.Row> before = plannedRows(l, Map.of());
+        List<LoanMath.Row> after = plannedRows(l, Map.of(l.getPaidInstallments(), amount));
+        long interestBefore = before.stream().mapToLong(LoanMath.Row::interestCents).sum();
+        long interestAfter = after.stream().mapToLong(LoanMath.Row::interestCents).sum();
+        long available = bookingService.balanceOf(accountService.mainAccount(userId).getId());
+        return new ExtraPreview(amount, remaining, remaining - amount,
+                before.size() - l.getPaidInstallments(), after.size() - l.getPaidInstallments(),
+                l.getStartDate().plusMonths(before.size()), l.getStartDate().plusMonths(after.size()),
+                Math.max(0, interestBefore - interestAfter), available);
+    }
+
+    /** Sondertilgung buchen: Girokonto → Kreditkonto. Rate bleibt, Laufzeit und Zinsen sinken. */
+    @Transactional
+    public LoanDetail extraPayment(Long userId, Long loanId, long amount) {
+        ExtraPreview preview = previewExtra(userId, loanId, amount);
+        Loan loan = requireActive(userId, loanId);
+        Account main = accounts.findByIdForUpdate(accountService.mainAccount(userId).getId()).orElseThrow();
+        if (bookingService.balanceOf(main.getId()) < amount) {
+            throw new ApiException(HttpStatus.UNPROCESSABLE_ENTITY, "INSUFFICIENT_FUNDS",
+                    "Nicht genug Guthaben auf dem Girokonto für " + Money.format(amount) + ".");
+        }
+        Booking b = bookingService.post(BookingType.LOAN_EXTRA, "Sondertilgung – " + loan.getBankName(), null, userId,
+                List.of(new BookingService.Line(main.getId(), -amount),
+                        new BookingService.Line(loan.getAccountId(), amount)));
+        extras.save(new LoanExtraPayment(loan.getId(), b.getId(), amount, loan.getPaidInstallments(),
+                LocalDate.now(clock), Instant.now(clock)));
+        if (preview.remainingAfterCents() == 0) {
+            loan.markPaidOff();
+            accounts.findById(loan.getAccountId()).ifPresent(a -> a.setStatus(AccountStatus.CLOSED));
+            notifications.send(userId, NotificationType.INFO, "Kredit abbezahlt",
+                    "Mit der Sondertilgung von " + Money.format(amount) + " ist der Kredit bei der "
+                            + loan.getBankName() + " vollständig zurückgezahlt.", b.getId());
+        } else {
+            int saved = preview.installmentsBefore() - preview.installmentsAfter();
+            notifications.send(userId, NotificationType.INFO, "Sondertilgung gebucht",
+                    "-" + Money.format(amount) + " an die " + loan.getBankName() + ". Restschuld jetzt "
+                            + Money.format(preview.remainingAfterCents())
+                            + (saved > 0 ? ", " + saved + (saved == 1 ? " Rate" : " Raten") + " weniger" : "")
+                            + ", Zinsersparnis " + Money.format(preview.interestSavedCents()) + ".", b.getId());
+        }
+        return detail(userId, loanId);
+    }
+
+    private static void validateExtra(long amount, long remaining) {
+        if (amount < 100) {
+            throw bad("INVALID_AMOUNT", "Die Sondertilgung muss mindestens 1,00 € betragen.");
+        }
+        if (amount > remaining) {
+            throw bad("INVALID_AMOUNT", "Höchstens die Restschuld von " + Money.format(remaining) + ".");
+        }
+    }
+
+    /** Tilgungsplan mit fester Rate, allen bisherigen Sondertilgungen und optional weiteren. */
+    private List<LoanMath.Row> plannedRows(Loan l, Map<Integer, Long> additional) {
+        Map<Integer, Long> map = new HashMap<>(extraMap(extras.findByLoanIdOrderByIdAsc(l.getId())));
+        additional.forEach((k, v) -> map.merge(k, v, Long::sum));
+        return LoanMath.schedule(l.getPrincipalCents(), l.getInterestRate(), l.getMonthlyRateCents(),
+                l.getTermMonths(), map);
+    }
+
+    private static Map<Integer, Long> extraMap(List<LoanExtraPayment> list) {
+        Map<Integer, Long> map = new HashMap<>();
+        list.forEach(e -> map.merge(e.getAfterInstallment(), e.getAmountCents(), Long::sum));
+        return map;
+    }
+
+    private Loan requireLoan(Long userId, Long loanId) {
+        return loans.findByIdAndUserId(loanId, userId)
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "LOAN_NOT_FOUND", "Kredit nicht gefunden."));
+    }
+
+    private Loan requireActive(Long userId, Long loanId) {
+        Loan l = requireLoan(userId, loanId);
+        if (l.getStatus() != Loan.Status.ACTIVE) {
+            throw new ApiException(HttpStatus.CONFLICT, "LOAN_CLOSED", "Der Kredit ist bereits zurückgezahlt.");
+        }
+        return l;
     }
 
     @Transactional(readOnly = true)
@@ -230,6 +332,7 @@ public class LoanService implements DailyJob {
     }
 
     private LoanDto toDto(Loan l) {
+        List<LoanMath.Row> planned = plannedRows(l, Map.of());
         long remaining = l.getStatus() == Loan.Status.ACTIVE ? -bookingService.balanceOf(l.getAccountId()) : 0;
         double progress = l.getPrincipalCents() == 0 ? 100
                 : Math.round((l.getPrincipalCents() - remaining) * 1000.0 / l.getPrincipalCents()) / 10.0;
@@ -237,7 +340,10 @@ public class LoanService implements DailyJob {
                 l.getPrincipalCents(), l.getEquityCents(), l.getInterestRate(), l.getTermMonths(),
                 l.getMonthlyRateCents(), l.getStartDate(),
                 l.getStatus() == Loan.Status.ACTIVE ? l.getNextDueDate() : null,
-                l.getPaidInstallments(), remaining, progress, l.getStatus(), l.getAccountId());
+                l.getPaidInstallments(), remaining, progress, l.getStatus(), l.getAccountId(),
+                l.getStatus() == Loan.Status.ACTIVE ? planned.size() - l.getPaidInstallments() : 0,
+                l.getStartDate().plusMonths(planned.size()),
+                extras.findByLoanIdOrderByIdAsc(l.getId()).stream().mapToLong(LoanExtraPayment::getAmountCents).sum());
     }
 
     private static void validate(LoanPurpose p, long principal, long equity, int term) {

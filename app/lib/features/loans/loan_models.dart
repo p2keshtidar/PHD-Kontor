@@ -110,7 +110,7 @@ class SelectedOffer {
 
 class ScheduleRow {
   const ScheduleRow(this.month, this.dueDate, this.rateCents, this.interestCents, this.principalCents,
-      this.remainingCents, this.paid);
+      this.remainingCents, this.paid, [this.extraCents = 0]);
 
   final int month;
   final DateTime dueDate;
@@ -120,6 +120,9 @@ class ScheduleRow {
   final int remainingCents;
   final bool paid;
 
+  /// /K020/: Sondertilgung nach dieser Rate
+  final int extraCents;
+
   factory ScheduleRow.fromJson(Map<String, dynamic> j) => ScheduleRow(
         (j['month'] as num).toInt(),
         DateTime.parse(j['dueDate'] as String),
@@ -128,6 +131,7 @@ class ScheduleRow {
         (j['principalCents'] as num).toInt(),
         (j['remainingCents'] as num).toInt(),
         j['paid'] as bool,
+        (j['extraCents'] as num?)?.toInt() ?? 0,
       );
 }
 
@@ -146,6 +150,9 @@ class Loan {
     required this.progressPercent,
     required this.status,
     this.nextDueDate,
+    this.remainingInstallments,
+    this.expectedEndDate,
+    this.extraPaidCents = 0,
   });
 
   final int id;
@@ -164,6 +171,15 @@ class Loan {
   /// ACTIVE oder PAID_OFF
   final String status;
 
+  /// Noch offene Raten (sinkt durch Sondertilgungen)
+  final int? remainingInstallments;
+  final DateTime? expectedEndDate;
+  final int extraPaidCents;
+
+  /// Anzahl Raten insgesamt (bezahlt + offen)
+  int get totalInstallments =>
+      isActive && remainingInstallments != null ? paidInstallments + remainingInstallments! : paidInstallments;
+
   bool get isActive => status == 'ACTIVE';
 
   factory Loan.fromJson(Map<String, dynamic> j) => Loan(
@@ -180,20 +196,83 @@ class Loan {
         remainingCents: (j['remainingCents'] as num).toInt(),
         progressPercent: (j['progressPercent'] as num).toDouble(),
         status: j['status'] as String,
+        remainingInstallments: (j['remainingInstallments'] as num?)?.toInt(),
+        expectedEndDate: _date(j['expectedEndDate']),
+        extraPaidCents: (j['extraPaidCents'] as num?)?.toInt() ?? 0,
       );
 }
 
 class LoanDetail {
-  const LoanDetail(this.loan, this.totalInterestCents, this.schedule);
+  const LoanDetail(this.loan, this.totalInterestCents, this.schedule,
+      {this.interestSavedCents = 0, this.extraPayments = const []});
 
   final Loan loan;
   final int totalInterestCents;
   final List<ScheduleRow> schedule;
 
+  /// /K020/: gesparte Zinsen durch Sondertilgungen
+  final int interestSavedCents;
+  final List<ExtraPayment> extraPayments;
+
   factory LoanDetail.fromJson(Map<String, dynamic> j) => LoanDetail(
         Loan.fromJson(j['loan'] as Map<String, dynamic>),
         (j['totalInterestCents'] as num).toInt(),
         (j['schedule'] as List<dynamic>).map((e) => ScheduleRow.fromJson(e as Map<String, dynamic>)).toList(),
+        interestSavedCents: (j['interestSavedCents'] as num?)?.toInt() ?? 0,
+        extraPayments: ((j['extraPayments'] as List<dynamic>?) ?? const [])
+            .map((e) => ExtraPayment.fromJson(e as Map<String, dynamic>))
+            .toList(),
+      );
+}
+
+/// /K020/: eine gebuchte Sondertilgung
+class ExtraPayment {
+  const ExtraPayment(this.amountCents, this.paidOn);
+
+  final int amountCents;
+  final DateTime paidOn;
+
+  factory ExtraPayment.fromJson(Map<String, dynamic> j) =>
+      ExtraPayment((j['amountCents'] as num).toInt(), DateTime.parse(j['paidOn'] as String));
+}
+
+/// /K020/: Vorschau einer Sondertilgung
+class ExtraPreview {
+  const ExtraPreview({
+    required this.amountCents,
+    required this.remainingBeforeCents,
+    required this.remainingAfterCents,
+    required this.installmentsBefore,
+    required this.installmentsAfter,
+    required this.endBefore,
+    required this.endAfter,
+    required this.interestSavedCents,
+    required this.availableCents,
+  });
+
+  final int amountCents;
+  final int remainingBeforeCents;
+  final int remainingAfterCents;
+  final int installmentsBefore;
+  final int installmentsAfter;
+  final DateTime endBefore;
+  final DateTime endAfter;
+  final int interestSavedCents;
+  final int availableCents;
+
+  int get installmentsSaved => installmentsBefore - installmentsAfter;
+  bool get paysOff => remainingAfterCents == 0;
+
+  factory ExtraPreview.fromJson(Map<String, dynamic> j) => ExtraPreview(
+        amountCents: (j['amountCents'] as num).toInt(),
+        remainingBeforeCents: (j['remainingBeforeCents'] as num).toInt(),
+        remainingAfterCents: (j['remainingAfterCents'] as num).toInt(),
+        installmentsBefore: (j['installmentsBefore'] as num).toInt(),
+        installmentsAfter: (j['installmentsAfter'] as num).toInt(),
+        endBefore: DateTime.parse(j['endBefore'] as String),
+        endAfter: DateTime.parse(j['endAfter'] as String),
+        interestSavedCents: (j['interestSavedCents'] as num).toInt(),
+        availableCents: (j['availableCents'] as num).toInt(),
       );
 }
 

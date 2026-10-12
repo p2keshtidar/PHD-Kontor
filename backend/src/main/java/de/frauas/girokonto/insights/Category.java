@@ -16,7 +16,8 @@ public enum Category {
     STARTGUTHABEN("Startguthaben", Kind.EXCLUDED),
     UMBUCHUNG("Umbuchung", Kind.EXCLUDED),
     SPAREN("Sparen & Investieren", Kind.EXCLUDED),
-    KREDIT_AUSZAHLUNG("Kreditauszahlung", Kind.EXCLUDED);
+    KREDIT_AUSZAHLUNG("Kreditauszahlung", Kind.EXCLUDED),
+    SONDERTILGUNG("Sondertilgung", Kind.EXCLUDED);
 
     public enum Kind { INCOME, FIXED, VARIABLE, EXCLUDED }
 

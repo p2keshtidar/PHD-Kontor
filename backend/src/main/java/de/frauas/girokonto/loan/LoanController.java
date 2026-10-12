@@ -59,4 +59,18 @@ public class LoanController {
     public LoanDtos.LoanDetail detail(@AuthenticationPrincipal AuthUser auth, @PathVariable Long id) {
         return service.detail(auth.id(), id);
     }
+
+    /** /K020/: Vorschau einer Sondertilgung */
+    @PostMapping("/{id}/extra-payment/preview")
+    public LoanDtos.ExtraPreview previewExtra(@AuthenticationPrincipal AuthUser auth, @PathVariable Long id,
+                                              @Valid @RequestBody LoanDtos.ExtraPaymentRequest r) {
+        return service.previewExtra(auth.id(), id, r.amountCents());
+    }
+
+    /** /K020/: Sondertilgung buchen */
+    @PostMapping("/{id}/extra-payment")
+    public LoanDtos.LoanDetail extraPayment(@AuthenticationPrincipal AuthUser auth, @PathVariable Long id,
+                                            @Valid @RequestBody LoanDtos.ExtraPaymentRequest r) {
+        return service.extraPayment(auth.id(), id, r.amountCents());
+    }
 }

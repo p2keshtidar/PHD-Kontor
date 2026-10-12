@@ -11,5 +11,7 @@ public interface SavingsPlanRepository extends JpaRepository<SavingsPlan, Long> 
 
     List<SavingsPlan> findByStatusAndExecutionDay(PlanStatus status, int executionDay);
 
+    List<SavingsPlan> findByStatusAndReminderDaysGreaterThan(PlanStatus status, int reminderDays);
+
     Optional<SavingsPlan> findByIdAndUserId(Long id, Long userId);
 }

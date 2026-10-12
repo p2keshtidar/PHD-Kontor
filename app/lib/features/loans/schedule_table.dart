@@ -30,7 +30,7 @@ class ScheduleTable extends StatelessWidget {
         ]),
       ),
       const Divider(height: 1),
-      for (final r in rows)
+      for (final r in rows) ...[
         Container(
           color: r.paid ? theme.colorScheme.primaryContainer.withAlpha(90) : null,
           padding: const EdgeInsets.symmetric(vertical: 5),
@@ -43,6 +43,17 @@ class ScheduleTable extends StatelessWidget {
             cell(formatCents(r.remainingCents).replaceAll(' €', '')),
           ]),
         ),
+        if (r.extraCents > 0)
+          Container(
+            color: theme.colorScheme.tertiaryContainer.withAlpha(120),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+            child: Row(children: [
+              Icon(Icons.bolt, size: 14, color: theme.colorScheme.tertiary),
+              const SizedBox(width: 4),
+              Expanded(child: Text('Sondertilgung ${formatCents(r.extraCents)}', style: small)),
+            ]),
+          ),
+      ],
     ]);
   }
 }
