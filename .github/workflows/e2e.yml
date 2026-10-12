@@ -170,16 +170,11 @@ jobs:
   ios:
     name: E2E iOS-Simulator
     if: inputs.plattform == 'alle' || inputs.plattform == 'ios'
-    # macos-15 mit Xcode 16: mit Xcode 26 findet "flutter test" den Dart-VM-Dienst im Simulator nicht
-    runs-on: macos-15
+    # aktuelles Xcode (26): workmanager braucht das iOS-26-SDK
+    runs-on: macos-latest
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v5
-      - name: Xcode 16 wählen
-        run: |
-          X=$(ls -d /Applications/Xcode_16*.app | sort -V | tail -1)
-          echo "Verwende $X"
-          sudo xcode-select -s "$X"
       - name: PostgreSQL starten
         run: |
           brew install postgresql@16 > /dev/null
