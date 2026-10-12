@@ -1,4 +1,4 @@
-/// Eingabeprüfungen, die auch das Backend macht. In der App sorgen sie für schnelle Rückmeldung.
+// Eingabeprüfungen, die auch das Backend macht. In der App sorgen sie für schnelle Rückmeldung.
 
 const minAge = 18;
 const minPasswordLength = 10;

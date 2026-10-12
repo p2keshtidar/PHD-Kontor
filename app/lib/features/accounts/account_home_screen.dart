@@ -29,7 +29,8 @@ class AccountHomeScreen extends ConsumerWidget {
       onRefresh: () async {
         ref.invalidate(recentBookingsProvider);
         ref.invalidate(netWorthProvider);
-        await ref.refresh(accountsProvider.future);
+        ref.invalidate(accountsProvider);
+        await ref.read(accountsProvider.future);
       },
       child: accounts.when(
         loading: () => const Center(child: CircularProgressIndicator()),

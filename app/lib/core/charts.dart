@@ -39,7 +39,7 @@ class IncomeExpenseChart extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Row(children: [
-          _Legend(color: incomeColor, text: 'Einnahmen'),
+          const _Legend(color: incomeColor, text: 'Einnahmen'),
           const SizedBox(width: 16),
           _Legend(color: scheme.error, text: 'Ausgaben'),
         ]),
