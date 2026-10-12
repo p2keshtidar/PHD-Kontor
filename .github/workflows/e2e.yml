@@ -45,7 +45,7 @@ jobs:
         shell: bash
         run: |
           cd backend && chmod +x gradlew && ./gradlew bootJar --no-daemon -q
-          nohup java -jar build/libs/girokonto-backend-0.1.0.jar > /tmp/backend.log 2>&1 &
+          nohup java -jar build/libs/girokonto-backend-0.1.0.jar --logging.level.org.springframework.web.servlet.DispatcherServlet=DEBUG > /tmp/backend.log 2>&1 &
           for i in $(seq 1 90); do curl -sf http://localhost:8080/v3/api-docs > /dev/null && break; sleep 2; done
           curl -sf http://localhost:8080/v3/api-docs > /dev/null
       - uses: subosito/flutter-action@v2
@@ -71,7 +71,8 @@ jobs:
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
-          { echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+          { echo '----- Anfragen (letzte 40) -----'; grep -E "Completed [0-9]{3}|^.*DispatcherServlet.*(POST|PUT|DELETE)" /tmp/backend.log | sed -E 's/^.*DispatcherServlet *: //' | tail -40; } >> /tmp/req.log 2>/dev/null || true
+          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
@@ -104,7 +105,7 @@ jobs:
         shell: bash
         run: |
           cd backend && chmod +x gradlew && ./gradlew bootJar --no-daemon -q
-          nohup java -jar build/libs/girokonto-backend-0.1.0.jar > /tmp/backend.log 2>&1 &
+          nohup java -jar build/libs/girokonto-backend-0.1.0.jar --logging.level.org.springframework.web.servlet.DispatcherServlet=DEBUG > /tmp/backend.log 2>&1 &
           for i in $(seq 1 90); do curl -sf http://localhost:8080/v3/api-docs > /dev/null && break; sleep 2; done
           curl -sf http://localhost:8080/v3/api-docs > /dev/null
       - uses: actions/setup-java@v5
@@ -153,7 +154,8 @@ jobs:
         run: |
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
-          { echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+          { echo '----- Anfragen (letzte 40) -----'; grep -E "Completed [0-9]{3}|^.*DispatcherServlet.*(POST|PUT|DELETE)" /tmp/backend.log | sed -E 's/^.*DispatcherServlet *: //' | tail -40; } >> /tmp/req.log 2>/dev/null || true
+          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
@@ -186,7 +188,7 @@ jobs:
         shell: bash
         run: |
           cd backend && chmod +x gradlew && ./gradlew bootJar --no-daemon -q
-          nohup java -jar build/libs/girokonto-backend-0.1.0.jar > /tmp/backend.log 2>&1 &
+          nohup java -jar build/libs/girokonto-backend-0.1.0.jar --logging.level.org.springframework.web.servlet.DispatcherServlet=DEBUG > /tmp/backend.log 2>&1 &
           for i in $(seq 1 90); do curl -sf http://localhost:8080/v3/api-docs > /dev/null && break; sleep 2; done
           curl -sf http://localhost:8080/v3/api-docs > /dev/null
       - uses: subosito/flutter-action@v2
@@ -224,7 +226,8 @@ jobs:
           cat /tmp/backend.log >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Simulator -----'; tail -c 8000 /tmp/sim.log; } >> /tmp/ci.log 2>/dev/null || true
           { echo '----- Emulator -----'; tail -c 6000 /tmp/emulator.log; } >> /tmp/ci.log 2>/dev/null || true
-          { echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
+          { echo '----- Anfragen (letzte 40) -----'; grep -E "Completed [0-9]{3}|^.*DispatcherServlet.*(POST|PUT|DELETE)" /tmp/backend.log | sed -E 's/^.*DispatcherServlet *: //' | tail -40; } >> /tmp/req.log 2>/dev/null || true
+          { cat /tmp/req.log 2>/dev/null; echo '----- Wichtigste Fehler -----'; grep -iE -A4 "overflowed by|error-causing widget|Expected:|Actual:|Which:|Exception:|Bad state" /tmp/ci.log | grep -v "package:flutter/" | head -c 9000;
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done

@@ -16,7 +16,10 @@ Future<void> pumpUntil(WidgetTester tester, Finder finder, {Duration timeout = c
     await tester.pump(const Duration(milliseconds: 200));
     if (finder.evaluate().isNotEmpty) return;
   }
-  throw TestFailure('Nicht gefunden nach ${timeout.inSeconds} s: $finder');
+  // Zur Fehlersuche: alle sichtbaren Texte ausgeben
+  final texts = find.byType(Text).evaluate().map((e) => (e.widget as Text).data ?? '').where((t) => t.isNotEmpty);
+  final fields = find.byType(EditableText).evaluate().map((e) => 'Eingabe:${(e.widget as EditableText).controller.text}');
+  throw TestFailure('Nicht gefunden nach ${timeout.inSeconds} s: $finder\nSichtbar: ${[...texts, ...fields].take(60).join(' | ')}');
 }
 
 Future<void> pumpFor(WidgetTester tester, [int ms = 800]) async {
@@ -127,6 +130,7 @@ void main() {
     // Tastatur schließen (verdeckt auf dem Handy sonst die Knöpfe)
     FocusManager.instance.primaryFocus?.unfocus();
     await pumpFor(tester, 800);
+    await scrollTo(tester, find.byKey(const Key('extra_preview')));
     await tester.tap(find.byKey(const Key('extra_preview')));
     await pumpUntil(tester, find.text('Du sparst Zinsen'));
     await scrollTo(tester, find.byKey(const Key('extra_pay')));
