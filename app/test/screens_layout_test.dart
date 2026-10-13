@@ -66,11 +66,18 @@ void main() {
     group(s.key, () {
       for (final f in formats.entries) {
         testWidgets(f.key, (tester) async {
+          // Fehler mit allen Details sammeln (welches Widget, welche Datei/Zeile)
+          final errors = <String>[];
+          final previous = FlutterError.onError;
+          FlutterError.onError = (d) => errors.add(d.toString());
+          addTearDown(() => FlutterError.onError = previous);
           await pumpScreen(tester, s.value(), size: f.value.$1, textScale: f.value.$2, settle: false);
           // ein paar Frames für Ladevorgänge und Animationen
           for (var i = 0; i < 10; i++) {
             await tester.pump(const Duration(milliseconds: 100));
           }
+          FlutterError.onError = previous;
+          expect(errors, isEmpty, reason: errors.join('\n----\n'));
           expect(tester.takeException(), isNull);
           expect(find.byType(ErrorWidget), findsNothing);
         });

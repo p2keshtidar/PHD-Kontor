@@ -71,7 +71,7 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('Der Code ist falsch oder abgelaufen.'), findsOneWidget);
 
-      await tester.enterText(find.byKey(const Key('login_code')), '123456');
+      await tester.enterText(find.byKey(const Key('login_code')), '123 456'); // so zeigt es die Authenticator-App
       await tester.tap(find.byKey(const Key('login_submit')));
       await tester.pumpAndSettle();
       expect(attempts, 3);
@@ -214,8 +214,7 @@ void main() {
     await tester.tap(find.byKey(const Key('extra_preview')));
     await tester.pumpAndSettle();
     await scrollTo(tester, find.byKey(const Key('extra_pay')));
-    final button = tester.widget<FilledButton>(
-        find.ancestor(of: find.byKey(const Key('extra_pay')), matching: find.byType(FilledButton)).first);
+    final button = tester.widget<ButtonStyleButton>(find.byKey(const Key('extra_pay')));
     expect(button.onPressed, isNull);
     expect(find.textContaining('nur 10,00 €'), findsOneWidget);
   });

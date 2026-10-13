@@ -78,7 +78,8 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
       key: const Key('totp_code'),
       controller: _code,
       keyboardType: TextInputType.number,
-      maxLength: 6,
+      // Authenticator-Apps zeigen "123 456": Leerzeichen beim Einfügen ignorieren, dann auf 6 Ziffern kürzen
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6)],
       decoration: const InputDecoration(
         labelText: '6-stelliger Code aus der App',
         prefixIcon: Icon(Icons.pin),

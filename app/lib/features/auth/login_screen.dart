@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -153,6 +154,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         keyboardType: TextInputType.number,
                         autofillHints: const [AutofillHints.oneTimeCode],
                         maxLength: 6,
+                        // "123 456" aus der Authenticator-App einfügen: Leerzeichen ignorieren
+                        inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6)],
                         decoration: const InputDecoration(
                           labelText: 'Code aus der Authenticator-App',
                           prefixIcon: Icon(Icons.verified_user),

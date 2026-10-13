@@ -3,9 +3,12 @@
 //
 // Lokal: Backend starten, dann z. B.
 //   flutter test integration_test/app_test.dart -d <Gerät>
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:girokonto_app/core/config.dart';
 import 'package:girokonto_app/core/messenger.dart';
+import 'package:girokonto_app/core/token_storage.dart';
 import 'package:girokonto_app/main.dart' as app;
 import 'package:integration_test/integration_test.dart';
 
@@ -65,6 +68,35 @@ Future<void> scrollToTop(WidgetTester tester) async {
 
 Finder navItem(String label) =>
     find.descendant(of: find.byType(NavigationBar), matching: find.text(label));
+
+/// Zweiter Nutzer direkt über die Server-Schnittstelle (ohne Oberfläche).
+class ApiUser {
+  ApiUser._(this.dio, this.email);
+  final Dio dio;
+  final String email;
+
+  static Future<ApiUser> register(String firstName, String email, String phone) async {
+    final dio = Dio(BaseOptions(baseUrl: AppConfig.apiBaseUrl, contentType: Headers.jsonContentType));
+    final r = await dio.post<Map<String, dynamic>>('/api/auth/register', data: {
+      'firstName': firstName, 'lastName': 'Zwei', 'email': email, 'phone': phone,
+      'birthDate': '1995-03-01', 'password': 'geheim12345',
+    });
+    dio.options.headers['Authorization'] = 'Bearer ${r.data!['accessToken']}';
+    return ApiUser._(dio, email);
+  }
+
+  Future<int> mainBalance() async {
+    final r = await dio.get<List<dynamic>>('/api/accounts');
+    final main = r.data!.cast<Map<String, dynamic>>().firstWhere((a) => a['type'] == 'MAIN');
+    return main['balanceCents'] as int;
+  }
+
+  Future<void> transfer(String to, int cents, String text) => dio.post<dynamic>('/api/transfers',
+      data: {'recipient': to, 'amountCents': cents, 'description': text},
+      options: Options(headers: {'Idempotency-Key': 'e2e-${DateTime.now().microsecondsSinceEpoch}'}));
+
+  Future<List<dynamic>> standingOrders() async => (await dio.get<List<dynamic>>('/api/standing-orders')).data!;
+}
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -172,5 +204,75 @@ void main() {
     await scrollToTop(tester);
     await scrollTo(tester, find.text('Sondertilgungen'));
     expect(find.text('1.000,00 €'), findsWidgets);
+  });
+
+  testWidgets('Zwei Nutzer: Überweisung, Live-Meldung, Dauerauftrag, geteiltes Unterkonto', (tester) async {
+    final stamp = DateTime.now().millisecondsSinceEpoch;
+    String phone(int n) => '0170${((stamp + n) % 10000000).toString().padLeft(7, '0')}';
+    // Abmelden, falls der erste Test noch angemeldet ist
+    await TokenStorage().clear();
+    await AppConfig.load();
+
+    // Nutzer A (bedient die App) und B (nur über die Schnittstelle)
+    final a = await ApiUser.register('Anna', 'e2e-a-$stamp@example.org', phone(1));
+    final b = await ApiUser.register('Ben', 'e2e-b-$stamp@example.org', phone(2));
+
+    // B legt ein Unterkonto an und teilt es mit A (/K060/)
+    final sub = await b.dio.post<Map<String, dynamic>>('/api/subaccounts', data: {'name': 'WG-Kasse E2E', 'icon': 'home'});
+    await b.dio.post<dynamic>('/api/subaccounts/${sub.data!['id']}/members', data: {'recipient': a.email});
+
+    app.main();
+    await pumpUntil(tester, find.byKey(const Key('login_email')));
+    await tester.enterText(find.byKey(const Key('login_email')), a.email);
+    await tester.enterText(find.byKey(const Key('login_password')), 'geheim12345');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tapButton(tester, find.byKey(const Key('login_submit')));
+    await pumpUntil(tester, find.text('Hallo Anna!'));
+
+    // Geteiltes Unterkonto von Ben ist auf der Startseite
+    await scrollTo(tester, find.text('WG-Kasse E2E'));
+    expect(find.text('Geteilt von Ben Zwei'), findsOneWidget);
+    await scrollToTop(tester);
+
+    // Live-Meldung: B überweist an A, während A die App offen hat
+    await b.transfer(a.email, 1234, 'Pizza E2E');
+    await pumpUntil(tester, find.textContaining('Pizza E2E'), timeout: const Duration(seconds: 30));
+    await pumpUntil(tester, find.text('1.012,34 €'), timeout: const Duration(seconds: 30));
+
+    // A überweist an B über die Oberfläche
+    rootMessengerKey.currentState?.clearSnackBars();
+    await tester.tap(navItem('Überweisen'));
+    await pumpUntil(tester, find.byKey(const Key('transfer_recipient')));
+    await tester.enterText(find.byKey(const Key('transfer_recipient')), b.email);
+    await tester.enterText(find.byKey(const Key('transfer_amount')), '25,50');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tapButton(tester, find.byKey(const Key('transfer_next')));
+    await pumpUntil(tester, find.text('Jetzt senden'));
+    expect(find.text('Ben Zwei'), findsWidgets);
+    await tapButton(tester, find.text('Jetzt senden'));
+    await pumpUntil(tester, find.text('Geld gesendet'), timeout: const Duration(seconds: 30));
+    expect(await b.mainBalance(), 100000 - 1234 + 2550);
+    expect(await a.mainBalance(), 100000 + 1234 - 2550);
+
+    // Dauerauftrag an B anlegen (/K030/)
+    await tester.tap(navItem('Überweisen'));
+    await pumpUntil(tester, find.text('Daueraufträge'));
+    await tester.tap(find.text('Daueraufträge').first);
+    await pumpUntil(tester, find.byKey(const Key('standing_order_new')));
+    await pumpFor(tester, 1000);
+    await tester.tap(find.byKey(const Key('standing_order_new')));
+    await pumpUntil(tester, find.byKey(const Key('so_recipient')));
+    await tester.enterText(find.byKey(const Key('so_recipient')), b.email);
+    await tester.enterText(find.byKey(const Key('so_amount')), '50');
+    await tester.enterText(find.byKey(const Key('so_reference')), 'Miete Anteil');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tapButton(tester, find.byKey(const Key('so_save')));
+    await pumpUntil(tester, find.text('Miete Anteil'), timeout: const Duration(seconds: 30));
+    final orders = await a.standingOrders();
+    expect(orders, hasLength(1));
+    expect(orders.first['amountCents'], 5000);
   });
 }
