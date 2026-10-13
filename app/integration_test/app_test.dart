@@ -149,10 +149,12 @@ void main() {
 
   testWidgets('Registrieren, Startseite, alle Bereiche, Beispielmonate', (tester) async {
     final stamp = DateTime.now().millisecondsSinceEpoch;
+    // abgemeldet starten (falls ein früherer Lauf auf diesem Gerät angemeldet blieb)
+    await TokenStorage().clear();
     app.main();
 
-    // Login-Seite -> Registrierung
-    await pumpUntil(tester, find.text('Willkommen zurück'));
+    // Login-Seite -> Registrierung (erster Start auf alten Simulatoren kann lange dauern)
+    await pumpUntil(tester, find.text('Willkommen zurück'), timeout: const Duration(seconds: 120));
     await tester.tap(find.text('Noch kein Konto? Jetzt registrieren'));
     await pumpUntil(tester, find.widgetWithText(TextFormField, 'Vorname'));
 
@@ -276,7 +278,7 @@ void main() {
     await b.dio.post<dynamic>('/api/subaccounts/${sub.data!['id']}/members', data: {'recipient': a.email});
 
     app.main();
-    await pumpUntil(tester, find.byKey(const Key('login_email')));
+    await pumpUntil(tester, find.byKey(const Key('login_email')), timeout: const Duration(seconds: 120));
     await tester.enterText(find.byKey(const Key('login_email')), a.email);
     await tester.enterText(find.byKey(const Key('login_password')), 'geheim12345');
     FocusManager.instance.primaryFocus?.unfocus();
