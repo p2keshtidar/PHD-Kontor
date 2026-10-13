@@ -243,7 +243,7 @@ class RobustnessTest extends FlowTestSupport {
             for (int i = 0; i < 40; i++) {
                 int who = rnd.nextInt(users.size());
                 TestUser u = users.get(who);
-                switch (rnd.nextInt(6)) {
+                switch (rnd.nextInt(8)) {
                     case 0 -> transfer(u, users.get((who + 1 + rnd.nextInt(users.size() - 1)) % users.size()),
                             1 + rnd.nextInt(30_000), UUID.randomUUID().toString());
                     case 1 -> mvc.perform(post("/api/subaccounts/move").header("Authorization", u.bearer())
@@ -259,6 +259,17 @@ class RobustnessTest extends FlowTestSupport {
                             .contentType(MediaType.APPLICATION_JSON).content("""
                                     {"type":"INVEST","name":"Zufall","monthlyRateCents":%d,"executionDay":%d,"riskLevel":"MUTIG"}
                                     """.formatted(100 + rnd.nextInt(30_000), 1 + rnd.nextInt(28))));
+                    // eigene Einnahmen/Ausgaben: einmalig rückwirkend oder monatlich (Tageslauf bucht weiter)
+                    case 5 -> mvc.perform(post("/api/entries").header("Authorization", u.bearer())
+                            .contentType(MediaType.APPLICATION_JSON).content("""
+                                    {"kind":"%s","title":"Zufall","amountCents":%d,"intervalMonths":0,"date":"%s"}
+                                    """.formatted(rnd.nextBoolean() ? "INCOME" : "EXPENSE", 1 + rnd.nextInt(40_000),
+                                    today(u).minusDays(rnd.nextInt(60)))));
+                    case 6 -> mvc.perform(post("/api/entries").header("Authorization", u.bearer())
+                            .contentType(MediaType.APPLICATION_JSON).content("""
+                                    {"kind":"%s","title":"Monatlich","amountCents":%d,"intervalMonths":1,"date":"%s"}
+                                    """.formatted(rnd.nextBoolean() ? "INCOME" : "EXPENSE", 1 + rnd.nextInt(30_000),
+                                    today(u).plusDays(1 + rnd.nextInt(20)).withDayOfMonth(1 + rnd.nextInt(28)))));
                     default -> postJson(u, "/api/standing-orders", """
                             {"recipient":"%s","amountCents":%d,"executionDay":%d}
                             """.formatted(users.get((who + 1) % users.size()).email(), 100 + rnd.nextInt(20_000),

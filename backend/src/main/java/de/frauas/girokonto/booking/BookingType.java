@@ -22,5 +22,9 @@ public enum BookingType {
     /** Monatliche Kreditrate (Phase 4) */
     LOAN_RATE,
     /** Sondertilgung eines Kredits (/K020/) */
-    LOAN_EXTRA
+    LOAN_EXTRA,
+    /** Selbst eingetragene Einnahme, z. B. Gehalt (Einnahmen & Ausgaben) */
+    ENTRY_INCOME,
+    /** Selbst eingetragene Ausgabe, z. B. Miete oder Urlaub (Einnahmen & Ausgaben) */
+    ENTRY_EXPENSE
 }

@@ -183,6 +183,9 @@ class SecurityMatrixTest extends FlowTestSupport {
                 """.formatted(bert.email()), 201).get("id").asLong();
         long imp = postJson(anna, "/api/imports", json.writeValueAsString(java.util.Map.of("fileName", "a.csv",
                 "content", "Datum;Betrag;Verwendungszweck\n01.09.2026;-10,00;Kino\n")), 201).get("importId").asLong();
+        long entry = postJson(anna, "/api/entries", "{\"kind\":\"INCOME\",\"title\":\"Gehalt\",\"amountCents\":1000,"
+                + "\"intervalMonths\":1,\"date\":\"" + today(anna).plusMonths(1).withDayOfMonth(1) + "\"}", 201)
+                .get("entry").get("id").asLong();
         long contact = postJson(anna, "/api/contacts", "{\"recipient\":\"" + bert.email() + "\"}", 201).get("id").asLong();
         JsonNode bookings = getJson(anna, "/api/accounts/" + anna.accountId() + "/bookings");
         long booking = bookings.get("items").get(0).get("bookingId").asLong();
@@ -210,6 +213,8 @@ class SecurityMatrixTest extends FlowTestSupport {
         denied(eve, HttpMethod.POST, "/api/loans/" + loan + "/extra-payment/preview", "{\"amountCents\":100}", f);
         denied(eve, HttpMethod.PUT, "/api/standing-orders/" + so, "{\"amountCents\":99999}", f);
         denied(eve, HttpMethod.DELETE, "/api/standing-orders/" + so, "", f);
+        denied(eve, HttpMethod.PUT, "/api/entries/" + entry, "{\"amountCents\":99999}", f);
+        denied(eve, HttpMethod.DELETE, "/api/entries/" + entry, "", f);
         denied(eve, HttpMethod.GET, "/api/imports/" + imp + "/transactions", "", f);
         denied(eve, HttpMethod.DELETE, "/api/imports/" + imp, "", f);
         denied(eve, HttpMethod.DELETE, "/api/contacts/" + contact, "", f);
@@ -228,6 +233,8 @@ class SecurityMatrixTest extends FlowTestSupport {
         assertThat(getJson(eve, "/api/loans")).isEmpty();
         assertThat(getJson(eve, "/api/standing-orders")).isEmpty();
         assertThat(getJson(eve, "/api/imports")).isEmpty();
+        assertThat(getJson(eve, "/api/entries").get("entries")).isEmpty();
+        assertThat(getJson(anna, "/api/entries").get("entries").get(0).get("amountCents").asLong()).isEqualTo(1000);
     }
 
     @Test
