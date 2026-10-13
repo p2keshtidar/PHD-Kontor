@@ -244,11 +244,18 @@ jobs:
       - name: Simulator starten
         shell: bash
         run: |
+          exec > >(tee -a /tmp/ci.log) 2>&1   # alles ins Protokoll (für die Fehlersuche)
+          set -x
           if [ -n "${{ matrix.xcode }}" ]; then sudo xcode-select -s "${{ matrix.xcode }}"; fi
           xcodebuild -version
           # ältere iOS-Versionen: Simulator bei Apple laden (ca. 2 Minuten)
           if [ -n "${{ matrix.download }}" ]; then
-            xcodebuild -downloadPlatform iOS -buildVersion "${{ matrix.download }}" 2>&1 | tr '\r' '\n' | grep -v '%' | tail -3
+            for i in 1 2 3; do
+              xcodebuild -downloadPlatform iOS -buildVersion "${{ matrix.download }}" 2>&1 | tr '\r' '\n' | grep -v '%' | tail -3
+              xcrun simctl list runtimes | grep -q "iOS ${{ matrix.download }}" && break
+              sleep 30
+            done
+            xcrun simctl list runtimes
           fi
           # Für frisch geladene iOS-Versionen gibt es noch kein Gerät: iPhone anlegen
           RT=$(xcrun simctl list runtimes -j | python3 -c "
