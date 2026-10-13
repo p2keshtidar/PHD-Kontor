@@ -19,6 +19,7 @@ jobs:
         working-directory: app
         shell: bash
         run: |
+          set +e
           {
           flutter --version
           flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app > /dev/null
@@ -45,14 +46,26 @@ jobs:
           git -c user.name=ci -c user.email=ci@example.org commit -qm "Versionen android"
           git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-versionen-android
   ios:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, macos-15, macos-14]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Simulator-Runtimes
         shell: bash
         run: |
+          set +e
           { sw_vers; xcodebuild -version; ls /Applications | grep -i xcode
             echo "== Runtimes"; xcrun simctl list runtimes
-            echo "== Geräte"; xcrun simctl list devicetypes | grep -i iphone | head -40
+            if [ "${{ matrix.os }}" = "macos-latest" ]; then
+              for v in 18.6 17.5 16.4 15.5; do
+                echo "== Download iOS $v"; s=$(date +%s)
+                timeout 900 xcodebuild -downloadPlatform iOS -buildVersion $v 2>&1 | tail -3
+                echo "Dauer: $(( $(date +%s) - s )) s"
+              done
+              echo "== Runtimes danach"; xcrun simctl list runtimes
+            fi
           } 2>&1 | tee /tmp/ci.log
       - name: Protokoll ablegen
         if: always()
@@ -60,4 +73,4 @@ jobs:
         run: |
           cd /tmp && rm -rf l && mkdir l && cd l && git init -q && cp /tmp/ci.log . && git add ci.log
           git -c user.name=ci -c user.email=ci@example.org commit -qm "Versionen ios"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-versionen-ios
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-versionen-${{ matrix.os }}
