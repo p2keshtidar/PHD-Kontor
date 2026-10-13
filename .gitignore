@@ -27,3 +27,4 @@ Thumbs.db
 *.log
 .env
 backend/src/main/resources/static/
+app/coverage/

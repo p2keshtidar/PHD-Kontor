@@ -44,12 +44,17 @@ jobs:
               echo "::error title=Protokoll::$msg"
             done
           fi
+      - name: Testabdeckung
+        if: always()
+        run: python3 ../tool/coverage_summary.py jacoco build/reports/jacoco/test/jacocoTestReport.xml || true
       - name: Testbericht hochladen
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: backend-testbericht
-          path: backend/build/reports/tests/test
+          path: |
+            backend/build/reports/tests/test
+            backend/build/reports/jacoco/test/html
           if-no-files-found: ignore
 
   # ---------------------------------------------------------------- App: Analyse + Tests + Web
@@ -74,8 +79,10 @@ jobs:
         shell: bash
       - run: set -o pipefail; flutter analyze --no-fatal-infos 2>&1 | tee -a /tmp/ci.log
         shell: bash
-      - run: set -o pipefail; flutter test 2>&1 | tee -a /tmp/ci.log
+      - run: set -o pipefail; flutter test --coverage 2>&1 | tee -a /tmp/ci.log
         shell: bash
+      - name: Testabdeckung
+        run: python3 ../tool/coverage_summary.py lcov coverage/lcov.info || true
       - run: set -o pipefail; flutter build web --release 2>&1 | tee -a /tmp/ci.log
         shell: bash
       # Bei Fehlern das Ende des Protokolls als Annotation anzeigen (auch ohne Log-Download lesbar)
