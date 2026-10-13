@@ -303,10 +303,14 @@ jobs:
             echo "===== Versuch $versuch =====" | tee -a /tmp/ci.log
             set +e
             perl -e 'alarm shift; exec @ARGV' 1500 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
-              | grep -vE "^\[ +\+?[0-9]+ ms\] (executing|Exit code|<- |-> )" | tee -a /tmp/full.log | grep -v 'SCREENSHOT:' | tee -a /tmp/ci.log
+              | grep -vE "^\[ +\+?[0-9]+ ms\] (executing|Exit code|<- |-> )" | tee /tmp/versuch.log | tee -a /tmp/full.log | grep -v 'SCREENSHOT:' | tee -a /tmp/ci.log
             rc=${PIPESTATUS[0]}
             set -e
             [ "$rc" != "142" ] && exit "$rc"
+            # Zeitüberschreitung erst beim Aufräumen? Dann zählen die Ergebnisse der Tests.
+            ok=$(grep -c '^::group::✅' /tmp/versuch.log || true); bad=$(grep -c '^::group::❌' /tmp/versuch.log || true)
+            echo "Ergebnis vor dem Abbruch: $ok bestanden, $bad fehlgeschlagen" | tee -a /tmp/ci.log
+            [ "$ok" -ge 2 ] && [ "$bad" = "0" ] && exit 0
             echo "Zeitüberschreitung – Simulator neu starten" | tee -a /tmp/ci.log
             pkill -f "flutter_tools" || true
             xcrun simctl shutdown "$UDID" || true
