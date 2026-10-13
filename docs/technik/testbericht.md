@@ -9,7 +9,7 @@ Stand: 13.10.2026 · alle Tests laufen automatisch bei jedem Push ([Actions](htt
 | Ebene | Anzahl | Ergebnis | Testabdeckung (Zeilen) |
 |---|---|---|---|
 | Backend: Unit- und Integrationstests (echte PostgreSQL) | **136** | ✅ alle grün | **93,2 %** |
-| App: Unit- und Widget-Tests (simulierter Server) | **159** | ✅ alle grün | **59,4 %** |
+| App: Unit- und Widget-Tests (simulierter Server) | **160** | ✅ alle grün | **59,4 %** |
 | Ende-zu-Ende: echte App + echter Server | 2 Abläufe × 4 Geräte (Chrome, Android Pixel 5, Android kleines Display, iPhone-Simulator) | ✅ alle grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
@@ -31,7 +31,7 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 | Datei | Was wird geprüft |
 |---|---|
 | `screens_layout_test.dart` | **23 Bildschirme × 4 Formate** (kleines Handy 320×568, großes Handy, Tablet, Schrift 150 %): kein Überlauf, kein Absturz |
-| `flows_widget_test.dart` | Abläufe A01–A15 mit simuliertem Server: Anmeldung inkl. Zwei-Faktor-Code, Server-Adresse, Überweisung mit Idempotenz-Schlüssel, ungültige Beträge, Dauerauftrag anlegen/pausieren, Sondertilgung (Vorschau, Buchung, zu wenig Geld), Zwei-Faktor einrichten (QR-Code), CSV-Import mit Fehler, Unterkonto teilen/austreten, Startseite mit geteilten Konten, Spar-Erinnerung |
+| `flows_widget_test.dart` | Abläufe A01–A15 mit simuliertem Server: Anmeldung inkl. Zwei-Faktor-Code, Server-Adresse, Überweisung mit Idempotenz-Schlüssel, ungültige Beträge, Dauerauftrag anlegen/pausieren, Sondertilgung (Vorschau, Buchung, zu wenig Geld), Zwei-Faktor einrichten (QR-Code), CSV-Import mit Fehler, Unterkonto teilen/austreten, Startseite mit geteilten Konten, Spar-Erinnerung, A16 Überweisung auf 320×480 mit Schrift 130 % |
 | übrige `*_test.dart` | Geldformat, Eingabeprüfung, JSON-Modelle, CSV-Zeichensätze, Hintergrund-Abfrage |
 
 Simulierter Server: `test/support/fake_backend.dart` (ersetzt die HTTP-Schicht), Testrahmen: `test/support/harness.dart`.
@@ -55,6 +55,7 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, **A
 | Code „123 456“ aus der Authenticator-App wurde auf „12345“ abgeschnitten | Widget-Test A02/A10 | Leerzeichen werden beim Eingeben entfernt |
 | Diagramm-Legende lief bei großer Schrift über den Rand | Layout-Test 150 % | Legende bricht um |
 | iOS-Absturz beim Start (Kontakte-Plugin) | E2E iOS | klassischer App-Start |
+| Sehr kleines Handy: Knopf „Jetzt senden“ war unter der Navigationsleiste nicht erreichbar | E2E Nexus One | Zusammenfassung scrollbar (auch Dauerauftrag-Menü) |
 | iOS: Live-Meldungen kamen erst an, nachdem die Frage nach der Benachrichtigungs-Erlaubnis beantwortet war | E2E zwei Nutzer | Live-Verbindung startet sofort |
 
 ## Selbst ausführen

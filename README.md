@@ -115,7 +115,7 @@ girokonto/
 Bei jedem Push prüft GitHub automatisch ([Actions](https://github.com/p2keshtidar/girokonto/actions)):
 
 - **Backend:** 136 Tests mit echter PostgreSQL-Datenbank, **93 % Zeilenabdeckung** – Testfälle T01–T40 aus dem Pflichtenheft, Sicherheitsmatrix über *alle* Endpunkte, Fuzzing, gleichzeitige Überweisungen, 160 Zufallsaktionen mit Prüfung der Buchhaltung
-- **App:** `flutter analyze` + 159 Unit-/Widget-Tests – jeder Bildschirm in 4 Formaten (kleines Handy bis Tablet, Schrift 150 %), Abläufe mit simuliertem Server
+- **App:** `flutter analyze` + 160 Unit-/Widget-Tests – jeder Bildschirm in 4 Formaten (kleines Handy bis Tablet, Schrift 150 %), Abläufe mit simuliertem Server
 - **Builds:** Web, Android-APK, iOS, Docker-Image
 - **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform und Android-Gerät wählbar): echte App im Browser (Chrome), Android-Emulator (Pixel 5 oder sehr kleines Display, Android 11) und iOS-Simulator (iPhone, iOS 18) gegen den echten Server – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kreditabschluss, Sondertilgung, **zwei Nutzer** (Live-Meldung, Überweisung, Dauerauftrag, geteiltes Unterkonto)
 
