@@ -185,12 +185,18 @@ class RobustnessTest extends FlowTestSupport {
             postJson(s, "/api/subaccounts", "{\"name\":\"Topf " + i + "\"}", 201);
         }
         postJson(s, "/api/subaccounts", "{\"name\":\"Topf 11\"}", 400);
-        // Ausführungstag 28 ja, 29 nein
+        // Ausführungstag 28 ja, 29 nein; Investplan mindestens 10 €
         postJson(s, "/api/plans", """
-                {"type":"INVEST","name":"T28","monthlyRateCents":100,"executionDay":28,"riskLevel":"VORSICHTIG"}
+                {"type":"INVEST","name":"T28","monthlyRateCents":1000,"executionDay":28,"riskLevel":"VORSICHTIG"}
                 """, 201);
         postJson(s, "/api/plans", """
-                {"type":"INVEST","name":"T29","monthlyRateCents":100,"executionDay":29,"riskLevel":"VORSICHTIG"}
+                {"type":"INVEST","name":"T29","monthlyRateCents":1000,"executionDay":29,"riskLevel":"VORSICHTIG"}
+                """, 400);
+        postJson(s, "/api/plans", """
+                {"type":"INVEST","name":"9,99","monthlyRateCents":999,"executionDay":1,"riskLevel":"VORSICHTIG"}
+                """, 400);
+        postJson(s, "/api/plans", """
+                {"type":"INVEST","name":"zu hoch","monthlyRateCents":500001,"executionDay":1,"riskLevel":"VORSICHTIG"}
                 """, 400);
     }
 
