@@ -76,7 +76,7 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 
 | Bereich | Funktionen |
 |---|---|
-| 🏦 **Girokonto** | Registrierung mit fiktiver IBAN und 1.000 € Startguthaben · Umsätze mit Suche und Filter · Kategorien |
+| 🏦 **Girokonto** | Registrierung mit fiktiver IBAN und 1.000 € Startguthaben · Umsätze mit Suche und Filter · Kategorien · **eigene Einnahmen & Ausgaben eintragen** (Gehalt, Miete, Urlaub – einmalig oder regelmäßig) |
 | 💸 **Überweisen** | per IBAN, E-Mail oder Telefonnummer · Adressbuch · Abgleich mit Handy-Kontakten · Tageslimit · **Daueraufträge** (monatlich bis jährlich) |
 | 💳 **Karte** | virtuelle Debitkarte · Daten nur mit Passwort · sperren/entsperren · Limit · Demo-Kartenzahlung |
 | 🗂️ **Unterkonten** | „Töpfe“ für Urlaub, Auto … · einzahlen, auszahlen, auflösen · **mit anderen teilen** (z. B. WG-Kasse) |

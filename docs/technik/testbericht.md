@@ -19,6 +19,7 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 | Gruppe | Klassen | Was wird geprüft |
 |---|---|---|
 | Pflichtenheft T01–T25 | `AuthFlowTest`, `TransferFlowTest`, `CardFlowTest`, `SubaccountFlowTest`, `PlanningFlowTest`, `NotificationFlowTest`, `ContactFlowTest` | alle Testfälle aus dem Pflichtenheft |
+| Einnahmen & Ausgaben T41–T45 | `EntryFlowTest`, `EntryTest` | einmalig und regelmäßig, Nachbuchen bis 12 Monate, Tageslauf (Gehalt vor Miete), nicht ins Minus, Pausieren, Enddatum, Löschen, fremde Einträge, Kategorien |
 | Kannkriterien T26–T40 | `Phase5FlowTest`, `StandingOrderFlowTest`, `TwoFactorFlowTest`, `CsvImportFlowTest`, `SharedSubaccountFlowTest` | Sondertilgung, Erinnerung, Dauerauftrag, Zwei-Faktor, CSV-Import, Teilen |
 | **Sicherheit S01–S10** | `SecurityMatrixTest` | *jeder* `/api`-Endpunkt ohne Anmeldung → 401 (automatisch aufgezählt) · gefälschte/abgelaufene Tokens · Abmelden/Refresh-Wiederverwendung · Admin-Bereich → 403 · fremde Konten, Karten, Pläne, Kredite, Daueraufträge, Unterkonten, Importe → 403/404 · keine Passwort-Hashes oder Kartendaten in Antworten · SQL-Injection in der Suche · CORS · Sperre nach Fehlversuchen |
 | **Robustheit R01–R08** | `RobustnessTest` | *Fuzzing*: jeder POST/PUT/GET-Endpunkt mit kaputtem JSON, falschen Typen, riesigen Zahlen, leeren Feldern → nie ein Serverfehler (5xx) · 25 gleichzeitige Überweisungen → genau so viele wie Guthaben · gleicher Idempotenz-Schlüssel parallel → nur einmal gebucht · Grenzwerte (Tageslimit, 10 Unterkonten, Ausführungstag 28/29, Investplan 10 € bis 5.000 €, Alter genau 18) · **160 Zufallsaktionen** mit Zeitvorlauf und Prüfung der Buchhaltung: Summe aller Konten = 0, kein Konto negativ, jede Buchung ausgeglichen · Sonderzeichen, Emojis, sehr lange Texte |
@@ -30,8 +31,8 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 
 | Datei | Was wird geprüft |
 |---|---|
-| `screens_layout_test.dart` | **23 Bildschirme × 4 Formate** (kleines Handy 320×568, großes Handy, Tablet, Schrift 150 %): kein Überlauf, kein Absturz |
-| `flows_widget_test.dart` | Abläufe A01–A15 mit simuliertem Server: Anmeldung inkl. Zwei-Faktor-Code, Server-Adresse, Überweisung mit Idempotenz-Schlüssel, ungültige Beträge, Dauerauftrag anlegen/pausieren, Sondertilgung (Vorschau, Buchung, zu wenig Geld), Zwei-Faktor einrichten (QR-Code), CSV-Import mit Fehler, Unterkonto teilen/austreten, Startseite mit geteilten Konten, Spar-Erinnerung, A16 Überweisung auf 320×480 mit Schrift 130 % |
+| `screens_layout_test.dart` | **26 Bildschirme × 4 Formate** (kleines Handy 320×568, großes Handy, Tablet, Schrift 150 %): kein Überlauf, kein Absturz |
+| `flows_widget_test.dart` | Abläufe A01–A15 mit simuliertem Server: Anmeldung inkl. Zwei-Faktor-Code, Server-Adresse, Überweisung mit Idempotenz-Schlüssel, ungültige Beträge, Dauerauftrag anlegen/pausieren, Sondertilgung (Vorschau, Buchung, zu wenig Geld), Zwei-Faktor einrichten (QR-Code), CSV-Import mit Fehler, Unterkonto teilen/austreten, Startseite mit geteilten Konten, Spar-Erinnerung, A16 Überweisung auf 320×480 mit Schrift 130 %, A17–A22 Einnahmen & Ausgaben (Schnellauswahl, einmalig/monatlich, Tag 29–31, Serverfehler, Pausieren, Löschen, Startseite) |
 | übrige `*_test.dart` | Geldformat, Eingabeprüfung, JSON-Modelle, CSV-Zeichensätze, Hintergrund-Abfrage |
 
 Simulierter Server: `test/support/fake_backend.dart` (ersetzt die HTTP-Schicht), Testrahmen: `test/support/harness.dart`.

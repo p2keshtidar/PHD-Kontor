@@ -33,7 +33,25 @@ Dauer des Rundgangs: ca. 15 Minuten. Ideal auch als **Ablauf für die Präsentat
 
 **Fehlerfälle zeigen:** mehr als den Kontostand überweisen · an sich selbst · unbekannte E-Mail.
 
-## 4. Umsätze
+## 4. Einnahmen & Ausgaben eintragen
+
+Damit der Finanzassistent mit deinem echten Leben rechnet, trägst du Gehalt, Miete und andere Ausgaben ein.
+
+1. Startseite → **„+ Einnahme“** oder **„− Ausgabe“** (oder: Sparen → **Einnahmen & Ausgaben**).
+2. Schnellauswahl antippen, z. B. **Gehalt** oder **Miete** – Bezeichnung, Kategorie und „monatlich“ sind dann schon gesetzt. Oder selbst eintragen, z. B. „Urlaub Mallorca“.
+3. **Betrag** eingeben, **Wie oft?** wählen: einmalig, monatlich, vierteljährlich, halbjährlich oder jährlich.
+4. **Datum** (bei regelmäßigen Einträgen: erste Buchung, Tag 1–28). Optional ein Enddatum.
+5. **Speichern**.
+
+| Fall | Was passiert |
+|---|---|
+| Datum heute oder in der Vergangenheit (bis 12 Monate) | wird **sofort gebucht** – bei „monatlich seit Mai“ für jeden Monat seitdem |
+| Datum in der Zukunft | wird am Tag gebucht (beim Vorspulen im Demo-Modus sieht man es sofort) |
+| Ausgabe höher als das Guthaben | Fehlermeldung beim Speichern; später: Benachrichtigung „Ausgabe nicht gebucht“ |
+
+Die Beträge erscheinen in Kontostand, Umsätzen und im **Finanzüberblick**. Unter **Einnahmen & Ausgaben verwalten** siehst du, was pro Monat regelmäßig rein- und rausgeht, und kannst Einträge ändern, pausieren oder löschen (bereits gebuchte Beträge bleiben in den Umsätzen).
+
+## 4a. Umsätze
 
 Startseite → **„Alle anzeigen“** → suchen (Name, Zweck), filtern (Symbol oben rechts), Umsatz antippen → Details und **Kategorie ändern**.
 
