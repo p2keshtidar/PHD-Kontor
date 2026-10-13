@@ -16,6 +16,10 @@ Für solche Geräte gibt es aber die **Web-App** im Browser – solange der Brow
 
 Nach oben ist nichts begrenzt: Die App wird immer mit dem neuesten SDK gebaut (Android `targetSdk` 36, iOS-SDK 26) und auf den neuesten Systemen getestet.
 
+![Derselbe Test auf 11 Systemversionen](../bilder/versionen-vergleich.png)
+
+*Bildschirmfotos aus einem einzigen E2E-Lauf: Android 7.0 bis 16 und iOS 16 bis 26, alle grün.*
+
 ## Wo ist das eingestellt?
 
 `app/tool/setup_platforms.dart` (läuft nach `flutter create`, auch in jedem CI-Lauf):
