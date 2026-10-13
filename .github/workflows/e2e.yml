@@ -1,6 +1,6 @@
 # Ende-zu-Ende-Test: echtes Backend + echte App im Browser, Android-Emulator und iOS-Simulator.
 # Läuft manuell (Actions -> E2E -> "Run workflow"), weil der Mac-Runner viele Freiminuten kostet.
-# Mit "versionen: alle" läuft derselbe Test auf Android 7, 8, 9, 11, 13, 15, 16 und iOS 18, 26.
+# Mit "versionen: alle" läuft derselbe Test auf Android 7, 8, 9, 11, 13, 15, 16 und iOS 16, 17, 18, 26.
 name: E2E
 
 on:
@@ -17,7 +17,7 @@ on:
         options: [pixel_5, Nexus One]
         default: pixel_5
       versionen:
-        description: Systemversionen (schnell = je eine, alle = Android 7 bis 16 und iOS 18 + 26)
+        description: Systemversionen (schnell = je eine, alle = Android 7 bis 16 und iOS 16 bis 26)
         type: choice
         options: [schnell, alle]
         default: schnell
@@ -194,7 +194,7 @@ jobs:
       matrix:
         # Gebaut wird immer mit Xcode 26 (workmanager braucht das iOS-26-SDK),
         # getestet auf dem Simulator der jeweiligen iOS-Version.
-        include: ${{ fromJSON(inputs.versionen == 'alle' && '[{"ios":"26","runner":"macos-latest","xcode":"","runtime":"iOS-26"},{"ios":"18","runner":"macos-15","xcode":"/Applications/Xcode_26.3.app","runtime":"iOS-18"}]' || '[{"ios":"26","runner":"macos-latest","xcode":"","runtime":"iOS-26"}]') }}
+        include: ${{ fromJSON(inputs.versionen == 'alle' && '[{"ios":"26","runner":"macos-latest","xcode":"","runtime":"iOS-26"},{"ios":"18","runner":"macos-15","xcode":"/Applications/Xcode_26.3.app","runtime":"iOS-18"},{"ios":"17","runner":"macos-latest","xcode":"","runtime":"iOS-17","download":"17.5"},{"ios":"16","runner":"macos-latest","xcode":"","runtime":"iOS-16","download":"16.4"}]' || '[{"ios":"26","runner":"macos-latest","xcode":"","runtime":"iOS-26"}]') }}
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
     steps:
@@ -229,6 +229,10 @@ jobs:
         run: |
           if [ -n "${{ matrix.xcode }}" ]; then sudo xcode-select -s "${{ matrix.xcode }}"; fi
           xcodebuild -version
+          # ältere iOS-Versionen: Simulator bei Apple laden (ca. 2 Minuten)
+          if [ -n "${{ matrix.download }}" ]; then
+            xcodebuild -downloadPlatform iOS -buildVersion "${{ matrix.download }}" 2>&1 | tr '\r' '\n' | grep -v '%' | tail -3
+          fi
           # neuestes iPhone mit der gewünschten iOS-Version
           UDID=$(xcrun simctl list devices available -j | python3 -c "
           import json,sys

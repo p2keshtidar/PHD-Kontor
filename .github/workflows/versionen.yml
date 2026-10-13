@@ -60,7 +60,7 @@ jobs:
           { sw_vers; xcodebuild -version; ls /Applications | grep -i xcode
             echo "== Runtimes"; xcrun simctl list runtimes
             if [ "${{ matrix.os }}" = "macos-latest" ]; then
-              for v in 15.5 16.4 17.5 18.6; do
+              for v in 15.4 15.2 15.0 16.0; do
                 echo "== Download iOS $v"; s=$(date +%s)
                 perl -e 'alarm shift; exec @ARGV' 1500 xcodebuild -downloadPlatform iOS -buildVersion $v 2>&1 | grep -v '^Downloading.*%' | tail -5
                 echo "Dauer: $(( $(date +%s) - s )) s"
