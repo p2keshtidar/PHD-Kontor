@@ -48,7 +48,10 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
       }
     },
   );
-  LocalNotifications.init().whenComplete(service.start);
+  // Live-Verbindung sofort starten: auf iOS wartet init() auf die Antwort zur
+  // Benachrichtigungs-Erlaubnis – solange darf die Verbindung nicht blockiert sein.
+  service.start();
+  LocalNotifications.init();
   BackgroundCheck.start(); // /K070/ Android: auch bei geschlossener App nach Meldungen schauen
   ref.onDispose(service.stop);
   return service;
