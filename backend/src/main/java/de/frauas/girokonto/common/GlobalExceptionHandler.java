@@ -37,6 +37,28 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ApiError.of("BAD_REQUEST", "Ungültige Anfrage."));
     }
 
+    /** Falscher Typ in URL oder Parameter, z. B. /api/plans/abc oder ?direction=SEITWAERTS */
+    @ExceptionHandler(org.springframework.beans.TypeMismatchException.class)
+    public ResponseEntity<ApiError> handleTypeMismatch(org.springframework.beans.TypeMismatchException e) {
+        String name = e.getPropertyName() == null ? "Wert" : e.getPropertyName();
+        return ResponseEntity.badRequest().body(ApiError.of("BAD_REQUEST", "Ungültiger Wert für „" + name + "“."));
+    }
+
+    /** Prüfungen an Methodenparametern (@Min, @Max …) */
+    @ExceptionHandler({jakarta.validation.ConstraintViolationException.class,
+            org.springframework.web.method.annotation.HandlerMethodValidationException.class})
+    public ResponseEntity<ApiError> handleConstraint(Exception e) {
+        return ResponseEntity.badRequest().body(ApiError.of("VALIDATION_FAILED", "Bitte Eingaben prüfen."));
+    }
+
+    /** Verstoß gegen eine Datenbank-Regel (z. B. eindeutiger Schlüssel bei gleichzeitigen Anfragen) */
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public ResponseEntity<ApiError> handleIntegrity(org.springframework.dao.DataIntegrityViolationException e) {
+        log.warn("Datenbank-Regel verletzt: {}", e.getMostSpecificCause().getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(ApiError.of("CONFLICT", "Die Aktion passt nicht zum aktuellen Stand. Bitte erneut versuchen."));
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiError> handleDenied(AccessDeniedException e) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
