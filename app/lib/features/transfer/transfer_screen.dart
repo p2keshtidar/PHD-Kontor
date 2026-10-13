@@ -291,7 +291,8 @@ class _SummarySheetState extends ConsumerState<_SummarySheet> {
   Widget build(BuildContext context) {
     final c = widget.check;
     final theme = Theme.of(context);
-    return Padding(
+    // Scrollbar, damit "Jetzt senden" auch auf sehr kleinen Displays erreichbar bleibt
+    return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
       child: Column(
         mainAxisSize: MainAxisSize.min,

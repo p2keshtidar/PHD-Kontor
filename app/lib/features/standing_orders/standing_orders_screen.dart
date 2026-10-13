@@ -74,7 +74,7 @@ class _OrderCard extends ConsumerWidget {
       context: context,
       showDragHandle: true,
       builder: (ctx) => SafeArea(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
+        child: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(
             leading: const Icon(Icons.euro),
             title: const Text('Betrag ändern'),
@@ -95,7 +95,7 @@ class _OrderCard extends ConsumerWidget {
             title: Text('Löschen', style: TextStyle(color: Theme.of(ctx).colorScheme.error)),
             onTap: () => Navigator.pop(ctx, 'delete'),
           ),
-        ]),
+        ])),
       ),
     );
     if (!context.mounted || action == null) return;

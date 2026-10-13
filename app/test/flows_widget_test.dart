@@ -120,6 +120,33 @@ void main() {
     expect(find.text('ROUTE:/ueberweisung-erfolg'), findsOneWidget);
   });
 
+  testWidgets('A16 Überweisung auf sehr kleinem Display mit großer Schrift: "Jetzt senden" erreichbar', (tester) async {
+    final fake = FakeBackend({
+      'POST /api/transfers/check': (o) => {
+            'recipientName': 'Ben Beispiel mit einem sehr langen Namen', 'recipientIban': 'DE12000100010000000042',
+            'amountCents': 2550, 'description': 'Pizza und Getränke vom Wochenende', 'availableCents': 523450,
+            'remainingDailyLimitCents': 497450,
+          },
+      'POST /api/transfers': (o) => {
+            'bookingId': 900, 'recipientName': 'Ben Beispiel', 'recipientIban': 'DE12000100010000000042',
+            'recipientUserId': 2, 'amountCents': 2550, 'description': 'Pizza', 'bookedAt': '2026-10-13T08:00:00Z',
+            'newBalanceCents': 520900,
+          },
+    });
+    await pumpScreen(tester, const TransferScreen(), backend: fake, size: const Size(320, 480), textScale: 1.3);
+    await tester.enterText(find.byKey(const Key('transfer_recipient')), 'ben@example.org');
+    await tester.enterText(find.byKey(const Key('transfer_amount')), '25,50');
+    await tester.ensureVisible(find.byKey(const Key('transfer_next')));
+    await tester.tap(find.byKey(const Key('transfer_next')));
+    await tester.pumpAndSettle();
+    expect(tester.takeException(), isNull); // kein Überlauf in der Zusammenfassung
+    await tester.ensureVisible(find.text('Jetzt senden'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Jetzt senden'));
+    await tester.pumpAndSettle();
+    expect(fake.calls('POST /api/transfers'), hasLength(1));
+  });
+
   testWidgets('A05 Überweisung: ungültiger Betrag wird nicht geschickt', (tester) async {
     final fake = await pumpScreen(tester, const TransferScreen());
     await tester.enterText(find.byKey(const Key('transfer_recipient')), 'ben@example.org');
