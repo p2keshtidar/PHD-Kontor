@@ -1,0 +1,63 @@
+# Ermittelt Mindestversionen (Flutter, Plugins) und verfügbare Test-Systeme.
+# Ergebnis landet im Branch ci-logs-versionen (Datei ci.log).
+name: Versionen prüfen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - name: Mindestversionen Android
+        working-directory: app
+        shell: bash
+        run: |
+          {
+          flutter --version
+          flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app > /dev/null
+          flutter pub get > /dev/null
+          echo "== FlutterExtension"; grep -rn "minSdkVersion\|targetSdkVersion\|compileSdkVersion\|ndkVersion" "$FLUTTER_ROOT/packages/flutter_tools/gradle/src/main/kotlin/FlutterExtension.kt" 2>/dev/null | head
+          grep -rn "minSdkVersion *=" "$FLUTTER_ROOT/packages/flutter_tools/gradle/src/main" | head -5
+          echo "== Plugins (android)"
+          for d in $(python3 -c "import json;[print(p['rootUri'].replace('file://','')) for p in json.load(open('.dart_tool/package_config.json'))['packages']]"); do
+            f=$(ls $d/android/build.gradle* 2>/dev/null | head -1); [ -n "$f" ] && echo "$(basename $d): $(grep -hoE 'minSdk(Version)? *=? *[0-9a-zA-Z_.]+' $f | head -1) $(grep -hoE 'compileSdk(Version)? *=? *[0-9a-zA-Z_.]+' $f | head -1)"
+          done
+          echo "== Plugins (ios)"
+          for d in $(python3 -c "import json;[print(p['rootUri'].replace('file://','')) for p in json.load(open('.dart_tool/package_config.json'))['packages']]"); do
+            for f in $(ls $d/ios/*.podspec $d/darwin/*.podspec 2>/dev/null); do echo "$(basename $d): $(grep -hoE "ios.deployment_target *= *'[0-9.]+'|platform *= *:ios, *'[0-9.]+'" $f | head -1)"; done
+            p=$(ls $d/ios/*/Package.swift $d/darwin/*/Package.swift 2>/dev/null | head -1); [ -n "$p" ] && echo "$(basename $d) SPM: $(grep -hoE '\.iOS\("[0-9.]+"\)|\.iOS\(\.v[0-9_]+\)' $p | head -1)"
+          done
+          echo "== App ios"; grep -rn "IPHONEOS_DEPLOYMENT_TARGET" ios/Runner.xcodeproj/project.pbxproj | sort -u | head -3; grep -n "MinimumOSVersion" ios/Flutter/AppFrameworkInfo.plist -A1
+          echo "== SDK-Images"; $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list 2>/dev/null | grep -E "system-images;android-[0-9]+;(google_apis|default);x86_64 " | awk '{print $1}' | sort -u
+          } 2>&1 | tee /tmp/ci.log
+      - name: Protokoll ablegen
+        if: always()
+        shell: bash
+        run: |
+          cd /tmp && rm -rf l && mkdir l && cd l && git init -q && cp /tmp/ci.log . && git add ci.log
+          git -c user.name=ci -c user.email=ci@example.org commit -qm "Versionen android"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-versionen-android
+  ios:
+    runs-on: macos-latest
+    steps:
+      - name: Simulator-Runtimes
+        shell: bash
+        run: |
+          { sw_vers; xcodebuild -version; ls /Applications | grep -i xcode
+            echo "== Runtimes"; xcrun simctl list runtimes
+            echo "== Geräte"; xcrun simctl list devicetypes | grep -i iphone | head -40
+          } 2>&1 | tee /tmp/ci.log
+      - name: Protokoll ablegen
+        if: always()
+        shell: bash
+        run: |
+          cd /tmp && rm -rf l && mkdir l && cd l && git init -q && cp /tmp/ci.log . && git add ci.log
+          git -c user.name=ci -c user.email=ci@example.org commit -qm "Versionen ios"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-versionen-ios
