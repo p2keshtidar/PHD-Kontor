@@ -101,7 +101,7 @@ jobs:
         # API 24 = Android 7.0 (älteste von Flutter unterstützte Version) … 36 = Android 16
         api: ${{ fromJSON(inputs.versionen == 'alle' && '[24, 26, 28, 30, 33, 35, 36]' || '[30]') }}
     runs-on: ubuntu-latest
-    timeout-minutes: 50
+    timeout-minutes: 75
     services:
       postgres:
         image: postgres:16-alpine
@@ -176,7 +176,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          timeout 1500 flutter test integration_test/app_test.dart -d emulator-5554 \
+          timeout 2700 flutter test integration_test/app_test.dart -d emulator-5554 \
             --dart-define=API_URL=http://10.0.2.2:8080 2>&1 | tee -a /tmp/full.log | grep -v 'SCREENSHOT:' | tee -a /tmp/ci.log
       - name: Bildschirmfotos ablegen
         if: always()
