@@ -24,7 +24,8 @@ public class CategoryService {
                 "metzgerei", "bio", "rewe", "lidl", "aldi", "edeka", "netto", "penny", "kaufland"));
         KEYWORDS.put(Category.MOBILITAET, List.of("tank", "bahn", "ticket", "bus", "parken", "taxi", "werkstatt", "aral", "shell", "esso"));
         KEYWORDS.put(Category.FREIZEIT, List.of("kino", "restaurant", "café", "cafe", "bar", "konzert", "pizz",
-                "imbiss", "theater", "bowling", "zoo", "freizeit"));
+                "imbiss", "theater", "bowling", "zoo", "freizeit", "urlaub", "reise", "hotel", "flug", "ferien", "ausflug",
+                "museum"));
         KEYWORDS.put(Category.SHOPPING, List.of("shop", "elektro", "mode", "kleidung", "drogerie", "buch", "möbel", "amazon", "zalando"));
     }
 

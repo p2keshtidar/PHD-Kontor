@@ -27,6 +27,11 @@ class CategoryServiceTest {
     void ausgabenNachSchluesselwort() {
         assertThat(service.categorize(BookingType.DIRECT_DEBIT, "Miete – Hausverwaltung Main", -1)).isEqualTo(Category.WOHNEN);
         assertThat(service.categorize(BookingType.CARD, "Supermarkt Frisch", -1)).isEqualTo(Category.LEBENSMITTEL);
+        // eigene Einträge: typische Bezeichnungen
+        assertThat(service.categorize(BookingType.ENTRY_EXPENSE, "Urlaub Mallorca", -1)).isEqualTo(Category.FREIZEIT);
+        assertThat(service.categorize(BookingType.ENTRY_EXPENSE, "Flug nach Teheran", -1)).isEqualTo(Category.FREIZEIT);
+        assertThat(service.categorize(BookingType.ENTRY_EXPENSE, "Miete", -1)).isEqualTo(Category.WOHNEN);
+        assertThat(service.categorize(BookingType.ENTRY_EXPENSE, "Kfz-Versicherung", -1)).isEqualTo(Category.VERTRAEGE);
         assertThat(service.categorize(BookingType.CARD, "Tankstelle Nord", -1)).isEqualTo(Category.MOBILITAET);
         assertThat(service.categorize(BookingType.CARD, "Kino am Main", -1)).isEqualTo(Category.FREIZEIT);
         assertThat(service.categorize(BookingType.CARD, "Online-Shop Elektro", -1)).isEqualTo(Category.SHOPPING);

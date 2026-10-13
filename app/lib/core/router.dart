@@ -91,7 +91,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/eintraege', builder: (_, __) => const EntriesScreen()),
       GoRoute(
         path: '/eintraege/neu',
-        builder: (_, state) => EntryFormScreen(kind: state.uri.queryParameters['art'] == 'einnahme' ? 'INCOME' : 'EXPENSE'),
+        builder: (_, state) {
+          final kind = state.uri.queryParameters['art'] == 'einnahme' ? 'INCOME' : 'EXPENSE';
+          return EntryFormScreen(key: ValueKey('entry_form_$kind'), kind: kind);
+        },
       ),
       GoRoute(path: '/benachrichtigungen', builder: (_, __) => const NotificationsScreen()),
       // Phase 4: Finanzüberblick, Pläne, Kredite
