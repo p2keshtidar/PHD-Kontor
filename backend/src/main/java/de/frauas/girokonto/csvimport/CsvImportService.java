@@ -1,5 +1,6 @@
 package de.frauas.girokonto.csvimport;
 
+import de.frauas.girokonto.common.Dates;
 import de.frauas.girokonto.booking.BookingType;
 import de.frauas.girokonto.common.ApiException;
 import de.frauas.girokonto.insights.Category;
@@ -127,7 +128,7 @@ public class CsvImportService {
         jdbc.update("UPDATE csv_import SET rows_imported = ?, rows_skipped = ?, first_date = ?, last_date = ? WHERE id = ?",
                 imported, skipped, Date.valueOf(first), Date.valueOf(last), importId);
         notifications.send(userId, NotificationType.INFO, "Umsätze importiert",
-                imported + " Umsätze aus „" + name + "“ (" + first + " bis " + last + ") sind jetzt im Finanzüberblick.",
+                imported + " Umsätze aus „" + name + "“ (" + Dates.de(first) + " bis " + Dates.de(last) + ") sind jetzt im Finanzüberblick.",
                 null);
         return new ImportResult(importId, parsed.format(), imported, skipped, parsed.errors(), first, last, income, expense);
     }

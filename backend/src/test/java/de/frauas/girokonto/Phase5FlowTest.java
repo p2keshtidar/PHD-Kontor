@@ -96,7 +96,9 @@ class Phase5FlowTest extends FlowTestSupport {
         long interest = LoanMath.interest(1_500_000, new BigDecimal("5.59"));
         assertThat(after.get("paidInstallments").asInt()).isEqualTo(1);
         assertThat(after.get("remainingCents").asLong()).isEqualTo(1_500_000 - (38_286 - interest));
-        assertThat(notificationTexts(u)).anyMatch(s -> s.startsWith("Sondertilgung gebucht"));
+        assertThat(notificationTexts(u)).anyMatch(s -> s.startsWith("Sondertilgung gebucht"))
+                .anyMatch(s -> s.startsWith("Kredit ausgezahlt"))
+                .noneMatch(s -> s.matches("(?s).*\\d{4}-\\d{2}-\\d{2}.*"));      // Datum immer deutsch
     }
 
     @Test

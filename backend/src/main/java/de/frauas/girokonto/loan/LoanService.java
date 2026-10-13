@@ -1,5 +1,6 @@
 package de.frauas.girokonto.loan;
 
+import de.frauas.girokonto.common.Dates;
 import de.frauas.girokonto.account.Account;
 import de.frauas.girokonto.account.AccountRepository;
 import de.frauas.girokonto.account.AccountService;
@@ -153,7 +154,7 @@ public class LoanService implements DailyJob {
                 new BookingService.Line(main.getId(), r.principalCents())));
         notifications.send(userId, NotificationType.INFO, "Kredit ausgezahlt",
                 Money.format(r.principalCents()) + " von der " + offer.bankName() + ". Erste Rate ("
-                        + Money.format(offer.monthlyRateCents()) + ") am " + loan.getNextDueDate() + ".", b.getId());
+                        + Money.format(offer.monthlyRateCents()) + ") am " + Dates.de(loan.getNextDueDate()) + ".", b.getId());
         return detail(userId, loan.getId());
     }
 

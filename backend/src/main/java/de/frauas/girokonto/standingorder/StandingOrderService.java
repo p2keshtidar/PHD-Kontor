@@ -1,5 +1,6 @@
 package de.frauas.girokonto.standingorder;
 
+import de.frauas.girokonto.common.Dates;
 import de.frauas.girokonto.common.ApiException;
 import de.frauas.girokonto.common.Money;
 import de.frauas.girokonto.config.AppProperties;
@@ -80,14 +81,14 @@ public class StandingOrderService implements DailyJob {
         LocalDate today = LocalDate.now(clock);
         LocalDate first = firstExecution(today, r.executionDay());
         if (r.endDate() != null && r.endDate().isBefore(first)) {
-            throw bad("INVALID_END_DATE", "Das Enddatum liegt vor der ersten Ausführung am " + first + ".");
+            throw bad("INVALID_END_DATE", "Das Enddatum liegt vor der ersten Ausführung am " + Dates.de(first) + ".");
         }
         StandingOrder o = orders.save(new StandingOrder(userId, recipient.account().getIban(), recipient.fullName(),
                 r.amountCents(), reference(r.reference()), r.executionDay(), interval, first, r.endDate(),
                 Instant.now(clock)));
         notifications.send(userId, NotificationType.INFO, "Dauerauftrag eingerichtet",
                 Money.format(o.getAmountCents()) + " an " + o.getRecipientName() + ", " + intervalLabel(interval)
-                        + " am " + o.getExecutionDay() + ". – erstmals am " + first + ".", null);
+                        + " am " + o.getExecutionDay() + ". – erstmals am " + Dates.de(first) + ".", null);
         return toDto(o);
     }
 

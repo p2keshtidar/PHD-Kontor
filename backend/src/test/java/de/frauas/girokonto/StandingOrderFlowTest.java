@@ -34,6 +34,10 @@ class StandingOrderFlowTest extends FlowTestSupport {
         assertThat(o.get("status").asText()).isEqualTo("ACTIVE");
         LocalDate next = LocalDate.parse(o.get("nextExecutionDate").asText());
         assertThat(next.getDayOfMonth()).isEqualTo(5);
+        // Datum in Meldungen deutsch (01.11.2026), nicht technisch (2026-11-01)
+        String german = "%02d.%02d.%d".formatted(next.getDayOfMonth(), next.getMonthValue(), next.getYear());
+        assertThat(notificationTexts(anna)).anyMatch(t -> t.startsWith("Dauerauftrag eingerichtet") && t.contains("erstmals am " + german))
+                .noneMatch(t -> t.matches("(?s).*\\d{4}-\\d{2}-\\d{2}.*"));
 
         LocalDate first = advanceToNextDay(anna, 5);
         assertThat(first).isEqualTo(next);
