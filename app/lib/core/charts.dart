@@ -38,9 +38,9 @@ class IncomeExpenseChart extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 8),
-        Row(children: [
+        // Wrap statt Row: bei großer Schrift in die nächste Zeile umbrechen statt überlaufen
+        Wrap(spacing: 16, runSpacing: 4, children: [
           const _Legend(color: incomeColor, text: 'Einnahmen'),
-          const SizedBox(width: 16),
           _Legend(color: scheme.error, text: 'Ausgaben'),
         ]),
       ],
@@ -187,9 +187,8 @@ class ValueLineChart extends StatelessWidget {
         child: CustomPaint(painter: _LinePainter(points, scheme.primary, scheme.outline, scheme.onSurfaceVariant)),
       ),
       const SizedBox(height: 8),
-      Row(children: [
+      Wrap(spacing: 16, runSpacing: 4, children: [
         _Legend(color: scheme.primary, text: 'Wert'),
-        const SizedBox(width: 16),
         _Legend(color: scheme.outline, text: 'Eingezahlt'),
       ]),
     ]);
