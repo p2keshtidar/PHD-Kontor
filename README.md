@@ -8,7 +8,7 @@ Betreuung: Prof. Dr.-Ing. Ruth Schorr
 [![CI](https://github.com/p2keshtidar/girokonto/actions/workflows/ci.yml/badge.svg)](https://github.com/p2keshtidar/girokonto/actions/workflows/ci.yml)
 [![Release](https://github.com/p2keshtidar/girokonto/actions/workflows/release.yml/badge.svg)](https://github.com/p2keshtidar/girokonto/releases/tag/latest)
 [![E2E](https://github.com/p2keshtidar/girokonto/actions/workflows/e2e.yml/badge.svg)](https://github.com/p2keshtidar/girokonto/actions/workflows/e2e.yml)
-![Plattformen](https://img.shields.io/badge/Plattformen-Android%20%7C%20iOS%20%7C%20Browser-0a7cff)
+![Plattformen](https://img.shields.io/badge/Plattformen-Android%207%2B%20%7C%20iOS%2015%2B%20%7C%20Browser-0a7cff)
 ![Flutter](https://img.shields.io/badge/App-Flutter-02569B?logo=flutter)
 ![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot%203-6DB33F?logo=springboot)
 ![PostgreSQL](https://img.shields.io/badge/DB-PostgreSQL%2016-336791?logo=postgresql)
@@ -34,6 +34,8 @@ GitHub baut bei jeder Änderung automatisch alle Apps neu. Einfach anklicken:
 | 🌐 | [girokonto-web.zip](https://github.com/p2keshtidar/girokonto/releases/latest/download/girokonto-web.zip) | nur die Web-App (statische Dateien) |
 
 Alle Dateien auf einen Blick: **[Releases → Aktuelle Version](https://github.com/p2keshtidar/girokonto/releases/tag/latest)**
+
+📱 Läuft auf **Android 7.0 bis 16** und **iOS 15 bis 26** – das sind die ältesten Versionen, die Flutter unterstützt. Automatisch getestet auf Android 7, 8, 9, 11, 13, 15, 16 und iOS 16, 17, 18, 26 → [Details](docs/technik/versionen.md)
 
 > [!IMPORTANT]
 > Die Apps brauchen den **Server** auf deinem PC. Wie das in 5 Minuten geht, steht in der
@@ -100,6 +102,7 @@ Demo-Admin: `admin@projektbank.de` / `admin12345`
 | 🆘 [Häufige Probleme](docs/anleitung/04-probleme.md) | Lösungen für typische Fehler |
 | 🏗️ [Architektur](docs/technik/architektur.md) | Wie Backend und App aufgebaut sind |
 | ✅ [Testbericht](docs/technik/testbericht.md) | Was getestet wird, Abdeckung, gefundene Fehler |
+| 📱 [Unterstützte Versionen](docs/technik/versionen.md) | Android 7+ / iOS 15+, was sich zwischen den Versionen unterscheidet, wie getestet wird |
 | 🔔 [Push-Benachrichtigungen](docs/technik/push.md) | Hintergrund-Abfrage und Weg zu echtem Push (Firebase/APNs) |
 | 📄 [Pflichtenheft v0.2](docs/pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) | Anforderungen (Muss-/Kannkriterien, Tests) |
 | 🏃 [Scrum](docs/scrum/README.md) | Team, Rollen, Sprints, Meeting-Protokolle |
@@ -131,7 +134,7 @@ Bei jedem Push prüft GitHub automatisch ([Actions](https://github.com/p2keshtid
 - **Backend:** 136 Tests mit echter PostgreSQL-Datenbank, **93 % Zeilenabdeckung** – Testfälle T01–T40 aus dem Pflichtenheft, Sicherheitsmatrix über *alle* Endpunkte, Fuzzing, gleichzeitige Überweisungen, 160 Zufallsaktionen mit Prüfung der Buchhaltung
 - **App:** `flutter analyze` + 160 Unit-/Widget-Tests – jeder Bildschirm in 4 Formaten (kleines Handy bis Tablet, Schrift 150 %), Abläufe mit simuliertem Server
 - **Builds:** Web, Android-APK, iOS, Docker-Image
-- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform und Android-Gerät wählbar): echte App im Browser (Chrome), Android-Emulator (Pixel 5 oder sehr kleines Display, Android 11) und iOS-Simulator (iPhone, iOS 18) gegen den echten Server – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kreditabschluss, Sondertilgung, **zwei Nutzer** (Live-Meldung, Überweisung, Dauerauftrag, geteiltes Unterkonto)
+- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform, Android-Gerät und Systemversionen wählbar): echte App im Browser (Chrome), Android-Emulatoren (**Android 7, 8, 9, 11, 13, 15, 16**; Pixel 5 oder sehr kleines Display) und iPhone-Simulatoren (**iOS 16, 17, 18, 26**) gegen den echten Server, mit Bildschirmfotos je Version – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kreditabschluss, Sondertilgung, **zwei Nutzer** (Live-Meldung, Überweisung, Dauerauftrag, geteiltes Unterkonto)
 
 📋 Alle Details: **[Testbericht](docs/technik/testbericht.md)**
 

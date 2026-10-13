@@ -97,6 +97,8 @@ Von einem anderen Gerät im WLAN: `http://<IP-deines-PCs>:8080`.
 
 ## Teil C – Android-Handy
 
+> Voraussetzung: **Android 7.0 oder neuer** (Einstellungen → Über das Telefon → Android-Version). [Welche Versionen getestet sind](../technik/versionen.md)
+
 1. Handy und PC müssen im **selben WLAN** sein.
 2. Auf dem Handy **[girokonto.apk](https://github.com/p2keshtidar/girokonto/releases/latest/download/girokonto.apk)** öffnen (Link z. B. per Mail/WhatsApp an dich schicken).
 3. Datei antippen → Android fragt: *„Apps aus dieser Quelle zulassen?“* → **Einstellungen → Zulassen** → zurück → **Installieren**.
@@ -111,6 +113,8 @@ Von einem anderen Gerät im WLAN: `http://<IP-deines-PCs>:8080`.
 ---
 
 ## Teil D – iPhone
+
+> Voraussetzung: **iOS 15 oder neuer** (ab iPhone 6s/SE). Für die Web-App (Weg 1) reicht Safari 15.6 oder neuer.
 
 Apple erlaubt Apps außerhalb des App Stores nur mit Signatur. Es gibt zwei Wege:
 
