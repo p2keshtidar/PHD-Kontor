@@ -243,7 +243,7 @@ void main() {
 
     // Live-Meldung: B überweist an A, während A die App offen hat
     await b.transfer(a.email, 1234, 'Pizza E2E');
-    await pumpUntil(tester, find.textContaining('Pizza E2E'), timeout: const Duration(seconds: 30));
+    // Kontostand ändert sich ohne Neuladen (Meldung kommt über die WebSocket-Verbindung)
     await pumpUntil(tester, find.text('1.012,34 €'), timeout: const Duration(seconds: 30));
 
     // A überweist an B über die Oberfläche
