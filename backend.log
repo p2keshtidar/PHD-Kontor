@@ -1,0 +1,76 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-13T15:18:57.320Z  INFO 1570 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : Starting GirokontoApplication v0.1.0 using Java 21.0.12.1 with PID 1570 (/Users/runner/work/girokonto/girokonto/backend/build/libs/girokonto-backend-0.1.0.jar started by runner in /Users/runner/work/girokonto/girokonto/backend)
+2026-10-13T15:18:57.323Z  INFO 1570 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-10-13T15:18:58.386Z  INFO 1570 --- [girokonto] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-13T15:18:58.494Z  INFO 1570 --- [girokonto] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 93 ms. Found 14 JPA repository interfaces.
+2026-10-13T15:18:59.195Z  INFO 1570 --- [girokonto] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-10-13T15:18:59.206Z  INFO 1570 --- [girokonto] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-13T15:18:59.206Z  INFO 1570 --- [girokonto] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-10-13T15:18:59.239Z  INFO 1570 --- [girokonto] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-13T15:18:59.240Z  INFO 1570 --- [girokonto] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1852 ms
+2026-10-13T15:18:59.513Z  INFO 1570 --- [girokonto] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-13T15:18:59.685Z  INFO 1570 --- [girokonto] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6a7a1a0d
+2026-10-13T15:18:59.686Z  INFO 1570 --- [girokonto] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-13T15:18:59.731Z  INFO 1570 --- [girokonto] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/girokonto (PostgreSQL 16.15)
+2026-10-13T15:18:59.778Z  INFO 1570 --- [girokonto] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-13T15:18:59.784Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 9 migrations (execution time 00:00.034s)
+2026-10-13T15:18:59.796Z  INFO 1570 --- [girokonto] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-13T15:18:59.872Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-13T15:18:59.882Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - init"
+2026-10-13T15:18:59.939Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - contacts"
+2026-10-13T15:18:59.959Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "3 - cards notifications"
+2026-10-13T15:18:59.997Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "4 - planning"
+2026-10-13T15:19:00.066Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "5 - phase5"
+2026-10-13T15:19:00.089Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "6 - standing orders"
+2026-10-13T15:19:00.109Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "7 - two factor"
+2026-10-13T15:19:00.124Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "8 - csv import"
+2026-10-13T15:19:00.144Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "9 - shared subaccounts"
+2026-10-13T15:19:00.159Z  INFO 1570 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 9 migrations to schema "public", now at version v9 (execution time 00:00.167s)
+2026-10-13T15:19:00.256Z  INFO 1570 --- [girokonto] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-13T15:19:00.342Z  INFO 1570 --- [girokonto] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-10-13T15:19:00.402Z  INFO 1570 --- [girokonto] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-13T15:19:00.790Z  INFO 1570 --- [girokonto] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-13T15:19:01.847Z  INFO 1570 --- [girokonto] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-13T15:19:01.851Z  INFO 1570 --- [girokonto] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-13T15:19:02.172Z  INFO 1570 --- [girokonto] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-13T15:19:03.364Z  WARN 1570 --- [girokonto] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 31ab80d0-f24c-4670-b612-a63a8cfffca8
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-13T15:19:03.375Z  INFO 1570 --- [girokonto] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-13T15:19:04.042Z  INFO 1570 --- [girokonto] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-10-13T15:19:04.045Z  INFO 1570 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-10-13T15:19:04.046Z  INFO 1570 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1d0b4fe4]]
+2026-10-13T15:19:04.047Z  INFO 1570 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-10-13T15:19:04.059Z  INFO 1570 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : Started GirokontoApplication in 7.221 seconds (process running for 7.757)
+2026-10-13T15:19:04.505Z  INFO 1570 --- [girokonto] [           main] d.f.girokonto.auth.AdminInitializer      : Administrator admin@projektbank.de angelegt
+2026-10-13T15:19:04.628Z  INFO 1570 --- [girokonto] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-13T15:19:04.629Z  INFO 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-13T15:19:04.629Z DEBUG 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-10-13T15:19:04.629Z DEBUG 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-10-13T15:19:04.629Z DEBUG 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2026-10-13T15:19:04.630Z DEBUG 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@2591f310
+2026-10-13T15:19:04.630Z DEBUG 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@3d872a12
+2026-10-13T15:19:04.630Z DEBUG 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-10-13T15:19:04.630Z  INFO 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-13T15:19:04.650Z DEBUG 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/v3/api-docs", parameters={}
+2026-10-13T15:19:05.351Z  INFO 1570 --- [girokonto] [nio-8080-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 674 ms
+2026-10-13T15:19:05.382Z DEBUG 1570 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:19:05.400Z DEBUG 1570 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/v3/api-docs", parameters={}
+2026-10-13T15:19:05.410Z DEBUG 1570 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:19:05.434Z DEBUG 1570 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-13T15:19:05.676Z DEBUG 1570 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:19:05.693Z DEBUG 1570 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/login", parameters={}
+2026-10-13T15:19:05.814Z DEBUG 1570 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:20:04.122Z  INFO 1570 --- [girokonto] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 1, completed tasks = 0]
