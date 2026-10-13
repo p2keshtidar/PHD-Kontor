@@ -7,6 +7,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: write   # nur für das Ablegen von Fehlerprotokollen (Branches ci-logs-*)
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
@@ -44,6 +47,16 @@ jobs:
               echo "::error title=Protokoll::$msg"
             done
           fi
+      - name: Vollständiges Protokoll in Branch ablegen
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/logs && cp /tmp/ci.log /tmp/logs/ci.log 2>/dev/null || echo "kein Protokoll" > /tmp/logs/ci.log
+          cd /tmp/logs && git init -q && git checkout -q -b logs && git add . \
+            && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll ${{ github.run_id }} ${{ github.job }}" \
+            && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}" logs:ci-logs-${{ github.job }}
       - name: Testabdeckung
         if: always()
         run: python3 ../tool/coverage_summary.py jacoco build/reports/jacoco/test/jacocoTestReport.xml || true
@@ -100,6 +113,16 @@ jobs:
               echo "::error title=Protokoll::$msg"
             done
           fi
+      - name: Vollständiges Protokoll in Branch ablegen
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/logs && cp /tmp/ci.log /tmp/logs/ci.log 2>/dev/null || echo "kein Protokoll" > /tmp/logs/ci.log
+          cd /tmp/logs && git init -q && git checkout -q -b logs && git add . \
+            && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll ${{ github.run_id }} ${{ github.job }}" \
+            && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}" logs:ci-logs-${{ github.job }}
       - uses: actions/upload-artifact@v4
         with:
           name: web-build
@@ -146,6 +169,16 @@ jobs:
               echo "::error title=Protokoll::$msg"
             done
           fi
+      - name: Vollständiges Protokoll in Branch ablegen
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/logs && cp /tmp/ci.log /tmp/logs/ci.log 2>/dev/null || echo "kein Protokoll" > /tmp/logs/ci.log
+          cd /tmp/logs && git init -q && git checkout -q -b logs && git add . \
+            && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll ${{ github.run_id }} ${{ github.job }}" \
+            && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}" logs:ci-logs-${{ github.job }}
       - uses: actions/upload-artifact@v4
         with:
           name: android-apk
@@ -188,6 +221,16 @@ jobs:
             done
           fi
 
+      - name: Vollständiges Protokoll in Branch ablegen
+        if: failure()
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/logs && cp /tmp/ci.log /tmp/logs/ci.log 2>/dev/null || echo "kein Protokoll" > /tmp/logs/ci.log
+          cd /tmp/logs && git init -q && git checkout -q -b logs && git add . \
+            && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll ${{ github.run_id }} ${{ github.job }}" \
+            && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}" logs:ci-logs-${{ github.job }}
   # ---------------------------------------------------------------- Docker (komplette Anwendung)
   docker:
     name: Docker-Image (Backend + Web-App)

@@ -19,6 +19,13 @@ import 'support/harness.dart';
 import 'support/launcher.dart';
 
 /// Abläufe in der App mit simuliertem Server (A01–A14).
+/// Scrollt in der Seitenliste (nicht in Textfeldern, die intern auch scrollbar sind).
+Future<void> scrollTo(WidgetTester tester, Finder target) async {
+  final list = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
+  await tester.scrollUntilVisible(target, 200, scrollable: list);
+  await tester.pumpAndSettle();
+}
+
 void main() {
   Future<void> open(WidgetTester tester) async {
     await tester.tap(find.byKey(const Key('launcher_open')));
@@ -182,10 +189,10 @@ void main() {
     await tester.tap(find.byKey(const Key('extra_preview')));
     await tester.pumpAndSettle();
     expect(fake.lastBody('POST /api/loans/*/extra-payment/preview')['amountCents'], 100000);
-    await tester.scrollUntilVisible(find.text('Du sparst Zinsen'), 200);
+    await scrollTo(tester, find.text('Du sparst Zinsen'));
     expect(find.text('321,50 €'), findsOneWidget);
     expect(find.text('3 Raten weniger'), findsOneWidget);
-    await tester.scrollUntilVisible(find.byKey(const Key('extra_pay')), 200);
+    await scrollTo(tester, find.byKey(const Key('extra_pay')));
     await tester.tap(find.byKey(const Key('extra_pay')));
     await tester.pumpAndSettle();
     expect(fake.lastBody('POST /api/loans/*/extra-payment')['amountCents'], 100000);
@@ -206,7 +213,7 @@ void main() {
     await tester.enterText(find.byKey(const Key('extra_amount')), '9000');
     await tester.tap(find.byKey(const Key('extra_preview')));
     await tester.pumpAndSettle();
-    await tester.scrollUntilVisible(find.byKey(const Key('extra_pay')), 200);
+    await scrollTo(tester, find.byKey(const Key('extra_pay')));
     final button = tester.widget<FilledButton>(
         find.ancestor(of: find.byKey(const Key('extra_pay')), matching: find.byType(FilledButton)).first);
     expect(button.onPressed, isNull);
@@ -229,7 +236,7 @@ void main() {
     expect(find.byType(QrImageView), findsOneWidget);
     expect(find.text('JBSW Y3DP EHPK 3PXP JBSW Y3DP EHPK 3PXP'), findsOneWidget);
     await tester.enterText(find.byKey(const Key('totp_code')), '123 456');
-    await tester.scrollUntilVisible(find.byKey(const Key('totp_confirm')), 200);
+    await scrollTo(tester, find.byKey(const Key('totp_confirm')));
     await tester.tap(find.byKey(const Key('totp_confirm')));
     await tester.pumpAndSettle();
     expect(fake.lastBody('POST /api/me/2fa/enable')['code'], '123456');
@@ -268,7 +275,7 @@ void main() {
     expect(find.text('Ben Beispiel'), findsOneWidget);
     expect(find.text('Erika Mustermann (du)'), findsOneWidget);
     expect(find.text('Unterkonto auflösen'), findsOneWidget);
-    await tester.scrollUntilVisible(find.byKey(const Key('share_add')), 200);
+    await scrollTo(tester, find.byKey(const Key('share_add')));
     await tester.tap(find.byKey(const Key('share_add')));
     await tester.pumpAndSettle();
     await tester.enterText(find.byKey(const Key('share_recipient')), 'mia@example.org');
@@ -288,7 +295,7 @@ void main() {
     expect(find.text('Geteilt von Mia Musterfrau-Langname'), findsOneWidget);
     expect(find.text('Unterkonto auflösen'), findsNothing);
     expect(find.text('Name und Symbol ändern'), findsNothing);
-    await tester.scrollUntilVisible(find.text('Austreten'), 200);
+    await scrollTo(tester, find.text('Austreten'));
     expect(find.text('Austreten'), findsOneWidget);
   });
 
@@ -308,7 +315,7 @@ void main() {
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
-    await tester.scrollUntilVisible(find.byKey(const Key('plan_reminder')), 200);
+    await scrollTo(tester, find.byKey(const Key('plan_reminder')));
     await tester.tap(find.byKey(const Key('plan_reminder')));
     await tester.pumpAndSettle();
     await tester.tap(find.text('7 Tage vorher'));
