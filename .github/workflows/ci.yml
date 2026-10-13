@@ -96,7 +96,7 @@ jobs:
         shell: bash
       - name: Testabdeckung
         run: python3 ../tool/coverage_summary.py lcov coverage/lcov.info || true
-      - run: set -o pipefail; flutter build web --release 2>&1 | tee -a /tmp/ci.log
+      - run: set -o pipefail; flutter build web --release --no-web-resources-cdn 2>&1 | tee -a /tmp/ci.log
         shell: bash
       # Bei Fehlern das Ende des Protokolls als Annotation anzeigen (auch ohne Log-Download lesbar)
       - name: Fehlerprotokoll

@@ -6,6 +6,7 @@ ThemeData buildTheme(Brightness brightness) {
   final scheme = ColorScheme.fromSeed(seedColor: _seed, brightness: brightness);
   return ThemeData(
     useMaterial3: true,
+    fontFamily: 'Roboto', // mitgeliefert (assets/fonts), kein Download nötig
     colorScheme: scheme,
     inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),
   );

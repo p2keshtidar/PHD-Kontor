@@ -39,3 +39,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  # Schrift in der App mitliefern: die Web-App braucht so kein Google-CDN (z. B. Präsentation ohne Internet)
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700

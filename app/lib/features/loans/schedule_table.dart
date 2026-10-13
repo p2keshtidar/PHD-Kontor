@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/dates.dart';
 import '../../core/money.dart';
 import 'loan_models.dart';
 
@@ -14,19 +13,21 @@ class ScheduleTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final small = theme.textTheme.bodySmall;
-    Widget cell(String t, {bool bold = false, TextAlign align = TextAlign.right}) => Expanded(
-          child: Text(t, textAlign: align, style: bold ? small?.copyWith(fontWeight: FontWeight.bold) : small),
+    // Spaltenbreiten: Nr. schmal, Restschuld breit – passt auch auf kleine Handys ohne Umbruch
+    Widget cell(String t, {bool bold = false, TextAlign align = TextAlign.right, int flex = 3}) => Expanded(
+          flex: flex,
+          child: Text(t, maxLines: 1, softWrap: false, overflow: TextOverflow.fade, textAlign: align, style: bold ? small?.copyWith(fontWeight: FontWeight.bold) : small),
         );
     return Column(children: [
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(children: [
-          cell('Nr.', bold: true, align: TextAlign.left),
-          cell('Datum', bold: true),
+          cell('Nr.', bold: true, align: TextAlign.left, flex: 2),
+          cell('Monat', bold: true),
           cell('Rate', bold: true),
           cell('Zins', bold: true),
           cell('Tilgung', bold: true),
-          cell('Rest', bold: true),
+          cell('Rest', bold: true, flex: 4),
         ]),
       ),
       const Divider(height: 1),
@@ -35,12 +36,12 @@ class ScheduleTable extends StatelessWidget {
           color: r.paid ? theme.colorScheme.primaryContainer.withAlpha(90) : null,
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: Row(children: [
-            cell('${r.month}${r.paid ? ' ✓' : ''}', align: TextAlign.left),
-            cell(formatDate(r.dueDate)),
+            cell('${r.month}${r.paid ? ' ✓' : ''}', align: TextAlign.left, flex: 2),
+            cell('${r.dueDate.month.toString().padLeft(2, '0')}/${r.dueDate.year % 100}'),
             cell(formatCents(r.rateCents).replaceAll(' €', '')),
             cell(formatCents(r.interestCents).replaceAll(' €', '')),
             cell(formatCents(r.principalCents).replaceAll(' €', '')),
-            cell(formatCents(r.remainingCents).replaceAll(' €', '')),
+            cell(formatCents(r.remainingCents).replaceAll(' €', ''), flex: 4),
           ]),
         ),
         if (r.extraCents > 0)
