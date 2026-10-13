@@ -178,8 +178,16 @@ void main() {
     await pumpFor(tester, 1000);
     await scrollTo(tester, find.text('Angebote vergleichen'));
     await tester.tap(find.text('Angebote vergleichen'));
-    await pumpFor(tester, 3000);
-    await scrollTo(tester, find.text('Nordlicht Kredit'));
+    // Angebote laden (auf langsamen Rechnern mehr als 3 s), dann hinscrollen
+    for (var attempt = 0;; attempt++) {
+      await pumpFor(tester, 2000);
+      try {
+        await scrollTo(tester, find.text('Nordlicht Kredit'));
+        break;
+      } catch (_) {
+        if (attempt >= 10) rethrow;
+      }
+    }
     expect(find.text('Nordlicht Kredit'), findsOneWidget);
 
     // Angebot öffnen und Kredit abschließen
@@ -262,7 +270,9 @@ void main() {
     expect(await b.mainBalance(), 100000 - 1234 + 2550);
     expect(await a.mainBalance(), 100000 + 1234 - 2550);
 
-    // Dauerauftrag an B anlegen (/K030/)
+    // Erfolgsseite schließen, dann Dauerauftrag an B anlegen (/K030/)
+    await tapButton(tester, find.text('Fertig'));
+    await pumpUntil(tester, navItem('Überweisen'));
     await tester.tap(navItem('Überweisen'));
     await pumpUntil(tester, find.text('Daueraufträge'));
     await tester.tap(find.text('Daueraufträge').first);
