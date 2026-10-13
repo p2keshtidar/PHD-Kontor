@@ -1,0 +1,74 @@
+Flutter 3.47.7 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision abaf9c5237 (5 days ago) • 2026-10-08 09:51:21 -0700
+Engine • hash d8a2d6c768c334d53e16277f837970ffa1e2de81 (revision deb287481e) (5 days ago) • 2026-10-07 17:09:12.000Z
+Tools • Dart 3.13.5 • DevTools 2.60.0
+== FlutterExtension
+22:    /** Sets the compileSdkVersion used by default in Flutter app projects. */
+23:    val compileSdkVersion: Int = 36
+25:    /** Sets the minSdkVersion used by default in Flutter app projects. */
+26:    val minSdkVersion: Int = 24
+29:     * Sets the targetSdkVersion used by default in Flutter app projects.
+30:     * targetSdkVersion should always be the latest available stable version.
+34:    val targetSdkVersion: Int = 36
+37:     * Sets the ndkVersion used by default in Flutter app projects.
+42:    val ndkVersion: String = "28.2.13676358"
+/opt/hostedtoolcache/flutter/stable-3.47.7-x64/flutter/packages/flutter_tools/gradle/src/main/kotlin/DependencyVersionChecker.kt:160:                        val minSdkVersion = getMinSdkVersion(it)
+/opt/hostedtoolcache/flutter/stable-3.47.7-x64/flutter/packages/flutter_tools/gradle/src/main/kotlin/FlutterPlugin.kt:717:                    minSdkVersion = variant.mergedFlavor.minSdkVersion!!.apiLevel
+== Plugins (android)
+file_selector_android-0.5.2+11: minSdk = 24 compileSdk = flutter.compileSdkVersion
+flutter_contacts-1.1.9+2: minSdk 19 compileSdk 34
+flutter_local_notifications-17.2.4: minSdkVersion 16 compileSdk 34
+flutter_secure_storage-9.2.4: minSdkVersion 19 compileSdk 34
+integration_test: minSdk = flutter.minSdkVersion compileSdk = flutter.compileSdkVersion
+jni-1.1.0: minSdk = 21 compileSdk requires
+jni_flutter-1.0.4+1: minSdk = 21 compileSdk = 35
+shared_preferences_android-2.4.28: minSdk = 24 compileSdk = flutter.compileSdkVersion
+workmanager_android-0.10.9: minSdkVersion 23 compileSdk 35
+== Plugins (ios)
+file_selector_ios-0.5.3+6: platform = :ios, '13.0'
+file_selector_ios-0.5.3+6 SPM: .iOS("13.0")
+flutter_contacts-1.1.9+2: platform = :ios, '8.0'
+flutter_local_notifications-17.2.4: ios.deployment_target = '8.0'
+flutter_secure_storage-9.2.4: platform = :ios, '9.0'
+integration_test: platform = :ios, '12.0'
+integration_test SPM: .iOS("15.0")
+shared_preferences_foundation-2.5.7: ios.deployment_target = '13.0'
+shared_preferences_foundation-2.5.7 SPM: .iOS("13.0")
+workmanager_apple-0.9.11: ios.deployment_target = '14.0'
+workmanager_apple-0.9.11 SPM: .iOS(.v14)
+== App ios
+363:				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+490:				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+542:				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+== SDK-Images
+system-images;android-21;default;x86_64
+system-images;android-21;google_apis;x86_64
+system-images;android-22;default;x86_64
+system-images;android-22;google_apis;x86_64
+system-images;android-23;default;x86_64
+system-images;android-23;google_apis;x86_64
+system-images;android-24;default;x86_64
+system-images;android-24;google_apis;x86_64
+system-images;android-25;default;x86_64
+system-images;android-25;google_apis;x86_64
+system-images;android-26;default;x86_64
+system-images;android-26;google_apis;x86_64
+system-images;android-27;default;x86_64
+system-images;android-28;default;x86_64
+system-images;android-28;google_apis;x86_64
+system-images;android-29;default;x86_64
+system-images;android-29;google_apis;x86_64
+system-images;android-30;default;x86_64
+system-images;android-30;google_apis;x86_64
+system-images;android-31;default;x86_64
+system-images;android-31;google_apis;x86_64
+system-images;android-32;default;x86_64
+system-images;android-32;google_apis;x86_64
+system-images;android-33;default;x86_64
+system-images;android-33;google_apis;x86_64
+system-images;android-34;default;x86_64
+system-images;android-34;google_apis;x86_64
+system-images;android-35;default;x86_64
+system-images;android-35;google_apis;x86_64
+system-images;android-36;default;x86_64
+system-images;android-36;google_apis;x86_64
