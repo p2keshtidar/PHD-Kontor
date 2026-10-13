@@ -57,6 +57,11 @@ jobs:
           nohup java -jar build/libs/girokonto-backend-0.1.0.jar --logging.level.org.springframework.web.servlet.DispatcherServlet=DEBUG > /tmp/backend.log 2>&1 &
           for i in $(seq 1 90); do curl -sf http://localhost:8080/v3/api-docs > /dev/null && break; sleep 2; done
           curl -sf http://localhost:8080/v3/api-docs > /dev/null
+          # Aufwärmen: erste Registrierung/Anmeldung ist sonst auf langsamen Runnern sehr langsam
+          curl -s -o /dev/null -H 'Content-Type: application/json' http://localhost:8080/api/auth/register \
+            -d '{"firstName":"Warm","lastName":"Up","email":"warmup@example.org","phone":"01700000000","birthDate":"1990-01-01","password":"geheim12345"}' || true
+          curl -s -o /dev/null -H 'Content-Type: application/json' http://localhost:8080/api/auth/login \
+            -d '{"email":"warmup@example.org","password":"geheim12345"}' || true
       - uses: subosito/flutter-action@v2
         with: { channel: stable, cache: true }
       - name: App vorbereiten
@@ -122,6 +127,11 @@ jobs:
           nohup java -jar build/libs/girokonto-backend-0.1.0.jar --logging.level.org.springframework.web.servlet.DispatcherServlet=DEBUG > /tmp/backend.log 2>&1 &
           for i in $(seq 1 90); do curl -sf http://localhost:8080/v3/api-docs > /dev/null && break; sleep 2; done
           curl -sf http://localhost:8080/v3/api-docs > /dev/null
+          # Aufwärmen: erste Registrierung/Anmeldung ist sonst auf langsamen Runnern sehr langsam
+          curl -s -o /dev/null -H 'Content-Type: application/json' http://localhost:8080/api/auth/register \
+            -d '{"firstName":"Warm","lastName":"Up","email":"warmup@example.org","phone":"01700000000","birthDate":"1990-01-01","password":"geheim12345"}' || true
+          curl -s -o /dev/null -H 'Content-Type: application/json' http://localhost:8080/api/auth/login \
+            -d '{"email":"warmup@example.org","password":"geheim12345"}' || true
       - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: '17' }
       - uses: subosito/flutter-action@v2
@@ -216,6 +226,11 @@ jobs:
           nohup java -jar build/libs/girokonto-backend-0.1.0.jar --logging.level.org.springframework.web.servlet.DispatcherServlet=DEBUG > /tmp/backend.log 2>&1 &
           for i in $(seq 1 90); do curl -sf http://localhost:8080/v3/api-docs > /dev/null && break; sleep 2; done
           curl -sf http://localhost:8080/v3/api-docs > /dev/null
+          # Aufwärmen: erste Registrierung/Anmeldung ist sonst auf langsamen Runnern sehr langsam
+          curl -s -o /dev/null -H 'Content-Type: application/json' http://localhost:8080/api/auth/register \
+            -d '{"firstName":"Warm","lastName":"Up","email":"warmup@example.org","phone":"01700000000","birthDate":"1990-01-01","password":"geheim12345"}' || true
+          curl -s -o /dev/null -H 'Content-Type: application/json' http://localhost:8080/api/auth/login \
+            -d '{"email":"warmup@example.org","password":"geheim12345"}' || true
       - uses: subosito/flutter-action@v2
         with: { channel: stable, cache: true }
       - name: App vorbereiten
@@ -224,6 +239,8 @@ jobs:
           flutter create . --platforms=android,ios,web --org de.frauas --project-name girokonto_app > /dev/null
           flutter pub get
           dart run tool/setup_platforms.dart
+          # CocoaPods lädt aus dem Internet und bricht manchmal ab: bis zu 3 Versuche
+          for i in 1 2 3; do flutter build ios --config-only --simulator > /tmp/pods.log 2>&1 && break; tail -20 /tmp/pods.log; sleep 20; done
       - name: Simulator starten
         shell: bash
         run: |

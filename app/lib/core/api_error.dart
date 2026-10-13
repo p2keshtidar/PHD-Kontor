@@ -15,9 +15,11 @@ String apiErrorMessage(Object error) {
     switch (error.type) {
       case DioExceptionType.connectionError:
       case DioExceptionType.connectionTimeout:
+        return 'Server nicht erreichbar. Läuft das Backend?';
+      // Verbindung steht, aber die Antwort dauert (langsames Netz, alter Server-PC)
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.sendTimeout:
-        return 'Server nicht erreichbar. Läuft das Backend?';
+        return 'Der Server antwortet gerade nicht. Bitte noch einmal versuchen.';
       default:
         break;
     }

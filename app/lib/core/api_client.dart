@@ -14,7 +14,7 @@ class ApiClient {
     final options = BaseOptions(
       baseUrl: AppConfig.apiBaseUrl,
       connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 15),
+      receiveTimeout: const Duration(seconds: 30), // großzügig für langsame Mobilnetze
       contentType: Headers.jsonContentType,
     );
     dio = Dio(options);
