@@ -187,10 +187,10 @@ class RobustnessTest extends FlowTestSupport {
         postJson(s, "/api/subaccounts", "{\"name\":\"Topf 11\"}", 400);
         // Ausführungstag 28 ja, 29 nein
         postJson(s, "/api/plans", """
-                {"type":"INVEST","name":"T28","monthlyRateCents":100,"executionDay":28,"riskLevel":"SICHER"}
+                {"type":"INVEST","name":"T28","monthlyRateCents":100,"executionDay":28,"riskLevel":"VORSICHTIG"}
                 """, 201);
         postJson(s, "/api/plans", """
-                {"type":"INVEST","name":"T29","monthlyRateCents":100,"executionDay":29,"riskLevel":"SICHER"}
+                {"type":"INVEST","name":"T29","monthlyRateCents":100,"executionDay":29,"riskLevel":"VORSICHTIG"}
                 """, 400);
     }
 
