@@ -56,7 +56,6 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, **A
 | Diagramm-Legende lief bei großer Schrift über den Rand | Layout-Test 150 % | Legende bricht um |
 | iOS-Absturz beim Start (Kontakte-Plugin) | E2E iOS | klassischer App-Start |
 | iOS: Live-Meldungen kamen erst an, nachdem die Frage nach der Benachrichtigungs-Erlaubnis beantwortet war | E2E zwei Nutzer | Live-Verbindung startet sofort |
-| Live-Meldung wurde nicht als Hinweis angezeigt, solange der App-Zustand noch unbekannt war (Browser) | E2E zwei Nutzer | unbekannter Zustand zählt als Vordergrund |
 
 ## Selbst ausführen
 
