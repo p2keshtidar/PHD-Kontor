@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/api_error.dart';
 import '../../core/charts.dart';
@@ -66,9 +67,20 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         const Text('Noch keine Einnahmen und Ausgaben', style: TextStyle(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 6),
-                        const Text('Erzeuge Beispielmonate oder importiere die Umsätze deiner echten Bank als CSV-Datei.'),
+                        const Text('Trag dein Gehalt, deine Miete und andere Ausgaben ein, erzeuge Beispielmonate '
+                            'oder importiere die Umsätze deiner echten Bank als CSV-Datei.'),
                         const SizedBox(height: 12),
                         FilledButton.icon(
+                          key: const Key('insights_entries'),
+                          onPressed: () async {
+                            await context.push('/eintraege');
+                            _refreshAll();
+                          },
+                          icon: const Icon(Icons.edit_note),
+                          label: const Text('Einnahmen & Ausgaben eintragen'),
+                        ),
+                        const SizedBox(height: 8),
+                        OutlinedButton.icon(
                           onPressed: () async {
                             if (await showDemoDialog(context)) _refreshAll();
                           },

@@ -25,6 +25,8 @@ class BookingTile extends StatelessWidget {
         'LOAN_PAYOUT' => Icons.request_quote,
         'LOAN_RATE' => Icons.request_quote,
         'LOAN_EXTRA' => Icons.bolt,
+        'ENTRY_INCOME' => Icons.south_west,
+        'ENTRY_EXPENSE' => Icons.north_east,
         _ => Icons.receipt_long,
       };
 

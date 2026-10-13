@@ -74,6 +74,14 @@ class SavingsHomeScreen extends ConsumerWidget {
               ),
             ),
           ]),
+          const SizedBox(height: 8),
+          _ActionCard(
+            key: const Key('savings_entries'),
+            icon: Icons.swap_vert,
+            title: 'Einnahmen & Ausgaben',
+            subtitle: 'Gehalt, Miete, Urlaub … eintragen – einmalig oder regelmäßig',
+            onTap: () => context.push('/eintraege'),
+          ),
           const SizedBox(height: 20),
           Text('Meine Pläne', style: theme.textTheme.titleMedium),
           const SizedBox(height: 4),
@@ -169,7 +177,7 @@ class _OverviewCard extends StatelessWidget {
 }
 
 class _ActionCard extends StatelessWidget {
-  const _ActionCard({required this.icon, required this.title, required this.subtitle, required this.onTap});
+  const _ActionCard({super.key, required this.icon, required this.title, required this.subtitle, required this.onTap});
 
   final IconData icon;
   final String title;

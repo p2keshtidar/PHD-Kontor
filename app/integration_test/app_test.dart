@@ -338,5 +338,42 @@ void main() {
     final orders = await a.standingOrders();
     expect(orders, hasLength(1));
     expect(orders.first['amountCents'], 5000);
+
+    // Eigene Einnahme (monatliches Gehalt) und einmalige Ausgabe (Urlaub) eintragen
+    final balanceBefore = await a.mainBalance();
+    await tester.pageBack();
+    await pumpFor(tester, 800);
+    await tester.tap(navItem('Konto'));
+    await pumpUntil(tester, find.byKey(const Key('home_add_income')));
+    await tapButton(tester, find.byKey(const Key('home_add_income')));
+    await pumpUntil(tester, find.byKey(const Key('entry_suggest_Gehalt')));
+    await pumpFor(tester, 1000);
+    await tester.tap(find.byKey(const Key('entry_suggest_Gehalt')));
+    await pumpFor(tester, 300);
+    await enterKey(tester, const Key('entry_amount'), '2650');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tapButton(tester, find.byKey(const Key('entry_save')));
+    await pumpUntil(tester, find.byKey(const Key('home_add_expense')), timeout: const Duration(seconds: 30));
+    await pumpFor(tester, 1000);
+    expect(await a.mainBalance(), balanceBefore + 265000);
+
+    await tapButton(tester, find.byKey(const Key('home_add_expense')));
+    await pumpUntil(tester, find.byKey(const Key('entry_title')));
+    await pumpFor(tester, 1000);
+    await enterKey(tester, const Key('entry_title'), 'Urlaub E2E');
+    await enterKey(tester, const Key('entry_amount'), '450');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tapButton(tester, find.byKey(const Key('entry_save')));
+    await pumpUntil(tester, find.byKey(const Key('home_add_expense')), timeout: const Duration(seconds: 30));
+    expect(await a.mainBalance(), balanceBefore + 265000 - 45000);
+
+    // Übersicht zeigt beide Einträge
+    await tapButton(tester, find.byKey(const Key('home_entries')));
+    await pumpUntil(tester, find.text('Urlaub E2E'));
+    expect(find.text('Gehalt'), findsWidgets);
+    await pumpFor(tester, 800);
+    await snap(tester, '4-einnahmen-ausgaben');
   });
 }

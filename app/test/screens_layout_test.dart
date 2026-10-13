@@ -18,6 +18,8 @@ import 'package:girokonto_app/features/profile/two_factor_screen.dart';
 import 'package:girokonto_app/features/savings/plan_detail_screen.dart';
 import 'package:girokonto_app/features/savings/plan_wizard_screen.dart';
 import 'package:girokonto_app/features/savings/savings_home_screen.dart';
+import 'package:girokonto_app/features/entries/entries_screen.dart';
+import 'package:girokonto_app/features/entries/entry_form_screen.dart';
 import 'package:girokonto_app/features/standing_orders/standing_order_form_screen.dart';
 import 'package:girokonto_app/features/standing_orders/standing_orders_screen.dart';
 import 'package:girokonto_app/features/subaccounts/subaccount_screen.dart';
@@ -53,6 +55,9 @@ void main() {
     'Neuer Dauerauftrag': () => const StandingOrderFormScreen(),
     'Zwei-Faktor': () => const TwoFactorScreen(),
     'Profil': () => const ProfileScreen(),
+    'Einnahmen & Ausgaben': () => const EntriesScreen(),
+    'Einnahme eintragen': () => const EntryFormScreen(kind: 'INCOME'),
+    'Ausgabe eintragen': () => const EntryFormScreen(kind: 'EXPENSE'),
   };
 
   final formats = <String, (Size, double)>{

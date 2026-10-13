@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:girokonto_app/core/config.dart';
 import 'package:girokonto_app/features/accounts/account_home_screen.dart';
 import 'package:girokonto_app/features/auth/login_screen.dart';
+import 'package:girokonto_app/features/entries/entries_screen.dart';
+import 'package:girokonto_app/features/entries/entry_form_screen.dart';
 import 'package:girokonto_app/features/insights/csv_import_screen.dart';
 import 'package:girokonto_app/features/loans/extra_payment_screen.dart';
 import 'package:girokonto_app/features/loans/loan_models.dart';
@@ -347,6 +349,137 @@ void main() {
     await tester.tap(find.text('7 Tage vorher'));
     await tester.pumpAndSettle();
     expect(fake.lastBody('PUT /api/plans/*')['reminderDays'], 7);
+  });
+
+  group('Einnahmen & Ausgaben', () {
+    Map<String, Object? Function(RequestOptions)> created(Map<String, dynamic> entry, int n, int cents) => {
+          'POST /api/entries': (o) => {'entry': entry, 'bookedNow': n, 'bookedNowCents': cents},
+        };
+
+    testWidgets('A17 Gehalt monatlich über die Schnellauswahl', (tester) async {
+      final fake = FakeBackend(created(FakeBackend.entry(), 1, 265000));
+      await pumpScreen(tester, const Launcher(EntryFormScreen(kind: 'INCOME')), backend: fake);
+      await open(tester);
+      await tester.tap(find.byKey(const Key('entry_suggest_Gehalt')));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key('entry_amount')), '2.650,00');
+      await scrollTo(tester, find.byKey(const Key('entry_save')));
+      expect(find.textContaining('Wird sofort gebucht'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('entry_save')));
+      await tester.pumpAndSettle();
+      final body = fake.lastBody('POST /api/entries');
+      expect(body['kind'], 'INCOME');
+      expect(body['title'], 'Gehalt');
+      expect(body['category'], 'GEHALT');
+      expect(body['amountCents'], 265000);
+      expect(body['intervalMonths'], 1);
+      expect(body['date'], '2026-10-13');      // Datum der Simulation, nicht des Rechners
+      expect(body.containsKey('endDate'), isFalse);
+      expect(find.byKey(const Key('launcher_open')), findsOneWidget);   // Seite geschlossen
+      expect(find.text('Gebucht: +2.650,00 €'), findsOneWidget);
+    });
+
+    testWidgets('A18 einmalige Ausgabe, Kategorie automatisch; ohne Betrag keine Anfrage', (tester) async {
+      final fake = FakeBackend(created(FakeBackend.entry(kind: 'EXPENSE', title: 'Urlaub', interval: 0), 1, -145000));
+      await pumpScreen(tester, const Launcher(EntryFormScreen()), backend: fake);
+      await open(tester);
+      expect(find.text('Ausgabe eintragen'), findsOneWidget);
+      await tester.enterText(find.byKey(const Key('entry_title')), 'Urlaub Mallorca');
+      await scrollTo(tester, find.byKey(const Key('entry_save')));
+      await tester.tap(find.byKey(const Key('entry_save')));
+      await tester.pumpAndSettle();
+      expect(find.text('Bitte gültigen Betrag eingeben'), findsOneWidget);
+      expect(fake.calls('POST /api/entries'), isEmpty);
+
+      await tester.enterText(find.byKey(const Key('entry_amount')), '1450');
+      await scrollTo(tester, find.byKey(const Key('entry_save')));
+      await tester.tap(find.byKey(const Key('entry_save')));
+      await tester.pumpAndSettle();
+      final body = fake.lastBody('POST /api/entries');
+      expect(body['kind'], 'EXPENSE');
+      expect(body['intervalMonths'], 0);
+      expect(body.containsKey('category'), isFalse);
+      expect(body['amountCents'], 145000);
+    });
+
+    testWidgets('A19 Wechsel Einnahme/Ausgabe und Fehlermeldung vom Server', (tester) async {
+      final fake = FakeBackend({
+        'POST /api/entries': (o) => const FakeResponse(400, {
+              'code': 'INSUFFICIENT_FUNDS',
+              'message': 'Nicht genug Guthaben auf dem Girokonto für „Auto“ am 13.10.2026 (verfügbar: 5.234,50 €).',
+            }),
+      });
+      await pumpScreen(tester, const Launcher(EntryFormScreen(kind: 'INCOME')), backend: fake);
+      await open(tester);
+      await tester.tap(find.byKey(const Key('entry_kind_expense')));
+      await tester.pumpAndSettle();
+      expect(find.text('Ausgabe eintragen'), findsOneWidget);
+      expect(find.byKey(const Key('entry_suggest_Miete')), findsOneWidget);
+      await tester.enterText(find.byKey(const Key('entry_title')), 'Auto');
+      await tester.enterText(find.byKey(const Key('entry_amount')), '20000');
+      await scrollTo(tester, find.byKey(const Key('entry_save')));
+      await tester.tap(find.byKey(const Key('entry_save')));
+      await tester.pumpAndSettle();
+      expect(fake.lastBody('POST /api/entries')['kind'], 'EXPENSE');
+      expect(find.textContaining('Nicht genug Guthaben'), findsOneWidget);
+      expect(find.byKey(const Key('launcher_open')), findsNothing);    // Seite bleibt offen
+    });
+
+    testWidgets('A20 monatlich am 30.: Hinweis, keine Anfrage', (tester) async {
+      final fake = FakeBackend({'GET /api/clock': (_) => {'date': '2026-10-30', 'offsetDays': 0}});
+      await pumpScreen(tester, const Launcher(EntryFormScreen(kind: 'EXPENSE')), backend: fake);
+      await open(tester);
+      await tester.tap(find.byKey(const Key('entry_suggest_Miete')));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.byKey(const Key('entry_amount')), '900');
+      await scrollTo(tester, find.byKey(const Key('entry_save')));
+      expect(find.textContaining('zwischen 1. und 28.'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('entry_save')));
+      await tester.pumpAndSettle();
+      expect(fake.calls('POST /api/entries'), isEmpty);
+    });
+
+    testWidgets('A21 Übersicht: Monatswerte, pausieren, löschen', (tester) async {
+      final fake = FakeBackend({
+        'PUT /api/entries/*': (o) => FakeBackend.entry(id: 22, kind: 'EXPENSE', title: 'Miete', status: 'PAUSED'),
+        'DELETE /api/entries/*': (o) => const FakeResponse(204),
+      });
+      await pumpScreen(tester, const EntriesScreen(), backend: fake);
+      expect(find.text('2.650,00 €'), findsWidgets);
+      expect(find.text('1.750,00 €'), findsOneWidget);
+      expect(find.text('Regelmäßig'), findsOneWidget);
+      expect(find.text('Einmalig'), findsOneWidget);
+      expect(find.textContaining('nächste: 01.11.2026'), findsWidgets);
+      expect(find.textContaining('pausiert'), findsOneWidget);
+
+      await tester.tap(find.text('Miete'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Pausieren'));
+      await tester.pumpAndSettle();
+      expect(fake.lastBody('PUT /api/entries/*')['paused'], isTrue);
+      expect(fake.calls('PUT /api/entries/*').single.path, '/api/entries/22');
+
+      await scrollTo(tester, find.textContaining('Urlaub Mallorca'));
+      await tester.tap(find.textContaining('Urlaub Mallorca'));
+      await tester.pumpAndSettle();
+      expect(find.text('Betrag ändern'), findsNothing);   // schon gebucht und erledigt
+      await tester.tap(find.text('Löschen'));
+      await tester.pumpAndSettle();
+      expect(find.textContaining('Bereits gebuchte Beträge bleiben'), findsOneWidget);
+      await tester.tap(find.widgetWithText(FilledButton, 'Löschen'));
+      await tester.pumpAndSettle();
+      expect(fake.calls('DELETE /api/entries/*').single.path, '/api/entries/24');
+    });
+
+    testWidgets('A22 Startseite: Knöpfe für Einnahme und Ausgabe', (tester) async {
+      await pumpScreen(tester, const AccountHomeScreen(), settle: false);
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      await tester.tap(find.byKey(const Key('home_add_income')));
+      await tester.pumpAndSettle();
+      expect(find.text('ROUTE:/eintraege/neu?art=einnahme'), findsOneWidget);
+    });
   });
 
   test('FakeBackend liefert 404 für unbekannte Routen', () async {

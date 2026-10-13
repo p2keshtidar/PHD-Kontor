@@ -69,7 +69,36 @@ class AccountHomeScreen extends ConsumerWidget {
                       style: Theme.of(context).textTheme.titleLarge),
                 ),
               _TotalCard(totalCents: netWorth?.totalCents ?? total, netWorth: netWorth),
-              const SizedBox(height: 16),
+              const SizedBox(height: 12),
+              // Eigene Einnahmen und Ausgaben eintragen (Gehalt, Miete, Urlaub …)
+              Row(children: [
+                Expanded(
+                  child: FilledButton.tonalIcon(
+                    key: const Key('home_add_income'),
+                    onPressed: () => context.push('/eintraege/neu?art=einnahme'),
+                    icon: const Icon(Icons.add),
+                    label: const Text('Einnahme'),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: FilledButton.tonalIcon(
+                    key: const Key('home_add_expense'),
+                    onPressed: () => context.push('/eintraege/neu?art=ausgabe'),
+                    icon: const Icon(Icons.remove),
+                    label: const Text('Ausgabe'),
+                  ),
+                ),
+              ]),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  key: const Key('home_entries'),
+                  onPressed: () => context.push('/eintraege'),
+                  child: const Text('Einnahmen & Ausgaben verwalten'),
+                ),
+              ),
+              const SizedBox(height: 4),
               for (final a in visible)
                 _AccountTile(
                   account: a,

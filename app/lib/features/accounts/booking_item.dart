@@ -57,6 +57,8 @@ const bookingTypeLabels = <String, String>{
   'LOAN_PAYOUT': 'Kreditauszahlung',
   'LOAN_RATE': 'Kreditrate',
   'LOAN_EXTRA': 'Sondertilgung',
+  'ENTRY_INCOME': 'Eigene Einnahme',
+  'ENTRY_EXPENSE': 'Eigene Ausgabe',
 };
 
 String bookingTypeLabel(String type) => bookingTypeLabels[type] ?? type;

@@ -177,6 +177,42 @@ class FakeBackend implements HttpClientAdapter {
         'lastExecutedMonth': null,
       };
 
+  static Map<String, dynamic> entry({
+    int id = 21,
+    String kind = 'INCOME',
+    String title = 'Gehalt Firma Main GmbH & Co. KG (Hauptjob)',
+    int interval = 1,
+    String status = 'ACTIVE',
+    int amount = 265000,
+  }) =>
+      {
+        'id': id, 'kind': kind, 'title': title, 'category': kind == 'INCOME' ? 'GEHALT' : 'WOHNEN',
+        'categoryLabel': kind == 'INCOME' ? 'Gehalt' : 'Wohnen', 'amountCents': amount, 'intervalMonths': interval,
+        'intervalLabel': interval == 0 ? 'einmalig' : 'monatlich', 'startDate': '2026-07-01', 'endDate': null,
+        'status': status, 'nextDate': interval == 0 ? null : '2026-11-01', 'lastBookedDate': '2026-10-01',
+        'bookedCount': interval == 0 ? 1 : 4,
+        'monthlyCents': interval == 0 ? 0 : (kind == 'INCOME' ? amount : -amount),
+      };
+
+  static Map<String, dynamic> entriesSummary() => {
+        'monthlyIncomeCents': 265000, 'monthlyExpenseCents': 90000, 'monthlyBalanceCents': 175000,
+        'entries': [
+          entry(),
+          entry(id: 22, kind: 'EXPENSE', title: 'Miete', amount: 90000),
+          entry(id: 23, kind: 'EXPENSE', title: 'Handyvertrag', amount: 1999, status: 'PAUSED'),
+          entry(id: 24, kind: 'EXPENSE', title: 'Urlaub Mallorca mit der ganzen Familie im Sommer', amount: 145000,
+              interval: 0, status: 'DONE'),
+        ],
+      };
+
+  static List<Map<String, dynamic>> entryCategories() => [
+        {'key': 'GEHALT', 'label': 'Gehalt', 'kind': 'INCOME'},
+        {'key': 'SONSTIGE_EINNAHMEN', 'label': 'Sonstige Einnahmen', 'kind': 'INCOME'},
+        {'key': 'WOHNEN', 'label': 'Wohnen', 'kind': 'EXPENSE'},
+        {'key': 'VERTRAEGE', 'label': 'Verträge & Abos', 'kind': 'EXPENSE'},
+        {'key': 'FREIZEIT', 'label': 'Freizeit', 'kind': 'EXPENSE'},
+      ];
+
   static Map<String, Object? Function(RequestOptions)> defaultRoutes() => {
         'GET /api/me': (_) => user(),
         'GET /api/accounts': (_) => accounts(),
@@ -207,6 +243,8 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/loans': (_) => [loan()],
         'GET /api/loans/*': (_) => loanDetail(),
         'GET /api/standing-orders': (_) => [standingOrder()],
+        'GET /api/entries': (_) => entriesSummary(),
+        'GET /api/entries/categories': (_) => entryCategories(),
         'GET /api/imports': (_) => [],
         'GET /api/subaccounts/*/members': (_) => [
               {'userId': 1, 'name': 'Erika Mustermann', 'owner': true, 'you': true},
