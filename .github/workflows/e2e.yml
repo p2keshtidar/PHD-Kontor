@@ -233,6 +233,18 @@ jobs:
           if [ -n "${{ matrix.download }}" ]; then
             xcodebuild -downloadPlatform iOS -buildVersion "${{ matrix.download }}" 2>&1 | tr '\r' '\n' | grep -v '%' | tail -3
           fi
+          # Für frisch geladene iOS-Versionen gibt es noch kein Gerät: iPhone anlegen
+          RT=$(xcrun simctl list runtimes -j | python3 -c "
+          import json,sys
+          r=[x['identifier'] for x in json.load(sys.stdin)['runtimes'] if '${{ matrix.runtime }}' in x['identifier'] and x['isAvailable']]
+          print(r[-1] if r else '')")
+          echo "Runtime: $RT" | tee -a /tmp/ci.log
+          N=$(xcrun simctl list devices available -j | python3 -c "
+          import json,sys
+          print(sum(1 for r,l in json.load(sys.stdin)['devices'].items() if '${{ matrix.runtime }}' in r for x in l if x['name'].startswith('iPhone')))")
+          if [ "$N" = "0" ]; then
+            xcrun simctl create "iPhone E2E" "iPhone 14" "$RT" | tee -a /tmp/ci.log
+          fi
           # neuestes iPhone mit der gewünschten iOS-Version
           UDID=$(xcrun simctl list devices available -j | python3 -c "
           import json,sys
