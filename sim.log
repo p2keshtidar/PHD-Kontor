@@ -1,0 +1,1331 @@
+Error from getpwuid_r: 25 (Inappropriate ioctl for device)
+Filtering the log data using "process == "Runner""
+Timestamp               Ty Process[PID:TID]
+2026-10-13 14:57:14.311 Df Runner[52496:21d65] (libMobileGestalt.dylib) No persisted cache on this platform.
+2026-10-13 14:57:14.330 Df Runner[52496:21d62] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new assertion because there is no existing background assertion.
+2026-10-13 14:57:14.330 Df Runner[52496:21d62] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new background assertion
+2026-10-13 14:57:14.331 Df Runner[52496:21d62] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Created new background assertion <BKSProcessAssertion: 0x60000277c370>
+2026-10-13 14:57:14.331 Df Runner[52496:21d62] [com.apple.runningboard:connection] Initializing connection
+2026-10-13 14:57:14.331 Df Runner[52496:21d62] [com.apple.runningboard:process] Removing all cached process handles
+2026-10-13 14:57:14.332 Df Runner[52496:21d62] [com.apple.runningboard:connection] Creating connection to com.apple.runningboard
+2026-10-13 14:57:14.332 Df Runner[52496:21d66] [com.apple.runningboard:connection] Sending handshake request attempt #1 to server
+2026-10-13 14:57:14.334 Df Runner[52496:21d66] [com.apple.runningboard:connection] Handshake succeeded
+2026-10-13 14:57:14.334 Df Runner[52496:21d66] [com.apple.runningboard:connection] Identity resolved as application<de.frauas.girokontoApp>
+2026-10-13 14:57:14.335 Df Runner[52496:21d62] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Incrementing reference count for background assertion <BKSProcessAssertion: 0x60000277c370>
+2026-10-13 14:57:14.335 Df Runner[52496:21d62] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void)): Created background task <_UIBackgroundTaskInfo: 0x60000117d840>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 1560 (elapsed = 0).
+2026-10-13 14:57:14.347 A  Runner[52496:21d68] (RunningBoardServices) didChangeInheritances
+2026-10-13 14:57:14.393 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Deactivation reason added: 10; deactivation reasons: 0 -> 1024; animating application lifecycle event: 0
+2026-10-13 14:57:14.395 Df Runner[52496:21d3c] [com.apple.BoardServices:Injection] activating monitor for service com.apple.frontboard.open
+2026-10-13 14:57:14.397 Df Runner[52496:21d3c] [com.apple.BoardServices:Injection] activating monitor for service com.apple.frontboard.workspace-service
+2026-10-13 14:57:14.397 Df Runner[52496:21d3c] [com.apple.FrontBoard:Common] FBSWorkspace connecting to endpoint : <BSServiceConnectionEndpoint: 0x600000a7a3d0; target: com.apple.frontboard.systemappservices; service: com.apple.frontboard.workspace-service>
+2026-10-13 14:57:14.397 Df Runner[52496:21d3c] [com.apple.FrontBoard:Common] FBSWorkspace registering source: <FBSWorkspaceScenesClient: 0x600002a7f880>
+2026-10-13 14:57:14.398 Df Runner[52496:21d3c] [com.apple.FrontBoard:Common] FBSWorkspace connected to endpoint : <BSServiceConnectionEndpoint: 0x600000a7a3d0; target: com.apple.frontboard.systemappservices; service: com.apple.frontboard.workspace-service>
+2026-10-13 14:57:14.398 Df Runner[52496:21d3c] [com.apple.FrontBoard:Common] <FBSWorkspaceScenesClient:0x600002a7f880 com.apple.frontboard.systemappservices> attempting immediate handshake from activate
+2026-10-13 14:57:14.402 Df Runner[52496:21d3c] [com.apple.FrontBoard:Common] <FBSWorkspaceScenesClient:0x600002a7f880 com.apple.frontboard.systemappservices> sent handshake
+2026-10-13 14:57:14.402 Df Runner[52496:21d3c] [com.apple.runningboard:general] Added observer for process assertions expiration warning: <_RBSExpirationWarningClient: 0x6000004763e0>
+2026-10-13 14:57:14.426 Df Runner[52496:21d3c] [com.apple.Accessibility:AXSupportCommon] Read CategoryName: per-app = 1, category name = (null)
+2026-10-13 14:57:14.428 Df Runner[52496:21d3c] [com.apple.Accessibility:AXSupportCommon] Read CategoryName: per-app = 0, category name = (null)
+2026-10-13 14:57:14.459 Df Runner[52496:21d3c] [com.apple.FileURL:default] kExcludedFromBackupXattrName set on path: /Users/runner/Library/Developer/CoreSimulator/Devices/329F923D-08CE-4DA7-A1DF-21468929309F/data/Containers/Data/Application/0BD4C58E-9D7D-4AC2-B405-86CAF2B1D62E/Library/Caches//flutter_callback_cache.json
+2026-10-13 14:57:14.461 Df Runner[52496:21d3c] [com.apple.dt.xctest:Default] Registering for test daemon availability notify post.
+2026-10-13 14:57:14.461 Df Runner[52496:21d3c] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-10-13 14:57:14.462 Df Runner[52496:21d3c] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-10-13 14:57:14.462 Df Runner[52496:21d3c] [com.apple.dt.xctest:Default] notify_get_state check indicated test daemon not ready.
+2026-10-13 14:57:14.470 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] -[UIApplication _beginBackgroundTaskWithName:expirationHandler:]: Will add backgroundTask with taskName: Persistent SceneSession Map Update, expirationHandler: <__NSGlobalBlock__: 0x135f94310>
+2026-10-13 14:57:14.470 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Reusing background assertion <BKSProcessAssertion: 0x60000277c370>
+2026-10-13 14:57:14.470 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Incrementing reference count for background assertion <BKSProcessAssertion: 0x60000277c370>
+2026-10-13 14:57:14.471 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void)): Created background task <_UIBackgroundTaskInfo: 0x600001173e00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 1560 (elapsed = 0).
+2026-10-13 14:57:14.474 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Deactivation reason added: 5; deactivation reasons: 1024 -> 1056; animating application lifecycle event: 1
+2026-10-13 14:57:14.475 Df Runner[52496:21d3c] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x145006a80> (DDFC0117-4A45-4E39-ADAE-916E86FAEDEF)
+2026-10-13 14:57:14.475 Df Runner[52496:21d3c] [com.apple.UIKit:InterfaceStyle] Should send trait collection or coordinate space update, interface style 1 -> 1, <UIWindowScene: 0x145006a80> (DDFC0117-4A45-4E39-ADAE-916E86FAEDEF)
+2026-10-13 14:57:14.478 Df Runner[52496:21d3c] [com.apple.UIKit:EventDeferring] [0x600002f7c850] Initialized with scene: <UIWindowScene: 0x145006a80>; behavior: <_UIEventDeferringBehavior_Default: 0x600000469560>
+2026-10-13 14:57:14.481 Df Runner[52496:21d3c] [com.apple.BacklightServices:scenes] 0x600000a73f30 setDelegate:<0x60000046d7c0 _UIBacklightEnvironment> hasDelegate:YES for environment:sceneID:de.frauas.girokontoApp-default
+2026-10-13 14:57:14.482 Df Runner[52496:21d3c] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x145006a80> (DDFC0117-4A45-4E39-ADAE-916E86FAEDEF)
+2026-10-13 14:57:14.483 Df Runner[52496:21d3c] [com.apple.UIKit:InterfaceStyle] Not push traits update to screen for new style 1, <UIWindowScene: 0x145006a80> (DDFC0117-4A45-4E39-ADAE-916E86FAEDEF)
+2026-10-13 14:57:14.484 Df Runner[52496:21d3c] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:de.frauas.girokontoApp-default  persistentID: DDFC0117-4A45-4E39-ADAE-916E86FAEDEF
+2026-10-13 14:57:14.485 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Ignoring already applied deactivation reason: 5; deactivation reasons: 1056
+2026-10-13 14:57:14.487 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Deactivation reason added: 11; deactivation reasons: 1056 -> 3104; animating application lifecycle event: 1
+2026-10-13 14:57:14.621 E  Runner[52496:21d3c] [com.apple.UIKit:UIFocus] FlutterView implements focusItemsInRect: - caching for linear focus movement is limited as long as this view is on screen.
+2026-10-13 14:57:14.910 Df Runner[52496:21d3c] (Flutter) [IMPORTANT:flutter/shell/platform/darwin/graphics/FlutterDarwinContextMetalImpeller.mm(45)] Using the Impeller rendering backend (Metal).
+2026-10-13 14:57:14.923 E  Runner[52496:21d3c] (libCoreFSCache.dylib) fopen failed for data file: errno = 2 (No such file or directory)
+2026-10-13 14:57:14.923 E  Runner[52496:21d3c] (libCoreFSCache.dylib) Errors found! Invalidating cache...
+2026-10-13 14:57:14.989 Df Runner[52496:21d66] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending background task with UIBackgroundTaskIdentifier: 2
+2026-10-13 14:57:14.989 Df Runner[52496:21d66] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending task with identifier 2 and description: <_UIBackgroundTaskInfo: 0x600001173e00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 1560 (elapsed = 1), _expireHandler: <__NSGlobalBlock__: 0x135f94310>
+2026-10-13 14:57:14.989 Df Runner[52496:21d66] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Decrementing reference count for assertion <BKSProcessAssertion: 0x60000277c370> (used by background task with identifier 2: <_UIBackgroundTaskInfo: 0x600001173e00>: taskID = 2, taskName = Persistent SceneSession Map Update, creationTime = 1560 (elapsed = 1))
+2026-10-13 14:57:15.385 Df Runner[52496:21d63] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending background task with UIBackgroundTaskIdentifier: 1
+2026-10-13 14:57:15.385 Df Runner[52496:21d63] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending task with identifier 1 and description: <_UIBackgroundTaskInfo: 0x60000117d840>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 1560 (elapsed = 1), _expireHandler: (null)
+2026-10-13 14:57:15.385 Df Runner[52496:21d63] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Decrementing reference count for assertion <BKSProcessAssertion: 0x60000277c370> (used by background task with identifier 1: <_UIBackgroundTaskInfo: 0x60000117d840>: taskID = 1, taskName = Launch Background Task for Coalescing, creationTime = 1560 (elapsed = 1))
+2026-10-13 14:57:15.385 Df Runner[52496:21d63] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Will invalidate assertion: <BKSProcessAssertion: 0x60000277c370> for task identifier: 1
+2026-10-13 14:57:15.681 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:15.683 E  Runner[52496:21d3c] (libCoreFSCache.dylib) fopen failed for data file: errno = 2 (No such file or directory)
+2026-10-13 14:57:15.683 E  Runner[52496:21d3c] (libCoreFSCache.dylib) Errors found! Invalidating cache...
+2026-10-13 14:57:15.686 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.017 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.017 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.017 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.017 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.017 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.018 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.018 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.018 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.022 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.024 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.024 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.024 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.019 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.025 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.040 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.040 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.040 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.040 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.025 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.040 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.967 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.994 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:16.994 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:16.995 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.007 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.008 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.009 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.011 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.025 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.057 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.057 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.058 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.058 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.032 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.059 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.059 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.060 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.062 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.062 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.062 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.079 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.080 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.082 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.086 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.086 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.088 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.089 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.089 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.090 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.090 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.091 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.091 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.094 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.094 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.095 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.096 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.097 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.098 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.104 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.104 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.108 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.108 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.109 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.109 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.115 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.115 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.121 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.123 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.124 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.125 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.129 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.130 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.134 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.134 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.136 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.137 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.140 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.141 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.144 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.149 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.151 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.153 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.164 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.166 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.170 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.173 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.175 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.175 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.177 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.178 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.181 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.182 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.182 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.185 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.187 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.189 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.191 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.193 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.193 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.194 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.194 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.196 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.196 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.197 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.199 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.199 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.201 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.201 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.203 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.203 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.206 A  Runner[52496:21d63] (Metal) compiling shader
+2026-10-13 14:57:17.206 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.211 A  Runner[52496:21d66] (Metal) compiling shader
+2026-10-13 14:57:17.473 Df Runner[52496:21d3c] [com.apple.UIKit:Orientation] <UIWindowScene: 0x145006a80> (DDFC0117-4A45-4E39-ADAE-916E86FAEDEF) Scene updated orientation preferences: none -> ( Pu Ll Lr )
+2026-10-13 14:57:17.473 Df Runner[52496:21d3c] [com.apple.UIKit:KeyWindow] Key window API is scene-level: YES
+2026-10-13 14:57:17.474 Df Runner[52496:21d3c] [com.apple.UIKit:KeyWindow] UIWindowScene: 0x145006a80: Window became key in scene: UIWindow: 0x14452d520; contextId: 0x11FB742B: reason: UIWindowScene: 0x145006a80: Window requested to become key in scene: 0x14452d520
+2026-10-13 14:57:17.474 Df Runner[52496:21d3c] [com.apple.UIKit:KeyWindow] Key window needs update: 1; currentKeyWindowScene: 0x0; evaluatedKeyWindowScene: 0x145006a80; currentApplicationKeyWindow: 0x0; evaluatedApplicationKeyWindow: 0x14452d520; reason: UIWindowScene: 0x145006a80: Window requested to become key in scene: 0x14452d520
+2026-10-13 14:57:17.474 Df Runner[52496:21d3c] [com.apple.UIKit:KeyWindow] Window did become application key: UIWindow: 0x14452d520; contextId: 0x11FB742B; scene identity: com.apple.frontboard.systemappservices::FBSceneManager:sceneID%3Ade.frauas.girokontoApp-default
+2026-10-13 14:57:17.474 Df Runner[52496:21d3c] [com.apple.UIKit:EventDeferring] [0x600002f7c850] Begin local event deferring requested for token: 0x600002767a70; environments: 1; reason: UIWindowScene: 0x145006a80: Begin event deferring in keyboardFocus for window: 0x14452d520
+2026-10-13 14:57:17.476 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Deactivation reason removed: 10; deactivation reasons: 3104 -> 2080; animating application lifecycle event: 1
+2026-10-13 14:57:17.477 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Deactivation reason added: 12; deactivation reasons: 2080 -> 6176; animating application lifecycle event: 1
+2026-10-13 14:57:17.477 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Deactivation reason removed: 11; deactivation reasons: 6176 -> 4128; animating application lifecycle event: 1
+2026-10-13 14:57:17.495 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0xd error0xe00002c7
+2026-10-13 14:57:17.516 A  Runner[52496:21d62] (RunningBoardServices) didChangeInheritances
+2026-10-13 14:57:17.520 A  Runner[52496:21d63] (RunningBoardServices) didChangeInheritances
+2026-10-13 14:57:17.533 Df Runner[52496:21d3c] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:de.frauas.girokontoApp-default  persistentID: DDFC0117-4A45-4E39-ADAE-916E86FAEDEF
+2026-10-13 14:57:17.533 Df Runner[52496:21d3c] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:de.frauas.girokontoApp-default  persistentID: DDFC0117-4A45-4E39-ADAE-916E86FAEDEF
+2026-10-13 14:57:17.534 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Deactivation reason removed: 12; deactivation reasons: 4128 -> 32; animating application lifecycle event: 1
+2026-10-13 14:57:17.535 Df Runner[52496:21d3c] [com.apple.UIKit:Application] Deactivation reason removed: 5; deactivation reasons: 32 -> 0; animating application lifecycle event: 0
+2026-10-13 14:57:17.726 Df Runner[52496:21d3c] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:de.frauas.girokontoApp-default  persistentID: DDFC0117-4A45-4E39-ADAE-916E86FAEDEF
+2026-10-13 14:57:17.726 Df Runner[52496:21d3c] [com.apple.UIKit:EventDeferring] [0x600002f7c850] Scene target of event deferring environments did update: scene: 0x145006a80; current systemShellManagesKeyboardFocus: 1; systemShellManagesKeyboardFocusForScene: 1; eligibleForRecordRemoval: 1;
+2026-10-13 14:57:17.726 Df Runner[52496:21d3c] [com.apple.UIKit:KeyWindow] Scene became target of keyboard event deferring environment: UIWindowScene: 0x145006a80; scene identity: com.apple.frontboard.systemappservices::FBSceneManager:sceneID%3Ade.frauas.girokontoApp-default
+2026-10-13 14:57:17.827 Df Runner[52496:21d3c] [com.apple.UIKit:AppLifecycle] sceneOfRecord: sceneID: sceneID:de.frauas.girokontoApp-default  persistentID: DDFC0117-4A45-4E39-ADAE-916E86FAEDEF
+2026-10-13 14:57:17.828 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0> force: 1
+2026-10-13 14:57:18.234 A  Runner[52496:21dce] (RunningBoardServices) didChangeInheritances
+2026-10-13 14:57:19.416 Df Runner[52496:21dd3] (Flutter) flutter: The Dart VM service is listening on http://127.0.0.1:53453/h0RL8nF299w=/
+2026-10-13 14:58:37.074 A  Runner[52496:21f9b] (Security) SecItemCopyMatching_ios
+2026-10-13 14:58:37.074 Df Runner[52496:21f9b] [com.apple.securityd:secitemratelimit] Not internal release, disabling SIRL
+2026-10-13 14:58:44.003 Df Runner[52496:21f9b] [com.apple.securityd:keychain] System Keychain Always Supported set via feature flag to disabled
+2026-10-13 14:58:44.004 Df Runner[52496:21f9b] [com.apple.securityd:xpc] Adding securityd connection to pool, total now 1
+2026-10-13 14:58:44.007 A  Runner[52496:21f9b] (Security) SecItemCopyMatching_ios
+2026-10-13 14:58:46.039 A  Runner[52496:21f9b] (Security) SecItemCopyMatching_ios
+2026-10-13 14:58:46.040 A  Runner[52496:21f9b] (Security) SecItemCopyMatching_ios
+2026-10-13 14:59:51.443 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:02:34.082 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:02:39.072 A  Runner[52496:24584] (Security) SecItemDelete_ios
+2026-10-13 15:02:39.077 A  Runner[52496:24584] (Security) SecItemDelete_ios
+2026-10-13 15:02:39.079 A  Runner[52496:24584] (Security) SecItemCopyMatching_ios
+2026-10-13 15:02:39.080 A  Runner[52496:24584] (Security) SecItemCopyMatching_ios
+2026-10-13 15:02:44.301 A  Runner[52496:24584] (Security) SecItemCopyMatching_ios
+2026-10-13 15:02:44.307 A  Runner[52496:24584] (Security) SecItemCopyMatching_ios
+2026-10-13 15:02:45.338 A  Runner[52496:24584] (Security) SecItemCopyMatching_ios
+2026-10-13 15:02:45.340 A  Runner[52496:24584] (Security) SecItemCopyMatching_ios
+2026-10-13 15:03:41.939 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <FlutterTextInputView: 0x144558a80> force: 0
+2026-10-13 15:04:48.385 A  Runner[52496:21d3c] (libsystem_containermanager.dylib) container_system_group_path_for_identifier
+2026-10-13 15:04:48.386 Df Runner[52496:21d3c] [com.apple.containermanager:xpc] Requesting container lookup; class = 13, identifier = (null), group_identifier = systemgroup.com.apple.configurationprofiles, create = 1, temp = 0, euid = 501, uid = 501
+2026-10-13 15:04:48.386 A  Runner[52496:21d3c] (libsystem_containermanager.dylib) container_query_t
+2026-10-13 15:04:48.386 Df Runner[52496:21d3c] [com.apple.containermanager:xpc] Query; euid = 501, uid = 501, query = <dictionary: 0x6000020628e0> { count = 8, transaction: 0, voucher = 0x0, contents =
+	"ContainerClass" => <uint64: 0x859a4787f30279e7>: 13
+	"Platform" => <uint64: 0x859a4787f30279b7>: 7
+	"Flags" => <uint64: 0x859a47cff3027997>: 38654705667
+	"Explicit" => <uint64: 0x859a4787f30278bf>: 38
+	"PrivateFlags" => <uint64: 0x859a4787f3027997>: 3
+	"Transient" => <bool: 0x10d011df0>: false
+	"Command" => <uint64: 0x859a4787f30278b7>: 39
+	"GroupIdentifiers" => <array: 0x600000a3e220> { count = 1, capacity = 10, contents =
+		0: <string: 0x600000a3e1c0> { length = 43, contents = "systemgroup.com.apple.configurationprofiles" }
+	}
+}
+2026-10-13 15:04:50.814 Df Runner[52496:21d3c] [com.apple.containermanager:unspecified] container_query_get_single_result: success
+2026-10-13 15:04:50.814 A  Runner[52496:21d3c] (libsystem_containermanager.dylib) container_copy_object
+2026-10-13 15:04:50.814 Df Runner[52496:21d3c] [com.apple.containermanager:unspecified] container_system_group_path_for_identifier: success
+2026-10-13 15:04:50.815 Df Runner[52496:21d3c] [com.apple.ManagedConfiguration:MC] Got system group container path from MCM for systemgroup.com.apple.configurationprofiles: /Users/runner/Library/Developer/CoreSimulator/Devices/329F923D-08CE-4DA7-A1DF-21468929309F/data/Containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles
+2026-10-13 15:05:09.189 Df Runner[52496:21d3c] [com.apple.UIKit:HardwareKeyboard] -[UIApplication GSKeyboardForHWLayout:senderID:forceRebuild:createIfNeeded:], New hardware layout is created with US layout and 0 standardType.
+2026-10-13 15:05:17.021 A  Runner[52496:21d3c] (CoreFoundation) Updating Key-Value Observers Of Preferences
+2026-10-13 15:05:18.758 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Updating mode. Haptics: unsupported. Haptics: disabled. Ringer: off. Sound: enabled. Mode: none
+2026-10-13 15:05:21.772 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] [Interface Orientation] was:Interface Unknown now:UIInterfaceOrientationPortrait reason:Using key window scene
+2026-10-13 15:07:11.053 Df Runner[52496:21d3c] [com.apple.coremedia:] <<< URLAsset >>> FigAssetCreateWithURL: Called for asset 0x60000113db40 by client [], url [0x600002071800] [] createFlags 0x8 optionsDict (null)
+2026-10-13 15:07:12.773 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> FigCustomURLLoaderCreate: newLoader: 0x600002f51570
+2026-10-13 15:07:12.773 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> FigCustomURLHandlerCreate: newHandler: com.apple.avfoundation.customurl.cfurlconnection.0x6000031743c0 options: (null)
+2026-10-13 15:07:12.773 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> curll_installHandlerOnQueue: 0x600002f51590: handler: 0x6000031743c0 priority: 100
+2026-10-13 15:07:12.773 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> FigCustomURLHandlerCreate: newHandler: com.apple.avfoundation.authkeychain.0x600003179f80 options: (null)
+2026-10-13 15:07:12.773 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> curll_installHandlerOnQueue: 0x600002f51590: handler: 0x600003179f80 priority: 800
+2026-10-13 15:07:17.210 Df Runner[52496:21d3c] [com.apple.runningboard:connection] Creating side-channel connection to com.apple.runningboard
+2026-10-13 15:07:17.212 Df Runner[52496:21d3c] [com.apple.runningboard:process] Hit the server for a process handle 4f5edf30000cd10 that resolved to: [application<de.frauas.girokontoApp>:52496]
+2026-10-13 15:07:17.213 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _insertItem:afterItem:]: currentItem KVO: P/NS called with I/DVT.01 (afterItem = (null))
+2026-10-13 15:07:17.972 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke_2: currentItem KVO: P/NS will willChange AVPlayer.currentItem
+2026-10-13 15:07:17.972 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS did willChange AVPlayer.currentItem
+2026-10-13 15:07:17.972 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setCurrentItem:]: currentItem KVO: P/NS updating current item from (null) to I/DVT.01
+2026-10-13 15:07:17.972 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: P/NS setting timeControlStatus=0, reasonForWaitingToPlay=(null)
+2026-10-13 15:07:18.398 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS will didChange AVPlayer.currentItem
+2026-10-13 15:07:18.398 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS did didChange AVPlayer.currentItem
+2026-10-13 15:07:18.399 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: called (self: 0x600002f5d5e0, keys: (
+    streaming
+), keysForCollectionKeys: (null), handler: non-nil)
+2026-10-13 15:07:18.400 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: Calling FigAssetLoadValuesAsyncForProperties for properties (
+    "assetProperty_AssetType"
+)
+2026-10-13 15:07:18.400 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: Batch 0x6000004b53c0: asset batch ID = 1 (err=0, alreadyLoaded=0)
+2026-10-13 15:07:18.544 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: called (self: 0x600002f5d5e0, keys: (
+    duration
+), keysForCollectionKeys: (null), handler: non-nil)
+2026-10-13 15:07:18.544 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: Calling FigAssetLoadValuesAsyncForProperties for properties (
+    Duration
+)
+2026-10-13 15:07:18.544 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: Batch 0x6000004bfc40: asset batch ID = 2 (err=0, alreadyLoaded=0)
+2026-10-13 15:07:20.504 Df Runner[52496:32b19] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification: Received kFigAssetNotification_BatchPropertyLoadComplete (payload: {
+    "assetPayload_BatchID" = 1;
+})
+2026-10-13 15:07:20.504 Df Runner[52496:32b19] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification_block_invoke: Batch 0x6000004b53c0: Marking asset batch ID 1 as complete
+2026-10-13 15:07:20.504 Df Runner[52496:32b19] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader _invokeCompletionHandlerForLoadingBatches:]: Batch 0x6000004b53c0: dispatching completion handler
+2026-10-13 15:07:21.010 Df Runner[52496:2ec56] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> FigPlayerSurrogateCreateWithOptions: new player 0x60000366c630 P/NS
+2026-10-13 15:07:23.655 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _advanceToNextItem]: currentItem KVO: P/NS called
+2026-10-13 15:07:23.656 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke_2: currentItem KVO: P/NS will willChange AVPlayer.currentItem
+2026-10-13 15:07:23.656 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS did willChange AVPlayer.currentItem
+2026-10-13 15:07:23.656 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setCurrentItem:]: currentItem KVO: P/NS updating current item from I/DVT.01 to (null)
+2026-10-13 15:07:23.656 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: P/NS setting timeControlStatus=0, reasonForWaitingToPlay=(null)
+2026-10-13 15:07:23.656 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS will didChange AVPlayer.currentItem
+2026-10-13 15:07:23.656 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS did didChange AVPlayer.currentItem
+2026-10-13 15:07:23.656 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setRate:rateChangeReason:figPlayerSetRateHandler:]_block_invoke: P/NS setting timeControlStatus=1, reasonForWaitingToPlay=AVPlayerWaitingWithNoItemToPlayReason
+2026-10-13 15:07:39.389 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: (null)
+2026-10-13 15:07:39.549 A  Runner[52496:32ad5] (PlugInKit) continuous-discovery
+2026-10-13 15:07:39.550 Df Runner[52496:32ad5] [com.apple.PlugInKit:discovery] <PKDiscoveryDriver:0x60000205c0c0> created discovery driver
+2026-10-13 15:07:39.550 Df Runner[52496:32ad5] [com.apple.PlugInKit:discovery] [d 229FDD1D-36D8-448E-A042-E818A7640048] <PKHost:0x600001130800> Beginning discovery for flags: 0, point: com.apple.AudioUnit
+2026-10-13 15:07:39.570 Df Runner[52496:2ec56] [com.apple.PlugInKit:discovery] [d 229FDD1D-36D8-448E-A042-E818A7640048] <PKHost:0x600001130800> Completed discovery. Final # of matches: 3
+2026-10-13 15:07:39.570 Df Runner[52496:2ec56] [com.apple.PlugInKit:discovery] <PKDiscoveryDriver:0x60000205c0c0> delivering update to host (3 plugins)
+2026-10-13 15:07:39.570 A  Runner[52496:2ec56] (ExtensionFoundation) discovering extensions
+2026-10-13 15:07:40.843 Df Runner[52496:2ec56] [com.apple.PlugInKit:discovery] <PKDiscoveryDriver:0x60000205c0c0> installing watchers for continuous discovery
+2026-10-13 15:07:40.843 Df Runner[52496:2ec56] [com.apple.launchservices:appinstallation] registering for distributed notification com.apple.LaunchServices.pluginsregistered in this process
+2026-10-13 15:07:40.845 Df Runner[52496:2ec56] [com.apple.launchservices:appinstallation] registering for distributed notification com.apple.LaunchServices.pluginsunregistered in this process
+2026-10-13 15:07:40.846 A  Runner[52496:32ad5] (PlugInKit) continuous-discovery
+2026-10-13 15:07:40.846 Df Runner[52496:32ad5] [com.apple.PlugInKit:discovery] <PKDiscoveryDriver:0x60000205c420> created discovery driver
+2026-10-13 15:07:40.846 Df Runner[52496:32ad5] [com.apple.PlugInKit:discovery] [d 31CBA58B-C441-471A-AA00-A75D1A81FCFA] <PKHost:0x600001130800> Beginning discovery for flags: 0, point: com.apple.AudioUnit-UI
+2026-10-13 15:07:40.850 Df Runner[52496:33160] [com.apple.PlugInKit:discovery] [d 31CBA58B-C441-471A-AA00-A75D1A81FCFA] <PKHost:0x600001130800> Completed discovery. Final # of matches: 0
+2026-10-13 15:07:40.850 Df Runner[52496:33160] [com.apple.PlugInKit:discovery] <PKDiscoveryDriver:0x60000205c420> delivering update to host (0 plugins)
+2026-10-13 15:07:40.850 A  Runner[52496:33160] (ExtensionFoundation) discovering extensions
+2026-10-13 15:07:40.850 Df Runner[52496:33160] [com.apple.PlugInKit:discovery] <PKDiscoveryDriver:0x60000205c420> installing watchers for continuous discovery
+2026-10-13 15:07:41.800 Df Runner[52496:21d3c] [com.apple.UIKit:InterfaceStyle] Should send trait collection or coordinate space update, interface style 1 -> 1, <_UIKeyboardWindowScene: 0x144574680> (46BFFA9B-C542-4F9D-A45E-659188FECED2)
+2026-10-13 15:07:42.053 Df Runner[52496:21d3c] [com.apple.UIKit:InterfaceStyle] Should send trait collection or coordinate space update, interface style 1 -> 1, <_UIKeyboardWindowScene: 0x144574680> (46BFFA9B-C542-4F9D-A45E-659188FECED2)
+2026-10-13 15:07:42.057 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: (null)
+2026-10-13 15:07:42.613 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x600003572080>; (empty)>
+2026-10-13 15:07:44.639 Df Runner[52496:21d3c] [com.apple.runningboard:process] Hit the server for a process handle 4f5edf30000cd10 that resolved to: [application<de.frauas.girokontoApp>:52496]
+2026-10-13 15:07:45.445 Df Runner[52496:2ec56] [com.apple.launchservices:progress] Establishing xpc connection to lsd
+2026-10-13 15:07:45.447 Df Runner[52496:3316f] [com.apple.launchservices:progress] Received LSWorkspaceObserverPing, xpc connection established
+2026-10-13 15:07:45.704 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:07:45.960 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000357c0a0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 0 0); hidden = YES; tintColor = UIExtendedGrayColorSpace 0 1; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:07:45.968 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000357c0a0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 0 0); tintColor = UIExtendedGrayColorSpace 0 1; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:07:45.968 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: -[_UIKBFeedbackGenerator activateWithCompletionBlock:]
+2026-10-13 15:07:45.969 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Nothing to activate. Keyboard feedback is disabled.
+2026-10-13 15:07:49.109 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOffScreenDown> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:07:49.110 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000357c0a0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 44); tintColor = UIExtendedGrayColorSpace 0 1; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:07:49.153 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification: Received kFigAssetNotification_BatchPropertyLoadComplete (payload: {
+    "assetPayload_BatchID" = 2;
+})
+2026-10-13 15:07:49.153 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification_block_invoke: Batch 0x6000004bfc40: Marking asset batch ID 2 as complete
+2026-10-13 15:07:49.153 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader _invokeCompletionHandlerForLoadingBatches:]: Batch 0x6000004bfc40: dispatching completion handler
+2026-10-13 15:07:49.166 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000357fb60>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:07:49.166 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000357fb60>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:07:49.166 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:07:49.168 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOffScreenDown> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:07:49.168 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000357fb60>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:07:49.174 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 797}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 667}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:49.297 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] -[UIApplication _beginBackgroundTaskWithName:expirationHandler:]: Will add backgroundTask with taskName: UIKeyboardCache, expirationHandler: (null)
+2026-10-13 15:07:49.297 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new assertion because there is no existing background assertion.
+2026-10-13 15:07:49.297 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new background assertion
+2026-10-13 15:07:49.297 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Created new background assertion <BKSProcessAssertion: 0x60000274d400>
+2026-10-13 15:07:49.300 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Incrementing reference count for background assertion <BKSProcessAssertion: 0x60000274d400>
+2026-10-13 15:07:49.300 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void)): Created background task <_UIBackgroundTaskInfo: 0x6000011359c0>: taskID = 3, taskName = UIKeyboardCache, creationTime = 2195 (elapsed = 0).
+2026-10-13 15:07:49.584 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:49.588 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending background task with UIBackgroundTaskIdentifier: 3
+2026-10-13 15:07:49.588 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending task with identifier 3 and description: <_UIBackgroundTaskInfo: 0x6000011359c0>: taskID = 3, taskName = UIKeyboardCache, creationTime = 2195 (elapsed = 1), _expireHandler: (null)
+2026-10-13 15:07:49.588 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Decrementing reference count for assertion <BKSProcessAssertion: 0x60000274d400> (used by background task with identifier 3: <_UIBackgroundTaskInfo: 0x6000011359c0>: taskID = 3, taskName = UIKeyboardCache, creationTime = 2195 (elapsed = 1))
+2026-10-13 15:07:49.588 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Will invalidate assertion: <BKSProcessAssertion: 0x60000274d400> for task identifier: 3
+2026-10-13 15:07:49.591 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setRate:rateChangeReason:figPlayerSetRateHandler:]_block_invoke: P/NS setting timeControlStatus=0, reasonForWaitingToPlay=(null)
+2026-10-13 15:07:49.591 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _insertItem:afterItem:]: currentItem KVO: P/NS called with I/DVT.02 (afterItem = (null))
+2026-10-13 15:07:49.591 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke_2: currentItem KVO: P/NS will willChange AVPlayer.currentItem
+2026-10-13 15:07:49.591 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS did willChange AVPlayer.currentItem
+2026-10-13 15:07:49.592 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setCurrentItem:]: currentItem KVO: P/NS updating current item from (null) to I/DVT.02
+2026-10-13 15:07:49.592 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: P/NS setting timeControlStatus=0, reasonForWaitingToPlay=(null)
+2026-10-13 15:07:49.592 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS will didChange AVPlayer.currentItem
+2026-10-13 15:07:49.593 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS did didChange AVPlayer.currentItem
+2026-10-13 15:07:49.593 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_CreatePlaybackItemFromAsset: [0x60000366c630] P/NS Created new item 0x600003128f00 I/DVT.02
+2026-10-13 15:07:49.602 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem _updateItemIdentifierForCoordinatedPlayback]_block_invoke: self I/DVT.02: setting coordination identifier to (null)
+2026-10-13 15:07:49.602 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _insertItem:afterItem:]: currentItem KVO: P/NS called with I/DVT.03 (afterItem = I/DVT.02)
+2026-10-13 15:07:49.603 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem _updateItemIdentifierForCoordinatedPlayback]_block_invoke: self I/DVT.03: setting coordination identifier to (null)
+2026-10-13 15:07:49.604 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _insertItem:afterItem:]: currentItem KVO: P/NS called with I/DVT.04 (afterItem = I/DVT.03)
+2026-10-13 15:07:49.605 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem _updateItemIdentifierForCoordinatedPlayback]_block_invoke: self I/DVT.04: setting coordination identifier to (null)
+2026-10-13 15:07:49.605 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setRate:rateChangeReason:figPlayerSetRateHandler:]_block_invoke: P/NS setting timeControlStatus=1, reasonForWaitingToPlay=AVPlayerWaitingWhileEvaluatingBufferingRateReason
+2026-10-13 15:07:49.642 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: -[_UIKBFeedbackGenerator activateWithCompletionBlock:]
+2026-10-13 15:07:49.642 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Nothing to activate. Keyboard feedback is disabled.
+2026-10-13 15:07:49.938 A  Runner[52496:336ee] (RunningBoardServices) didChangeInheritances
+2026-10-13 15:07:50.004 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> FigPlayerFileCreateWithOptions: returning player(0x14502c830) P/NS, err=0
+2026-10-13 15:07:50.071 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_stopResetDisturbReprepareAndResumeWithTransaction: [0x14502c830] P/NS called for reason: DecodeMultipleAudioTracksChanged
+2026-10-13 15:07:50.117 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS called. reason ClientPolicyChanged, options:
+2026-10-13 15:07:50.117 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS player rate is 0. new playback state Paused
+2026-10-13 15:07:50.117 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS new playback state: Paused (playerRate: 0.000), DON'T need to update item rate (nan). Previous state: Paused, change reason: ClientPolicyChanged
+2026-10-13 15:07:50.118 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> fp_CreatePlaybackItem: [0x14502c830] P/NS <redacted> asset 0x60000113db40 -> new item 0x1461de800 I/DVT.02
+2026-10-13 15:07:50.324 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_createRealItemInternal: created real item 0x1461de800 for surrogate item 0x600003128f00 I/DVT.02
+2026-10-13 15:07:50.324 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x1461de800] I/DVT.02 called, time = 0.000, flags = 0x5, range = [0.000, 0.000], seekID = 100000001
+2026-10-13 15:07:50.324 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x1461de800] I/DVT.02 to 0.000 - setting remembered time
+2026-10-13 15:07:50.325 Df Runner[52496:3316f] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x1461de800] I/DVT.02 no boss, posting SeekDidComplete immediately (seekID 100000001)
+2026-10-13 15:07:50.326 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_applyLoudnessInfo: [0x14502c830] P/NS item [0x1461de800] I/DVT.02 is not the working item so no need to pass down loudnessinfo yet for track 0
+2026-10-13 15:07:50.326 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_applyLoudnessInfo: [0x14502c830] P/NS item [0x1461de800] I/DVT.02 is not the working item so no need to pass down loudnessinfo yet for track 0
+2026-10-13 15:07:50.327 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_AddToPlayQueue: [0x60000366c630] P/NS add 0x600003128f00 I/DVT.02 after 0x0
+2026-10-13 15:07:50.327 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_addToPlayQueueInternal: [0x60000366c630] P/NS adding item 0x600003128f00(0x1461de800) I/DVT.02 to play queue after item 0x0(0x0)
+2026-10-13 15:07:50.327 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_CreatePlaybackItemFromAsset: [0x60000366c630] P/NS Created new item 0x600003135140 I/DVT.03
+2026-10-13 15:07:50.327 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_initiateLoadingOfItemAssetTypeInternal: [0x60000366c630] P/NS preparing item 0x600003128f00(0x1461de800) I/DVT.02 for enqueueing
+2026-10-13 15:07:50.327 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_respondToLoadingOfItemAssetTypeInternal: [0x60000366c630] P/NS called, enqueuing item 0x600003128f00 I/DVT.02 if appropriate
+2026-10-13 15:07:50.327 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_respondToLoadingOfItemAssetTypeInternal: [0x60000366c630] P/NS called for item 0x600003128f00 I/DVT.02. item index is 0 in surrogate playQueue. realPlayer 0x14502c830, realItem 0x1461de800.
+2026-10-13 15:07:50.327 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_respondToLoadingOfItemAssetTypeInternal: [0x60000366c630] P/NS called for item 0x600003128f00 I/DVT.02. switching real player from [0x0] to [0x14502c830].
+2026-10-13 15:07:50.328 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS called. reason ApplyCachedRate, options:
+2026-10-13 15:07:50.328 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS player rate is 0. new playback state Paused
+2026-10-13 15:07:50.328 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS new playback state: Paused (playerRate: 0.000), DON'T need to update item rate (nan). Previous state: Paused, change reason: ApplyCachedRate
+2026-10-13 15:07:50.354 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_gracefullyAddImageQueues: cannot gracefully add image queues when not playing
+2026-10-13 15:07:50.354 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_respondToLoadingOfItemAssetTypeInternal: [0x60000366c630] P/NS adding item 0x600003128f00(0x1461de800) I/DVT.02 to real player play queue
+2026-10-13 15:07:50.355 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_AddToPlayQueue: [0x14502c830] P/NS item 0x1461de800 I/DVT.02 after 0x0
+2026-10-13 15:07:50.355 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_AddToPlayQueue: [0x14502c830] P/NS play queue is no longer hungry
+2026-10-13 15:07:50.355 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_AddToPlayQueue: there was no current item, ergo there must have been a gap => will disturb playback
+2026-10-13 15:07:50.355 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_AddToPlayQueue: [0x14502c830] P/NS item 0x1461de800 I/DVT.02 became current but is not yet ready for inspection
+2026-10-13 15:07:50.355 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_AddToPlayQueue: [0x14502c830] P/NS play queue now: [item 0x1461de800 I/DVT.02 (boss 0x0)]
+2026-10-13 15:07:50.355 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_stopResetDisturbReprepareAndResumeWithTransaction: [0x14502c830] P/NS called for reason: playerfig_AddToPlayQueue
+2026-10-13 15:07:50.356 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_repreparePlayQueue: [0x14502c830] P/NS item 0x1461de800 I/DVT.02 is current but is not yet ready for inspection
+2026-10-13 15:07:50.356 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_prepareWorkingItem: [0x14502c830] P/NS item 0x1461de800 I/DVT.02 is the working item but is not yet ready for inspection
+2026-10-13 15:07:50.356 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS called. reason CurrentItemChanged, options:
+2026-10-13 15:07:50.356 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS player rate is 0. new playback state Paused
+2026-10-13 15:07:50.356 Df Runner[52496:336f9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS new playback state: Paused (playerRate: 0.000), DON'T need to update item rate (nan). Previous state: Paused, change reason: CurrentItemChanged
+2026-10-13 15:07:50.357 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_AddToPlayQueue: [0x60000366c630] P/NS add 0x600003135140 I/DVT.03 after 0x600003128f00 I/DVT.02
+2026-10-13 15:07:50.357 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_addToPlayQueueInternal: [0x60000366c630] P/NS adding item 0x600003135140(0x0) I/DVT.03 to play queue after item 0x600003128f00(0x1461de800) I/DVT.02
+2026-10-13 15:07:50.357 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_CreatePlaybackItemFromAsset: [0x60000366c630] P/NS Created new item 0x60000317c240 I/DVT.04
+2026-10-13 15:07:50.358 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_AddToPlayQueue: [0x60000366c630] P/NS add 0x60000317c240 I/DVT.04 after 0x600003135140 I/DVT.03
+2026-10-13 15:07:50.358 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_addToPlayQueueInternal: [0x60000366c630] P/NS adding item 0x60000317c240(0x0) I/DVT.04 to play queue after item 0x600003135140(0x0) I/DVT.03
+2026-10-13 15:07:50.358 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS called. reason ClientInitiated, options:
+2026-10-13 15:07:50.358 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS Playthrough prediction: unknown -> new playback state: WaitingForPlayabilityEstimate (desired rate: 1.00)
+2026-10-13 15:07:50.358 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS new playback state: WaitingForPlayabilityEstimate (playerRate: 1.000), DON'T need to update item rate (nan). Previous state: Paused, change reason: ClientInitiated
+2026-10-13 15:07:50.359 Df Runner[52496:336e1] [com.apple.coremedia:] <<<< FigFilePlayer >>>> fp_CreatePlaybackItem: [0x14502c830] P/NS <redacted> asset 0x60000113db40 -> new item 0x14621f800 I/DVT.03
+2026-10-13 15:07:50.360 Df Runner[52496:336e1] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_createRealItemInternal: created real item 0x14621f800 for surrogate item 0x600003135140 I/DVT.03
+2026-10-13 15:07:50.360 Df Runner[52496:336e1] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x14621f800] I/DVT.03 called, time = 0.000, flags = 0x5, range = [0.000, 0.000], seekID = 100000001
+2026-10-13 15:07:50.360 Df Runner[52496:336e1] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x14621f800] I/DVT.03 to 0.000 - setting remembered time
+2026-10-13 15:07:50.361 Df Runner[52496:336e1] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x14621f800] I/DVT.03 no boss, posting SeekDidComplete immediately (seekID 100000001)
+2026-10-13 15:07:50.361 Df Runner[52496:336e1] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_applyLoudnessInfo: [0x14502c830] P/NS item [0x14621f800] I/DVT.03 is not the working item so no need to pass down loudnessinfo yet for track 0
+2026-10-13 15:07:50.361 Df Runner[52496:336e1] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_applyLoudnessInfo: [0x14502c830] P/NS item [0x14621f800] I/DVT.03 is not the working item so no need to pass down loudnessinfo yet for track 0
+2026-10-13 15:07:50.363 Df Runner[52496:336e2] [com.apple.coremedia:] <<<< FigFilePlayer >>>> fp_CreatePlaybackItem: [0x14502c830] P/NS <redacted> asset 0x60000113db40 -> new item 0x146226000 I/DVT.04
+2026-10-13 15:07:50.367 Df Runner[52496:336e2] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_createRealItemInternal: created real item 0x146226000 for surrogate item 0x60000317c240 I/DVT.04
+2026-10-13 15:07:50.367 Df Runner[52496:336e2] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x146226000] I/DVT.04 called, time = 0.000, flags = 0x5, range = [0.000, 0.000], seekID = 100000001
+2026-10-13 15:07:50.367 Df Runner[52496:336e2] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x146226000] I/DVT.04 to 0.000 - setting remembered time
+2026-10-13 15:07:50.367 Df Runner[52496:336e2] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_setCurrentTimeWithRangeAndIDGuts: [0x146226000] I/DVT.04 no boss, posting SeekDidComplete immediately (seekID 100000001)
+2026-10-13 15:07:50.368 Df Runner[52496:336e2] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_applyLoudnessInfo: [0x14502c830] P/NS item [0x146226000] I/DVT.04 is not the working item so no need to pass down loudnessinfo yet for track 0
+2026-10-13 15:07:50.376 Df Runner[52496:336e2] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_applyLoudnessInfo: [0x14502c830] P/NS item [0x146226000] I/DVT.04 is not the working item so no need to pass down loudnessinfo yet for track 0
+2026-10-13 15:07:51.145 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 797}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 667}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:51.152 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigDeferredTransaction >>>> fdt_commitTransactionOnMainQueue: Warning: deferred transaction <FigDeferredTransaction 0x600001125480, wants CATransaction, is committed
+Changes:
+<FigDeferredTransactionChange 0x600000a013b0
+unknown caller requesting to
+
+0x121f32b98>
+<FigDeferredTransactionChange 0x600000a00ba0
+unknown caller requesting to
+
+0x121f33d18>
+
+Post commit changes:
+> was delayed by 0.798s before it began running
+2026-10-13 15:07:51.163 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:51.204 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0> force: 0
+2026-10-13 15:07:51.205 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _removeItem:]: currentItem KVO: P/NS called with I/DVT.03
+2026-10-13 15:07:51.205 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_RemoveFromPlayQueue: [0x60000366c630] P/NS called. item 0x600003135140 I/DVT.03
+2026-10-13 15:07:51.205 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _removeItem:]: currentItem KVO: P/NS called with I/DVT.04
+2026-10-13 15:07:51.206 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_RemoveFromPlayQueue: [0x14502c830] P/NS item 0x14621f800 I/DVT.03
+2026-10-13 15:07:51.206 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_RemoveFromPlayQueue: [0x14502c830] P/NS item 0x14621f800 I/DVT.03 is not on play queue
+2026-10-13 15:07:51.206 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _removeItem:]: currentItem KVO: P/NS called with I/DVT.02
+2026-10-13 15:07:51.206 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_RemoveFromPlayQueue: [0x60000366c630] P/NS called. item 0x60000317c240 I/DVT.04
+2026-10-13 15:07:51.206 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke_2: currentItem KVO: P/NS will willChange AVPlayer.currentItem
+2026-10-13 15:07:51.206 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_RemoveFromPlayQueue: [0x14502c830] P/NS item 0x146226000 I/DVT.04
+2026-10-13 15:07:51.206 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_RemoveFromPlayQueue: [0x14502c830] P/NS item 0x146226000 I/DVT.04 is not on play queue
+2026-10-13 15:07:51.206 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS did willChange AVPlayer.currentItem
+2026-10-13 15:07:51.206 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setCurrentItem:]: currentItem KVO: P/NS updating current item from I/DVT.02 to (null)
+2026-10-13 15:07:51.207 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: P/NS setting timeControlStatus=1, reasonForWaitingToPlay=AVPlayerWaitingWithNoItemToPlayReason
+2026-10-13 15:07:51.207 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS will didChange AVPlayer.currentItem
+2026-10-13 15:07:51.207 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/NS did didChange AVPlayer.currentItem
+2026-10-13 15:07:51.208 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_RemoveFromPlayQueue: [0x60000366c630] P/NS called. item 0x600003128f00 I/DVT.02
+2026-10-13 15:07:51.209 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_RemoveFromPlayQueue: [0x14502c830] P/NS item 0x1461de800 I/DVT.02
+2026-10-13 15:07:51.209 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_maybeUndoQueueingForItem: [0x14502c830] P/NS play queue before flush: [item 0x1461de800 I/DVT.02 (boss 0x0)]
+2026-10-13 15:07:51.210 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_maybeUndoQueueingForItem: [0x14502c830] P/NS item 0x1461de800 I/DVT.02 is current item -- can't avoid a pause when current item has to be changed
+2026-10-13 15:07:51.212 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_gracefullyRemoveItemFromPlayQueue: [0x14502c830] P/NS play queue now: []
+2026-10-13 15:07:51.212 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_stopResetDisturbReprepareAndResumeWithTransaction: [0x14502c830] P/NS called for reason: playerfig_RemoveFromPlayQueue
+2026-10-13 15:07:51.213 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS called. reason CurrentItemChanged, options:
+2026-10-13 15:07:51.214 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS No playback item -> new playback state: WaitingForPlaybackItem (desired rate: 1.00)
+2026-10-13 15:07:51.215 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_getNextPlaybackState: [0x14502c830] P/NS new playback state: WaitingForPlaybackItem (playerRate: 1.000), DON'T need to update item rate (nan). Previous state: WaitingForPlayabilityEstimate, change reason: CurrentItemChanged
+2026-10-13 15:07:51.216 Df Runner[52496:336d9] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_RemoveFromPlayQueue: [0x14502c830] P/NS posting PlayQueueBecameHungry
+2026-10-13 15:07:51.225 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <FlutterSecureTextInputView: 0x14510cf00> force: 0
+2026-10-13 15:07:51.295 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:07:51.319 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:07:51.339 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] -[UIApplication _beginBackgroundTaskWithName:expirationHandler:]: Will add backgroundTask with taskName: UIKeyboardCache, expirationHandler: (null)
+2026-10-13 15:07:51.339 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new assertion because there is no existing background assertion.
+2026-10-13 15:07:51.339 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new background assertion
+2026-10-13 15:07:51.339 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Created new background assertion <BKSProcessAssertion: 0x6000027390e0>
+2026-10-13 15:07:51.341 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Incrementing reference count for background assertion <BKSProcessAssertion: 0x6000027390e0>
+2026-10-13 15:07:51.341 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void)): Created background task <_UIBackgroundTaskInfo: 0x6000011183c0>: taskID = 4, taskName = UIKeyboardCache, creationTime = 2197 (elapsed = 0).
+2026-10-13 15:07:51.367 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:51.368 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:51.371 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigDeferredTransaction >>>> fdt_commitTransactionOnMainQueue: Warning: deferred transaction <FigDeferredTransaction 0x60000117a840, wants CATransaction, is committed
+Changes:
+<FigDeferredTransactionChange 0x600000a07fc0
+unknown caller requesting to
+
+0x121f328c8>
+
+Post commit changes:
+> was delayed by 0.161s before it began running
+2026-10-13 15:07:51.371 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _removeItem:]: currentItem KVO: P/NS called with I/DVT.02
+2026-10-13 15:07:51.372 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _removeItem:]: currentItem KVO: P/NS called with I/DVT.03
+2026-10-13 15:07:51.372 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _removeItem:]: currentItem KVO: P/NS called with I/DVT.04
+2026-10-13 15:07:51.372 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_Invalidate: [0x600003135140] I/DVT.03 called
+2026-10-13 15:07:51.372 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_Invalidate: [0x14621f800] I/DVT.03 called
+2026-10-13 15:07:51.373 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:07:51.374 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000356a800>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 0); hidden = YES; tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:07:51.494 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:07:51.494 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356a800>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 0); hidden = YES; tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:07:51.495 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:07:51.496 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:07:51.497 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x600003568500>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:07:51.497 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:07:51.497 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x600003568500>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:07:51.498 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:07:51.500 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:51.501 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:51.503 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigDeferredTransaction >>>> fdt_commitTransactionOnMainQueue: Warning: deferred transaction <FigDeferredTransaction 0x60000113e280, wants CATransaction, is committed
+Changes:
+<FigDeferredTransactionChange 0x600000af8b10
+unknown caller requesting to
+
+0x121f328c8>
+<FigDeferredTransactionChange 0x600000afcb10
+unknown caller requesting to
+
+0x121f340a4>
+<FigDeferredTransactionChange 0x600000afdf50
+unknown caller requesting to
+
+0x121f340a4>
+
+Post commit changes:
+> was delayed by 0.133s before it began running
+2026-10-13 15:07:51.542 Df Runner[52496:336f8] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_establishStereoAudioSpatializationPreferenceForAsset: <0x1461de800|I/DVT.02>: Stereo Spatialization allowed by default due to asset containing video.
+2026-10-13 15:07:51.542 Df Runner[52496:336f8] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_postReadyForInspectionPayloadBecauseAssetPropertyLoadedAndBasicsReady: Track ID 1 vide (0x600002f564c0) nominal framerate: 60.197 frames per second
+2026-10-13 15:07:51.542 Df Runner[52496:336f8] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_postReadyForInspectionPayloadBecauseAssetPropertyLoadedAndBasicsReady: Track ID 2 soun (0x600002f56530) nominal framerate: 43.066 samples per second
+2026-10-13 15:07:51.543 Df Runner[52496:336f8] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification: Received kFigAssetNotification_BatchPropertyLoadComplete (payload: {
+    "assetPayload_BatchID" = 3;
+})
+2026-10-13 15:07:51.543 Df Runner[52496:336f8] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader _invokeCompletionHandlerForLoadingBatches:]: No completed batches
+2026-10-13 15:07:51.544 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_Invalidate: [0x60000317c240] I/DVT.04 called
+2026-10-13 15:07:51.544 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_Invalidate: [0x146226000] I/DVT.04 called
+2026-10-13 15:07:51.544 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_Invalidate: [0x600003128f00] I/DVT.02 called
+2026-10-13 15:07:51.545 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigFilePlayer >>>> itemfig_Invalidate: [0x1461de800] I/DVT.02 called
+2026-10-13 15:07:51.545 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_Invalidate: [0x60000366c630] P/NS called
+2026-10-13 15:07:51.545 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_Invalidate: [0x14502c830] P/NS
+2026-10-13 15:07:51.546 Df Runner[52496:33708] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_RemoveFromPlayQueue: [0x14502c830] P/NS item 0x0
+2026-10-13 15:07:51.581 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:07:51.569 Df Runner[52496:336e4] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_Finalize: [0x60000366c630] P/NS called
+2026-10-13 15:07:51.636 Df Runner[52496:33708] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification: Received kFigAssetNotification_BatchPropertyLoadComplete (payload: {
+    "assetPayload_BatchID" = 4;
+})
+2026-10-13 15:07:51.636 Df Runner[52496:33708] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader _invokeCompletionHandlerForLoadingBatches:]: No completed batches
+2026-10-13 15:07:51.795 Df Runner[52496:33160] [com.apple.calls.callkit:Default] Call host has no calls
+2026-10-13 15:07:52.077 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending background task with UIBackgroundTaskIdentifier: 4
+2026-10-13 15:07:52.078 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending task with identifier 4 and description: <_UIBackgroundTaskInfo: 0x6000011183c0>: taskID = 4, taskName = UIKeyboardCache, creationTime = 2197 (elapsed = 1), _expireHandler: (null)
+2026-10-13 15:07:52.078 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Decrementing reference count for assertion <BKSProcessAssertion: 0x6000027390e0> (used by background task with identifier 4: <_UIBackgroundTaskInfo: 0x6000011183c0>: taskID = 4, taskName = UIKeyboardCache, creationTime = 2197 (elapsed = 1))
+2026-10-13 15:07:52.078 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Will invalidate assertion: <BKSProcessAssertion: 0x6000027390e0> for task identifier: 4
+2026-10-13 15:07:52.079 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: called
+2026-10-13 15:07:52.079 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: I/DVT.01
+2026-10-13 15:07:52.079 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: called
+2026-10-13 15:07:52.080 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: I/DVT.03
+2026-10-13 15:07:52.081 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_Invalidate: [0x600003135140] I/DVT.03 called
+2026-10-13 15:07:52.081 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: called
+2026-10-13 15:07:52.081 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: I/DVT.04
+2026-10-13 15:07:52.081 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_Invalidate: [0x60000317c240] I/DVT.04 called
+2026-10-13 15:07:52.083 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigDeferredTransaction >>>> fdt_commitTransactionOnMainQueue: Warning: deferred transaction <FigDeferredTransaction 0x60000111aa00, wants CATransaction, is committed
+Changes:
+<FigDeferredTransactionChange 0x600000a14b40
+unknown caller requesting to
+
+0x121f340a4>
+<FigDeferredTransactionChange 0x600000a148d0
+unknown caller requesting to
+
+0x121f340a4>
+
+Post commit changes:
+> was delayed by 0.537s before it began running
+2026-10-13 15:07:52.087 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:52.089 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:52.105 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: -[_UIKBFeedbackGenerator activateWithCompletionBlock:]
+2026-10-13 15:07:52.105 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Nothing to activate. Keyboard feedback is disabled.
+2026-10-13 15:07:52.107 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:52.108 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: called
+2026-10-13 15:07:52.109 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: I/DVT.02
+2026-10-13 15:07:52.110 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlaybackItem_Invalidate: [0x600003128f00] I/DVT.02 called
+2026-10-13 15:07:52.111 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigFilePlayer >>>> playerfig_Invalidate: [0x14502c830] P/NS
+2026-10-13 15:07:52.111 Df Runner[52496:21d3c] [com.apple.coremedia:] <<< URLAsset >>> URLAssetFinalize: Called for asset 0x60000113db40
+2026-10-13 15:07:52.112 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> curll_invalidateOnQueue: 0x600002f51570 called
+2026-10-13 15:07:52.129 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0> force: 0
+2026-10-13 15:07:52.141 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:07:52.141 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000356a8a0>; (empty)>
+2026-10-13 15:07:52.141 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOffScreenDown>
+2026-10-13 15:07:52.142 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000356b840>; (empty)>
+2026-10-13 15:07:52.143 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOffScreenDown>
+2026-10-13 15:07:52.144 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillHideNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 797}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 667}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:52.281 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:52.427 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:52.558 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:52.671 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356b840>; (empty)>
+2026-10-13 15:07:52.679 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidHideNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 797}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 667}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:07:52.679 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356a8a0>; (empty)>
+2026-10-13 15:07:52.706 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:52.712 A  Runner[52496:336e4] (RunningBoardServices) didChangeInheritances
+2026-10-13 15:07:52.816 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:52.951 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:53.067 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:53.184 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:53.301 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:53.416 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:53.646 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:53.767 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:53.882 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:54.000 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:54.321 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:54.450 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:54.452 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:54.496 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:54.728 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:54.953 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:55.169 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:55.388 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:55.601 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:55.826 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:56.043 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:56.259 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:56.474 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:56.694 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:56.906 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:57.124 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:57.357 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:57.573 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:57.789 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:58.002 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:58.220 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:58.438 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:58.657 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:58.870 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:59.105 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:59.334 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:07:59.541 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:07:59.754 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:07:59.979 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:00.185 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:00.412 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:00.621 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:00.842 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:01.073 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:01.290 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:01.351 Df Runner[52496:336ef] [com.apple.CoreAnalytics:client] No XPC connection in Simulator
+2026-10-13 15:08:01.509 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:01.724 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:01.936 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:02.180 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:02.371 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:02.586 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:02.802 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:03.021 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:03.236 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:03.304 A  Runner[52496:336e8] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:03.306 A  Runner[52496:336e8] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:03.308 A  Runner[52496:336e8] (Security) SecItemAdd_ios
+2026-10-13 15:08:03.457 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:03.668 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:03.886 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:04.102 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:04.320 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:04.537 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:04.752 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:04.973 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:05.191 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:05.408 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:05.616 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:05.840 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:06.053 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:06.272 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:06.485 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:06.702 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:06.921 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:07.139 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:07.352 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:07.565 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:07.786 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:08.003 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:08.219 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:08.435 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:08.655 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:08.873 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:09.091 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:09.304 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:09.523 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:09.736 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:09.953 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:10.173 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:10.386 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:10.605 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:10.823 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:11.039 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:11.254 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:11.482 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:11.703 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:11.924 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:12.140 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:12.359 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:12.571 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:12.786 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:13.006 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:13.221 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:13.440 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:13.652 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:13.870 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:14.089 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:14.305 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:14.520 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:14.737 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:14.895 A  Runner[52496:336e8] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:14.896 A  Runner[52496:336e8] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:14.897 A  Runner[52496:336e8] (Security) SecItemAdd_ios
+2026-10-13 15:08:16.068 Df Runner[52496:21d3c] [com.apple.UserNotifications:Connections] [de.frauas.girokontoApp] Creating a user notification center
+2026-10-13 15:08:16.068 Df Runner[52496:21d3c] [com.apple.UserNotifications:Connections] [de.frauas.girokontoApp] Requesting authorization with options 7
+2026-10-13 15:08:16.070 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:16.095 A  Runner[52496:336ef] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:16.101 A  Runner[52496:336ef] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:16.104 A  Runner[52496:336ef] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:16.359 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:16.572 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:16.785 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:16.838 A  Runner[52496:336ef] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:18.270 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:18.356 A  Runner[52496:336ef] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:18.359 A  Runner[52496:336ef] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:18.387 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:18.503 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:18.635 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:18.783 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:18.900 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:19.015 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:19.134 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:19.250 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:19.366 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:19.484 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:19.600 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:19.715 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:19.832 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:19.951 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:20.067 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:22.217 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:24.716 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:24.836 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:24.978 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:25.091 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:25.204 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:25.430 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:26.270 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.271 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.272 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.272 A  Runner[52496:336ef] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.272 Df Runner[52496:336ef] [com.apple.securityd:xpc] Adding securityd connection to pool, total now 2
+2026-10-13 15:08:26.273 A  Runner[52496:336ef] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.273 A  Runner[52496:336ef] (Security) SecItemAdd_ios
+2026-10-13 15:08:26.277 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.279 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.282 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.284 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.285 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.588 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:26.602 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.604 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.607 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:26.611 A  Runner[52496:336e1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:27.171 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:28.454 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:08:28.935 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <FlutterTextInputView: 0x1451cb620> force: 0
+2026-10-13 15:08:42.769 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:08:44.941 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: (null)
+2026-10-13 15:08:45.146 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356ac60>; (empty)>
+2026-10-13 15:08:46.067 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:08:46.320 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x6000035692c0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 44); hidden = YES; tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:08:46.325 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOffScreenDown> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:08:46.325 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x6000035692c0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 44); tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:08:46.326 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: -[_UIKBFeedbackGenerator activateWithCompletionBlock:]
+2026-10-13 15:08:46.536 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Nothing to activate. Keyboard feedback is disabled.
+2026-10-13 15:08:46.772 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x600003568820>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:08:46.772 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOffScreenDown> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:08:46.772 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x600003568820>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:08:46.772 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:08:47.671 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 775}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 667}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:08:47.707 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:08:52.873 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 775}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 667}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:08:52.974 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:08:52.994 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0> force: 0
+2026-10-13 15:08:55.806 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <FlutterTextInputView: 0x1451dd880> force: 0
+2026-10-13 15:08:57.691 Df Runner[52496:21d3c] (UIKitCore) Can't find keyplane that supports type 8 for keyboard iPhone-PortraitChoco-DecimalPad; using 27344_PortraitChoco_iPhone-Simple-Pad_Default
+2026-10-13 15:08:57.696 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:08:57.705 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:08:57.712 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] -[UIApplication _beginBackgroundTaskWithName:expirationHandler:]: Will add backgroundTask with taskName: UIKeyboardCache, expirationHandler: (null)
+2026-10-13 15:08:57.876 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new assertion because there is no existing background assertion.
+2026-10-13 15:08:57.876 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new background assertion
+2026-10-13 15:08:57.877 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Created new background assertion <BKSProcessAssertion: 0x600002740ff0>
+2026-10-13 15:08:57.877 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Incrementing reference count for background assertion <BKSProcessAssertion: 0x600002740ff0>
+2026-10-13 15:08:57.877 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void)): Created background task <_UIBackgroundTaskInfo: 0x60000114cb80>: taskID = 5, taskName = UIKeyboardCache, creationTime = 2264 (elapsed = 0).
+2026-10-13 15:09:05.720 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:05.723 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:05.747 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:09:05.748 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000356cbe0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 0); hidden = YES; tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:09:05.751 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:09:05.751 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356cbe0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 0); hidden = YES; tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:09:05.752 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:09:05.753 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:09:05.754 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000356dfe0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:09:05.754 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:09:05.754 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356dfe0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:09:05.754 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:09:05.755 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:05.756 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:05.756 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending background task with UIBackgroundTaskIdentifier: 5
+2026-10-13 15:09:05.756 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending task with identifier 5 and description: <_UIBackgroundTaskInfo: 0x60000114cb80>: taskID = 5, taskName = UIKeyboardCache, creationTime = 2264 (elapsed = 8), _expireHandler: (null)
+2026-10-13 15:09:05.756 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Decrementing reference count for assertion <BKSProcessAssertion: 0x600002740ff0> (used by background task with identifier 5: <_UIBackgroundTaskInfo: 0x60000114cb80>: taskID = 5, taskName = UIKeyboardCache, creationTime = 2264 (elapsed = 8))
+2026-10-13 15:09:05.756 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Will invalidate assertion: <BKSProcessAssertion: 0x600002740ff0> for task identifier: 5
+2026-10-13 15:09:05.949 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: -[_UIKBFeedbackGenerator activateWithCompletionBlock:]
+2026-10-13 15:09:05.949 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Nothing to activate. Keyboard feedback is disabled.
+2026-10-13 15:09:05.969 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:05.980 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0> force: 0
+2026-10-13 15:09:05.986 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:09:05.986 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x600003569040>; (empty)>
+2026-10-13 15:09:05.986 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOffScreenDown>
+2026-10-13 15:09:05.988 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x600003568780>; (empty)>
+2026-10-13 15:09:05.988 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOffScreenDown>
+2026-10-13 15:09:05.990 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillHideNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 775}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 667}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:06.180 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:06.315 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:06.440 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:06.504 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x600003568780>; (empty)>
+2026-10-13 15:09:06.507 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidHideNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 775}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 667}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:06.507 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x600003569040>; (empty)>
+2026-10-13 15:09:06.554 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:06.666 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:06.783 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:06.903 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:07.019 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:07.134 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:07.254 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:07.366 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:07.484 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:07.600 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:07.847 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:07.877 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:07.878 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:07.888 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:07.904 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:08.089 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:08.393 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:08.540 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:08.658 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:08.767 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:08.885 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:09.001 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:09.118 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:09.236 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:09.353 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:09.757 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:09.871 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:09.986 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:10.104 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:10.218 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:10.342 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:10.452 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:10.566 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:10.682 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:10.910 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:10.911 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:10.931 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:10.959 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:10.977 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:11.117 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.119 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.120 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.121 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.123 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.125 A  Runner[52496:35205] (Security) SecItemUpdate_ios
+2026-10-13 15:09:11.126 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.129 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.132 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.134 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.298 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:11.315 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.318 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.323 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.326 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:11.627 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:11.898 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:12.027 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:12.141 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:12.249 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:12.406 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:12.417 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:12.436 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:12.454 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:12.472 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:12.598 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:12.699 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:12.818 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:13.039 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:13.093 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:13.108 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:13.122 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:13.315 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:13.364 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:13.390 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:13.405 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:13.549 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:13.655 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:13.656 A  Runner[52496:346a6] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:13.696 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:13.703 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:13.779 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:13.915 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:14.035 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:14.164 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:14.286 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:14.399 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:14.518 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:14.632 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:14.752 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:14.866 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:14.992 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:15.126 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:15.147 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:15.174 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:15.207 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <FlutterTextInputView: 0x161232fd0> force: 0
+2026-10-13 15:09:15.423 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:20.599 Df Runner[52496:21d3c] [com.apple.coremedia:] <<< URLAsset >>> FigAssetCreateWithURL: Called for asset 0x6000011470c0 by client [], url [0x60000204d260] [] createFlags 0x8 optionsDict (null)
+2026-10-13 15:09:23.135 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> FigCustomURLLoaderCreate: newLoader: 0x600002f249a0
+2026-10-13 15:09:23.136 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> FigCustomURLHandlerCreate: newHandler: com.apple.avfoundation.customurl.cfurlconnection.0x600003119b00 options: (null)
+2026-10-13 15:09:23.136 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> curll_installHandlerOnQueue: 0x600002f249c0: handler: 0x600003119b00 priority: 100
+2026-10-13 15:09:23.136 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> FigCustomURLHandlerCreate: newHandler: com.apple.avfoundation.authkeychain.0x600003119bc0 options: (null)
+2026-10-13 15:09:23.136 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> curll_installHandlerOnQueue: 0x600002f249c0: handler: 0x600003119bc0 priority: 800
+2026-10-13 15:09:25.303 Df Runner[52496:21d3c] [com.apple.runningboard:process] Hit the server for a process handle 4f5edf30000cd10 that resolved to: [application<de.frauas.girokontoApp>:52496]
+2026-10-13 15:09:25.973 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _insertItem:afterItem:]: currentItem KVO: P/WH called with I/EOA.01 (afterItem = (null))
+2026-10-13 15:09:27.235 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke_2: currentItem KVO: P/WH will willChange AVPlayer.currentItem
+2026-10-13 15:09:27.236 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/WH did willChange AVPlayer.currentItem
+2026-10-13 15:09:27.236 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setCurrentItem:]: currentItem KVO: P/WH updating current item from (null) to I/EOA.01
+2026-10-13 15:09:27.236 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: P/WH setting timeControlStatus=0, reasonForWaitingToPlay=(null)
+2026-10-13 15:09:27.743 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/WH will didChange AVPlayer.currentItem
+2026-10-13 15:09:27.743 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/WH did didChange AVPlayer.currentItem
+2026-10-13 15:09:27.972 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: called (self: 0x600002f24930, keys: (
+    streaming
+), keysForCollectionKeys: (null), handler: non-nil)
+2026-10-13 15:09:27.972 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: Calling FigAssetLoadValuesAsyncForProperties for properties (
+    "assetProperty_AssetType"
+)
+2026-10-13 15:09:27.973 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: Batch 0x6000004c3d80: asset batch ID = 1 (err=0, alreadyLoaded=0)
+2026-10-13 15:09:27.974 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: called (self: 0x600002f24930, keys: (
+    duration
+), keysForCollectionKeys: (null), handler: non-nil)
+2026-10-13 15:09:27.974 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: Calling FigAssetLoadValuesAsyncForProperties for properties (
+    Duration
+)
+2026-10-13 15:09:27.974 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader loadValuesAsynchronouslyForKeys:keysForCollectionKeys:completionHandler:]: Batch 0x6000004c3ae0: asset batch ID = 2 (err=0, alreadyLoaded=0)
+2026-10-13 15:09:30.982 Df Runner[52496:3613b] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification: Received kFigAssetNotification_BatchPropertyLoadComplete (payload: {
+    "assetPayload_BatchID" = 1;
+})
+2026-10-13 15:09:30.983 Df Runner[52496:3613b] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification_block_invoke: Batch 0x6000004c3d80: Marking asset batch ID 1 as complete
+2026-10-13 15:09:30.983 Df Runner[52496:3613b] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader _invokeCompletionHandlerForLoadingBatches:]: Batch 0x6000004c3d80: dispatching completion handler
+2026-10-13 15:09:31.682 Df Runner[52496:35205] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> FigPlayerSurrogateCreateWithOptions: new player 0x6000036678d0 P/WH
+2026-10-13 15:09:31.685 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _advanceToNextItem]: currentItem KVO: P/WH called
+2026-10-13 15:09:31.685 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke_2: currentItem KVO: P/WH will willChange AVPlayer.currentItem
+2026-10-13 15:09:31.685 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/WH did willChange AVPlayer.currentItem
+2026-10-13 15:09:31.685 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setCurrentItem:]: currentItem KVO: P/WH updating current item from I/EOA.01 to (null)
+2026-10-13 15:09:31.685 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: P/WH setting timeControlStatus=0, reasonForWaitingToPlay=(null)
+2026-10-13 15:09:31.686 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/WH will didChange AVPlayer.currentItem
+2026-10-13 15:09:31.686 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _runOnIvarAccessQueueOperationThatMayChangeCurrentItemWithPreflightBlock:modificationBlock:error:]_block_invoke: currentItem KVO: P/WH did didChange AVPlayer.currentItem
+2026-10-13 15:09:31.686 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayer >>>> -[AVPlayer _setRate:rateChangeReason:figPlayerSetRateHandler:]_block_invoke: P/WH setting timeControlStatus=1, reasonForWaitingToPlay=AVPlayerWaitingWithNoItemToPlayReason
+2026-10-13 15:09:38.956 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: (null)
+2026-10-13 15:09:39.437 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356b980>; (empty)>
+2026-10-13 15:09:39.440 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:09:39.441 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000356ce60>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 0); hidden = YES; tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:09:39.445 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOffScreenDown> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:09:39.445 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356ce60>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 0); tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:09:39.445 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: -[_UIKBFeedbackGenerator activateWithCompletionBlock:]
+2026-10-13 15:09:39.445 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Nothing to activate. Keyboard feedback is disabled.
+2026-10-13 15:09:39.455 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000356ebc0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:09:39.456 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOffScreenDown> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:09:39.456 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000356ebc0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:09:39.456 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:09:39.458 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 775}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 667}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:41.438 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0> force: 0
+2026-10-13 15:09:41.870 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <FlutterTextInputView: 0x14459d430> force: 0
+2026-10-13 15:09:43.191 Df Runner[52496:21d3c] (UIKitCore) Can't find keyplane that supports type 8 for keyboard iPhone-PortraitChoco-DecimalPad; using 27344_PortraitChoco_iPhone-Simple-Pad_Default
+2026-10-13 15:09:43.197 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:09:43.207 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:09:43.213 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:09:43.213 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000357eda0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 0); hidden = YES; tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:09:43.384 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Skipping changing input views
+2026-10-13 15:09:43.384 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000357fb60>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:09:43.384 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Skipping changing input views
+2026-10-13 15:09:44.016 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 216}
+2026-10-13 15:09:44.017 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] -[UIApplication _beginBackgroundTaskWithName:expirationHandler:]: Will add backgroundTask with taskName: UIKeyboardCache, expirationHandler: (null)
+2026-10-13 15:09:44.017 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new assertion because there is no existing background assertion.
+2026-10-13 15:09:44.017 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Creating new background assertion
+2026-10-13 15:09:44.017 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Created new background assertion <BKSProcessAssertion: 0x600002741d60>
+2026-10-13 15:09:44.017 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void))_block_invoke: Incrementing reference count for background assertion <BKSProcessAssertion: 0x600002741d60>
+2026-10-13 15:09:44.313 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] _UIBackgroundTaskInfo *_addBackgroundTaskInternal(NSString *__strong, void (^__strong)(void)): Created background task <_UIBackgroundTaskInfo: 0x600001163c00>: taskID = 6, taskName = UIKeyboardCache, creationTime = 2310 (elapsed = 0).
+2026-10-13 15:09:46.064 Df Runner[52496:36781] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification: Received kFigAssetNotification_BatchPropertyLoadComplete (payload: {
+    "assetPayload_BatchID" = 2;
+})
+2026-10-13 15:09:46.064 Df Runner[52496:36781] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> handleFigAssetLoadingNotification_block_invoke: Batch 0x6000004c3ae0: Marking asset batch ID 2 as complete
+2026-10-13 15:09:46.064 Df Runner[52496:36781] [com.apple.coremedia:] <<<< AVAssetInspectorLoader >>>> -[AVFigAssetInspectorLoader _invokeCompletionHandlerForLoadingBatches:]: Batch 0x6000004c3ae0: dispatching completion handler
+2026-10-13 15:09:46.642 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 775}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 667}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:46.643 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:46.646 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:46.655 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending background task with UIBackgroundTaskIdentifier: 6
+2026-10-13 15:09:46.655 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier): Ending task with identifier 6 and description: <_UIBackgroundTaskInfo: 0x600001163c00>: taskID = 6, taskName = UIKeyboardCache, creationTime = 2310 (elapsed = 3), _expireHandler: (null)
+2026-10-13 15:09:46.655 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Decrementing reference count for assertion <BKSProcessAssertion: 0x600002741d60> (used by background task with identifier 6: <_UIBackgroundTaskInfo: 0x600001163c00>: taskID = 6, taskName = UIKeyboardCache, creationTime = 2310 (elapsed = 3))
+2026-10-13 15:09:46.655 Df Runner[52496:21d3c] [com.apple.UIKit:BackgroundTask] BOOL _endBackgroundTask(UIBackgroundTaskIdentifier)_block_invoke: Will invalidate assertion: <BKSProcessAssertion: 0x600002741d60> for task identifier: 6
+2026-10-13 15:09:47.526 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 216}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:47.959 Df Runner[52496:36781] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_Invalidate: [0x6000036678d0] P/WH called
+2026-10-13 15:09:47.959 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< FigPlayerSurrogate >>>> surrogatePlayer_Finalize: [0x6000036678d0] P/WH called
+2026-10-13 15:09:48.403 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: called
+2026-10-13 15:09:48.404 Df Runner[52496:21d3c] [com.apple.coremedia:] <<<< AVPlayerItem >>>> -[AVPlayerItem dealloc]: currentItem KVO: I/EOA.01
+2026-10-13 15:09:48.404 Df Runner[52496:21d3c] [com.apple.coremedia:] <<< URLAsset >>> URLAssetFinalize: Called for asset 0x6000011470c0
+2026-10-13 15:09:48.404 Df Runner[52496:35e37] [com.apple.coremedia:] <<<< FigCustomURLHandling >>>> curll_invalidateOnQueue: 0x600002f249a0 called
+2026-10-13 15:09:49.576 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: -[_UIKBFeedbackGenerator activateWithCompletionBlock:]
+2026-10-13 15:09:49.577 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Nothing to activate. Keyboard feedback is disabled.
+2026-10-13 15:09:49.581 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:49.588 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0> force: 0
+2026-10-13 15:09:49.594 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <FlutterTextInputView: 0x1445de670> force: 0
+2026-10-13 15:09:49.605 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:09:49.620 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:09:49.627 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:49.628 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 559}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 451}, {375, 216}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:49.635 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:09:49.635 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000357b660>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 44); tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:09:49.636 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:09:49.637 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000357b660>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; assistant = <TUISystemInputAssistantView: 0x14455ea70; frame = (0 0; 375 44); tintColor = UIExtendedGrayColorSpace 0 1; backgroundColor = UIExtendedGrayColorSpace 0 0; layer = <CALayer: 0x6000004dc840>>; usesKeyClicks = NO;  >
+2026-10-13 15:09:49.637 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:09:49.638 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:09:49.638 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x600003578dc0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:09:49.638 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOnScreen>
+2026-10-13 15:09:49.638 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x600003578dc0>; keyboard = <UIKeyboardAutomatic: 0x144560b90; frame = (0 0; 375 216); opaque = NO; layer = <CALayer: 0x6000004de200>>%; usesKeyClicks = NO;  >
+2026-10-13 15:09:49.638 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardArbiterClientLog] -[_UIRemoteKeyboardPlaceholderView refreshPlaceholder]  refreshPlaceholder: size={375, 260}
+2026-10-13 15:09:49.639 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:49.639 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidShowNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = 0;
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:49.684 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:49.687 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: -[_UIKBFeedbackGenerator activateWithCompletionBlock:]
+2026-10-13 15:09:49.687 Df Runner[52496:21d3c] [com.apple.UIKit:UIKBFeedbackGenerator] <_UIKBFeedbackGenerator: 0x600002a7f380>: Nothing to activate. Keyboard feedback is disabled.
+2026-10-13 15:09:49.694 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardSceneDelegate] Reloading input views for: <(null): 0x0> force: 0
+2026-10-13 15:09:49.699 Df Runner[52496:21d3c] [com.apple.UIKit:KeyboardVisualMode] Show keyboard with visual mode windowed (0)
+2026-10-13 15:09:49.699 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000357dc20>; (empty)>
+2026-10-13 15:09:49.699 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOffScreenDown>
+2026-10-13 15:09:49.700 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Setting input views: <<UIInputViewSet: 0x60000357f980>; (empty)>
+2026-10-13 15:09:49.700 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Moving from placement: <UIInputViewSetPlacementOnScreen> to placement: <UIInputViewSetPlacementOffScreenDown>
+2026-10-13 15:09:49.701 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting start notifications: UIKeyboardWillHideNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 797}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 667}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:49.844 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:50.005 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:50.131 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:50.208 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000357f980>; (empty)>
+2026-10-13 15:09:50.209 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Posting end notifications: UIKeyboardDidHideNotification {
+    UIKeyboardAnimationCurveUserInfoKey = 7;
+    UIKeyboardAnimationDurationUserInfoKey = "0.25";
+    UIKeyboardBoundsUserInfoKey = "NSRect: {{0, 0}, {375, 260}}";
+    UIKeyboardCenterBeginUserInfoKey = "NSPoint: {187.5, 537}";
+    UIKeyboardCenterEndUserInfoKey = "NSPoint: {187.5, 797}";
+    UIKeyboardFrameBeginUserInfoKey = "NSRect: {{0, 407}, {375, 260}}";
+    UIKeyboardFrameEndUserInfoKey = "NSRect: {{0, 667}, {375, 260}}";
+    UIKeyboardIsLocalUserInfoKey = 1;
+}
+2026-10-13 15:09:50.210 Df Runner[52496:21d3c] [com.apple.UIKit:InputWindowController] Change to input view set: <<UIInputViewSet: 0x60000357dc20>; (empty)>
+2026-10-13 15:09:50.258 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:50.369 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:50.485 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:50.601 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:50.718 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:50.837 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:50.957 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:51.073 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:51.186 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:51.299 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:51.523 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:51.525 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:51.588 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:51.595 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:51.625 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:51.810 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:51.919 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:52.035 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:52.152 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:52.204 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.208 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.209 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.209 A  Runner[52496:35205] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.210 A  Runner[52496:35205] (Security) SecItemUpdate_ios
+2026-10-13 15:09:52.210 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.212 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.214 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.215 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.216 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.382 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:52.390 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.392 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.394 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.397 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.401 A  Runner[52496:363f1] (Security) SecItemCopyMatching_ios
+2026-10-13 15:09:52.520 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:52.716 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:52.856 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:52.968 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:53.085 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:53.203 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:53.317 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:53.433 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:53.553 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:09:53.665 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7
+2026-10-13 15:09:53.785 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x14 error0xe00002c7
+2026-10-13 15:09:56.846 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x11 error0xe00002c7
+2026-10-13 15:10:00.277 Df Runner[52496:21d3c] [com.apple.coreanimation:Render] Film Grain Query Failed 0x16 error0xe00002c7

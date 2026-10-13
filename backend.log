@@ -1,0 +1,297 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-13T14:33:28.272Z  INFO 1608 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : Starting GirokontoApplication v0.1.0 using Java 21.0.12.1 with PID 1608 (/Users/runner/work/girokonto/girokonto/backend/build/libs/girokonto-backend-0.1.0.jar started by runner in /Users/runner/work/girokonto/girokonto/backend)
+2026-10-13T14:33:28.274Z  INFO 1608 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-10-13T14:33:28.982Z  INFO 1608 --- [girokonto] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-13T14:33:29.030Z  INFO 1608 --- [girokonto] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 43 ms. Found 14 JPA repository interfaces.
+2026-10-13T14:33:29.858Z  INFO 1608 --- [girokonto] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-10-13T14:33:29.870Z  INFO 1608 --- [girokonto] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-13T14:33:29.870Z  INFO 1608 --- [girokonto] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-10-13T14:33:29.894Z  INFO 1608 --- [girokonto] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-13T14:33:29.894Z  INFO 1608 --- [girokonto] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1578 ms
+2026-10-13T14:33:30.091Z  INFO 1608 --- [girokonto] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-13T14:33:30.166Z  INFO 1608 --- [girokonto] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@a457c2b
+2026-10-13T14:33:30.167Z  INFO 1608 --- [girokonto] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-13T14:33:30.186Z  INFO 1608 --- [girokonto] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/girokonto (PostgreSQL 16.15)
+2026-10-13T14:33:30.210Z  INFO 1608 --- [girokonto] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-13T14:33:30.211Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 9 migrations (execution time 00:00.009s)
+2026-10-13T14:33:30.218Z  INFO 1608 --- [girokonto] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-13T14:33:30.245Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-13T14:33:30.250Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - init"
+2026-10-13T14:33:30.273Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - contacts"
+2026-10-13T14:33:30.281Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "3 - cards notifications"
+2026-10-13T14:33:30.294Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "4 - planning"
+2026-10-13T14:33:30.310Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "5 - phase5"
+2026-10-13T14:33:30.318Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "6 - standing orders"
+2026-10-13T14:33:30.325Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "7 - two factor"
+2026-10-13T14:33:30.330Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "8 - csv import"
+2026-10-13T14:33:30.339Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "9 - shared subaccounts"
+2026-10-13T14:33:30.347Z  INFO 1608 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 9 migrations to schema "public", now at version v9 (execution time 00:00.049s)
+2026-10-13T14:33:30.391Z  INFO 1608 --- [girokonto] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-13T14:33:30.421Z  INFO 1608 --- [girokonto] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-10-13T14:33:30.438Z  INFO 1608 --- [girokonto] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-13T14:33:30.671Z  INFO 1608 --- [girokonto] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-13T14:33:32.020Z  INFO 1608 --- [girokonto] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-13T14:33:32.024Z  INFO 1608 --- [girokonto] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-13T14:33:32.373Z  INFO 1608 --- [girokonto] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-13T14:33:33.541Z  WARN 1608 --- [girokonto] [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 65d88a33-d2fe-424d-b67c-39be7bd97aef
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-10-13T14:33:33.547Z  INFO 1608 --- [girokonto] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-10-13T14:33:35.001Z  INFO 1608 --- [girokonto] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-10-13T14:33:35.011Z  INFO 1608 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-10-13T14:33:35.012Z  INFO 1608 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@17b4d5ab]]
+2026-10-13T14:33:35.012Z  INFO 1608 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-10-13T14:33:35.039Z  INFO 1608 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : Started GirokontoApplication in 7.066 seconds (process running for 7.431)
+2026-10-13T14:33:35.710Z  INFO 1608 --- [girokonto] [           main] d.f.girokonto.auth.AdminInitializer      : Administrator admin@projektbank.de angelegt
+2026-10-13T14:33:36.330Z  INFO 1608 --- [girokonto] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-13T14:33:36.330Z  INFO 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-13T14:33:36.331Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-10-13T14:33:36.331Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-10-13T14:33:36.331Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2026-10-13T14:33:36.332Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@19097fa5
+2026-10-13T14:33:36.334Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@22f10ff6
+2026-10-13T14:33:36.335Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-10-13T14:33:36.335Z  INFO 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-10-13T14:33:36.356Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/v3/api-docs", parameters={}
+2026-10-13T14:33:36.958Z  INFO 1608 --- [girokonto] [nio-8080-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 579 ms
+2026-10-13T14:33:37.003Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T14:33:37.024Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/v3/api-docs", parameters={}
+2026-10-13T14:33:37.033Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T14:33:37.058Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-13T14:33:37.338Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T14:33:37.360Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/login", parameters={}
+2026-10-13T14:33:37.495Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T14:34:35.705Z  INFO 1608 --- [girokonto] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 2, active threads = 1, queued tasks = 1, completed tasks = 0]
+2026-10-13T15:02:41.792Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-13T15:02:43.086Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:02:43.152Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-13T15:02:43.726Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:02:44.121Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/subaccounts", parameters={}
+2026-10-13T15:02:44.168Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:02:44.216Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/subaccounts/11/members", parameters={}
+2026-10-13T15:02:44.294Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:04:35.879Z  INFO 1608 --- [girokonto] [MessageBroker-2] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 3, active threads = 1, queued tasks = 1, completed tasks = 1]
+2026-10-13T15:08:01.699Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/login", parameters={}
+2026-10-13T15:08:02.514Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:16.421Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:08:16.421Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:08:16.424Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:08:16.836Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:16.844Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:16.948Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/ws", parameters={}
+2026-10-13T15:08:16.970Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:17.460Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 101 SWITCHING_PROTOCOLS
+2026-10-13T15:08:18.469Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:08:18.477Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/9/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:08:18.624Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:18.694Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:25.819Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers", parameters={}
+2026-10-13T15:08:26.246Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:08:26.317Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-13T15:08:26.321Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-13T15:08:26.321Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-13T15:08:26.319Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-13T15:08:26.342Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.369Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-13T15:08:26.403Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-13T15:08:26.439Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.455Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.465Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.475Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.530Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.684Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:08:26.685Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/9/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:08:26.690Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:08:26.691Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:08:26.699Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.711Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.711Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:08:26.739Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:07.996Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers/check", parameters={}
+2026-10-13T15:09:08.125Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:10.965Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers", parameters={}
+2026-10-13T15:09:11.083Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:09:11.154Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-13T15:09:11.194Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-13T15:09:11.153Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-13T15:09:11.217Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-13T15:09:11.191Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-13T15:09:11.222Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.228Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.230Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-13T15:09:11.254Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.263Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.267Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.271Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.362Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/9/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:09:11.363Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:09:11.373Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:09:11.375Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:09:11.385Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.404Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.414Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.416Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.655Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:09:11.685Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:11.717Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:09:11.748Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:13.675Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/standing-orders", parameters={}
+2026-10-13T15:09:13.787Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:51.767Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/standing-orders", parameters={}
+2026-10-13T15:09:52.234Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:09:52.259Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-13T15:09:52.312Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-13T15:09:52.316Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-13T15:09:52.320Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.324Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-13T15:09:52.318Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-13T15:09:52.361Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.400Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.361Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-13T15:09:52.410Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.498Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:09:52.501Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/9/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:09:52.502Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/standing-orders", parameters={}
+2026-10-13T15:09:52.506Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:09:52.518Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.526Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.539Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.540Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.545Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.548Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:52.556Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:09:52.567Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:09:56.898Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/standing-orders", parameters={}
+2026-10-13T15:09:56.916Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:14:19.669Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/me", parameters={}
+2026-10-13T15:14:19.792Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:14:20.428Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:14:20.475Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:14:20.540Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:14:20.759Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:14:20.783Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:14:20.803Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/ws", parameters={}
+2026-10-13T15:14:20.956Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 101 SWITCHING_PROTOCOLS
+2026-10-13T15:14:20.987Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:14:21.388Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/9/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:14:21.400Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:14:21.537Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:14:21.567Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:14:59.866Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-13T15:15:00.428Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:15:00.459Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-13T15:15:00.835Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:15:00.864Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/subaccounts", parameters={}
+2026-10-13T15:15:00.901Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:15:00.923Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/subaccounts/14/members", parameters={}
+2026-10-13T15:15:00.972Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:05.273Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/login", parameters={}
+2026-10-13T15:15:06.209Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:06.636Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:15:06.638Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:15:06.693Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:15:06.722Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:06.754Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:06.787Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/ws", parameters={}
+2026-10-13T15:15:06.815Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 101 SWITCHING_PROTOCOLS
+2026-10-13T15:15:06.820Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:07.024Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/12/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:15:07.024Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:15:07.082Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:07.098Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.107Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers", parameters={}
+2026-10-13T15:15:11.281Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:15:11.376Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-13T15:15:11.385Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-13T15:15:11.386Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-13T15:15:11.386Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-13T15:15:11.400Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-13T15:15:11.411Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-13T15:15:11.413Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.421Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.431Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.439Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.472Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.474Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.631Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:15:11.631Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/12/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:15:11.644Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:15:11.645Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:15:11.648Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.650Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.651Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:11.668Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:12.475Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/contacts", parameters={}
+2026-10-13T15:15:12.746Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:14.562Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers/check", parameters={}
+2026-10-13T15:15:14.603Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.310Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers", parameters={}
+2026-10-13T15:15:17.455Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-13T15:15:17.469Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-13T15:15:17.472Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-13T15:15:17.473Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-13T15:15:17.476Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-13T15:15:17.478Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.482Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-13T15:15:17.484Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.490Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.490Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.494Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.509Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.552Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:15:17.581Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:15:17.586Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/12/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:15:17.587Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:15:17.588Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:15:17.593Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.593Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.598Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.605Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:17.982Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/12/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:15:17.987Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:15:17.996Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:18.007Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:18.240Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:15:18.250Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:18.275Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:15:18.318Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:20.250Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/standing-orders", parameters={}
+2026-10-13T15:15:20.261Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:23.939Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/standing-orders", parameters={}
+2026-10-13T15:15:23.969Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-13T15:15:24.009Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-13T15:15:24.009Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-13T15:15:24.011Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-13T15:15:24.015Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-13T15:15:24.015Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-13T15:15:24.020Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-13T15:15:24.025Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.028Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.036Z DEBUG 1608 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.039Z DEBUG 1608 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.039Z DEBUG 1608 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.041Z DEBUG 1608 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.219Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-13T15:15:24.225Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-13T15:15:24.233Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-13T15:15:24.263Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/standing-orders", parameters={}
+2026-10-13T15:15:24.266Z DEBUG 1608 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.275Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/12/bookings?page=0&size=5", parameters={masked}
+2026-10-13T15:15:24.281Z DEBUG 1608 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.292Z DEBUG 1608 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.298Z DEBUG 1608 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:24.301Z DEBUG 1608 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-13T15:15:26.475Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/standing-orders", parameters={}
+2026-10-13T15:15:26.483Z DEBUG 1608 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
