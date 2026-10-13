@@ -35,8 +35,9 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
 
       BackgroundCheck.markShown(n.id); // /K070/: im Hintergrund nicht noch einmal melden
 
-      final inForeground =
-          WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
+      // Unbekannter Zustand (z. B. Browser vor dem ersten Ereignis) zählt als Vordergrund
+      final lifecycle = WidgetsBinding.instance.lifecycleState;
+      final inForeground = lifecycle == null || lifecycle == AppLifecycleState.resumed;
       if (inForeground) {
         rootMessengerKey.currentState?.showSnackBar(SnackBar(
           content: Text('${n.title}: ${n.body}'),
