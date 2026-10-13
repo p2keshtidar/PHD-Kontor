@@ -10,7 +10,7 @@ Stand: 13.10.2026 · alle Tests laufen automatisch bei jedem Push ([Actions](htt
 |---|---|---|---|
 | Backend: Unit- und Integrationstests (echte PostgreSQL) | **136** | ✅ alle grün | **93,2 %** |
 | App: Unit- und Widget-Tests (simulierter Server) | **159** | ✅ alle grün | **59,4 %** |
-| Ende-zu-Ende: echte App + echter Server | 2 Abläufe × 4 Geräte | E2E_ERGEBNIS | – |
+| Ende-zu-Ende: echte App + echter Server | 2 Abläufe × 4 Geräte (Chrome, Android Pixel 5, Android kleines Display, iPhone-Simulator) | ✅ alle grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
 
@@ -55,6 +55,8 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, **A
 | Code „123 456“ aus der Authenticator-App wurde auf „12345“ abgeschnitten | Widget-Test A02/A10 | Leerzeichen werden beim Eingeben entfernt |
 | Diagramm-Legende lief bei großer Schrift über den Rand | Layout-Test 150 % | Legende bricht um |
 | iOS-Absturz beim Start (Kontakte-Plugin) | E2E iOS | klassischer App-Start |
+| iOS: Live-Meldungen kamen erst an, nachdem die Frage nach der Benachrichtigungs-Erlaubnis beantwortet war | E2E zwei Nutzer | Live-Verbindung startet sofort |
+| Live-Meldung wurde nicht als Hinweis angezeigt, solange der App-Zustand noch unbekannt war (Browser) | E2E zwei Nutzer | unbekannter Zustand zählt als Vordergrund |
 
 ## Selbst ausführen
 
