@@ -13,6 +13,8 @@ Betreuung: Prof. Dr.-Ing. Ruth Schorr
 ![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot%203-6DB33F?logo=springboot)
 ![PostgreSQL](https://img.shields.io/badge/DB-PostgreSQL%2016-336791?logo=postgresql)
 
+<img src="docs/bilder/titelbild.png" alt="Girokonto – Startseite, Finanzüberblick und Sparen" width="100%">
+
 </div>
 
 > [!NOTE]
@@ -53,6 +55,18 @@ java -jar girokonto-server.jar
 ```
 
 Handy verbinden: App öffnen → unten auf der Login-Seite **„Server: …“** antippen → `http://<IP-deines-PCs>:8080` eintragen.
+
+---
+
+## 📸 So sieht die App aus
+
+| | | | |
+|:-:|:-:|:-:|:-:|
+| <img src="docs/bilder/02-startseite.png" width="190"><br>Startseite | <img src="docs/bilder/03-umsaetze.png" width="190"><br>Umsätze | <img src="docs/bilder/04-ueberweisen.png" width="190"><br>Überweisen | <img src="docs/bilder/05-karte.png" width="190"><br>Karte |
+| <img src="docs/bilder/06-sparen.png" width="190"><br>Sparen | <img src="docs/bilder/07-finanzueberblick.png" width="190"><br>Finanzüberblick | <img src="docs/bilder/08-sparplan.png" width="190"><br>Sparplan | <img src="docs/bilder/09-investplan.png" width="190"><br>Investplan |
+| <img src="docs/bilder/10-kredit.png" width="190"><br>Kredit + Tilgungsplan | <img src="docs/bilder/11-dauerauftraege.png" width="190"><br>Daueraufträge | <img src="docs/bilder/12-wg-kasse.png" width="190"><br>Geteiltes Unterkonto | <img src="docs/bilder/13-benachrichtigungen.png" width="190"><br>Benachrichtigungen |
+
+Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präsentation und Bericht.
 
 ---
 
@@ -104,7 +118,7 @@ girokonto/
 │   └── tool/                  Hilfsskript für die Plattform-Einstellungen
 ├── backend/                ☕ Spring-Boot-Server (Java 21, PostgreSQL)
 │   └── src/main/…             Code, Datenbank-Migrationen (Flyway)
-├── docs/                   📚 Anleitungen, Architektur, Pflichtenheft, Scrum
+├── docs/                   📚 Anleitungen, Architektur, Pflichtenheft, Scrum, Bilder
 ├── .github/                ⚙️ automatische Tests + Builds (GitHub Actions), Vorlagen für Issues/PRs
 ├── Dockerfile              🐳 baut Server + Web-App in ein Image
 └── docker-compose.yml      🐳 startet Datenbank (+ optional die ganze Anwendung)
