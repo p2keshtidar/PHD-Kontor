@@ -262,8 +262,10 @@ jobs:
           xcodebuild -version
           # ältere iOS-Versionen: Simulator bei Apple laden (ca. 2 Minuten)
           if [ -n "${{ matrix.download }}" ]; then
+            # Simulator-Dienst zuerst starten, sonst meldet der Download "Unable to connect to simulator"
+            xcrun simctl list runtimes > /dev/null 2>&1 || true; sleep 10
             for i in 1 2 3; do
-              xcodebuild -downloadPlatform iOS -buildVersion "${{ matrix.download }}" 2>&1 | tr '\r' '\n' | grep -v '%' | tail -3
+              { xcodebuild -downloadPlatform iOS -buildVersion "${{ matrix.download }}" 2>&1 | tr '\r' '\n' | grep -v '%' | tail -3; } || true
               xcrun simctl list runtimes | grep -q "iOS ${{ matrix.download }}" && break
               sleep 30
             done
