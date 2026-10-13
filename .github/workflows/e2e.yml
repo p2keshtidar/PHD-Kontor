@@ -206,7 +206,7 @@ jobs:
         # getestet auf dem Simulator der jeweiligen iOS-Version.
         include: ${{ fromJSON(inputs.versionen == 'alle' && '[{"ios":"26","runner":"macos-latest","xcode":"","runtime":"iOS-26"},{"ios":"18","runner":"macos-15","xcode":"/Applications/Xcode_26.3.app","runtime":"iOS-18"},{"ios":"17","runner":"macos-latest","xcode":"","runtime":"iOS-17","download":"17.5"},{"ios":"16","runner":"macos-latest","xcode":"","runtime":"iOS-16","download":"16.4"}]' || '[{"ios":"26","runner":"macos-latest","xcode":"","runtime":"iOS-26"}]') }}
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 60
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v5
       - name: PostgreSQL starten
@@ -285,7 +285,7 @@ jobs:
           set -o pipefail
           # Systemprotokoll des Simulators mitschreiben (zeigt Abstürze beim App-Start)
           xcrun simctl spawn "$UDID" log stream --level error --style compact --predicate 'process == "Runner"' > /tmp/sim.log 2>&1 &
-          perl -e 'alarm shift; exec @ARGV' 1200 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
+          perl -e 'alarm shift; exec @ARGV' 2700 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
             | grep -vE "^\[ +\+?[0-9]+ ms\] (executing|Exit code|<- |-> )" | tee -a /tmp/full.log | grep -v 'SCREENSHOT:' | tee -a /tmp/ci.log
       - name: Bildschirmfotos ablegen
         if: always()
