@@ -15,7 +15,12 @@ class KeyValueStore {
   static const _secure = FlutterSecureStorage();
   final Map<String, String> _memory = {};
 
+  /// Nur für Tests: alles bleibt im Arbeitsspeicher (keine Plattform-Kanäle).
+  @visibleForTesting
+  static bool memoryOnly = false;
+
   Future<String?> read(String key) async {
+    if (memoryOnly) return _memory[key];
     try {
       if (kIsWeb) return (await SharedPreferences.getInstance()).getString(key);
       return await _secure.read(key: key);
@@ -26,6 +31,7 @@ class KeyValueStore {
 
   Future<void> write(String key, String value) async {
     _memory[key] = value;
+    if (memoryOnly) return;
     try {
       if (kIsWeb) {
         await (await SharedPreferences.getInstance()).setString(key, value);
@@ -37,6 +43,7 @@ class KeyValueStore {
 
   Future<void> delete(String key) async {
     _memory.remove(key);
+    if (memoryOnly) return;
     try {
       if (kIsWeb) {
         await (await SharedPreferences.getInstance()).remove(key);
