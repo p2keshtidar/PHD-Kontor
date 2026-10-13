@@ -11,8 +11,14 @@
 //            Core Library Desugaring für flutter_local_notifications
 //   iOS:     Beschreibung für den Kontakte-Zugriff, lokale http-Verbindungen,
 //            klassischer App-Start ohne UIScene (sonst stürzt flutter_contacts 1.x beim Start ab)
+//   Beide:   niedrigste Systemversion, die Flutter unterstützt (siehe docs/technik/versionen.md)
 
 import 'dart:io';
+
+/// Android 7.0 (API 24) und iOS 15: die ältesten Versionen, die Flutter 3.47 unterstützt.
+/// Alle verwendeten Plugins kommen mit diesen Versionen aus.
+const androidMinSdk = 24;
+const iosMinVersion = '15.0';
 
 void main() {
   var changed = 0;
@@ -20,6 +26,7 @@ void main() {
   changed += _androidGradle();
   changed += _iosInfoPlist();
   changed += _iosClassicLifecycle();
+  changed += _iosDeploymentTarget();
   changed += _webNames();
   stdout.writeln(changed == 0 ? 'Alles bereits eingerichtet.' : '$changed Datei(en) angepasst.');
 }
@@ -75,6 +82,10 @@ int _androidGradle() {
       s = s.replaceFirst(RegExp(r'android\s*\{'), 'android {\n    compileOptions {\n        $enableLine\n    }');
     }
   }
+
+  // Mindestversion fest eintragen (statt "flutter.minSdkVersion")
+  s = s.replaceAll(RegExp(r'minSdk\s*=\s*flutter\.minSdkVersion'), 'minSdk = $androidMinSdk');
+  s = s.replaceAll(RegExp(r'minSdkVersion\s+flutter\.minSdkVersion'), 'minSdkVersion $androidMinSdk');
 
   final depLine = isKts
       ? 'coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")'
@@ -211,5 +222,29 @@ import UIKit
       }
     }
   }
+  return changed;
+}
+
+/// iOS-Mindestversion in Podfile, Xcode-Projekt und Flutter-Framework gleich setzen.
+int _iosDeploymentTarget() {
+  var changed = 0;
+  void patch(String path, String Function(String) f) {
+    final file = File(path);
+    if (!file.existsSync()) return;
+    final s = file.readAsStringSync();
+    final n = f(s);
+    if (n != s) {
+      file.writeAsStringSync(n);
+      stdout.writeln('Angepasst: $path (iOS $iosMinVersion)');
+      changed++;
+    }
+  }
+
+  patch('ios/Podfile', (s) => s.replaceFirst(RegExp(r"^#?\s*platform :ios, '[0-9.]+'", multiLine: true),
+      "platform :ios, '$iosMinVersion'"));
+  patch('ios/Runner.xcodeproj/project.pbxproj',
+      (s) => s.replaceAll(RegExp(r'IPHONEOS_DEPLOYMENT_TARGET = [0-9.]+;'), 'IPHONEOS_DEPLOYMENT_TARGET = $iosMinVersion;'));
+  patch('ios/Flutter/AppFrameworkInfo.plist', (s) => s.replaceFirstMapped(
+      RegExp(r'(<key>MinimumOSVersion</key>\s*<string>)[0-9.]+(</string>)'), (m) => '${m[1]}$iosMinVersion${m[2]}'));
   return changed;
 }

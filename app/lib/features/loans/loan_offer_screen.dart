@@ -10,6 +10,7 @@ import '../insights/insights_repository.dart';
 import 'loan_models.dart';
 import 'loans_repository.dart';
 import 'schedule_table.dart';
+import '../../core/layout.dart';
 
 /// Kreditangebot mit Tilgungsplan und Abschluss (Pflichtenheft B13, /F1040/, /F1050/).
 class LoanOfferScreen extends ConsumerStatefulWidget {
@@ -70,7 +71,7 @@ class _LoanOfferScreenState extends ConsumerState<LoanOfferScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(title: Text(o.bankName)),
-      body: ListView(padding: const EdgeInsets.all(16), children: [
+      body: ListView(padding: safeListPadding(context), children: [
         Text('${r.purposeLabel}: ${formatCents(r.principalCents)}', style: theme.textTheme.titleLarge),
         if (r.equityCents > 0) Text('Eigenkapital: ${formatCents(r.equityCents)}'),
         const SizedBox(height: 12),

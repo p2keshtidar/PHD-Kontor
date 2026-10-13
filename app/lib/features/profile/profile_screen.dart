@@ -16,6 +16,7 @@ import '../loans/loans_repository.dart';
 import '../notifications/notifications_repository.dart';
 import '../savings/plans_repository.dart';
 import 'two_factor_screen.dart';
+import '../../core/layout.dart';
 
 /// Profil (/F030/): Daten ansehen und ändern, Passwort ändern, abmelden.
 class ProfileScreen extends ConsumerWidget {
@@ -30,7 +31,7 @@ class ProfileScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Profil')),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: safeListPadding(context),
         children: [
           Center(
             child: CircleAvatar(

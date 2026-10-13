@@ -10,6 +10,7 @@ import '../insights/insights_repository.dart';
 import '../subaccounts/subaccount_icons.dart';
 import 'plan_models.dart';
 import 'plans_repository.dart';
+import '../../core/layout.dart';
 
 /// Assistent in 3 Schritten (Pflichtenheft B10):
 /// Sparplan: Ziel -> Risikostufe -> Rate mit Ampel. Investplan: Betrag -> Risikostufe -> Prüfung.
@@ -201,7 +202,7 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
         ),
         Expanded(
           child: ListView(
-            padding: const EdgeInsets.all(16),
+            padding: safeListPadding(context),
             children: [
               if (_step == 0) _invest ? _investStep() : _goalStep(),
               if (_step == 1) _riskStep(),

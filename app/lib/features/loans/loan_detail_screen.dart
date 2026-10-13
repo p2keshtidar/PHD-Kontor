@@ -8,6 +8,7 @@ import 'extra_payment_screen.dart';
 import 'loan_models.dart';
 import 'loans_repository.dart';
 import 'schedule_table.dart';
+import '../../core/layout.dart';
 
 /// Kreditübersicht (Pflichtenheft B14, /F1070/).
 class LoanDetailScreen extends ConsumerWidget {
@@ -34,7 +35,7 @@ class LoanDetailScreen extends ConsumerWidget {
   Widget _content(BuildContext context, LoanDetail d) {
     final l = d.loan;
     final theme = Theme.of(context);
-    return ListView(padding: const EdgeInsets.all(16), children: [
+    return ListView(padding: safeListPadding(context), children: [
       Text('${l.purposeLabel} · ${l.bankName}', style: theme.textTheme.titleLarge),
       const SizedBox(height: 12),
       Text(l.isActive ? 'Restschuld' : 'Abbezahlt', style: theme.textTheme.bodySmall),

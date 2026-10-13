@@ -8,6 +8,7 @@ import 'demo_dialog.dart';
 import 'insights_models.dart';
 import 'insights_repository.dart';
 import 'csv_import_screen.dart';
+import '../../core/layout.dart';
 
 /// Finanzüberblick (/F560/ bis /F590/): Einnahmen und Ausgaben je Monat, Kategorien, Durchschnitt.
 class InsightsScreen extends ConsumerStatefulWidget {
@@ -55,7 +56,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
             final index = (_selected ?? list.length - 2).clamp(0, list.length - 1);
             final selected = list[index];
             return ListView(
-              padding: const EdgeInsets.all(16),
+              padding: safeListPadding(context),
               children: [
                 if (!anyData)
                   Card(

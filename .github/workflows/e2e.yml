@@ -1,5 +1,6 @@
 # Ende-zu-Ende-Test: echtes Backend + echte App im Browser, Android-Emulator und iOS-Simulator.
 # Läuft manuell (Actions -> E2E -> "Run workflow"), weil der Mac-Runner viele Freiminuten kostet.
+# Mit "versionen: alle" läuft derselbe Test auf Android 7, 8, 9, 11, 13, 15, 16 und iOS 18, 26.
 name: E2E
 
 on:
@@ -15,6 +16,14 @@ on:
         type: choice
         options: [pixel_5, Nexus One]
         default: pixel_5
+      versionen:
+        description: Systemversionen (schnell = je eine, alle = Android 7 bis 16 und iOS 18 + 26)
+        type: choice
+        options: [schnell, alle]
+        default: schnell
+
+permissions:
+  contents: write   # Bildschirmfotos in den Branch ci-shots-* legen
 
 env:
   DB_URL: jdbc:postgresql://localhost:5432/girokonto
@@ -79,8 +88,13 @@ jobs:
 
   # ---------------------------------------------------------------- Android-Emulator
   android:
-    name: E2E Android-Emulator
+    name: E2E Android ${{ matrix.api }}
     if: inputs.plattform == 'alle' || inputs.plattform == 'android'
+    strategy:
+      fail-fast: false
+      matrix:
+        # API 24 = Android 7.0 (älteste von Flutter unterstützte Version) … 36 = Android 16
+        api: ${{ fromJSON(inputs.versionen == 'alle' && '[24, 26, 28, 30, 33, 35, 36]' || '[30]') }}
     runs-on: ubuntu-latest
     timeout-minutes: 50
     services:
@@ -123,26 +137,26 @@ jobs:
         run: |
           set +o pipefail   # "yes | sdkmanager" endet absichtlich mit SIGPIPE
           S=$ANDROID_HOME; export PATH="$S/platform-tools:$S/emulator:$PATH"
-          IMG="system-images;android-30;google_apis;x86_64"
+          IMG="system-images;android-${{ matrix.api }};google_apis;x86_64"
           # Download mit Wiederholung (bricht bei GitHub manchmal ab)
           for try in 1 2 3; do
             { yes | $S/cmdline-tools/latest/bin/sdkmanager "emulator" "platform-tools" "$IMG" > /dev/null; } 2>&1 | tail -3 | tee -a /tmp/ci.log
-            [ -f "$S/system-images/android-30/google_apis/x86_64/system.img" ] && break
+            [ -f "$S/system-images/android-${{ matrix.api }}/google_apis/x86_64/system.img" ] && break
             echo "Systemabbild unvollständig, Versuch $try" | tee -a /tmp/ci.log
-            rm -rf "$S/system-images/android-30/google_apis/x86_64"; sleep 10
+            rm -rf "$S/system-images/android-${{ matrix.api }}/google_apis/x86_64"; sleep 10
           done
           export ANDROID_AVD_HOME="$HOME/.android/avd"; mkdir -p "$ANDROID_AVD_HOME"
           echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME" >> "$GITHUB_ENV"
           echo no | $S/cmdline-tools/latest/bin/avdmanager create avd -n e2e -k "$IMG" -d "${{ inputs.android_geraet || 'pixel_5' }}" --force 2>&1 | tee -a /tmp/ci.log
           echo "AVDs: $(emulator -list-avds | tr '\n' ' ')" | tee -a /tmp/ci.log
           emulator -accel-check 2>&1 | tee -a /tmp/ci.log || true
-          ls "$S/system-images/android-30/google_apis/x86_64/system.img"
+          ls "$S/system-images/android-${{ matrix.api }}/google_apis/x86_64/system.img"
           nohup emulator -avd e2e -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -memory 3072 > /tmp/emulator.log 2>&1 &
           timeout 600 adb wait-for-device
           for i in $(seq 1 150); do
             [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ] && break; sleep 4
           done
-          echo "boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r')" | tee -a /tmp/ci.log
+          echo "boot_completed=$(adb shell getprop sys.boot_completed | tr -d '\r'), Android $(adb shell getprop ro.build.version.release | tr -d '\r') (API $(adb shell getprop ro.build.version.sdk | tr -d '\r'))" | tee -a /tmp/ci.log
           [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" = "1" ]
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
@@ -153,7 +167,12 @@ jobs:
         run: |
           set -o pipefail
           timeout 1500 flutter test integration_test/app_test.dart -d emulator-5554 \
-            --dart-define=API_URL=http://10.0.2.2:8080 2>&1 | tee -a /tmp/ci.log
+            --dart-define=API_URL=http://10.0.2.2:8080 2>&1 | tee -a /tmp/full.log | grep -v 'SCREENSHOT:' | tee -a /tmp/ci.log
+      - name: Bildschirmfotos ablegen
+        if: always()
+        shell: bash
+        env: { GITHUB_TOKEN: '${{ github.token }}' }
+        run: bash .github/scripts/bildschirmfotos.sh "android-${{ matrix.api }}" /tmp/full.log || true
       - name: Fehlerprotokoll
         if: failure()
         shell: bash
@@ -168,10 +187,15 @@ jobs:
 
   # ---------------------------------------------------------------- iOS-Simulator
   ios:
-    name: E2E iOS-Simulator
+    name: E2E iOS ${{ matrix.ios }}
     if: inputs.plattform == 'alle' || inputs.plattform == 'ios'
-    # aktuelles Xcode (26): workmanager braucht das iOS-26-SDK
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Gebaut wird immer mit Xcode 26 (workmanager braucht das iOS-26-SDK),
+        # getestet auf dem Simulator der jeweiligen iOS-Version.
+        include: ${{ fromJSON(inputs.versionen == 'alle' && '[{"ios":"26","runner":"macos-latest","xcode":"","runtime":"iOS-26"},{"ios":"18","runner":"macos-15","xcode":"/Applications/Xcode_26.3.app","runtime":"iOS-18"}]' || '[{"ios":"26","runner":"macos-latest","xcode":"","runtime":"iOS-26"}]') }}
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v5
@@ -203,11 +227,14 @@ jobs:
       - name: Simulator starten
         shell: bash
         run: |
+          if [ -n "${{ matrix.xcode }}" ]; then sudo xcode-select -s "${{ matrix.xcode }}"; fi
+          xcodebuild -version
+          # neuestes iPhone mit der gewünschten iOS-Version
           UDID=$(xcrun simctl list devices available -j | python3 -c "
           import json,sys
           d=json.load(sys.stdin)['devices']
-          c=[x for r,l in d.items() if 'iOS' in r for x in l if x['name'].startswith('iPhone')]
-          print(c[-1]['udid'])")
+          c=[(r,x) for r,l in sorted(d.items()) if '${{ matrix.runtime }}' in r for x in l if x['name'].startswith('iPhone')]
+          print(c[-1][1]['udid']); print(c[-1][0], c[-1][1]['name'], file=sys.stderr)")
           echo "UDID=$UDID" >> $GITHUB_ENV
           xcrun simctl boot "$UDID"
           xcrun simctl bootstatus "$UDID" -b
@@ -219,7 +246,12 @@ jobs:
           # Systemprotokoll des Simulators mitschreiben (zeigt Abstürze beim App-Start)
           xcrun simctl spawn "$UDID" log stream --level error --style compact --predicate 'process == "Runner"' > /tmp/sim.log 2>&1 &
           perl -e 'alarm shift; exec @ARGV' 1200 flutter test integration_test/app_test.dart -d "$UDID" -v 2>&1 \
-            | grep -vE "^\[ +\+?[0-9]+ ms\] (executing|Exit code|<- |-> )" | tee -a /tmp/ci.log
+            | grep -vE "^\[ +\+?[0-9]+ ms\] (executing|Exit code|<- |-> )" | tee -a /tmp/full.log | grep -v 'SCREENSHOT:' | tee -a /tmp/ci.log
+      - name: Bildschirmfotos ablegen
+        if: always()
+        shell: bash
+        env: { GITHUB_TOKEN: '${{ github.token }}' }
+        run: bash .github/scripts/bildschirmfotos.sh "ios-${{ matrix.ios }}" /tmp/full.log || true
       - name: Fehlerprotokoll
         if: failure()
         shell: bash

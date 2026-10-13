@@ -11,6 +11,7 @@ import '../accounts/bookings_repository.dart';
 import 'subaccount_dialogs.dart';
 import 'subaccount_icons.dart';
 import 'subaccounts_repository.dart';
+import '../../core/layout.dart';
 
 /// Detail eines Unterkontos: einzahlen, auszahlen, bearbeiten, auflösen (/F420/, /F430/).
 class SubaccountScreen extends ConsumerStatefulWidget {
@@ -222,7 +223,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
           final recent = ref.watch(recentBookingsProvider(sub.id));
           final theme = Theme.of(context);
           return ListView(
-            padding: const EdgeInsets.all(16),
+            padding: safeListPadding(context),
             children: [
               const SizedBox(height: 8),
               Center(

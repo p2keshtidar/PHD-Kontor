@@ -7,6 +7,7 @@ import '../../core/dates.dart';
 import '../../core/money.dart';
 import '../contacts/contacts_repository.dart';
 import 'transfer_models.dart';
+import '../../core/layout.dart';
 
 /// Bestätigung nach erfolgreicher Überweisung, mit Option "als Kontakt speichern".
 class TransferSuccessScreen extends ConsumerStatefulWidget {
@@ -49,7 +50,7 @@ class _TransferSuccessScreenState extends ConsumerState<TransferSuccessScreen> {
       body: r == null
           ? const Center(child: Text('Keine Daten.'))
           : ListView(
-              padding: const EdgeInsets.all(24),
+              padding: safeListPadding(context, 24),
               children: [
                 const SizedBox(height: 24),
                 Icon(Icons.check_circle, size: 88, color: theme.colorScheme.primary),

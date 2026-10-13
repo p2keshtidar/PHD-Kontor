@@ -7,6 +7,7 @@ import '../../core/api_error.dart';
 import '../../core/config.dart';
 import '../../core/validators.dart';
 import 'auth_controller.dart';
+import '../../core/layout.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -98,7 +99,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: safeListPadding(context, 24),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 420),
               child: Form(

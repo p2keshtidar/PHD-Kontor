@@ -11,6 +11,7 @@ import '../contacts/contact.dart';
 import '../contacts/contacts_repository.dart';
 import 'transfer_models.dart';
 import 'transfer_repository.dart';
+import '../../core/layout.dart';
 
 /// Überweisung in drei Schritten (/NF050/): Eingeben -> Zusammenfassung prüfen -> Senden.
 class TransferScreen extends ConsumerStatefulWidget {
@@ -64,6 +65,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
       if (!mounted) return;
       setState(() => _checking = false);
       final result = await showModalBottomSheet<TransferResult>(
+        useSafeArea: true,
         context: context,
         isScrollControlled: true,
         showDragHandle: true,
@@ -100,7 +102,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: safeListPadding(context),
         children: [
           // Schnellauswahl aus dem Adressbuch
           SizedBox(
@@ -293,7 +295,7 @@ class _SummarySheetState extends ConsumerState<_SummarySheet> {
     final theme = Theme.of(context);
     // Scrollbar, damit "Jetzt senden" auch auf sehr kleinen Displays erreichbar bleibt
     return SingleChildScrollView(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 24 + MediaQuery.paddingOf(context).bottom),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -7,6 +7,7 @@ import '../../core/money.dart';
 import '../subaccounts/subaccount_dialogs.dart';
 import 'standing_order_form_screen.dart';
 import 'standing_order_models.dart';
+import '../../core/layout.dart';
 
 /// /K030/ Übersicht der Daueraufträge: anlegen, Betrag/Tag ändern, pausieren, löschen.
 class StandingOrdersScreen extends ConsumerWidget {
@@ -36,7 +37,7 @@ class StandingOrdersScreen extends ConsumerWidget {
         data: (list) => RefreshIndicator(
           onRefresh: () => ref.refresh(standingOrdersProvider.future),
           child: list.isEmpty
-              ? ListView(padding: const EdgeInsets.all(24), children: const [
+              ? ListView(padding: safeListPadding(context, 24), children: const [
                   SizedBox(height: 40),
                   Icon(Icons.event_repeat, size: 56),
                   SizedBox(height: 12),
@@ -71,6 +72,7 @@ class _OrderCard extends ConsumerWidget {
 
   Future<void> _actions(BuildContext context, WidgetRef ref) async {
     final action = await showModalBottomSheet<String>(
+      useSafeArea: true,
       context: context,
       showDragHandle: true,
       builder: (ctx) => SafeArea(

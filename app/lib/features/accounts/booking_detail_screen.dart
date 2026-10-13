@@ -10,6 +10,7 @@ import '../insights/insights_repository.dart';
 import 'booking_item.dart';
 import 'booking_tile.dart';
 import 'bookings_repository.dart';
+import '../../core/layout.dart';
 
 /// Detailansicht eines Umsatzes mit Buchungsnummer (/F140/) und Kategorie (/F560/).
 class BookingDetailScreen extends ConsumerStatefulWidget {
@@ -81,7 +82,7 @@ class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Umsatz')),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: safeListPadding(context),
         children: [
           const SizedBox(height: 12),
           Center(

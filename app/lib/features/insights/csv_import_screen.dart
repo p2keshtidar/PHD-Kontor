@@ -7,6 +7,7 @@ import '../../core/dates.dart';
 import '../../core/money.dart';
 import 'csv_import.dart';
 import 'insights_repository.dart';
+import '../../core/layout.dart';
 
 /// /K040/ Umsätze einer anderen Bank als CSV-Datei importieren.
 class CsvImportScreen extends ConsumerStatefulWidget {
@@ -86,7 +87,7 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
     final r = _result;
     return Scaffold(
       appBar: AppBar(title: const Text('CSV-Import')),
-      body: ListView(padding: const EdgeInsets.all(16), children: [
+      body: ListView(padding: safeListPadding(context), children: [
         Text('Umsätze deiner echten Bank einbeziehen', style: theme.textTheme.titleMedium),
         const SizedBox(height: 6),
         const Text(

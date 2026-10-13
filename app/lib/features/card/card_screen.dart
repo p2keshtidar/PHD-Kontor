@@ -10,6 +10,7 @@ import '../accounts/accounts_repository.dart';
 import '../accounts/bookings_repository.dart';
 import 'card_model.dart';
 import 'card_repository.dart';
+import '../../core/layout.dart';
 
 /// Bereich "Karte": anzeigen, Details mit Passwort, sperren, Limits, Demo-Zahlung (/F310/ bis /F340/).
 class CardScreen extends ConsumerStatefulWidget {
@@ -130,7 +131,7 @@ class _CardScreenState extends ConsumerState<CardScreen> {
     return RefreshIndicator(
       onRefresh: () => ref.refresh(cardProvider.future),
       child: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: safeListPadding(context),
         children: [
           Center(
             child: ConstrainedBox(

@@ -13,6 +13,7 @@ import '../loans/loans_repository.dart';
 import '../subaccounts/subaccount_icons.dart';
 import 'plan_models.dart';
 import 'plans_repository.dart';
+import '../../core/layout.dart';
 
 /// Bereich "Sparen": Finanzüberblick, Spar- und Investpläne, Kredite (Pflichtenheft B08).
 class SavingsHomeScreen extends ConsumerWidget {
@@ -37,7 +38,7 @@ class SavingsHomeScreen extends ConsumerWidget {
         await ref.read(plansProvider.future);
       },
       child: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: safeListPadding(context),
         children: [
           overview.when(
             loading: () => const Card(child: SizedBox(height: 120, child: Center(child: CircularProgressIndicator()))),

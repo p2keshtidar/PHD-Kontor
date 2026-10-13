@@ -6,6 +6,7 @@ import '../../core/dates.dart';
 import '../../core/money.dart';
 import 'standing_order_models.dart';
 import 'standing_orders_screen.dart';
+import '../../core/layout.dart';
 
 /// /K030/ Neuen Dauerauftrag anlegen.
 class StandingOrderFormScreen extends ConsumerStatefulWidget {
@@ -85,7 +86,7 @@ class _StandingOrderFormScreenState extends ConsumerState<StandingOrderFormScree
       appBar: AppBar(title: const Text('Neuer Dauerauftrag')),
       body: Form(
         key: _formKey,
-        child: ListView(padding: const EdgeInsets.all(16), children: [
+        child: ListView(padding: safeListPadding(context), children: [
           TextFormField(
             key: const Key('so_recipient'),
             controller: _recipient,

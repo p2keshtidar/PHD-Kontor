@@ -8,6 +8,7 @@ import '../accounts/accounts_repository.dart';
 import '../insights/insights_repository.dart';
 import 'loan_models.dart';
 import 'loans_repository.dart';
+import '../../core/layout.dart';
 
 /// /K020/ Sondertilgung: Betrag eingeben → Vorschau (Restschuld, Laufzeit, Zinsersparnis) → buchen.
 /// Die Monatsrate bleibt gleich, darum endet der Kredit früher.
@@ -87,7 +88,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Sondertilgung')),
       body: SafeArea(
-        child: ListView(padding: const EdgeInsets.all(16), children: [
+        child: ListView(padding: safeListPadding(context), children: [
           Text('Zahle zusätzlich etwas zurück. Deine Monatsrate bleibt gleich – '
               'dadurch ist der Kredit früher abbezahlt und du sparst Zinsen.',
               style: theme.textTheme.bodyMedium),

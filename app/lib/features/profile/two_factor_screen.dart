@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import '../../core/api_error.dart';
 import '../auth/auth_controller.dart';
 import '../auth/auth_repository.dart';
+import '../../core/layout.dart';
 
 /// /K050/ Zwei-Faktor-Anmeldung: einrichten (QR-Code scannen, Code bestätigen) oder ausschalten.
 class TwoFactorScreen extends ConsumerStatefulWidget {
@@ -95,7 +96,7 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Zwei-Faktor-Anmeldung')),
-      body: ListView(padding: const EdgeInsets.all(16), children: [
+      body: ListView(padding: safeListPadding(context), children: [
         if (enabled) ...[
           const ListTile(
             contentPadding: EdgeInsets.zero,

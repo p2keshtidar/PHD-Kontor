@@ -12,6 +12,7 @@ import '../subaccounts/subaccount_dialogs.dart';
 import '../subaccounts/subaccount_icons.dart';
 import 'plan_models.dart';
 import 'plans_repository.dart';
+import '../../core/layout.dart';
 
 /// Plan-Detail (Pflichtenheft B11): Fortschritt, Prognose, Depot, Verlauf, Spartipps, Bearbeiten, Auszahlen.
 class PlanDetailScreen extends ConsumerStatefulWidget {
@@ -147,7 +148,7 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
     final reached = p.progressPercent != null && p.progressPercent! >= 100;
     final gainColor = d.gainCents >= 0 ? IncomeExpenseChart.incomeColor : scheme.error;
 
-    return ListView(padding: const EdgeInsets.all(16), children: [
+    return ListView(padding: safeListPadding(context), children: [
       Row(children: [
         CircleAvatar(radius: 26, child: Icon(p.isInvest ? Icons.show_chart : subaccountIcon(p.icon))),
         const SizedBox(width: 12),

@@ -107,6 +107,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
 
   Future<void> _openFilter() async {
     final result = await showModalBottomSheet<BookingFilter>(
+      useSafeArea: true,
       context: context,
       isScrollControlled: true,
       showDragHandle: true,
@@ -291,7 +292,8 @@ class _FilterSheetState extends State<_FilterSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(20, 0, 20, MediaQuery.of(context).viewInsets.bottom + 20),
+      padding: EdgeInsets.fromLTRB(
+          20, 0, 20, MediaQuery.of(context).viewInsets.bottom + MediaQuery.paddingOf(context).bottom + 20),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,

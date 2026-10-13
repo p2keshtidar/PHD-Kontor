@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/api_error.dart';
 import '../../core/validators.dart';
 import 'auth_controller.dart';
+import '../../core/layout.dart';
 
 /// Registrierung (/F010/): legt Nutzer, Girokonto mit IBAN und 1.000 € Startguthaben an.
 class RegisterScreen extends ConsumerStatefulWidget {
@@ -105,7 +106,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
+            padding: safeListPadding(context, 24),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 480),
               child: Form(

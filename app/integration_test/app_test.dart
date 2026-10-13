@@ -3,7 +3,10 @@
 //
 // Lokal: Backend starten, dann z. B.
 //   flutter test integration_test/app_test.dart -d <Gerät>
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:girokonto_app/core/config.dart';
@@ -102,6 +105,32 @@ class ApiUser {
       options: Options(headers: {'Idempotency-Key': 'e2e-${DateTime.now().microsecondsSinceEpoch}'}));
 
   Future<List<dynamic>> standingOrders() async => (await dio.get<List<dynamic>>('/api/standing-orders')).data!;
+}
+
+bool _surfaceConverted = false;
+
+/// Bildschirmfoto für den Versions-Vergleich (Android/iOS). Die Bilddaten werden als Base64 in
+/// das Testprotokoll geschrieben; der Workflow setzt sie wieder zu PNG-Dateien zusammen.
+/// Fehler hier lassen den Test nicht scheitern.
+Future<void> snap(WidgetTester tester, String name) async {
+  if (kIsWeb) return;
+  try {
+    final binding = IntegrationTestWidgetsFlutterBinding.instance;
+    if (defaultTargetPlatform == TargetPlatform.android && !_surfaceConverted) {
+      await binding.convertFlutterSurfaceToImage();
+      _surfaceConverted = true;
+    }
+    await tester.pump(const Duration(milliseconds: 300));
+    final bytes = await binding.takeScreenshot(name);
+    final b64 = base64Encode(bytes);
+    for (var i = 0; i < b64.length; i += 800) {
+      // ignore: avoid_print
+      print('SCREENSHOT:$name:${b64.substring(i, i + 800 > b64.length ? b64.length : i + 800)}');
+    }
+  } catch (e) {
+    // ignore: avoid_print
+    print('Bildschirmfoto $name nicht möglich: $e');
+  }
 }
 
 void main() {
@@ -243,6 +272,8 @@ void main() {
     await pumpFor(tester, 500);
     await tapButton(tester, find.byKey(const Key('login_submit')));
     await pumpUntil(tester, find.text('Hallo Anna!'));
+    await pumpFor(tester, 1500);
+    await snap(tester, '1-startseite');
 
     // Geteiltes Unterkonto von Ben ist auf der Startseite
     await scrollTo(tester, find.text('WG-Kasse E2E'));
@@ -264,6 +295,8 @@ void main() {
     await pumpFor(tester, 500);
     await tapButton(tester, find.byKey(const Key('transfer_next')));
     await pumpUntil(tester, find.text('Jetzt senden'));
+    await pumpFor(tester, 800);
+    await snap(tester, '2-ueberweisung-pruefen');
     expect(find.text('Ben Zwei'), findsWidgets);
     await tapButton(tester, find.text('Jetzt senden'));
     await pumpUntil(tester, find.text('Geld gesendet'), timeout: const Duration(seconds: 30));
@@ -287,6 +320,8 @@ void main() {
     await pumpFor(tester, 500);
     await tapButton(tester, find.byKey(const Key('so_save')));
     await pumpUntil(tester, find.text('Miete Anteil'), timeout: const Duration(seconds: 30));
+    await pumpFor(tester, 1500);
+    await snap(tester, '3-dauerauftraege');
     final orders = await a.standingOrders();
     expect(orders, hasLength(1));
     expect(orders.first['amountCents'], 5000);

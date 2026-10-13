@@ -8,6 +8,7 @@ import '../insights/demo_dialog.dart';
 import '../insights/insights_repository.dart';
 import 'loan_models.dart';
 import 'loans_repository.dart';
+import '../../core/layout.dart';
 
 /// Kreditplaner (Pflichtenheft B12): Wunsch eingeben, Tragfähigkeit sehen, Angebote vergleichen.
 class LoanPlannerScreen extends ConsumerStatefulWidget {
@@ -75,7 +76,7 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
     final steps = ((_purpose.maxTerm - _purpose.minTerm) / 12).round();
     return Scaffold(
       appBar: AppBar(title: const Text('Kredit planen')),
-      body: ListView(padding: const EdgeInsets.all(16), children: [
+      body: ListView(padding: safeListPadding(context), children: [
         overview.maybeWhen(
           data: (o) => o.hasData
               ? Card(
