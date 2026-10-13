@@ -43,6 +43,17 @@ Future<void> enter(WidgetTester tester, String label, String text) async {
   await tester.pump();
 }
 
+/// Text in ein Feld eintragen und prüfen, dass er wirklich drinsteht (sonst wiederholen).
+Future<void> enterKey(WidgetTester tester, Key key, String text) async {
+  for (var i = 0; i < 5; i++) {
+    await tester.enterText(find.byKey(key), text);
+    await pumpFor(tester, 300);
+    final field = tester.widget<EditableText>(find.descendant(of: find.byKey(key), matching: find.byType(EditableText)));
+    if (field.controller.text == text) return;
+  }
+  throw TestFailure('Eingabe "$text" kam im Feld $key nicht an');
+}
+
 /// Scrollt in der aktuellen Liste, bis [target] sichtbar ist (wichtig auf kleinen Bildschirmen,
 /// weil ListView unsichtbare Einträge gar nicht erst baut).
 Future<void> scrollTo(WidgetTester tester, Finder target) async {
@@ -231,8 +242,8 @@ void main() {
     // /K020/ Sondertilgung: Vorschau berechnen und buchen
     await tapButton(tester, find.byKey(const Key('loan_extra_payment')));
     await pumpUntil(tester, find.byKey(const Key('extra_amount')));
-    await tester.enterText(find.byKey(const Key('extra_amount')), '1000');
-    await tester.pump();
+    await pumpFor(tester, 1500); // Seitenübergang abwarten, sonst geht die Eingabe auf langsamen Geräten verloren
+    await enterKey(tester, const Key('extra_amount'), '1000');
     // Tastatur schließen (verdeckt auf dem Handy sonst die Knöpfe)
     FocusManager.instance.primaryFocus?.unfocus();
     await pumpFor(tester, 800);
