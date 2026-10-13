@@ -90,6 +90,12 @@ jobs:
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
+          # vollständiges Protokoll in einen Branch legen (Logs sind sonst nur im Browser lesbar)
+          cd /tmp && rm -rf lg && mkdir lg && cd lg && git init -q
+          grep -v 'SCREENSHOT:' /tmp/full.log > voll.log 2>/dev/null || cp /tmp/ci.log voll.log
+          cp /tmp/backend.log backend.log 2>/dev/null || true; cp /tmp/sim.log sim.log 2>/dev/null || true
+          git add . && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll web"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-e2e-web || true
 
   # ---------------------------------------------------------------- Android-Emulator
   android:
@@ -194,6 +200,12 @@ jobs:
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
+          # vollständiges Protokoll in einen Branch legen (Logs sind sonst nur im Browser lesbar)
+          cd /tmp && rm -rf lg && mkdir lg && cd lg && git init -q
+          grep -v 'SCREENSHOT:' /tmp/full.log > voll.log 2>/dev/null || cp /tmp/ci.log voll.log
+          cp /tmp/backend.log backend.log 2>/dev/null || true; cp /tmp/sim.log sim.log 2>/dev/null || true
+          git add . && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll android-${{ matrix.api }}"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-e2e-android-${{ matrix.api }} || true
 
   # ---------------------------------------------------------------- iOS-Simulator
   ios:
@@ -318,3 +330,9 @@ jobs:
             grep -iE "error|exception|fail|expected|actual|nicht gefunden|\.dart:[0-9]+" /tmp/ci.log | grep -v "package:flutter/" | tail -c 9000; echo "----- Ende des Protokolls -----"; tail -c 12000 /tmp/ci.log; } > /tmp/s.log 2>/dev/null || true
           split -b 3500 /tmp/s.log /tmp/p-
           for f in /tmp/p-*; do echo "::error title=Protokoll::$(sed -e 's/%/%25/g' -e 's/\r//g' "$f" | awk '{printf "%s%%0A", $0}')"; done
+          # vollständiges Protokoll in einen Branch legen (Logs sind sonst nur im Browser lesbar)
+          cd /tmp && rm -rf lg && mkdir lg && cd lg && git init -q
+          grep -v 'SCREENSHOT:' /tmp/full.log > voll.log 2>/dev/null || cp /tmp/ci.log voll.log
+          cp /tmp/backend.log backend.log 2>/dev/null || true; cp /tmp/sim.log sim.log 2>/dev/null || true
+          git add . && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll ios-${{ matrix.ios }}"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-e2e-ios-${{ matrix.ios }} || true
