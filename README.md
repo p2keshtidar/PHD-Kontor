@@ -85,6 +85,7 @@ Demo-Admin: `admin@projektbank.de` / `admin12345`
 | 🛠️ [Anleitung: Entwickeln](docs/anleitung/03-entwickeln.md) | Projekt aus dem Code starten, Tests, Git-Arbeitsweise |
 | 🆘 [Häufige Probleme](docs/anleitung/04-probleme.md) | Lösungen für typische Fehler |
 | 🏗️ [Architektur](docs/technik/architektur.md) | Wie Backend und App aufgebaut sind |
+| ✅ [Testbericht](docs/technik/testbericht.md) | Was getestet wird, Abdeckung, gefundene Fehler |
 | 🔔 [Push-Benachrichtigungen](docs/technik/push.md) | Hintergrund-Abfrage und Weg zu echtem Push (Firebase/APNs) |
 | 📄 [Pflichtenheft v0.2](docs/pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) | Anforderungen (Muss-/Kannkriterien, Tests) |
 | 🏃 [Scrum](docs/scrum/README.md) | Team, Rollen, Sprints, Meeting-Protokolle |
@@ -113,10 +114,12 @@ girokonto/
 
 Bei jedem Push prüft GitHub automatisch ([Actions](https://github.com/p2keshtidar/girokonto/actions)):
 
-- **Backend:** Unit-Tests + Integrationstests mit echter PostgreSQL-Datenbank (Testfälle T01–T25 aus dem Pflichtenheft, T26–T40 für die Kannkriterien /K010/–/K060/)
-- **App:** `flutter analyze` + Unit-/Widget-Tests
+- **Backend:** 136 Tests mit echter PostgreSQL-Datenbank, **93 % Zeilenabdeckung** – Testfälle T01–T40 aus dem Pflichtenheft, Sicherheitsmatrix über *alle* Endpunkte, Fuzzing, gleichzeitige Überweisungen, 160 Zufallsaktionen mit Prüfung der Buchhaltung
+- **App:** `flutter analyze` + 159 Unit-/Widget-Tests – jeder Bildschirm in 4 Formaten (kleines Handy bis Tablet, Schrift 150 %), Abläufe mit simuliertem Server
 - **Builds:** Web, Android-APK, iOS, Docker-Image
-- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform und Android-Gerät wählbar): echte App im Browser (Chrome), Android-Emulator (Pixel 5 oder sehr kleines Display, Android 11) und iOS-Simulator (iPhone, iOS 18) gegen den echten Server – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kreditabschluss, Sondertilgung
+- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform und Android-Gerät wählbar): echte App im Browser (Chrome), Android-Emulator (Pixel 5 oder sehr kleines Display, Android 11) und iOS-Simulator (iPhone, iOS 18) gegen den echten Server – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kreditabschluss, Sondertilgung, **zwei Nutzer** (Live-Meldung, Überweisung, Dauerauftrag, geteiltes Unterkonto)
+
+📋 Alle Details: **[Testbericht](docs/technik/testbericht.md)**
 
 ## 👥 Team
 

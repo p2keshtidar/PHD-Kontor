@@ -83,6 +83,8 @@ cd app && flutter analyze && flutter test
 cd app && flutter test integration_test/app_test.dart -d <gerät>
 ```
 
+Was alles getestet wird: **[Testbericht](../technik/testbericht.md)**
+
 ---
 
 ## Arbeitsweise im Team (Git + Scrum)

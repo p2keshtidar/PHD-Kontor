@@ -43,8 +43,14 @@ Future<void> enter(WidgetTester tester, String label, String text) async {
 /// Scrollt in der aktuellen Liste, bis [target] sichtbar ist (wichtig auf kleinen Bildschirmen,
 /// weil ListView unsichtbare Einträge gar nicht erst baut).
 Future<void> scrollTo(WidgetTester tester, Finder target) async {
-  final scrollable = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
-  await tester.scrollUntilVisible(target, 250, scrollable: scrollable, maxScrolls: 80);
+  final lists = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable));
+  if (lists.evaluate().isEmpty) {
+    // Seite ohne ListView (z. B. Anmeldung mit SingleChildScrollView)
+    await pumpUntil(tester, target);
+    await tester.ensureVisible(target.first);
+  } else {
+    await tester.scrollUntilVisible(target, 250, scrollable: lists.first, maxScrolls: 80);
+  }
   await pumpFor(tester, 300);
 }
 
