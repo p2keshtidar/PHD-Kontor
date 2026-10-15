@@ -64,7 +64,15 @@ Future<void> scrollTo(WidgetTester tester, Finder target) async {
     await pumpUntil(tester, target);
     await tester.ensureVisible(target.first);
   } else {
-    await tester.scrollUntilVisible(target, 250, scrollable: lists.first, maxScrolls: 80);
+    try {
+      await tester.scrollUntilVisible(target, 250, scrollable: lists.first, maxScrolls: 80);
+    } catch (_) {
+      // Zur Fehlersuche: was ist zu sehen?
+      final texts = find.byType(Text).evaluate().map((e) => (e.widget as Text).data ?? '').where((t) => t.isNotEmpty);
+      // ignore: avoid_print
+      print('SICHTBAR (scrollTo $target): ${texts.take(60).join(' | ')}');
+      rethrow;
+    }
   }
   await pumpFor(tester, 300);
 }
@@ -292,6 +300,8 @@ void main() {
     await pumpUntil(tester, find.byKey(const Key('sandbox_approve')));
     await tester.tap(find.byKey(const Key('sandbox_approve')));
     await pumpUntil(tester, find.textContaining('Bank verbunden'), timeout: const Duration(seconds: 60));
+    await pumpFor(tester, 1500);
+    await scrollToTop(tester);
     await pumpUntil(tester, find.text('Hallo Erika!'));
     await scrollTo(tester, find.text('Tagesgeld'));
     await snap(tester, 'bankkonten');
@@ -299,7 +309,7 @@ void main() {
     await pumpUntil(tester, find.byKey(const Key('bank_tx_search')));
     await pumpUntil(tester, find.textContaining('Umbuchung'));
     await goBack(tester);
-    await pumpUntil(tester, find.text('Hallo Erika!'));
+    await pumpUntil(tester, find.text('Bankkonten'));
   });
 
   testWidgets('Zwei Nutzer: Überweisung, Live-Meldung, Dauerauftrag, geteiltes Unterkonto', (tester) async {

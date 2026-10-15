@@ -2,14 +2,14 @@
 
 [← Architektur](architektur.md) · [Übersicht](../../README.md)
 
-Stand: 13.10.2026 · alle Tests laufen automatisch bei jedem Push ([Actions](https://github.com/p2keshtidar/girokonto/actions)).
+Stand: 15.10.2026 · alle Tests laufen automatisch bei jedem Push ([Actions](https://github.com/p2keshtidar/girokonto/actions)).
 
 ## Zusammenfassung
 
 | Ebene | Anzahl | Ergebnis | Testabdeckung (Zeilen) |
 |---|---|---|---|
-| Backend: Unit- und Integrationstests (echte PostgreSQL) | **136** | ✅ alle grün | **93,2 %** |
-| App: Unit- und Widget-Tests (simulierter Server) | **165** | ✅ alle grün | **59,4 %** |
+| Backend: Unit- und Integrationstests (echte PostgreSQL) | **199** | ✅ alle grün | **92,5 %** |
+| App: Unit- und Widget-Tests (simulierter Server) | **265** | ✅ alle grün | **68,0 %** |
 | Ende-zu-Ende: echte App + echter Server | 2 Abläufe auf 12 Systemen: Chrome, Android 7/8/9/11/13/15/16, iOS 16/17/18/26 (+ sehr kleines Display) | ✅ alle grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
@@ -20,6 +20,10 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 |---|---|---|
 | Pflichtenheft T01–T25 | `AuthFlowTest`, `TransferFlowTest`, `CardFlowTest`, `SubaccountFlowTest`, `PlanningFlowTest`, `NotificationFlowTest`, `ContactFlowTest` | alle Testfälle aus dem Pflichtenheft |
 | Einnahmen & Ausgaben T41–T45 | `EntryFlowTest`, `EntryTest` | einmalig und regelmäßig, Nachbuchen bis 12 Monate, Tageslauf (Gehalt vor Miete), nicht ins Minus, Pausieren, Enddatum, Löschen, fremde Einträge, Kategorien |
+| **Sicherheit SEC01–SEC04, Betrieb M01–M02** | `RateLimitAndSecretsTest`, `MonitoringTest` | Anfragebegrenzung (429) bei Anmeldung und API · Start-Sperre für Entwicklungs-Schlüssel im Betrieb · Health öffentlich, Kennzahlen nur für Admins |
+| **Deutsch/Englisch I01–I05, T46–T48** | `ServerTextsTest`, `I18nFlowTest` | jede feste Meldung im Code hat eine Übersetzung · Beträge/Daten/Prozente englisch · Sprache pro Nutzer · englische Fehler und Benachrichtigungen |
+| **Bankverbindungen B01–B23, T49–T60** | `SandboxBankingProviderTest`, `GoCardlessProviderTest` (nachgebildeter Server), `BankingHelpersTest`, `BankingFlowTest` | gleiche Daten → keine doppelten Umsätze · Vormerkung → Buchung bzw. Storno · Rücklastschrift · eigene Umbuchung · eigene Angaben getrennt von Originaldaten · fremde Daten 404 · Wiederholung bei Störung, Fehlerstatus · Freigabe läuft ab und wird erneuert · Widerruf mit/ohne Löschen · Freigabe und Originaldaten nur verschlüsselt · Ablauf-Erinnerung · Rücksprung-Seite |
+| **Digitale Konten T61–T67** | `DigitalAccountFlowTest` | Zweck, Ziel, Fortschritt, nötige Monatsrate · Kennzeichnung „kein eigenes Bankkonto“ · „Ziel erreicht“ nur einmal · Rollen (einzahlen + auszahlen / nur einzahlen / nur ansehen) · Gesamtvermögen mit verbundenen Banken |
 | Kannkriterien T26–T40 | `Phase5FlowTest`, `StandingOrderFlowTest`, `TwoFactorFlowTest`, `CsvImportFlowTest`, `SharedSubaccountFlowTest` | Sondertilgung, Erinnerung, Dauerauftrag, Zwei-Faktor, CSV-Import, Teilen |
 | **Sicherheit S01–S10** | `SecurityMatrixTest` | *jeder* `/api`-Endpunkt ohne Anmeldung → 401 (automatisch aufgezählt) · gefälschte/abgelaufene Tokens · Abmelden/Refresh-Wiederverwendung · Admin-Bereich → 403 · fremde Konten, Karten, Pläne, Kredite, Daueraufträge, Unterkonten, Importe → 403/404 · keine Passwort-Hashes oder Kartendaten in Antworten · SQL-Injection in der Suche · CORS · Sperre nach Fehlversuchen |
 | **Robustheit R01–R08** | `RobustnessTest` | *Fuzzing*: jeder POST/PUT/GET-Endpunkt mit kaputtem JSON, falschen Typen, riesigen Zahlen, leeren Feldern → nie ein Serverfehler (5xx) · 25 gleichzeitige Überweisungen → genau so viele wie Guthaben · gleicher Idempotenz-Schlüssel parallel → nur einmal gebucht · Grenzwerte (Tageslimit, 10 Unterkonten, Ausführungstag 28/29, Investplan 10 € bis 5.000 €, Alter genau 18) · **160 Zufallsaktionen** mit Zeitvorlauf und Prüfung der Buchhaltung: Summe aller Konten = 0, kein Konto negativ, jede Buchung ausgeglichen · Sonderzeichen, Emojis, sehr lange Texte |
@@ -31,8 +35,11 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 
 | Datei | Was wird geprüft |
 |---|---|
-| `screens_layout_test.dart` | **26 Bildschirme × 4 Formate** (kleines Handy 320×568, großes Handy, Tablet, Schrift 150 %): kein Überlauf, kein Absturz |
+| `screens_layout_test.dart` | **30 Bildschirme × 4 Formate** + alle auf Englisch (kleines Handy 320×568, großes Handy, Tablet, Schrift 150 %): kein Überlauf, kein Absturz |
 | `flows_widget_test.dart` | Abläufe A01–A15 mit simuliertem Server: Anmeldung inkl. Zwei-Faktor-Code, Server-Adresse, Überweisung mit Idempotenz-Schlüssel, ungültige Beträge, Dauerauftrag anlegen/pausieren, Sondertilgung (Vorschau, Buchung, zu wenig Geld), Zwei-Faktor einrichten (QR-Code), CSV-Import mit Fehler, Unterkonto teilen/austreten, Startseite mit geteilten Konten, Spar-Erinnerung, A16 Überweisung auf 320×480 mit Schrift 130 %, A17–A22 Einnahmen & Ausgaben (Schnellauswahl, einmalig/monatlich, Tag 29–31, Serverfehler, Pausieren, Löschen, Startseite) |
+| `l10n_test.dart` | L01–L07: jeder Text hat eine englische Übersetzung, keine fest codierten Texte, Platzhalter, Beträge/Daten je Sprache |
+| `banking_test.dart` | BK01–BK12: Startseite mit/ohne verbundene Bank · Sandbox-Freigabe bestätigen/ablehnen · echte Bank: Bankseite öffnen, Freigabe abschließen · Status, Berechtigungen, Abruf, Widerruf mit Löschen · abgelaufene Freigabe erneuern · Umsätze mit Status, Filter, Suche · eigene Angaben speichern · Englisch |
+| `digital_accounts_test.dart` | DA01–DA08: zwei getrennte Bereiche, Girokonto als Simulation gekennzeichnet · neues digitales Konto mit Zweck und Ziel · Fortschritt und Hinweis zur Verwahrung · nur ansehen: Ein-/Auszahlen gesperrt · Rechte ändern · teilen mit Rolle · Englisch |
 | übrige `*_test.dart` | Geldformat, Eingabeprüfung, JSON-Modelle, CSV-Zeichensätze, Hintergrund-Abfrage |
 
 Simulierter Server: `test/support/fake_backend.dart` (ersetzt die HTTP-Schicht), Testrahmen: `test/support/harness.dart`.
@@ -41,8 +48,8 @@ Simulierter Server: `test/support/fake_backend.dart` (ersetzt die HTTP-Schicht),
 
 Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf **Android-Emulatoren von Android 7.0 bis 16** (Pixel 5 oder sehr kleines Display) und auf **iPhone-Simulatoren mit iOS 16, 17, 18 und 26** – Details: [Unterstützte Versionen](versionen.md):
 
-1. Registrieren → Startseite → Karte → Überweisen → Sparen → Beispielmonate → CSV-Import → Kreditvergleich → Kredit abschließen → Sondertilgung.
-2. **Zwei Nutzer:** zweiter Nutzer teilt ein Unterkonto (erscheint auf der Startseite) · überweist Geld, während die App offen ist (**Live-Meldung** und Kontostand ohne Neuladen) · Überweisung über die Oberfläche (Kontostände beider Nutzer werden über den Server nachgeprüft) · Dauerauftrag anlegen.
+1. Registrieren → Startseite → Karte → Überweisen → Sparen → Beispielmonate → CSV-Import → Kreditvergleich → Kredit abschließen → Sondertilgung → **Sandbox-Bank verbinden** (Test-Freigabe) → Umsätze des Tagesgeldkontos.
+2. **Zwei Nutzer:** zweiter Nutzer teilt ein digitales Konto (erscheint auf der Startseite) · überweist Geld, während die App offen ist (**Live-Meldung** und Kontostand ohne Neuladen) · Überweisung über die Oberfläche (Kontostände beider Nutzer werden über den Server nachgeprüft) · Dauerauftrag anlegen.
 
 ## Durch die Tests gefundene und behobene Fehler
 
@@ -61,6 +68,11 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf
 | Langsame Antwort wurde als „Server nicht erreichbar“ gemeldet | E2E iOS (langsamer Runner) | eigene Meldung, Wartezeit 30 s für langsame Mobilnetze |
 | Web-App blieb ohne Internet leer (lud Grafik und Schrift von Google) | Bildschirmfotos | alles wird mitgeliefert |
 | iOS: Live-Meldungen kamen erst an, nachdem die Frage nach der Benachrichtigungs-Erlaubnis beantwortet war | E2E zwei Nutzer | Live-Verbindung startet sofort |
+
+| `pageBack()` fand den Zurück-Knopf nicht mehr (Tooltip auf Deutsch „Zurück“) | E2E Browser | eigener Zurück-Schritt über den Knopf |
+| Ladeanzeige lief während der Bank-Freigabe weiter | Widget-Test BK03 | Anzeige nur während der Anfrage |
+| Zweite Meldung wurde hinter der ersten angestellt und erschien erst Sekunden später | Widget-Test BK06 | neue Meldung ersetzt die alte |
+| Verbundene Bank füllte den Finanzüberblick, „Beispielmonate erzeugen“ war nicht mehr sichtbar | E2E Browser | Ablauf angepasst; gewollt: echte Umsätze zählen mit |
 
 ## Selbst ausführen
 
