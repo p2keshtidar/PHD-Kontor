@@ -87,7 +87,7 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
     final imports = ref.watch(csvImportsProvider);
     final r = _result;
     return Scaffold(
-      appBar: AppBar(title: const Text('CSV-Import')),
+      appBar: AppBar(title: Text(tr('CSV-Import'))),
       body: ListView(padding: safeListPadding(context), children: [
         Text(tr('Umsätze deiner echten Bank einbeziehen'), style: theme.textTheme.titleMedium),
         const SizedBox(height: 6),

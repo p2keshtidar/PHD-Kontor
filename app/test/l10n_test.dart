@@ -37,11 +37,11 @@ void main() {
   test('L02 keine fest codierten Texte an typischen Stellen der Oberfläche', () {
     final re = RegExp(
         r"""(\bText\(\s*|labelText:\s*|hintText:\s*|helperText:\s*|tooltip:\s*|title:\s*|label:\s*|content:\s*|semanticLabel:\s*)'([^'$]*[A-Za-zÄÖÜäöüß]{3}[^']*)'""");
-    const allowed = {'Girokonto', 'Projektbank', 'IBAN', 'CVC', 'DE', 'EN', 'Online'};
+    const allowed = {'Girokonto', 'Projektbank', 'IBAN', 'CVC', 'DE', 'EN', 'Online', 'CSV'};
     final found = <String>[];
     for (final f in _sources()) {
       for (final m in re.allMatches(f.readAsStringSync())) {
-        if (!allowed.contains(m.group(2))) found.add('${f.path}: ${m.group(0)}');
+        if (!allowed.contains(m.group(2)) && !m.group(2)!.startsWith('http')) found.add('${f.path}: ${m.group(0)}');
       }
     }
     expect(found, isEmpty, reason: 'Bitte mit tr(…) übersetzen:\n${found.join('\n')}');

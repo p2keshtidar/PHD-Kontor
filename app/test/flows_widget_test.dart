@@ -10,6 +10,7 @@ import 'package:girokonto_app/features/entries/entry_form_screen.dart';
 import 'package:girokonto_app/features/insights/csv_import_screen.dart';
 import 'package:girokonto_app/features/loans/extra_payment_screen.dart';
 import 'package:girokonto_app/features/loans/loan_models.dart';
+import 'package:girokonto_app/features/profile/profile_screen.dart';
 import 'package:girokonto_app/features/profile/two_factor_screen.dart';
 import 'package:girokonto_app/features/savings/plan_detail_screen.dart';
 import 'package:girokonto_app/features/standing_orders/standing_orders_screen.dart';
@@ -362,13 +363,24 @@ void main() {
       expect(find.text('Welcome back'), findsOneWidget);
       expect(find.text('Log in'), findsOneWidget);
       expect(find.text('Willkommen zurück'), findsNothing);
-      expect(fake.lastBody('PUT /api/me/language')['language'], 'en');
+      // noch nicht angemeldet: nur lokal gespeichert
+      expect(fake.calls('PUT /api/me/language'), isEmpty);
       await tester.tap(find.byKey(const Key('login_submit')));
       await tester.pumpAndSettle();
       expect(find.text('Please enter your password'), findsOneWidget);   // Prüfmeldung übersetzt
       await tester.tap(find.byKey(const Key('language_switch')));
       await tester.pumpAndSettle();
       expect(find.text('Willkommen zurück'), findsOneWidget);
+    });
+
+    testWidgets('A25 Profil: Sprache wählen wird beim Konto gespeichert', (tester) async {
+      final fake = await pumpScreen(tester, const ProfileScreen());
+      await tester.tap(find.text('EN').last);
+      await tester.pumpAndSettle();
+      expect(L10n.lang, 'en');
+      expect(fake.lastBody('PUT /api/me/language')['language'], 'en');
+      expect(find.text('Language'), findsOneWidget);
+      expect(find.text('Profile'), findsOneWidget);
     });
 
     testWidgets('A24 Startseite und Überweisung auf Englisch, Accept-Language wird gesendet', (tester) async {

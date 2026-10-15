@@ -4,6 +4,7 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 const stringsEn = <String, String>{
+  'CSV-Import': 'CSV import',
   'Die Sprache gilt für dieses Konto auf allen Geräten.': 'The language applies to this account on all devices.',
   'Sprache': 'Language',
   'Sprache: {0}': 'Language: {0}',
