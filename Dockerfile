@@ -15,6 +15,9 @@ COPY --from=web /src/app/build/web src/main/resources/static
 RUN chmod +x gradlew && ./gradlew bootJar --no-daemon -q
 
 FROM eclipse-temurin:21-jre
-COPY --from=jar /src/backend/build/libs/girokonto-backend-0.1.0.jar /app.jar
+# nicht als root laufen (weniger Rechte, falls der Server angegriffen wird)
+RUN groupadd --system app && useradd --system --gid app --no-create-home app
+COPY --from=jar --chown=app:app /src/backend/build/libs/girokonto-backend-0.1.0.jar /app.jar
+USER app
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app.jar"]

@@ -30,13 +30,15 @@ public class BookingService {
     private final BookingLineRepository lines;
     private final CategoryService categories;
     private final Clock clock;
+    private final io.micrometer.core.instrument.MeterRegistry meters;
 
     public BookingService(BookingRepository bookings, BookingLineRepository lines, CategoryService categories,
-                          Clock clock) {
+                          Clock clock, io.micrometer.core.instrument.MeterRegistry meters) {
         this.bookings = bookings;
         this.lines = lines;
         this.categories = categories;
         this.clock = clock;
+        this.meters = meters;
     }
 
     /**
@@ -67,6 +69,8 @@ public class BookingService {
                     : categories.categorize(type, description, l.amountCents());
             lines.save(new BookingLine(booking.getId(), l.accountId(), l.amountCents(), category.name()));
         }
+        // Kennzahl für das Monitoring: Anzahl Buchungen je Art (ohne Beträge oder Personendaten)
+        meters.counter("girokonto.bookings", "type", type.name()).increment();
         return booking;
     }
 

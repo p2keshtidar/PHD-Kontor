@@ -31,6 +31,8 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/error").permitAll()
                         // WebSocket-Handshake; angemeldet wird beim STOMP-CONNECT (WebSocketConfig)
                         .requestMatchers("/ws", "/ws/**").permitAll()
+                        .requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")   // Kennzahlen nur für Administratoren
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/**").authenticated()
                         // alles andere ist die Web-App (statische Dateien aus resources/static)

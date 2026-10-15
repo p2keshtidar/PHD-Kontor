@@ -63,6 +63,20 @@ app:
       - "http://localhost:*"
       - "http://127.0.0.1:*"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+  metrics:
+    tags:
+      application: girokonto
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html

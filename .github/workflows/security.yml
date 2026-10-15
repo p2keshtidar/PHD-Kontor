@@ -23,9 +23,9 @@ jobs:
         with: { fetch-depth: 0 }
       - name: Geheimnisse (gitleaks, ganze Git-Historie)
         run: |
-          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.18.4 detect --source /repo -c /repo/.gitleaks.toml \
+          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.18.4 detect --source /repo --log-opts=HEAD -c /repo/.gitleaks.toml \
             --report-format json --report-path /repo/gitleaks.json --exit-code 0 > /tmp/gitleaks.txt 2>&1 || true
-          echo "== gitleaks: $(python3 -c "import json;print(len(json.load(open('gitleaks.json'))))" 2>/dev/null || echo '?') Funde" | tee -a /tmp/ci.log
+          echo "== gitleaks (Verlauf von main): $(python3 -c "import json;print(len(json.load(open('gitleaks.json'))))" 2>/dev/null || echo '?') Funde" | tee -a /tmp/ci.log
           python3 -c "
           import json
           for f in json.load(open('gitleaks.json'))[:30]: print(' -', f['RuleID'], f['File'], f.get('StartLine'))" 2>/dev/null | tee -a /tmp/ci.log || true
