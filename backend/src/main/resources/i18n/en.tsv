@@ -570,3 +570,28 @@ Unbekanntes Paar.	Unknown pair.
 Zu viele markierte Paare.	Too many marked pairs.
 Paar fehlt.	Pair missing.
 vorgemerkt	pending
+Ein Budget muss mindestens 1,00 € betragen.	A budget must be at least €1.00.
+Ein Budget darf höchstens 100.000 € betragen.	A budget may be at most €100,000.
+Für diese Kategorie gibt es kein Budget.	There is no budget for this category.
+Bei gleichem Tempo voraussichtlich {0} – {1} über dem Budget.	At the same pace probably {0} – {1} over budget.
+Bei gleichem Tempo voraussichtlich {0}.	At the same pace probably {0}.
+Ausgaben wie im Finanzüberblick: Girokonto, verbundene Banken und CSV-Importe.	Expenses as in the finance overview: current account, connected banks and CSV imports.
+Warnungen kommen bei 80 % und 100 % – höchstens einmal je Monat und Kategorie.	Warnings at 80 % and 100 % – at most once per month and category.
+Budget überschritten	Budget exceeded
+Budget fast aufgebraucht	Budget almost used up
+„{0}“: {1} von {2} ({3} %) im Monat {4}.	“{0}”: {1} of {2} ({3} %) in {4}.
+Etwa {0}-mal so viel wie sonst bei „{1}“ (üblich: {2}).	About {0} times as much as usual for “{1}” (usual: {2}).
+Diesen Monat schon {0} für „{1}“ – sonst im Schnitt {2} pro Monat.	Already {0} for “{1}” this month – usually {2} per month on average.
+Voraussichtlich reicht das Guthaben am {0} nicht: erwartet {1}.	The balance is probably not enough on {0}: expected {1}.
+Im ungünstigen Fall wird es ab {0} knapp: {1}.	In the unfavourable case it gets tight from {0}: {1}.
+Am {0} voraussichtlich nur noch {1} auf dem Girokonto.	On {0} probably only {1} left on the current account.
+Bekannte Buchungen: Einnahmen & Ausgaben, Daueraufträge, Spar- und Investraten, Kreditraten und Sparregeln vom Girokonto.	Known bookings: income & expenses, standing orders, savings and investment rates, loan rates and savings rules from the current account.
+Übrige Umsätze (z. B. Gehalt, Kartenzahlungen, Lastschriften) wie im Schnitt der letzten {0} Monate am selben Tag im Monat.	Other transactions (e.g. salary, card payments, direct debits) as on average over the last {0} months on the same day of the month.
+Noch keine Umsätze aus Vormonaten – nur bekannte Buchungen.	No transactions from previous months yet – only known bookings.
+Günstig: 20 % weniger, ungünstig: 20 % mehr übrige Ausgaben. Eine Schätzung, keine Zusage.	Favourable: 20 % less, unfavourable: 20 % more other expenses. An estimate, not a promise.
+Nur das Girokonto der Projektbank (Simulation).	Only the Projektbank current account (simulation).
+Dauerauftrag an {0}	Standing order to {0}
+Investrate {0}	Investment rate {0}
+Sparrate {0}	Savings rate {0}
+Kreditrate {0} ({1})	Loan rate {0} ({1})
+Sparregel → {0}	Savings rule → {0}
