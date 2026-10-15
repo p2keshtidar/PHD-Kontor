@@ -62,7 +62,7 @@ jobs:
         run: python3 ../tool/coverage_summary.py jacoco build/reports/jacoco/test/jacocoTestReport.xml || true
       - name: Testbericht hochladen
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: backend-testbericht
           path: |
@@ -123,7 +123,7 @@ jobs:
           cd /tmp/logs && git init -q && git checkout -q -b logs && git add . \
             && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll ${{ github.run_id }} ${{ github.job }}" \
             && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}" logs:ci-logs-${{ github.job }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: web-build
           path: app/build/web
@@ -179,7 +179,7 @@ jobs:
           cd /tmp/logs && git init -q && git checkout -q -b logs && git add . \
             && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll ${{ github.run_id }} ${{ github.job }}" \
             && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}" logs:ci-logs-${{ github.job }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: android-apk
           path: app/build/app/outputs/flutter-apk/app-debug.apk

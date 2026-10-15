@@ -41,7 +41,7 @@ jobs:
           cp -r app/build/web/. backend/src/main/resources/static/
           cd backend && chmod +x gradlew && ./gradlew bootJar --no-daemon -q
           cp build/libs/girokonto-backend-0.1.0.jar ../girokonto-server.jar
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with: { name: server, path: "girokonto-*" }
 
   android:
@@ -60,7 +60,7 @@ jobs:
           dart run tool/setup_platforms.dart
           flutter build apk --release
           cp build/app/outputs/flutter-apk/app-release.apk ../girokonto.apk
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with: { name: apk, path: girokonto.apk }
 
   ios:
@@ -78,7 +78,7 @@ jobs:
           flutter build ios --release --no-codesign
           mkdir Payload && cp -r build/ios/iphoneos/Runner.app Payload/
           zip -qr ../girokonto-ios-unsigned.ipa Payload
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with: { name: ios, path: girokonto-ios-unsigned.ipa }
 
   publish:
