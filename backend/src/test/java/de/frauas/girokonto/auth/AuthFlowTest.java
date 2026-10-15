@@ -53,8 +53,13 @@ class AuthFlowTest extends IntegrationTestBase {
 
     @Test
     void T02_registrierungUnter18WirdAbgelehnt() throws Exception {
+        // Alter wird am (simulierten) Tagesdatum des Servers gemessen – andere Tests spulen die Zeit vor
+        String token = register(uniqueEmail()).get("accessToken").asText();
+        LocalDate serverToday = LocalDate.parse(json.readTree(mvc.perform(get("/api/clock")
+                        .header("Authorization", "Bearer " + token)).andReturn().getResponse().getContentAsString())
+                .get("date").asText());
         mvc.perform(post("/api/auth/register").contentType(MediaType.APPLICATION_JSON)
-                        .content(registerBody(uniqueEmail(), LocalDate.now().minusYears(17))))
+                        .content(registerBody(uniqueEmail(), serverToday.minusYears(18).plusDays(1))))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("UNDERAGE"));
     }
