@@ -299,6 +299,11 @@ jobs:
           set -o pipefail
           # Systemprotokoll des Simulators mitschreiben (zeigt Abstürze beim App-Start)
           xcrun simctl spawn "$UDID" log stream --level error --style compact --predicate 'process == "Runner"' > /tmp/sim.log 2>&1 &
+          # Backend während des App-Baus warm halten: nach Minuten ohne Anfrage brauchte die erste Registrierung
+          # auf dem macOS-Runner einmal 30 s (Speicherdruck durch Xcode/Simulator) – länger als die App wartet.
+          TOKEN=$(curl -s -H 'Content-Type: application/json' http://localhost:8080/api/auth/login \
+            -d '{"email":"warmup@example.org","password":"geheim12345"}' | python3 -c 'import json,sys; print(json.load(sys.stdin).get("accessToken",""))' || true)
+          ( while true; do curl -s -o /dev/null -H "Authorization: Bearer $TOKEN" http://localhost:8080/api/accounts; sleep 10; done ) &
           # Manchmal verbindet sich "flutter test" nicht mit der gestarteten App und wartet ewig.
           # Dann nach 25 Minuten abbrechen, Simulator neu starten und einmal wiederholen.
           for versuch in 1 2; do

@@ -110,6 +110,7 @@ Demo-Admin: `admin@projektbank.de` / `admin12345`
 | 🔔 [Push-Benachrichtigungen](docs/technik/push.md) | Hintergrund-Abfrage und Weg zu echtem Push (Firebase/APNs) |
 | 📄 [Pflichtenheft v0.2](docs/pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) | Anforderungen (Muss-/Kannkriterien, Tests) |
 | 🏃 [Scrum](docs/scrum/README.md) | Projektwoche 12.–18.10.2026: Rollen, 7 Tages-Sprints, Aufgabenverteilung, Protokolle |
+| 🧭 [Weiterentwicklung](docs/weiterentwicklung.md) | 22 Vorschläge vom 15.10.: was es schon gibt, was in Sprint 6/7 geplant ist, Reihenfolge |
 | ✅ [Backlog (Issues)](https://github.com/p2keshtidar/girokonto/issues) · [Sprints (Milestones)](https://github.com/p2keshtidar/girokonto/milestones) | Aufgaben und Stand |
 
 ---

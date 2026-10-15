@@ -8,7 +8,7 @@
 | **Sprint** | Fr, 16.10.2026 (Tag 5 der Projektwoche 12.–18.10.2026) |
 | **Teilnehmer** | Pouria Keshtidar, David Eslami Amirabadi, Mohamed Hedi Harbaoui |
 | **Moderation** | David Eslami Amirabadi (Scrum Master) |
-| **Status** | 🗓️ geplant |
+| **Status** | ✅ abgeschlossen |
 
 ## Sprintziel
 
@@ -22,9 +22,9 @@
 | 2 | /K020/ Sondertilgung – Backend | Pouria Keshtidar | [#21](https://github.com/p2keshtidar/girokonto/issues/21) | ✅ erledigt |
 | 3 | /K020/ Sondertilgung – App (Kreditdetail) | David Eslami Amirabadi | [#22](https://github.com/p2keshtidar/girokonto/issues/22) | ✅ erledigt |
 | 4 | Tests für Sondertilgung + Testfälle T19–T25 prüfen | Mohamed Hedi Harbaoui | [#23](https://github.com/p2keshtidar/girokonto/issues/23) | ✅ erledigt |
-| 5 | Sparpläne und Geldzuweisungen: wöchentlich oder monatlich, Finanzierungsquelle, Status, keine doppelten Abbuchungen | Pouria Keshtidar (Backend), David Eslami Amirabadi (App) | [#56](https://github.com/p2keshtidar/girokonto/issues/56) | ⬜ offen |
-| 6 | Kreditvergleich mit mehreren Anbietern: Anbieter-Schnittstelle, unverbindliche Beispiele, Filter, getrennte Schritte | Pouria Keshtidar (Backend), David Eslami Amirabadi (App) | [#57](https://github.com/p2keshtidar/girokonto/issues/57) | ⬜ offen |
-| 7 | Tests für Sparpläne, Zuweisungen und Kreditvergleich | Mohamed Hedi Harbaoui | [#58](https://github.com/p2keshtidar/girokonto/issues/58) | ⬜ offen |
+| 5 | Sparpläne und Geldzuweisungen: wöchentlich oder monatlich, Finanzierungsquelle, Status, keine doppelten Abbuchungen | Pouria Keshtidar (Backend), David Eslami Amirabadi (App) | [#56](https://github.com/p2keshtidar/girokonto/issues/56) | ✅ erledigt |
+| 6 | Kreditvergleich mit mehreren Anbietern: Anbieter-Schnittstelle, unverbindliche Beispiele, Filter, getrennte Schritte | Pouria Keshtidar (Backend), David Eslami Amirabadi (App) | [#57](https://github.com/p2keshtidar/girokonto/issues/57) | ✅ erledigt |
+| 7 | Tests für Sparpläne, Zuweisungen und Kreditvergleich | Mohamed Hedi Harbaoui | [#58](https://github.com/p2keshtidar/girokonto/issues/58) | ✅ erledigt |
 
 ## Aufgaben pro Person
 

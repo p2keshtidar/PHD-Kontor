@@ -12,7 +12,7 @@
 
 ## Sprintziel
 
-> Abschluss: Präsentation und Abgabe vorbereitet, Tests, Dokumentation und Betrieb vollständig
+> Erweiterung Teil 4 (WG, Assistent, Verträge, Bedienung) und Abschluss: Präsentation, Tests, Performance, Dokumentation und Betrieb
 
 ## Sprint Backlog
 
@@ -22,16 +22,21 @@
 | 2 | Demo-Ablauf festlegen (Anleitung 2) und zweimal proben | alle | [#29](https://github.com/p2keshtidar/girokonto/issues/29) | ✅ erledigt |
 | 3 | Kolloquium-Vorbereitung: jeder kann jeden Teil des Codes erklären | alle | [#30](https://github.com/p2keshtidar/girokonto/issues/30) | ✅ erledigt |
 | 4 | Finale Abgabe: Release, Tag v1.0, Repo aufgeräumt | Mohamed Hedi Harbaoui | [#31](https://github.com/p2keshtidar/girokonto/issues/31) | ✅ erledigt |
-| 5 | Architektur und Tests: Prüfprotokoll, API-Versionierung, Last- und Sicherheitstests | Mohamed Hedi Harbaoui (Tests), Pouria Keshtidar (Backend) | [#62](https://github.com/p2keshtidar/girokonto/issues/62) | ⬜ offen |
-| 6 | Betrieb: Dokumentation, CI/CD, Monitoring, Backup und Wiederherstellung | Mohamed Hedi Harbaoui | [#63](https://github.com/p2keshtidar/girokonto/issues/63) | ⬜ offen |
+| 5 | Gemeinsame Finanzen und WG: Ausgaben erfassen, automatisch aufteilen, offene Forderungen, Ausgleich simulieren | Pouria Keshtidar (Backend), David Eslami Amirabadi (App) | [#71](https://github.com/p2keshtidar/girokonto/issues/71) | ⬜ offen |
+| 6 | Persönlicher Finanzassistent: Fragen zu Ausgaben, Sparpotenziale, Monatsbericht, Szenarien – nur mit echten Daten der App | Pouria Keshtidar (Backend), David Eslami Amirabadi (App) | [#72](https://github.com/p2keshtidar/girokonto/issues/72) | ⬜ offen |
+| 7 | Verträge und Dokumente: Laufzeiten, Kündigungsfristen, Kosten, Erinnerungen, sicherer Upload | Pouria Keshtidar (Backend), David Eslami Amirabadi (App) | [#73](https://github.com/p2keshtidar/girokonto/issues/73) | ⬜ offen |
+| 8 | Benutzerfreundlichkeit: Barrierefreiheit (Bildschirmleser), einheitliche Lade-, Fehler- und Leerzustände, Dark Mode prüfen | David Eslami Amirabadi | [#74](https://github.com/p2keshtidar/girokonto/issues/74) | ⬜ offen |
+| 9 | Architektur und Tests: Prüfprotokoll, API-Versionierung, Last- und Sicherheitstests, Datenmodell und API-Validierung prüfen | Mohamed Hedi Harbaoui (Tests), Pouria Keshtidar (Backend) | [#62](https://github.com/p2keshtidar/girokonto/issues/62) | ⬜ offen |
+| 10 | Performance und Wartbarkeit: langsame Endpunkte messen, Indizes, strukturierte Logs, doppelte Logik entfernen | Pouria Keshtidar (Backend), Mohamed Hedi Harbaoui (Tests) | [#75](https://github.com/p2keshtidar/girokonto/issues/75) | ⬜ offen |
+| 11 | Betrieb und Dokumentation: Ubuntu/Docker, Umgebungsvariablen, API, Datenbankschema, Testanleitung, Einschränkungen, Übersicht aller simulierten Funktionen, CI/CD, Monitoring, Backup | Mohamed Hedi Harbaoui | [#63](https://github.com/p2keshtidar/girokonto/issues/63) | ⬜ offen |
 
 ## Aufgaben pro Person
 
 | Wer | Aufgaben heute |
 |---|---|
-| Pouria Keshtidar | Präsentationsfolien: Problem, Lösung, Architektur, Demo, Scrum, Fazit<br>Demo-Ablauf festlegen (Anleitung 2) und zweimal proben<br>Kolloquium-Vorbereitung: jeder kann jeden Teil des Codes erklären<br>Architektur und Tests: Prüfprotokoll, API-Versionierung, Last- und Sicherheitstests |
-| David Eslami Amirabadi | Präsentationsfolien: Problem, Lösung, Architektur, Demo, Scrum, Fazit<br>Demo-Ablauf festlegen (Anleitung 2) und zweimal proben<br>Kolloquium-Vorbereitung: jeder kann jeden Teil des Codes erklären |
-| Mohamed Hedi Harbaoui | Präsentationsfolien: Problem, Lösung, Architektur, Demo, Scrum, Fazit<br>Demo-Ablauf festlegen (Anleitung 2) und zweimal proben<br>Kolloquium-Vorbereitung: jeder kann jeden Teil des Codes erklären<br>Finale Abgabe: Release, Tag v1.0, Repo aufgeräumt<br>Architektur und Tests: Prüfprotokoll, API-Versionierung, Last- und Sicherheitstests<br>Betrieb: Dokumentation, CI/CD, Monitoring, Backup und Wiederherstellung |
+| Pouria Keshtidar | Präsentationsfolien: Problem, Lösung, Architektur, Demo, Scrum, Fazit<br>Demo-Ablauf festlegen (Anleitung 2) und zweimal proben<br>Kolloquium-Vorbereitung: jeder kann jeden Teil des Codes erklären<br>Gemeinsame Finanzen und WG: Ausgaben erfassen, automatisch aufteilen, offene Forderungen, Ausgleich simulieren<br>Persönlicher Finanzassistent: Fragen zu Ausgaben, Sparpotenziale, Monatsbericht, Szenarien – nur mit echten Daten der App<br>Verträge und Dokumente: Laufzeiten, Kündigungsfristen, Kosten, Erinnerungen, sicherer Upload<br>Architektur und Tests: Prüfprotokoll, API-Versionierung, Last- und Sicherheitstests, Datenmodell und API-Validierung prüfen<br>Performance und Wartbarkeit: langsame Endpunkte messen, Indizes, strukturierte Logs, doppelte Logik entfernen |
+| David Eslami Amirabadi | Präsentationsfolien: Problem, Lösung, Architektur, Demo, Scrum, Fazit<br>Demo-Ablauf festlegen (Anleitung 2) und zweimal proben<br>Kolloquium-Vorbereitung: jeder kann jeden Teil des Codes erklären<br>Gemeinsame Finanzen und WG: Ausgaben erfassen, automatisch aufteilen, offene Forderungen, Ausgleich simulieren<br>Persönlicher Finanzassistent: Fragen zu Ausgaben, Sparpotenziale, Monatsbericht, Szenarien – nur mit echten Daten der App<br>Verträge und Dokumente: Laufzeiten, Kündigungsfristen, Kosten, Erinnerungen, sicherer Upload<br>Benutzerfreundlichkeit: Barrierefreiheit (Bildschirmleser), einheitliche Lade-, Fehler- und Leerzustände, Dark Mode prüfen |
+| Mohamed Hedi Harbaoui | Präsentationsfolien: Problem, Lösung, Architektur, Demo, Scrum, Fazit<br>Demo-Ablauf festlegen (Anleitung 2) und zweimal proben<br>Kolloquium-Vorbereitung: jeder kann jeden Teil des Codes erklären<br>Finale Abgabe: Release, Tag v1.0, Repo aufgeräumt<br>Architektur und Tests: Prüfprotokoll, API-Versionierung, Last- und Sicherheitstests, Datenmodell und API-Validierung prüfen<br>Performance und Wartbarkeit: langsame Endpunkte messen, Indizes, strukturierte Logs, doppelte Logik entfernen<br>Betrieb und Dokumentation: Ubuntu/Docker, Umgebungsvariablen, API, Datenbankschema, Testanleitung, Einschränkungen, Übersicht aller simulierten Funktionen, CI/CD, Monitoring, Backup |
 
 ## Risiken / Abhängigkeiten
 
