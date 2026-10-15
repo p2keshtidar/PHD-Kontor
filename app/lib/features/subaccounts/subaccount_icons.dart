@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Symbole für Unterkonten. Im Backend wird nur der Schlüssel gespeichert.
+/// Symbole für digitale Konten. Im Backend wird nur der Schlüssel gespeichert.
 const subaccountIcons = <String, IconData>{
   'savings': Icons.savings,
   'flight': Icons.flight,
@@ -12,6 +12,9 @@ const subaccountIcons = <String, IconData>{
   'heart': Icons.favorite,
   'shopping': Icons.shopping_bag,
   'pets': Icons.pets,
+  'payments': Icons.payments,
+  'groups': Icons.groups,
+  'shield': Icons.shield,
 };
 
 IconData subaccountIcon(String? key) => subaccountIcons[key] ?? Icons.savings;

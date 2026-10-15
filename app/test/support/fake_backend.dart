@@ -88,10 +88,25 @@ class FakeBackend implements HttpClientAdapter {
         {'id': 10, 'type': 'MAIN', 'name': 'Girokonto', 'icon': null, 'iban': 'DE89000100010000000010',
          'balanceCents': 523450, 'shared': false, 'ownerName': null, 'memberCount': 0},
         {'id': 11, 'type': 'SUB', 'name': 'Urlaub Mallorca mit der ganzen Familie', 'icon': 'flight', 'iban': null,
-         'balanceCents': 120000, 'shared': true, 'ownerName': null, 'memberCount': 2},
+         'balanceCents': 120000, 'shared': true, 'ownerName': null, 'memberCount': 2,
+         'digital': digital('URLAUB', target: 300000, progress: 40.0, remaining: 180000, monthly: 22500)},
         {'id': 12, 'type': 'SUB', 'name': 'WG-Kasse', 'icon': 'home', 'iban': null,
-         'balanceCents': 4500, 'shared': true, 'ownerName': 'Mia Musterfrau-Langname', 'memberCount': 3},
+         'balanceCents': 4500, 'shared': true, 'ownerName': 'Mia Musterfrau-Langname', 'memberCount': 3,
+         'digital': digital('WG', role: 'VIEW')},
       ];
+
+  /// Angaben eines digitalen Kontos wie vom Server
+  static Map<String, dynamic> digital(String purpose,
+          {int? target, double? progress, int? remaining, int? monthly, String role = 'OWNER'}) =>
+      {
+        'purpose': purpose, 'purposeLabel': purpose, 'targetCents': target,
+        'targetDate': target == null ? null : '2027-06-01', 'progressPercent': progress, 'remainingCents': remaining,
+        'monthlyNeededCents': monthly, 'goalReached': false, 'role': role, 'roleLabel': role,
+        'canDeposit': role != 'VIEW', 'canWithdraw': role == 'OWNER' || role == 'FULL', 'canManage': role == 'OWNER',
+        'custody': 'INTERNAL', 'custodyLabel': 'Umgebucht innerhalb der Projektbank (Simulation)',
+        'custodyText': 'Das Geld wurde von einem Girokonto der Projektbank hierher umgebucht. Ein digitales Konto ist '
+            'ein Topf in deinem Konto – kein eigenes Bankkonto und ohne eigene Einlagensicherung.',
+      };
 
   static Map<String, dynamic> bookingPage() => {
         'items': [
@@ -339,8 +354,8 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/entries/categories': (_) => entryCategories(),
         'GET /api/imports': (_) => [],
         'GET /api/subaccounts/*/members': (_) => [
-              {'userId': 1, 'name': 'Erika Mustermann', 'owner': true, 'you': true},
-              {'userId': 2, 'name': 'Ben Beispiel', 'owner': false, 'you': false},
+              {'userId': 1, 'name': 'Erika Mustermann', 'owner': true, 'you': true, 'role': 'OWNER'},
+              {'userId': 2, 'name': 'Ben Beispiel', 'owner': false, 'you': false, 'role': 'FULL'},
             ],
       };
 }

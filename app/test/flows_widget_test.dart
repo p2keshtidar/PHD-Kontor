@@ -299,12 +299,12 @@ void main() {
     expect(find.text('Keine Kopfzeile mit Datum und Betrag gefunden.'), findsOneWidget);
   });
 
-  testWidgets('A12 Unterkonto teilen (Besitzer)', (tester) async {
+  testWidgets('A12 digitales Konto teilen (Besitzer)', (tester) async {
     final fake = FakeBackend({'POST /api/subaccounts/*/members': (o) => const FakeResponse(200, [])});
     await pumpScreen(tester, const SubaccountScreen(accountId: 11), backend: fake);
     expect(find.text('Ben Beispiel'), findsOneWidget);
     expect(find.text('Erika Mustermann (du)'), findsOneWidget);
-    expect(find.text('Unterkonto auflösen'), findsOneWidget);
+    expect(find.text('Digitales Konto auflösen'), findsOneWidget);
     await scrollTo(tester, find.byKey(const Key('share_add')));
     await tester.tap(find.byKey(const Key('share_add')));
     await tester.pumpAndSettle();
@@ -312,9 +312,10 @@ void main() {
     await tester.tap(find.text('Teilen').last);
     await tester.pumpAndSettle();
     expect(fake.lastBody('POST /api/subaccounts/*/members')['recipient'], 'mia@example.org');
+    expect(fake.lastBody('POST /api/subaccounts/*/members')['role'], 'FULL');
   });
 
-  testWidgets('A13 Geteiltes fremdes Unterkonto: kein Auflösen, aber Austreten', (tester) async {
+  testWidgets('A13 geteiltes fremdes digitales Konto: kein Auflösen, aber Austreten', (tester) async {
     final fake = FakeBackend({
       'GET /api/subaccounts/*/members': (o) => [
             {'userId': 5, 'name': 'Mia Musterfrau-Langname', 'owner': true, 'you': false},
@@ -323,19 +324,19 @@ void main() {
     });
     await pumpScreen(tester, const SubaccountScreen(accountId: 12), backend: fake);
     expect(find.text('Geteilt von Mia Musterfrau-Langname'), findsOneWidget);
-    expect(find.text('Unterkonto auflösen'), findsNothing);
-    expect(find.text('Name und Symbol ändern'), findsNothing);
+    expect(find.text('Digitales Konto auflösen'), findsNothing);
+    expect(find.text('Name, Zweck und Ziel ändern'), findsNothing);
     await scrollTo(tester, find.text('Austreten'));
     expect(find.text('Austreten'), findsOneWidget);
   });
 
-  testWidgets('A14 Startseite zeigt geteilte Unterkonten', (tester) async {
+  testWidgets('A14 Startseite zeigt geteilte digitale Konten', (tester) async {
     await pumpScreen(tester, const AccountHomeScreen(), settle: false);
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
     expect(find.text('Hallo Erika!'), findsOneWidget);
-    // Unterkonten stehen unter den verbundenen Bankkonten
+    // digitale Konten stehen unter den Bankkonten
     final list = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
     await tester.scrollUntilVisible(find.text('Geteilt von Mia Musterfrau-Langname'), 200, scrollable: list);
     expect(find.text('Geteilt mit 2 Personen'), findsOneWidget);

@@ -55,7 +55,7 @@ void main() {
             },
       }));
       await scrollTo(tester, find.byKey(const Key('home_bank_connect')));
-      expect(find.text('Echte Bankkonten'), findsOneWidget);
+      expect(find.text('Bankkonten'), findsOneWidget);
       expect(find.text('Nur Lesezugriff – Kontostand und Umsätze an einem Ort'), findsOneWidget);
       await tester.tap(find.byKey(const Key('home_bank_connect')));
       await tester.pumpAndSettle();
@@ -68,7 +68,7 @@ void main() {
       expect(find.text('Tagesgeld'), findsOneWidget);
       expect(find.text('nicht aktuell'), findsOneWidget);   // abgelaufene Freigabe
       expect(find.textContaining('keine echte Bank'), findsOneWidget);
-      await scrollTo(tester, find.text('Unterkonten'));   // Unterkonten als eigener Bereich darunter
+      await scrollTo(tester, find.text('Digitale Konten'));   // digitale Konten als eigener Bereich darunter
       tester
           .state<ScrollableState>(find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first)
           .position

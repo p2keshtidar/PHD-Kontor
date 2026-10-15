@@ -15,11 +15,13 @@ import '../insights/insights_models.dart';
 import '../insights/insights_repository.dart';
 import '../subaccounts/subaccount_dialogs.dart';
 import '../subaccounts/subaccount_icons.dart';
+import '../subaccounts/subaccount_screen.dart' show digitalAccountsExplanation;
 import 'booking_tile.dart';
 import 'bookings_repository.dart';
 
-/// Startseite "Konto" (/F110/): Gesamtvermögen und Girokonto.
-/// Darunter die letzten Umsätze des Girokontos (/F120/). Unterkonten folgen in Phase 3, Sparziele in Phase 4.
+/// Startseite "Konto" (/F110/): Gesamtvermögen, zwei getrennte Bereiche – Bankkonten (Girokonto der Projektbank
+/// als Simulation und verbundene echte Banken) und digitale Konten (Töpfe, keine eigenen Bankkonten) –,
+/// darunter die letzten Umsätze des Girokontos (/F120/).
 class AccountHomeScreen extends ConsumerWidget {
   const AccountHomeScreen({super.key});
 
@@ -103,20 +105,19 @@ class AccountHomeScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              for (final a in visible.where((a) => a.isMain))
-                _AccountTile(account: a, onTap: () => context.push('/umsaetze/${a.id}')),
-              // Konten bei anderen (echten) Banken, nur Lesezugriff
-              const BankAccountsSection(),
-              if (visible.any((a) => a.isSub))
-                Padding(
-                  padding: const EdgeInsets.only(top: 12, bottom: 4),
-                  child: Text(tr('Unterkonten'), style: Theme.of(context).textTheme.titleMedium),
-                ),
+              // Bereich A: Bankkonten – Girokonto der Projektbank (Simulation) und verbundene echte Banken
+              BankAccountsSection(leading: [
+                for (final a in visible.where((a) => a.isMain))
+                  _AccountTile(account: a, onTap: () => context.push('/umsaetze/${a.id}')),
+              ]),
+              // Bereich B: Digitale Konten – Töpfe im Projektbank-Konto, keine eigenen Bankkonten
+              const _DigitalHeader(),
               for (final a in visible.where((a) => a.isSub))
-                _AccountTile(account: a, onTap: () => context.push('/unterkonto/${a.id}')),
+                _DigitalTile(account: a, onTap: () => context.push('/unterkonto/${a.id}')),
               Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton.icon(
+                  key: const Key('home_new_digital'),
                   onPressed: () async {
                     final saved = await showDialog<bool>(
                       context: context,
@@ -125,7 +126,7 @@ class AccountHomeScreen extends ConsumerWidget {
                     if (saved == true) ref.invalidate(accountsProvider);
                   },
                   icon: const Icon(Icons.add),
-                  label: Text(tr('Neues Unterkonto')),
+                  label: Text(tr('Neues digitales Konto')),
                 ),
               ),
               if (main != null) _RecentBookings(accountId: main.id),
@@ -163,12 +164,19 @@ class _TotalCard extends StatelessWidget {
                   .headlineMedium
                   ?.copyWith(color: scheme.onPrimaryContainer, fontWeight: FontWeight.bold),
             ),
-            if (netWorth != null && (netWorth!.depotCents != 0 || netWorth!.loansCents != 0)) ...[
+            if (netWorth != null &&
+                (netWorth!.depotCents != 0 || netWorth!.loansCents != 0 || netWorth!.externalCents != 0)) ...[
               const SizedBox(height: 6),
               Text(
                 tr('Konten {0}{1}{2}', [formatCents(netWorth!.accountsCents), netWorth!.depotCents != 0 ? tr(' · Depots {0}', [formatCents(netWorth!.depotCents)]) : '', netWorth!.loansCents != 0 ? tr(' · Kredite {0}', [formatCents(netWorth!.loansCents)]) : '']),
                 style: TextStyle(color: scheme.onPrimaryContainer),
               ),
+              if (netWorth!.externalCents != 0)
+                Text(
+                  tr('Andere Banken {0}', [formatCents(netWorth!.externalCents)]),
+                  key: const Key('home_external_total'),
+                  style: TextStyle(color: scheme.onPrimaryContainer),
+                ),
             ],
           ],
         ),
@@ -241,7 +249,7 @@ class _AccountTile extends StatelessWidget {
         leading: Icon(account.isMain ? Icons.account_balance : subaccountIcon(account.icon)),
         title: Text(account.name),
         subtitle: iban != null
-            ? Text(formatIban(iban))
+            ? Text(tr('Projektbank (Simulation) · {0}', [formatIban(iban)]))
             : account.shared
                 ? Row(children: [
                     const Icon(Icons.group, size: 14),
@@ -269,6 +277,105 @@ class _AccountTile extends StatelessWidget {
                   SnackBar(content: Text(tr('IBAN kopiert'))),
                 );
               },
+      ),
+    );
+  }
+}
+
+/// Überschrift "Digitale Konten" mit Erklärung, was sie sind (und was nicht).
+class _DigitalHeader extends StatelessWidget {
+  const _DigitalHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(top: 16),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(children: [
+          Expanded(child: Text(tr('Digitale Konten'), style: theme.textTheme.titleMedium)),
+          IconButton(
+            key: const Key('home_digital_info'),
+            tooltip: tr('Was sind digitale Konten?'),
+            icon: const Icon(Icons.info_outline),
+            onPressed: () => showDialog<void>(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                title: Text(tr('Was sind digitale Konten?')),
+                content: Text(digitalAccountsExplanation),
+                actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('OK')))],
+              ),
+            ),
+          ),
+        ]),
+        Text(tr('Töpfe für Ziele – umgebucht innerhalb der Projektbank, keine eigenen Bankkonten.'),
+            style: theme.textTheme.bodySmall),
+        const SizedBox(height: 4),
+      ]),
+    );
+  }
+}
+
+/// Digitales Konto mit Zweck, Fortschritt zum Ziel und Restbetrag.
+class _DigitalTile extends StatelessWidget {
+  const _DigitalTile({required this.account, this.onTap});
+
+  final Account account;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final d = account.digital;
+    final theme = Theme.of(context);
+    final sharing = account.isForeign
+        ? tr('Geteilt von {0}', [account.ownerName])
+        : account.shared
+            ? tr('Geteilt mit {0} {1}', [account.memberCount, account.memberCount == 1 ? tr('Person') : tr('Personen')])
+            : null;
+    return Card(
+      child: InkWell(
+        key: Key('digital_tile_${account.id}'),
+        borderRadius: BorderRadius.circular(12),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 2),
+              child: Icon(subaccountIcon(account.icon)),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(account.name, style: theme.textTheme.titleMedium, maxLines: 2, overflow: TextOverflow.ellipsis),
+                if (d != null) Text(d.purposeLabel, style: theme.textTheme.bodySmall),
+                if (sharing != null)
+                  Row(children: [
+                    const Icon(Icons.group, size: 14),
+                    const SizedBox(width: 4),
+                    Flexible(child: Text(sharing, style: theme.textTheme.bodySmall, overflow: TextOverflow.ellipsis)),
+                  ]),
+                if (d != null && d.hasTarget) ...[
+                  const SizedBox(height: 6),
+                  LinearProgressIndicator(
+                    value: ((d.progressPercent ?? 0) / 100).clamp(0, 1).toDouble(),
+                    minHeight: 6,
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    d.goalReached
+                        ? tr('Ziel erreicht')
+                        : tr('noch {0} bis {1}', [formatCents(d.remainingCents ?? 0), formatCents(d.targetCents!)]),
+                    style: theme.textTheme.bodySmall,
+                  ),
+                ],
+              ]),
+            ),
+            const SizedBox(width: 8),
+            Text(formatCents(account.balanceCents), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+          ]),
+        ),
       ),
     );
   }

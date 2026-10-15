@@ -7,9 +7,12 @@ import '../../l10n/l10n.dart';
 import 'bank_accounts_screen.dart';
 import 'bank_repository.dart';
 
-/// Bereich "Echte Bankkonten" auf der Startseite: verbundene Konten anderer Banken (nur Lesezugriff).
+/// Bereich "Bankkonten" auf der Startseite: [leading] (Girokonto der Projektbank, Simulation) und
+/// verbundene Konten anderer Banken (nur Lesezugriff).
 class BankAccountsSection extends ConsumerWidget {
-  const BankAccountsSection({super.key});
+  const BankAccountsSection({super.key, this.leading = const []});
+
+  final List<Widget> leading;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,7 +23,7 @@ class BankAccountsSection extends ConsumerWidget {
       Padding(
         padding: const EdgeInsets.only(top: 12),
         child: Row(children: [
-          Expanded(child: Text(tr('Echte Bankkonten'), style: theme.textTheme.titleMedium)),
+          Expanded(child: Text(tr('Bankkonten'), style: theme.textTheme.titleMedium)),
           TextButton(
             key: const Key('home_banks'),
             onPressed: () => context.push('/banken'),
@@ -28,6 +31,7 @@ class BankAccountsSection extends ConsumerWidget {
           ),
         ]),
       ),
+      ...leading,
       if (overview.isLoading && !overview.hasValue)
         const SizedBox.shrink()
       else if (accounts.isEmpty)

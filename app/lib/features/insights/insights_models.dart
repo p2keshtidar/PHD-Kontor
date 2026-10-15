@@ -103,18 +103,22 @@ class FinanceOverview {
 }
 
 class NetWorth {
-  const NetWorth(this.accountsCents, this.depotCents, this.loansCents, this.totalCents);
+  const NetWorth(this.accountsCents, this.depotCents, this.loansCents, this.totalCents, [this.externalCents = 0]);
 
   final int accountsCents;
   final int depotCents;
   final int loansCents;
   final int totalCents;
 
+  /// Salden verbundener Konten anderer Banken (Euro)
+  final int externalCents;
+
   factory NetWorth.fromJson(Map<String, dynamic> j) => NetWorth(
         (j['accountsCents'] as num).toInt(),
         (j['depotCents'] as num).toInt(),
         (j['loansCents'] as num).toInt(),
         (j['totalCents'] as num).toInt(),
+        (j['externalCents'] as num?)?.toInt() ?? 0,
       );
 }
 

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
+import '../../core/dates.dart';
 import '../../core/money.dart';
 import '../accounts/account.dart';
 import '../accounts/accounts_repository.dart';
@@ -14,7 +15,7 @@ import 'subaccount_icons.dart';
 import 'subaccounts_repository.dart';
 import '../../core/layout.dart';
 
-/// Detail eines Unterkontos: einzahlen, auszahlen, bearbeiten, auflösen (/F420/, /F430/).
+/// Detail eines digitalen Kontos: Ziel und Fortschritt, einzahlen, auszahlen, teilen, bearbeiten, auflösen.
 class SubaccountScreen extends ConsumerStatefulWidget {
   const SubaccountScreen({super.key, required this.accountId});
 
@@ -59,33 +60,20 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
         tr('{0} ausgezahlt', [formatCents(cents)]));
   }
 
-  /// /K060/: Person per E-Mail, Telefonnummer oder IBAN hinzufügen
+  /// /K060/: Person per E-Mail, Telefonnummer oder IBAN hinzufügen, mit Rolle
   Future<void> _addMember(Account sub) async {
-    final controller = TextEditingController();
-    final recipient = await showDialog<String>(
+    final result = await showDialog<(String, String)>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(tr('Unterkonto teilen')),
-        content: SingleChildScrollView(
-          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(tr('Die Person kann in „{0}“ einzahlen, auszahlen und die Umsätze sehen.', [sub.name])),
-            const SizedBox(height: 12),
-            TextField(
-              key: const Key('share_recipient'),
-              controller: controller,
-              autofocus: true,
-              decoration: InputDecoration(labelText: tr('E-Mail, Telefonnummer oder IBAN')),
-            ),
-          ]),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('Abbrechen'))),
-          FilledButton(onPressed: () => Navigator.pop(ctx, controller.text), child: Text(tr('Teilen'))),
-        ],
-      ),
+      builder: (_) => _ShareDialog(name: sub.name),
     );
-    if (recipient == null || recipient.trim().isEmpty) return;
-    await _run(() => ref.read(subaccountsRepositoryProvider).addMember(sub.id, recipient), tr('Geteilt'));
+    if (result == null || result.$1.trim().isEmpty) return;
+    await _run(() => ref.read(subaccountsRepositoryProvider).addMember(sub.id, result.$1, role: result.$2),
+        tr('Geteilt'));
+    ref.invalidate(subaccountMembersProvider(sub.id));
+  }
+
+  Future<void> _setRole(Account sub, SubaccountMember m, String role) async {
+    await _run(() => ref.read(subaccountsRepositoryProvider).setRole(sub.id, m.userId, role), tr('Rechte geändert'));
     ref.invalidate(subaccountMembersProvider(sub.id));
   }
 
@@ -95,7 +83,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
       builder: (ctx) => AlertDialog(
         title: Text(leave ? tr('Austreten?') : tr('{0} entfernen?', [m.name])),
         content: Text(leave
-            ? tr('Du siehst „{0}“ danach nicht mehr. Das Guthaben bleibt im Unterkonto.', [sub.name])
+            ? tr('Du siehst „{0}“ danach nicht mehr. Das Guthaben bleibt im digitalen Konto.', [sub.name])
             : tr('{0} hat danach keinen Zugriff mehr auf „{1}“.', [m.name, sub.name])),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr('Abbrechen'))),
@@ -132,7 +120,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
               if (list.length == 1)
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  child: Text(tr('Teile dieses Unterkonto, z. B. als WG-Kasse oder gemeinsames Urlaubsbudget.')),
+                  child: Text(tr('Teile dieses digitale Konto, z. B. als WG-Kasse oder gemeinsames Sparziel.')),
                 ),
               if (list.length > 1)
                 for (final m in list)
@@ -140,12 +128,20 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                     dense: true,
                     leading: CircleAvatar(radius: 14, child: Text(m.name.isEmpty ? '?' : m.name[0])),
                     title: Text(m.you ? tr('{0} (du)', [m.name]) : m.name),
-                    subtitle: m.owner ? Text(tr('Besitzer')) : null,
+                    subtitle: Text(digitalRoles[m.role] ?? m.role),
                     trailing: !sub.isForeign && !m.owner
-                        ? IconButton(
-                            tooltip: tr('Entfernen'),
-                            icon: const Icon(Icons.person_remove_outlined),
-                            onPressed: _busy ? null : () => _removeMember(sub, m, leave: false),
+                        ? PopupMenuButton<String>(
+                            key: Key('member_menu_${m.userId}'),
+                            tooltip: tr('Rechte ändern'),
+                            enabled: !_busy,
+                            onSelected: (v) =>
+                                v == 'REMOVE' ? _removeMember(sub, m, leave: false) : _setRole(sub, m, v),
+                            itemBuilder: (_) => [
+                              for (final r in ['FULL', 'DEPOSIT', 'VIEW'])
+                                CheckedPopupMenuItem(value: r, checked: m.role == r, child: Text(digitalRoles[r]!)),
+                              const PopupMenuDivider(),
+                              PopupMenuItem(value: 'REMOVE', child: Text(tr('Entfernen'))),
+                            ],
                           )
                         : null,
                   ),
@@ -172,7 +168,14 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
   Future<void> _edit(Account sub) async {
     final saved = await showDialog<bool>(
       context: context,
-      builder: (_) => SubaccountEditDialog(id: sub.id, initialName: sub.name, initialIcon: sub.icon ?? 'savings'),
+      builder: (_) => SubaccountEditDialog(
+        id: sub.id,
+        initialName: sub.name,
+        initialIcon: sub.icon ?? 'savings',
+        initialPurpose: sub.digital?.purpose ?? 'SONSTIGES',
+        initialTargetCents: sub.digital?.targetCents,
+        initialTargetDate: sub.digital?.targetDate,
+      ),
     );
     if (saved == true) _refresh();
   }
@@ -184,7 +187,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
         title: Text(tr('„{0}“ auflösen?', [sub.name])),
         content: Text(sub.balanceCents > 0
             ? tr('Das Guthaben von {0} wird aufs Girokonto gebucht.', [formatCents(sub.balanceCents)])
-            : tr('Das Unterkonto wird gelöscht.')),
+            : tr('Das digitale Konto wird gelöscht.')),
         actions: [
           TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: Text(tr('Abbrechen'))),
           FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: Text(tr('Auflösen'))),
@@ -209,7 +212,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
   Widget build(BuildContext context) {
     final accounts = ref.watch(accountsProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(tr('Unterkonto'))),
+      appBar: AppBar(title: Text(tr('Digitales Konto'))),
       body: accounts.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text(apiErrorMessage(e))),
@@ -217,7 +220,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
           final subs = list.where((a) => a.id == widget.accountId);
           final mains = list.where((a) => a.isMain);
           if (subs.isEmpty || mains.isEmpty) {
-            return Center(child: Text(tr('Unterkonto nicht gefunden.')));
+            return Center(child: Text(tr('Digitales Konto nicht gefunden.')));
           }
           final sub = subs.first;
           final main = mains.first;
@@ -239,11 +242,18 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                 child: Text(formatCents(sub.balanceCents),
                     style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)),
               ),
+              if (sub.digital != null) ...[
+                const SizedBox(height: 12),
+                DigitalGoalCard(account: sub),
+              ],
               const SizedBox(height: 20),
               Row(children: [
                 Expanded(
                   child: FilledButton.icon(
-                    onPressed: _busy || main.balanceCents <= 0 ? null : () => _deposit(main, sub),
+                    key: const Key('digital_deposit'),
+                    onPressed: _busy || main.balanceCents <= 0 || !(sub.digital?.canDeposit ?? true)
+                        ? null
+                        : () => _deposit(main, sub),
                     icon: const Icon(Icons.add),
                     label: Text(tr('Einzahlen')),
                   ),
@@ -251,7 +261,10 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: FilledButton.tonalIcon(
-                    onPressed: _busy || sub.balanceCents <= 0 ? null : () => _withdraw(main, sub),
+                    key: const Key('digital_withdraw'),
+                    onPressed: _busy || sub.balanceCents <= 0 || !(sub.digital?.canWithdraw ?? true)
+                        ? null
+                        : () => _withdraw(main, sub),
                     icon: const Icon(Icons.remove),
                     label: Text(tr('Auszahlen')),
                   ),
@@ -260,6 +273,9 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
               const SizedBox(height: 8),
               Text(tr('Auf dem Girokonto verfügbar: {0}', [formatCents(main.balanceCents)]),
                   textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
+              if (sub.isForeign && sub.digital != null)
+                Text(tr('Deine Rechte: {0}', [sub.digital!.roleLabel]),
+                    textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
               const SizedBox(height: 16),
               _sharing(sub, theme),
               const SizedBox(height: 8),
@@ -268,7 +284,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                   if (!sub.isForeign)
                     ListTile(
                       leading: const Icon(Icons.edit),
-                      title: Text(tr('Name und Symbol ändern')),
+                      title: Text(tr('Name, Zweck und Ziel ändern')),
                       onTap: _busy ? null : () => _edit(sub),
                     ),
                   ListTile(
@@ -279,7 +295,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                   if (!sub.isForeign)
                     ListTile(
                       leading: Icon(Icons.delete_outline, color: theme.colorScheme.error),
-                      title: Text(tr('Unterkonto auflösen'), style: TextStyle(color: theme.colorScheme.error)),
+                      title: Text(tr('Digitales Konto auflösen'), style: TextStyle(color: theme.colorScheme.error)),
                       onTap: _busy ? null : () => _close(sub),
                     ),
                 ]),
@@ -305,4 +321,136 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
       ),
     );
   }
+}
+
+/// Ziel, Fortschritt, Restbetrag und Hinweis, wie das Geld gehalten wird.
+class DigitalGoalCard extends StatelessWidget {
+  const DigitalGoalCard({super.key, required this.account});
+
+  final Account account;
+
+  @override
+  Widget build(BuildContext context) {
+    final d = account.digital!;
+    final theme = Theme.of(context);
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            Icon(subaccountIcon(digitalPurposes[d.purpose]?.$2), size: 18, color: theme.colorScheme.primary),
+            const SizedBox(width: 6),
+            Expanded(child: Text(d.purposeLabel, style: theme.textTheme.titleSmall)),
+            if (d.goalReached) Icon(Icons.emoji_events, color: theme.colorScheme.tertiary),
+          ]),
+          if (d.hasTarget) ...[
+            const SizedBox(height: 10),
+            LinearProgressIndicator(
+              key: const Key('digital_progress'),
+              value: ((d.progressPercent ?? 0) / 100).clamp(0, 1).toDouble(),
+              minHeight: 8,
+              borderRadius: BorderRadius.circular(4),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              d.goalReached
+                  ? tr('Ziel von {0} erreicht', [formatCents(d.targetCents!)])
+                  : tr('{0} % von {1} · noch {2}', [
+                      (d.progressPercent ?? 0).toStringAsFixed(0),
+                      formatCents(d.targetCents!),
+                      formatCents(d.remainingCents ?? 0),
+                    ]),
+              key: const Key('digital_progress_text'),
+            ),
+            if (d.targetDate != null)
+              Text(
+                d.monthlyNeededCents == null
+                    ? tr('Zieldatum: {0}', [formatDate(d.targetDate!)])
+                    : tr('Zieldatum: {0} · nötig ca. {1} pro Monat',
+                        [formatDate(d.targetDate!), formatCents(d.monthlyNeededCents!)]),
+                style: theme.textTheme.bodySmall,
+              ),
+          ] else
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: Text(tr('Kein Zielbetrag festgelegt.'), style: theme.textTheme.bodySmall),
+            ),
+          const Divider(height: 20),
+          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Icon(Icons.info_outline, size: 18, color: theme.colorScheme.outline),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                d.custodyText.isEmpty ? digitalAccountsExplanation : d.custodyText,
+                key: const Key('digital_custody'),
+                style: theme.textTheme.bodySmall,
+              ),
+            ),
+          ]),
+        ]),
+      ),
+    );
+  }
+}
+
+/// Erklärung, was ein digitales Konto ist (wenn der Server keinen Text liefert).
+String get digitalAccountsExplanation => tr(
+    'Digitale Konten sind Töpfe in deinem Projektbank-Konto: Das Geld wird dorthin umgebucht. Sie sind keine eigenen Bankkonten und haben keine eigene Einlagensicherung.');
+
+/// Person zum Teilen eintragen und Rechte wählen.
+class _ShareDialog extends StatefulWidget {
+  const _ShareDialog({required this.name});
+
+  final String name;
+
+  @override
+  State<_ShareDialog> createState() => _ShareDialogState();
+}
+
+class _ShareDialogState extends State<_ShareDialog> {
+  final _recipient = TextEditingController();
+  String _role = 'FULL';
+
+  @override
+  void dispose() {
+    _recipient.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+        title: Text(tr('Digitales Konto teilen')),
+        content: SingleChildScrollView(
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            TextField(
+              key: const Key('share_recipient'),
+              controller: _recipient,
+              autofocus: true,
+              decoration: InputDecoration(labelText: tr('E-Mail, Telefonnummer oder IBAN')),
+            ),
+            const SizedBox(height: 12),
+            Text(tr('Was darf die Person in „{0}“?', [widget.name])),
+            for (final r in ['FULL', 'DEPOSIT', 'VIEW'])
+              RadioListTile<String>(
+                key: Key('share_role_$r'),
+                contentPadding: EdgeInsets.zero,
+                dense: true,
+                value: r,
+                // ignore: deprecated_member_use
+                groupValue: _role,
+                // ignore: deprecated_member_use
+                onChanged: (v) => setState(() => _role = v ?? 'FULL'),
+                title: Text(digitalRoles[r]!),
+              ),
+          ]),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(context), child: Text(tr('Abbrechen'))),
+          FilledButton(
+            key: const Key('share_confirm'),
+            onPressed: () => Navigator.pop(context, (_recipient.text, _role)),
+            child: Text(tr('Teilen')),
+          ),
+        ],
+      );
 }
