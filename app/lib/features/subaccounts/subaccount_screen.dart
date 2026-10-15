@@ -10,6 +10,7 @@ import '../accounts/account.dart';
 import '../accounts/accounts_repository.dart';
 import '../accounts/booking_tile.dart';
 import '../accounts/bookings_repository.dart';
+import '../allocations/allocation_section.dart';
 import 'subaccount_dialogs.dart';
 import 'subaccount_icons.dart';
 import 'subaccounts_repository.dart';
@@ -276,6 +277,10 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
               if (sub.isForeign && sub.digital != null)
                 Text(tr('Deine Rechte: {0}', [sub.digital!.roleLabel]),
                     textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
+              if (sub.digital != null) ...[
+                const SizedBox(height: 16),
+                AllocationSection(account: sub, onChanged: _refresh),
+              ],
               const SizedBox(height: 16),
               _sharing(sub, theme),
               const SizedBox(height: 8),
@@ -362,6 +367,12 @@ class DigitalGoalCard extends StatelessWidget {
                     ]),
               key: const Key('digital_progress_text'),
             ),
+            if (d.earmarkedCents > 0)
+              Text(
+                tr('Guthaben {0} + vorgemerkt {1}', [formatCents(account.balanceCents), formatCents(d.earmarkedCents)]),
+                key: const Key('digital_saved'),
+                style: theme.textTheme.bodySmall,
+              ),
             if (d.targetDate != null)
               Text(
                 d.monthlyNeededCents == null

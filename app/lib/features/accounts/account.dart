@@ -35,6 +35,8 @@ class DigitalInfo {
     this.progressPercent,
     this.remainingCents,
     this.monthlyNeededCents,
+    this.earmarkedCents = 0,
+    this.savedCents,
   });
 
   final String purpose;
@@ -54,6 +56,12 @@ class DigitalInfo {
   /// Erklärung vom Server, wie das Geld gehalten wird
   final String custodyText;
 
+  /// Vorgemerkt bei verbundenen Bankkonten (Geld bleibt dort, zählt aber zum Ziel)
+  final int earmarkedCents;
+
+  /// Stand für das Ziel: Guthaben plus Vormerkungen
+  final int? savedCents;
+
   String get purposeLabel => digitalPurposes[purpose]?.$1 ?? purpose;
   String get roleLabel => digitalRoles[role] ?? role;
   bool get hasTarget => targetCents != null;
@@ -71,6 +79,8 @@ class DigitalInfo {
         canWithdraw: j['canWithdraw'] as bool? ?? true,
         canManage: j['canManage'] as bool? ?? true,
         custodyText: j['custodyText'] as String? ?? '',
+        earmarkedCents: (j['earmarkedCents'] as num?)?.toInt() ?? 0,
+        savedCents: (j['savedCents'] as num?)?.toInt(),
       );
 }
 

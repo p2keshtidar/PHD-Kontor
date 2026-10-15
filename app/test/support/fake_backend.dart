@@ -166,16 +166,25 @@ class FakeBackend implements HttpClientAdapter {
         ],
       };
 
-  static Map<String, dynamic> loan({int extraPaid = 0}) => {
+  static Map<String, dynamic> loan({int extraPaid = 0, String status = 'ACTIVE'}) => {
         'id': 7, 'bank': 'NORDLICHT', 'bankName': 'Nordlicht Kredit', 'purpose': 'AUTO', 'purposeLabel': 'Auto',
         'principalCents': 2000000, 'equityCents': 0, 'interestRate': 5.59, 'termMonths': 60, 'monthlyRateCents': 38286,
-        'startDate': '2026-10-12', 'nextDueDate': '2026-11-12', 'paidInstallments': 1, 'remainingCents': 1971031,
-        'progressPercent': 1.4, 'status': 'ACTIVE', 'accountId': 14, 'remainingInstallments': 59,
+        'startDate': '2026-10-12', 'nextDueDate': status == 'ACTIVE' ? '2026-11-12' : null,
+        'paidInstallments': status == 'ACTIVE' ? 1 : 0, 'remainingCents': status == 'ACTIVE' ? 1971031 : 0,
+        'progressPercent': status == 'ACTIVE' ? 1.4 : 0.0, 'status': status, 'accountId': 14,
+        'remainingInstallments': status == 'ACTIVE' ? 59 : 60,
         'expectedEndDate': '2031-10-12', 'extraPaidCents': extraPaid,
+        'statusLabel': switch (status) {
+          'CONTRACTED' => 'Vertrag geschlossen – Auszahlung ausstehend',
+          'CANCELLED' => 'Widerrufen',
+          'PAID_OFF' => 'Zurückgezahlt',
+          _ => 'Ausgezahlt – Raten laufen',
+        },
+        'effectiveRate': 5.74, 'simulation': true, 'applicationId': 51,
       };
 
-  static Map<String, dynamic> loanDetail({int extraPaid = 0}) => {
-        'loan': loan(extraPaid: extraPaid), 'totalInterestCents': 297160, 'interestSavedCents': extraPaid > 0 ? 12345 : 0,
+  static Map<String, dynamic> loanDetail({int extraPaid = 0, String status = 'ACTIVE'}) => {
+        'loan': loan(extraPaid: extraPaid, status: status), 'totalInterestCents': 297160, 'interestSavedCents': extraPaid > 0 ? 12345 : 0,
         'schedule': [
           for (var m = 1; m <= 60; m++)
             {'month': m, 'dueDate': '2026-${((10 + m - 1) % 12 + 1).toString().padLeft(2, '0')}-12', 'rateCents': 38286,
@@ -183,6 +192,160 @@ class FakeBackend implements HttpClientAdapter {
              'paid': m == 1, 'extraCents': m == 1 ? extraPaid : 0},
         ],
         'extraPayments': [],
+      };
+
+  // ------------------------------------------------------------------ Sparregeln (Sprint 5)
+
+  static Map<String, dynamic> allocationRun(
+          {int id = 41, String status = 'COMPLETED', String kind = 'TRANSFER', String? reason, int amount = 5000}) =>
+      {
+        'id': id, 'ruleId': 31, 'targetAccountId': 11, 'targetName': 'Urlaub Mallorca mit der ganzen Familie',
+        'sourceType': kind == 'TRANSFER' ? 'PROJEKTBANK' : 'EXTERNAL',
+        'sourceName': kind == 'TRANSFER' ? 'Girokonto' : 'Sandbox-Hausbank (Testdaten)', 'kind': kind,
+        'kindLabel': kind == 'TRANSFER' ? 'Umbuchung' : 'Vormerkung', 'dueDate': '2026-10-09', 'amountCents': amount,
+        'status': status,
+        'statusLabel': switch (status) {
+          'COMPLETED' => kind == 'TRANSFER' ? 'Umgebucht' : 'Vormerkung erfasst',
+          'RETRYING' => 'Neuer Versuch am 14.10.2026',
+          'FAILED' => 'Fehlgeschlagen',
+          _ => status,
+        },
+        'attempts': status == 'FAILED' ? 3 : 1, 'nextAttempt': status == 'RETRYING' ? '2026-10-14' : null,
+        'failureReason': reason, 'bookingId': status == 'COMPLETED' && kind == 'TRANSFER' ? 120 : null,
+        'manual': false, 'updatedAt': '2026-10-09T10:00:00Z',
+      };
+
+  static Map<String, dynamic> allocationRule({int id = 31, String status = 'ACTIVE', String source = 'PROJEKTBANK'}) =>
+      {
+        'id': id, 'targetAccountId': 11, 'targetName': 'Urlaub Mallorca mit der ganzen Familie', 'sourceType': source,
+        'sourceId': source == 'PROJEKTBANK' ? 10 : 5,
+        'sourceName': source == 'PROJEKTBANK' ? 'Girokonto' : 'Tagesgeld',
+        'bankName': source == 'PROJEKTBANK' ? 'Projektbank (Simulation)' : 'Sandbox-Hausbank (Testdaten)',
+        'movesMoney': source == 'PROJEKTBANK',
+        'sourceExplanation': source == 'PROJEKTBANK'
+            ? 'Umbuchung innerhalb der Projektbank (Simulation) – keine echte Überweisung.'
+            : 'Nur Vormerkung: Das Geld bleibt bei Sandbox-Hausbank (Testdaten). Es wird keine Zahlung ausgelöst.',
+        'amountCents': source == 'PROJEKTBANK' ? 5000 : 15000, 'interval': source == 'PROJEKTBANK' ? 'WEEKLY' : 'MONTHLY',
+        'intervalLabel': source == 'PROJEKTBANK' ? 'wöchentlich' : 'monatlich', 'startDate': '2026-10-02',
+        'endDate': null, 'nextDate': status == 'ACTIVE' ? '2026-10-16' : null, 'status': status,
+        'statusLabel': status == 'ACTIVE' ? 'Aktiv' : (status == 'PAUSED' ? 'Pausiert' : 'Beendet'),
+        'statusReason': status == 'PAUSED' ? 'Das Bankkonto ist nicht mehr verbunden.' : null,
+        'lastRun': allocationRun(), 'createdAt': '2026-10-02T10:00:00Z',
+      };
+
+  static Map<String, dynamic> accountAllocations({bool empty = false}) => {
+        'accountId': 11, 'targetName': 'Urlaub Mallorca mit der ganzen Familie', 'canAllocate': true,
+        'canRelease': !empty, 'balanceCents': 120000, 'earmarkedCents': empty ? 0 : 15000,
+        'earmarks': empty
+            ? []
+            : [
+                {'externalAccountId': 5, 'sourceName': 'Tagesgeld', 'bankName': 'Sandbox-Hausbank (Testdaten)',
+                 'amountCents': 15000, 'own': true, 'active': true},
+              ],
+        'rules': empty ? [] : [allocationRule(), allocationRule(id: 32, source: 'EXTERNAL')],
+        'otherRules': empty ? 0 : 1,
+        'runs': empty
+            ? []
+            : [
+                allocationRun(id: 42, status: 'FAILED',
+                    reason: 'Nicht genug Guthaben auf „Girokonto“. Verfügbar: 12,00 €.'),
+                allocationRun(id: 41),
+                allocationRun(id: 43, kind: 'EARMARK', amount: 15000),
+              ],
+        'upcoming': empty
+            ? []
+            : [
+                {'date': '2026-10-16', 'amountCents': 5000, 'ruleId': 31, 'sourceName': 'Girokonto', 'movesMoney': true},
+                {'date': '2026-11-02', 'amountCents': 15000, 'ruleId': 32, 'sourceName': 'Tagesgeld', 'movesMoney': false},
+              ],
+        'projectedGoalDate': empty ? null : '2027-03-12',
+        'projectionText': empty ? null : 'Voraussichtlich erreicht am 12.03.2027, wenn alle Sparregeln wie geplant laufen.',
+        'earmarkExplanation': 'Vormerkung: Das Geld bleibt auf deinem Konto bei der anderen Bank. Es wird keine Zahlung '
+            'ausgelöst; der Betrag wird nur deinem Ziel zugerechnet.',
+      };
+
+  static List<Map<String, dynamic>> allocationSources() => [
+        {'type': 'PROJEKTBANK', 'id': 10, 'sourceName': 'Girokonto', 'bankName': 'Projektbank (Simulation)',
+         'ibanMasked': null, 'balanceCents': 523450, 'earmarkedCents': 0, 'availableCents': 523450, 'balanceAt': null,
+         'usable': true, 'unusableReason': null, 'movesMoney': true,
+         'sourceExplanation': 'Umbuchung innerhalb der Projektbank (Simulation) – keine echte Überweisung.',
+         'sandbox': true, 'coverageWarning': false, 'coverageText': null},
+        {'type': 'EXTERNAL', 'id': 5, 'sourceName': 'Tagesgeld', 'bankName': 'Sandbox-Hausbank (Testdaten)',
+         'ibanMasked': 'DE87 •••• 4764', 'balanceCents': 2262625, 'earmarkedCents': 15000, 'availableCents': 2247625,
+         'balanceAt': '2026-10-13T08:00:00Z', 'usable': true, 'unusableReason': null, 'movesMoney': false,
+         'sourceExplanation': 'Nur Vormerkung: Das Geld bleibt bei Sandbox-Hausbank (Testdaten). Es wird keine Zahlung ausgelöst.',
+         'sandbox': true, 'coverageWarning': false, 'coverageText': null},
+        {'type': 'EXTERNAL', 'id': 6, 'sourceName': 'Online-Konto', 'bankName': 'Sandbox-Onlinebank (Testdaten)',
+         'ibanMasked': 'DE11 •••• 0001', 'balanceCents': 30000, 'earmarkedCents': 0, 'availableCents': 30000,
+         'balanceAt': '2026-10-01T08:00:00Z', 'usable': false,
+         'unusableReason': 'Die Freigabe für Sandbox-Onlinebank (Testdaten) ist abgelaufen. Bitte die Bank neu verbinden.',
+         'movesMoney': false, 'sourceExplanation': '', 'sandbox': true, 'coverageWarning': false, 'coverageText': null},
+      ];
+
+  // ------------------------------------------------------------------ Kreditvergleich (Sprint 5)
+
+  static Map<String, dynamic> loanOffer(String bank, String name, double rate, double eff, int monthly, int total,
+          {bool recommended = false, bool declined = false, String minClass = 'MITTEL'}) =>
+      {
+        'bank': bank, 'bankName': name, 'interestRate': rate, 'monthlyRateCents': monthly,
+        'totalInterestCents': total - 1000000, 'totalCostCents': total, 'affordable': true, 'declined': declined,
+        'declineReason': declined ? 'Die $name bietet erst ab Bonität „gut“ an.' : null, 'recommended': recommended,
+        'providerId': 'SIMULATION', 'simulation': true, 'effectiveRate': eff, 'feesCents': 0,
+        'minCreditClass': minClass, 'minCreditClassLabel': minClass.toLowerCase(), 'eligible': !declined,
+        'requirements': ['Bonität mindestens „mittel“ (Selbsteinschätzung)', 'Regelmäßige Einnahmen im Girokonto'],
+        'conditions': ['Keine Bearbeitungsgebühr', 'Sondertilgungen jederzeit kostenlos'],
+        'exampleText': 'Unverbindliches Rechenbeispiel (Simulation, fiktive Bank): Nettodarlehensbetrag 10.000,00 €, '
+            'Laufzeit 48 Monate, gebundener Sollzins 5,49 % p. a., effektiver Jahreszins 5,63 %, monatliche Rate '
+            '232,52 €, Gesamtbetrag 11.160,94 €.',
+        'marketDeltaPercent': -3.36,
+      };
+
+  static Map<String, dynamic> offerResult({int hidden = 0}) => {
+        'purpose': 'AUTO', 'purposeLabel': 'Auto', 'principalCents': 1000000, 'equityCents': 0, 'termMonths': 48,
+        'hasData': true, 'availableCents': 78383, 'maxRateCents': 54868, 'maxPrincipalCents': 2359719,
+        'offers': [
+          loanOffer('NORDLICHT', 'Nordlicht Kredit', 5.49, 5.63, 23252, 1116094, recommended: true),
+          loanOffer('MAINUFER', 'Mainufer Bank', 5.29, 5.42, 23161, 1111724, declined: true, minClass: 'GUT'),
+        ],
+        'creditClass': 'MITTEL', 'creditClassLabel': 'mittel', 'hiddenCount': hidden,
+        'referenceRates': [
+          {'key': 'CONSUMER_ALL', 'label': 'Konsumentenkredite: effektiver Jahreszins inkl. Kosten', 'ratePercent': 8.99,
+           'period': '2026-08', 'overall': true, 'source': 'Deutsche Bundesbank, MFI-Zinsstatistik (Neugeschäft)',
+           'sourceUrl': 'https://www.bundesbank.de', 'fetchedAt': '2026-10-13T06:00:00Z', 'stale': false,
+           'note': 'Durchschnitt neu abgeschlossener Kredite in Deutschland – kein Angebot.'},
+        ],
+        'providers': [
+          {'id': 'SIMULATION', 'name': 'Fiktive Banken (Simulation)', 'kind': 'OFFERS', 'simulation': true, 'state': 'OK',
+           'stateLabel': 'Verfügbar', 'message': 'Rechenbeispiele fiktiver Banken – keine echten Angebote.', 'updatedAt': null},
+          {'id': 'PARTNER', 'name': 'Echte Kreditangebote', 'kind': 'PARTNER', 'simulation': false,
+           'state': 'NOT_CONNECTED', 'stateLabel': 'Nicht angebunden', 'message': 'Nicht angebunden.', 'updatedAt': null},
+        ],
+        'disclaimerText': 'Alle Angebote stammen von fiktiven Banken (Simulation der Projektbank). Es sind unverbindliche '
+            'Rechenbeispiele – keine echten Kreditangebote, keine Abfrage bei einer Auskunftei, keine Auszahlung echten Geldes.',
+      };
+
+  static Map<String, dynamic> loanApplication({int id = 51, String status = 'APPROVED'}) => {
+        'id': id, 'provider': 'SIMULATION', 'simulation': true, 'bank': 'NORDLICHT', 'bankName': 'Nordlicht Kredit',
+        'purpose': 'AUTO', 'purposeLabel': 'Auto', 'principalCents': 1000000, 'equityCents': 0, 'termMonths': 48,
+        'creditClass': 'GUT', 'creditClassLabel': 'gut',
+        'interestRate': status == 'DECLINED' ? null : 5.49, 'effectiveRate': status == 'DECLINED' ? null : 5.63,
+        'monthlyRateCents': status == 'DECLINED' ? null : 23252, 'totalCents': status == 'DECLINED' ? null : 1116094,
+        'status': status,
+        'statusLabel': switch (status) {
+          'APPROVED' => 'Zusage',
+          'DECLINED' => 'Abgelehnt',
+          'ACCEPTED' => 'Vertrag geschlossen',
+          'WITHDRAWN' => 'Zurückgezogen',
+          _ => 'Abgelaufen',
+        },
+        'decisionReason': status == 'DECLINED'
+            ? 'Rate zu hoch: höchstens 70 % von 783,83 € möglich.'
+            : 'Zusage (Simulation) – gültig bis 27.10.2026. Noch kein Vertrag.',
+        'validUntil': status == 'APPROVED' ? '2026-10-27' : null, 'loanId': status == 'ACCEPTED' ? 7 : null,
+        'createdAt': '2026-10-13T10:00:00Z',
+        'nextStepText': status == 'APPROVED'
+            ? 'Nächster Schritt: Vertrag abschließen. Bis dahin ist nichts verbindlich.'
+            : 'Andere Bank, kleineren Betrag oder längere Laufzeit wählen.',
       };
 
   static Map<String, dynamic> standingOrder({String status = 'ACTIVE'}) => {
@@ -347,6 +510,16 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/plans': (_) => [planSummary()],
         'GET /api/plans/*': (_) => planDetail(),
         'GET /api/loans': (_) => [loan()],
+        'GET /api/loans/applications': (_) => [loanApplication()],
+        'POST /api/loans/schedule': (_) => FakeResponse(200, [
+              for (var m = 1; m <= 12; m++)
+                {'month': m, 'dueDate': '2027-${m.toString().padLeft(2, '0')}-13', 'rateCents': 23252,
+                 'interestCents': 4575 - m * 50, 'principalCents': 18677 + m * 50, 'remainingCents': 1000000 - m * 19000,
+                 'paid': false, 'extraCents': 0},
+            ]),
+        'GET /api/loans/applications/*': (_) => loanApplication(),
+        'GET /api/allocations/accounts/*': (_) => accountAllocations(),
+        'GET /api/allocations/sources': (_) => allocationSources(),
         'GET /api/loans/*': (_) => loanDetail(),
         'GET /api/standing-orders': (_) => [standingOrder()],
         'GET /api/entries': (_) => entriesSummary(),

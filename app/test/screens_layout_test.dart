@@ -13,7 +13,9 @@ import 'package:girokonto_app/features/contacts/address_book_screen.dart';
 import 'package:girokonto_app/features/insights/csv_import_screen.dart';
 import 'package:girokonto_app/features/insights/insights_screen.dart';
 import 'package:girokonto_app/features/loans/extra_payment_screen.dart';
+import 'package:girokonto_app/features/loans/loan_application_screen.dart';
 import 'package:girokonto_app/features/loans/loan_detail_screen.dart';
+import 'package:girokonto_app/features/loans/loan_offer_screen.dart';
 import 'package:girokonto_app/features/loans/loan_models.dart';
 import 'package:girokonto_app/features/loans/loan_planner_screen.dart';
 import 'package:girokonto_app/features/notifications/notifications_screen.dart';
@@ -56,6 +58,11 @@ void main() {
     'Investplan-Assistent': () => const PlanWizardScreen(type: 'INVEST'),
     'Kreditplaner': () => const LoanPlannerScreen(),
     'Kredit-Detail': () => const LoanDetailScreen(loanId: 7),
+    'Kreditangebot (Anfrage)': () {
+      final r = OfferResult.fromJson(FakeBackend.offerResult());
+      return LoanOfferScreen(selected: SelectedOffer(r, r.offers.first));
+    },
+    'Kreditanfrage (Zusage)': () => const LoanApplicationScreen(applicationId: 51),
     'Sondertilgung': () => ExtraPaymentScreen(loan: Loan.fromJson(FakeBackend.loan())),
     'Daueraufträge': () => const StandingOrdersScreen(),
     'Neuer Dauerauftrag': () => const StandingOrderFormScreen(),

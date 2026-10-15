@@ -7,6 +7,7 @@ import '../../core/realtime_service.dart';
 import '../../core/token_storage.dart';
 import '../accounts/accounts_repository.dart';
 import '../accounts/bookings_repository.dart';
+import '../allocations/allocations_repository.dart';
 import '../card/card_repository.dart';
 import '../insights/insights_repository.dart';
 import '../loans/loans_repository.dart';
@@ -29,6 +30,8 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
       ref.invalidate(cardProvider);
       ref.invalidate(plansProvider);
       ref.invalidate(loansProvider);
+      ref.invalidate(loanApplicationsProvider);
+      ref.invalidate(accountAllocationsProvider);
       ref.invalidate(overviewProvider);
       ref.invalidate(netWorthProvider);
       ref.invalidate(monthsProvider);

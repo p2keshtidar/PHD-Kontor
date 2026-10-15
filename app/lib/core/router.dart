@@ -17,6 +17,7 @@ import '../features/banking/connect_bank_screen.dart';
 import '../features/card/card_screen.dart';
 import '../features/contacts/address_book_screen.dart';
 import '../features/insights/insights_screen.dart';
+import '../features/loans/loan_application_screen.dart';
 import '../features/loans/loan_detail_screen.dart';
 import '../features/loans/loan_models.dart';
 import '../features/loans/loan_offer_screen.dart';
@@ -129,6 +130,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/kredit/angebot',
         builder: (_, state) => LoanOfferScreen(selected: state.extra as SelectedOffer?),
+      ),
+      GoRoute(
+        path: '/kredit/anfrage/:applicationId',
+        builder: (_, state) =>
+            LoanApplicationScreen(applicationId: int.parse(state.pathParameters['applicationId']!)),
       ),
       GoRoute(
         path: '/kredit/:loanId',

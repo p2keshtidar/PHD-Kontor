@@ -24,6 +24,7 @@ class SavingsHomeScreen extends ConsumerWidget {
     ref.invalidate(overviewProvider);
     ref.invalidate(plansProvider);
     ref.invalidate(loansProvider);
+    ref.invalidate(loanApplicationsProvider);
   }
 
   @override
@@ -99,6 +100,18 @@ class SavingsHomeScreen extends ConsumerWidget {
           const SizedBox(height: 20),
           Text(tr('Meine Kredite'), style: theme.textTheme.titleMedium),
           const SizedBox(height: 4),
+          ...?ref.watch(loanApplicationsProvider).valueOrNull?.where((a) => a.approved).map((a) => Card(
+                key: Key('loan_application_${a.id}'),
+                child: ListTile(
+                  leading: const Icon(Icons.mark_email_read_outlined),
+                  title: Text(tr('Zusage: {0} · {1}', [formatCents(a.principalCents), a.bankName])),
+                  subtitle: Text(a.validUntil == null
+                      ? a.statusLabel
+                      : tr('Gilt bis {0} – Vertrag noch nicht abgeschlossen', [formatDate(a.validUntil!)])),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/kredit/anfrage/${a.id}'),
+                ),
+              )),
           loans.when(
             loading: () => const SizedBox.shrink(),
             error: (e, _) => Text(apiErrorMessage(e)),
@@ -291,7 +304,9 @@ class _LoanTile extends StatelessWidget {
                   Text(
                     loan.isActive
                         ? tr('{0} / Monat · nächste Rate {1}', [formatCents(loan.monthlyRateCents), loan.nextDueDate == null ? '–' : formatDate(loan.nextDueDate!)])
-                        : tr('Abbezahlt'),
+                        : loan.isContracted || loan.isCancelled
+                            ? (loan.statusLabel ?? loan.status)
+                            : tr('Abbezahlt'),
                     style: theme.textTheme.bodySmall,
                   ),
                 ]),

@@ -1,6 +1,15 @@
 import '../../l10n/l10n.dart';
 
 DateTime? _date(dynamic v) => v == null ? null : DateTime.parse(v as String);
+List<String> _strings(dynamic v) => ((v as List<dynamic>?) ?? const []).map((e) => e as String).toList();
+
+/// Bonität für die Beispielrechnung (Selbsteinschätzung, keine Auskunftei).
+Map<String, String> get creditClasses => {
+      'SEHR_GUT': tr('sehr gut'),
+      'GUT': tr('gut'),
+      'MITTEL': tr('mittel'),
+      'SCHWACH': tr('schwach'),
+    };
 
 /// Zwecke (/F1010/) mit Grenzen wie im Backend (Pflichtenheft Kap. 8.5).
 class LoanPurposeInfo {
@@ -35,6 +44,16 @@ class LoanOffer {
     required this.declined,
     required this.recommended,
     this.declineReason,
+    this.providerId = 'SIMULATION',
+    this.simulation = true,
+    this.effectiveRate,
+    this.feesCents = 0,
+    this.minCreditClass,
+    this.eligible = true,
+    this.requirements = const [],
+    this.conditions = const [],
+    this.exampleText,
+    this.marketDeltaPercent,
   });
 
   final String bank;
@@ -47,6 +66,22 @@ class LoanOffer {
   final bool declined;
   final String? declineReason;
   final bool recommended;
+  final String providerId;
+
+  /// fiktive Bank (Simulation) – unverbindliches Rechenbeispiel
+  final bool simulation;
+
+  /// effektiver Jahreszins (mit allen Kosten)
+  final double? effectiveRate;
+  final int feesCents;
+  final String? minCreditClass;
+  final bool eligible;
+  final List<String> requirements;
+  final List<String> conditions;
+  final String? exampleText;
+
+  /// Abstand zum Bundesbank-Durchschnitt (Prozentpunkte), falls vorhanden
+  final double? marketDeltaPercent;
 
   factory LoanOffer.fromJson(Map<String, dynamic> j) => LoanOffer(
         bank: j['bank'] as String,
@@ -59,6 +94,130 @@ class LoanOffer {
         declined: j['declined'] as bool,
         declineReason: j['declineReason'] as String?,
         recommended: j['recommended'] as bool,
+        providerId: j['providerId'] as String? ?? 'SIMULATION',
+        simulation: j['simulation'] as bool? ?? true,
+        effectiveRate: (j['effectiveRate'] as num?)?.toDouble(),
+        feesCents: (j['feesCents'] as num?)?.toInt() ?? 0,
+        minCreditClass: j['minCreditClass'] as String?,
+        eligible: j['eligible'] as bool? ?? true,
+        requirements: _strings(j['requirements']),
+        conditions: _strings(j['conditions']),
+        exampleText: j['exampleText'] as String?,
+        marketDeltaPercent: (j['marketDeltaPercent'] as num?)?.toDouble(),
+      );
+}
+
+/// Durchschnittszins der Deutschen Bundesbank (Referenz, kein Angebot).
+class ReferenceRate {
+  const ReferenceRate(this.label, this.ratePercent, this.period, {this.stale = false, this.note = '', this.source = ''});
+
+  final String label;
+  final double ratePercent;
+
+  /// Berichtsmonat "2026-08"
+  final String period;
+  final bool stale;
+  final String note;
+  final String source;
+
+  factory ReferenceRate.fromJson(Map<String, dynamic> j) => ReferenceRate(
+        j['label'] as String? ?? '',
+        (j['ratePercent'] as num).toDouble(),
+        j['period'] as String? ?? '',
+        stale: j['stale'] as bool? ?? false,
+        note: j['note'] as String? ?? '',
+        source: j['source'] as String? ?? '',
+      );
+}
+
+/// Anbieter im Kreditvergleich und sein Zustand (OK, STALE, UNAVAILABLE, DISABLED, NOT_CONNECTED).
+class LoanProviderStatus {
+  const LoanProviderStatus(this.id, this.name, this.state, this.stateLabel, {this.message, this.simulation = false});
+
+  final String id;
+  final String name;
+  final String state;
+  final String stateLabel;
+  final String? message;
+  final bool simulation;
+
+  bool get ok => state == 'OK';
+
+  factory LoanProviderStatus.fromJson(Map<String, dynamic> j) => LoanProviderStatus(
+        j['id'] as String,
+        j['name'] as String? ?? j['id'] as String,
+        j['state'] as String? ?? 'UNAVAILABLE',
+        j['stateLabel'] as String? ?? j['state'] as String? ?? '',
+        message: j['message'] as String?,
+        simulation: j['simulation'] as bool? ?? false,
+      );
+}
+
+/// Kreditanfrage (Schritt 2) mit Zusage oder Ablehnung.
+class LoanApplication {
+  const LoanApplication({
+    required this.id,
+    required this.bank,
+    required this.bankName,
+    required this.purposeLabel,
+    required this.principalCents,
+    required this.termMonths,
+    required this.status,
+    required this.statusLabel,
+    this.creditClass = 'GUT',
+    this.interestRate,
+    this.effectiveRate,
+    this.monthlyRateCents,
+    this.totalCents,
+    this.decisionReason,
+    this.validUntil,
+    this.loanId,
+    this.nextStepText,
+    this.simulation = true,
+  });
+
+  final int id;
+  final String bank;
+  final String bankName;
+  final String purposeLabel;
+  final int principalCents;
+  final int termMonths;
+
+  /// APPROVED, DECLINED, ACCEPTED, WITHDRAWN, EXPIRED
+  final String status;
+  final String statusLabel;
+  final String creditClass;
+  final double? interestRate;
+  final double? effectiveRate;
+  final int? monthlyRateCents;
+  final int? totalCents;
+  final String? decisionReason;
+  final DateTime? validUntil;
+  final int? loanId;
+  final String? nextStepText;
+  final bool simulation;
+
+  bool get approved => status == 'APPROVED';
+
+  factory LoanApplication.fromJson(Map<String, dynamic> j) => LoanApplication(
+        id: (j['id'] as num).toInt(),
+        bank: j['bank'] as String,
+        bankName: j['bankName'] as String,
+        purposeLabel: j['purposeLabel'] as String? ?? '',
+        principalCents: (j['principalCents'] as num).toInt(),
+        termMonths: (j['termMonths'] as num).toInt(),
+        status: j['status'] as String,
+        statusLabel: j['statusLabel'] as String? ?? j['status'] as String,
+        creditClass: j['creditClass'] as String? ?? 'GUT',
+        interestRate: (j['interestRate'] as num?)?.toDouble(),
+        effectiveRate: (j['effectiveRate'] as num?)?.toDouble(),
+        monthlyRateCents: (j['monthlyRateCents'] as num?)?.toInt(),
+        totalCents: (j['totalCents'] as num?)?.toInt(),
+        decisionReason: j['decisionReason'] as String?,
+        validUntil: _date(j['validUntil']),
+        loanId: (j['loanId'] as num?)?.toInt(),
+        nextStepText: j['nextStepText'] as String?,
+        simulation: j['simulation'] as bool? ?? true,
       );
 }
 
@@ -75,6 +234,11 @@ class OfferResult {
     required this.maxRateCents,
     required this.maxPrincipalCents,
     required this.offers,
+    this.creditClass = 'GUT',
+    this.hiddenCount = 0,
+    this.referenceRates = const [],
+    this.providers = const [],
+    this.disclaimerText,
   });
 
   final String purpose;
@@ -87,6 +251,13 @@ class OfferResult {
   final int maxRateCents;
   final int maxPrincipalCents;
   final List<LoanOffer> offers;
+  final String creditClass;
+
+  /// durch Filter ausgeblendete Angebote
+  final int hiddenCount;
+  final List<ReferenceRate> referenceRates;
+  final List<LoanProviderStatus> providers;
+  final String? disclaimerText;
 
   factory OfferResult.fromJson(Map<String, dynamic> j) => OfferResult(
         purpose: j['purpose'] as String,
@@ -99,6 +270,15 @@ class OfferResult {
         maxRateCents: (j['maxRateCents'] as num).toInt(),
         maxPrincipalCents: (j['maxPrincipalCents'] as num).toInt(),
         offers: (j['offers'] as List<dynamic>).map((e) => LoanOffer.fromJson(e as Map<String, dynamic>)).toList(),
+        creditClass: j['creditClass'] as String? ?? 'GUT',
+        hiddenCount: (j['hiddenCount'] as num?)?.toInt() ?? 0,
+        referenceRates: ((j['referenceRates'] as List<dynamic>?) ?? const [])
+            .map((e) => ReferenceRate.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        providers: ((j['providers'] as List<dynamic>?) ?? const [])
+            .map((e) => LoanProviderStatus.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        disclaimerText: j['disclaimerText'] as String?,
       );
 }
 
@@ -155,6 +335,8 @@ class Loan {
     this.remainingInstallments,
     this.expectedEndDate,
     this.extraPaidCents = 0,
+    this.statusLabel,
+    this.effectiveRate,
   });
 
   final int id;
@@ -170,8 +352,10 @@ class Loan {
   final int remainingCents;
   final double progressPercent;
 
-  /// ACTIVE oder PAID_OFF
+  /// ACTIVE (ausgezahlt), CONTRACTED (Vertrag, Auszahlung ausstehend), PAID_OFF, CANCELLED
   final String status;
+  final String? statusLabel;
+  final double? effectiveRate;
 
   /// Noch offene Raten (sinkt durch Sondertilgungen)
   final int? remainingInstallments;
@@ -183,6 +367,8 @@ class Loan {
       isActive && remainingInstallments != null ? paidInstallments + remainingInstallments! : paidInstallments;
 
   bool get isActive => status == 'ACTIVE';
+  bool get isContracted => status == 'CONTRACTED';
+  bool get isCancelled => status == 'CANCELLED';
 
   factory Loan.fromJson(Map<String, dynamic> j) => Loan(
         id: (j['id'] as num).toInt(),
@@ -201,6 +387,8 @@ class Loan {
         remainingInstallments: (j['remainingInstallments'] as num?)?.toInt(),
         expectedEndDate: _date(j['expectedEndDate']),
         extraPaidCents: (j['extraPaidCents'] as num?)?.toInt() ?? 0,
+        statusLabel: j['statusLabel'] as String?,
+        effectiveRate: (j['effectiveRate'] as num?)?.toDouble(),
       );
 }
 

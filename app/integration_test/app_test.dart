@@ -255,13 +255,21 @@ void main() {
     }
     expect(find.text('Nordlicht Kredit'), findsOneWidget);
 
-    // Angebot öffnen und Kredit abschließen
+    // Getrennte Schritte: Angebot öffnen → unverbindlich anfragen → Vertrag abschließen → Auszahlung anfordern
     await tester.tap(find.text('Nordlicht Kredit'));
     await pumpUntil(tester, find.text('Tilgungsplan'));
     await pumpFor(tester, 1500);
-    await tapButton(tester, find.byType(CheckboxListTile));
+    await tapButton(tester, find.byKey(const Key('loan_consent')));
     await pumpFor(tester, 400);
-    await tapButton(tester, find.text('Kredit abschließen'));
+    await tapButton(tester, find.byKey(const Key('loan_request')));
+    await pumpUntil(tester, find.byKey(const Key('loan_confirm')), timeout: const Duration(seconds: 30));
+    await pumpFor(tester, 1500);
+    await tapButton(tester, find.byKey(const Key('loan_confirm')));
+    await pumpFor(tester, 400);
+    await tapButton(tester, find.byKey(const Key('loan_accept')));
+    await pumpUntil(tester, find.byKey(const Key('loan_payout')), timeout: const Duration(seconds: 30));
+    await pumpFor(tester, 1500);
+    await tapButton(tester, find.byKey(const Key('loan_payout')));
     await pumpUntil(tester, find.text('Restschuld'), timeout: const Duration(seconds: 30));
 
     // /K020/ Sondertilgung: Vorschau berechnen und buchen
@@ -427,5 +435,33 @@ void main() {
     expect(find.text('Gehalt'), findsWidgets);
     await pumpFor(tester, 800);
     await snap(tester, '4-einnahmen-ausgaben');
+
+    // Sparregel für das geteilte digitale Konto von Ben: wöchentlich 20 € vom eigenen Girokonto
+    // (Umbuchung innerhalb der Projektbank; Start heute = sofort ausgeführt)
+    final subId = sub.data!['id'] as int;
+    await goBack(tester);
+    await pumpFor(tester, 800);
+    await pumpUntil(tester, find.text('Hallo Anna!'));
+    await scrollToTop(tester);
+    await tapButton(tester, find.byKey(Key('digital_tile_$subId')));
+    await pumpUntil(tester, find.byKey(const Key('digital_deposit')));
+    await pumpFor(tester, 1500);
+    await tapButton(tester, find.byKey(const Key('alloc_new')));
+    await pumpUntil(tester, find.byKey(const Key('alloc_amount')));
+    await pumpFor(tester, 1000);
+    await enterKey(tester, const Key('alloc_amount'), '20');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    final weekly = find.byKey(const Key('alloc_interval_WEEKLY'));
+    await tester.ensureVisible(weekly);
+    await pumpFor(tester, 300);
+    await tester.tap(weekly);
+    await pumpFor(tester, 300);
+    await tester.tap(find.byKey(const Key('alloc_save')));
+    await pumpUntil(tester, find.text('20,00 € · wöchentlich'), timeout: const Duration(seconds: 30));
+    await snap(tester, '5-sparregel');
+    final rules = (await a.dio.get<List<dynamic>>('/api/allocations/rules')).data!;
+    expect(rules, hasLength(1));
+    expect(((rules.first as Map)['lastRun'] as Map)['status'], 'COMPLETED');
   });
 }

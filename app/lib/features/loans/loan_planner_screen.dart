@@ -23,6 +23,10 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
   LoanPurposeInfo _purpose = loanPurposes.first;
   final _amount = TextEditingController(text: '20000');
   final _equity = TextEditingController(text: '0');
+  final _maxRate = TextEditingController();
+  final _budget = TextEditingController();
+  String _class = 'GUT';
+  bool _onlyEligible = false;
   int _term = 60;
   OfferResult? _result;
   bool _busy = false;
@@ -32,6 +36,8 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
   void dispose() {
     _amount.dispose();
     _equity.dispose();
+    _maxRate.dispose();
+    _budget.dispose();
     super.dispose();
   }
 
@@ -56,12 +62,20 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
       setState(() => _error = tr('Eigenkapital ungültig'));
       return;
     }
+    final maxRate = _maxRate.text.trim().isEmpty ? null : parseEuroToCents(_maxRate.text);
+    final budget = _budget.text.trim().isEmpty ? null : parseEuroToCents(_budget.text);
+    if ((_maxRate.text.trim().isNotEmpty && (maxRate == null || maxRate <= 0)) ||
+        (_budget.text.trim().isNotEmpty && (budget == null || budget <= 0))) {
+      setState(() => _error = tr('Filter: bitte gültige Beträge eingeben'));
+      return;
+    }
     setState(() {
       _busy = true;
       _error = null;
     });
     try {
-      final r = await ref.read(loansRepositoryProvider).offers(_purpose.key, amount, equity, _term);
+      final r = await ref.read(loansRepositoryProvider).offers(_purpose.key, amount, equity, _term,
+          creditClass: _class, maxMonthlyRateCents: maxRate, maxTotalCents: budget, onlyEligible: _onlyEligible);
       if (mounted) setState(() => _result = r);
     } catch (e) {
       if (mounted) setState(() => _error = apiErrorMessage(e));
@@ -147,6 +161,59 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
             _result = null;
           }),
         ),
+        const SizedBox(height: 8),
+        Text(tr('Bonität (Selbsteinschätzung)'), style: theme.textTheme.titleSmall),
+        const SizedBox(height: 4),
+        Wrap(spacing: 6, runSpacing: 4, children: [
+          for (final c in creditClasses.entries)
+            ChoiceChip(
+              key: Key('loan_class_${c.key}'),
+              label: Text(c.value),
+              selected: _class == c.key,
+              onSelected: (_) => setState(() {
+                _class = c.key;
+                _result = null;
+              }),
+            ),
+        ]),
+        Text(tr('Keine Abfrage bei einer Auskunftei – die Angabe bestimmt nur den Zins im Rechenbeispiel.'),
+            style: theme.textTheme.bodySmall),
+        ExpansionTile(
+          key: const Key('loan_filters'),
+          tilePadding: EdgeInsets.zero,
+          title: Text(tr('Filter')),
+          subtitle: Text(tr('Monatsrate, Budget, Voraussetzungen'), style: theme.textTheme.bodySmall),
+          children: [
+            TextField(
+              key: const Key('loan_filter_rate'),
+              controller: _maxRate,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration(labelText: tr('Höchste Monatsrate (optional)'), suffixText: '€'),
+              onChanged: (_) => setState(() => _result = null),
+            ),
+            const SizedBox(height: 8),
+            TextField(
+              key: const Key('loan_filter_budget'),
+              controller: _budget,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration(
+                labelText: tr('Budget: höchstens insgesamt zurückzahlen (optional)'),
+                suffixText: '€',
+              ),
+              onChanged: (_) => setState(() => _result = null),
+            ),
+            SwitchListTile(
+              key: const Key('loan_filter_eligible'),
+              contentPadding: EdgeInsets.zero,
+              value: _onlyEligible,
+              onChanged: (v) => setState(() {
+                _onlyEligible = v;
+                _result = null;
+              }),
+              title: Text(tr('Nur Angebote, deren Voraussetzungen ich erfülle')),
+            ),
+          ],
+        ),
         if (_error != null) Text(_error!, style: TextStyle(color: theme.colorScheme.error)),
         const SizedBox(height: 8),
         FilledButton.icon(
@@ -166,14 +233,23 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
     return [
       const SizedBox(height: 20),
       Text(tr('Angebote ({0})', [r.offers.length]), style: theme.textTheme.titleMedium),
+      if (r.hiddenCount > 0)
+        Text(tr('{0} Angebote durch Filter ausgeblendet', [r.hiddenCount]),
+            key: const Key('loan_hidden'), style: theme.textTheme.bodySmall),
       if (r.hasData)
         Padding(
           padding: const EdgeInsets.only(top: 4, bottom: 8),
           child: Text(tr('Bei {0} Monaten wären höchstens ca. {1} tragbar.', [r.termMonths, formatCents(r.maxPrincipalCents)]),
               style: theme.textTheme.bodySmall),
         ),
+      if (r.offers.isEmpty)
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Text(tr('Kein Angebot passt zu den Filtern.'), key: const Key('loan_no_offer')),
+        ),
       for (final o in r.offers)
         Card(
+          key: Key('loan_offer_${o.bank}'),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(color: o.recommended ? theme.colorScheme.primary : Colors.transparent, width: 2),
@@ -189,14 +265,24 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
                   if (o.recommended)
                     Chip(label: Text(tr('Empfohlen')), avatar: Icon(Icons.star, size: 16), visualDensity: VisualDensity.compact),
                 ]),
+                if (o.simulation)
+                  Text(tr('Fiktive Bank – unverbindliches Rechenbeispiel'), style: theme.textTheme.bodySmall),
                 const SizedBox(height: 6),
                 Row(children: [
-                  Expanded(child: _kv(tr('Zins p. a.'), formatPercent(o.interestRate))),
+                  Expanded(child: _kv(tr('Sollzins p. a.'), formatPercent(o.interestRate))),
+                  Expanded(child: _kv(tr('Effektiver Jahreszins'), o.effectiveRate == null ? '–' : formatPercent(o.effectiveRate!))),
                   Expanded(child: _kv(tr('Monatsrate'), formatCents(o.monthlyRateCents))),
-                  Expanded(child: _kv(tr('Zinskosten'), formatCents(o.totalInterestCents))),
                 ]),
                 const SizedBox(height: 6),
-                Text(tr('Gesamtkosten {0}', [formatCents(o.totalCostCents)]), style: theme.textTheme.bodySmall),
+                Text(tr('Zinskosten {0} · Gesamtbetrag {1}', [formatCents(o.totalInterestCents), formatCents(o.totalCostCents)]),
+                    style: theme.textTheme.bodySmall),
+                if (o.marketDeltaPercent != null)
+                  Text(
+                    o.marketDeltaPercent! >= 0
+                        ? tr('{0} Prozentpunkte über dem Bundesbank-Durchschnitt', [o.marketDeltaPercent!.toStringAsFixed(2).localDecimal])
+                        : tr('{0} Prozentpunkte unter dem Bundesbank-Durchschnitt', [(-o.marketDeltaPercent!).toStringAsFixed(2).localDecimal]),
+                    style: theme.textTheme.bodySmall,
+                  ),
                 if (o.declined)
                   Padding(
                     padding: const EdgeInsets.only(top: 6),
@@ -211,9 +297,49 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
             ),
           ),
         ),
+      if (r.referenceRates.isNotEmpty) ...[
+        const SizedBox(height: 8),
+        Card(
+          key: const Key('loan_reference'),
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(tr('Marktdurchschnitt (Deutsche Bundesbank)'), style: theme.textTheme.titleSmall),
+              for (final rate in r.referenceRates)
+                Padding(
+                  padding: const EdgeInsets.only(top: 6),
+                  child: Text(
+                    rate.stale
+                        ? tr('{0}: {1} (Stand {2}, möglicherweise veraltet)', [rate.label, formatPercent(rate.ratePercent), rate.period])
+                        : tr('{0}: {1} (Stand {2})', [rate.label, formatPercent(rate.ratePercent), rate.period]),
+                  ),
+                ),
+              const SizedBox(height: 6),
+              Text(r.referenceRates.first.note, style: theme.textTheme.bodySmall),
+            ]),
+          ),
+        ),
+      ],
+      if (r.providers.isNotEmpty)
+        ExpansionTile(
+          key: const Key('loan_providers'),
+          tilePadding: EdgeInsets.zero,
+          title: Text(tr('Anbieter und Datenquellen')),
+          children: [
+            for (final p in r.providers)
+              ListTile(
+                dense: true,
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(p.ok ? Icons.check_circle_outline : Icons.info_outline,
+                    color: p.ok ? Colors.green.shade700 : theme.colorScheme.outline),
+                title: Text('${p.name} · ${p.stateLabel}'),
+                subtitle: p.message == null ? null : Text(p.message!),
+              ),
+          ],
+        ),
       const SizedBox(height: 8),
-      Text(tr('Alle Banken und Zinssätze sind fiktiv und nach festen Regeln berechnet (Simulation).'),
-          style: theme.textTheme.bodySmall),
+      Text(r.disclaimerText ?? tr('Alle Banken und Zinssätze sind fiktiv und nach festen Regeln berechnet (Simulation).'),
+          key: const Key('loan_disclaimer'), style: theme.textTheme.bodySmall),
     ];
   }
 
