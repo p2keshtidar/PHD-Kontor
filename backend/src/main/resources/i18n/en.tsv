@@ -521,3 +521,11 @@ Bei Bedarf neu anfragen.	Request again if needed.
 Ausgezahlt – Raten laufen	Paid out – instalments running
 Vertrag geschlossen – Auszahlung ausstehend	Contract concluded – payout pending
 Zurückgezahlt	Repaid
+
+# Finanz-Dashboard
+Stand {0}	As of {0}
+Debitkarte (Simulation)	Debit card (simulation)
+Girokonto, digitale Konten, Pläne, Depot und Kredite der Projektbank sind eine Simulation mit Spielgeld.	Current account, digital accounts, plans, depot and loans of Projektbank are a simulation with play money.
+Verbundene Banken: letzter abgerufener Kontostand, nur Konten in Euro.	Connected banks: last retrieved balance, euro accounts only.
+Mindestens ein Kontostand einer verbundenen Bank ist älter als 2 Tage oder die Verbindung ist gestört.	At least one balance of a connected bank is older than 2 days or the connection is disrupted.
+Verlauf mit verbundenen Banken erst ab {0}, weil vorher keine Umsätze vorliegen.	History including connected banks only from {0}, because there are no transactions before that.

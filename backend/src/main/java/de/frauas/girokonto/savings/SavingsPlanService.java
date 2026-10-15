@@ -26,8 +26,6 @@ import de.frauas.girokonto.savings.PlanDtos.Summary;
 import de.frauas.girokonto.savings.PlanDtos.Tip;
 import de.frauas.girokonto.savings.PlanDtos.UpdateRequest;
 import de.frauas.girokonto.simulation.DailyJob;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -247,7 +245,8 @@ public class SavingsPlanService implements DailyJob {
         YearMonth ym = YearMonth.now(clock);
         long depotValue = depotValue(p.getId(), ym);
         if (depotValue > 0) {
-            bookingService.post(BookingType.DEPOT, "Verkauf Musterdepot „" + p.getName() + "“", null, p.getUserId(), List.of(
+            bookingService.post(BookingType.DEPOT, "Verkauf Musterdepot „" + p.getName() + "“", "plan-payout:" + p.getId(),
+                    p.getUserId(), List.of(
                     new BookingService.Line(accountService.systemAccount("DEPOT").getId(), -depotValue),
                     new BookingService.Line(main.getId(), depotValue)));
         }
@@ -359,19 +358,12 @@ public class SavingsPlanService implements DailyJob {
             return;
         }
         long equity = Math.round(depotCents * p.getRiskLevel().equityWeight());
-        buyFund(p.getId(), Fund.WELT_AKTIEN, equity, ym);
-        buyFund(p.getId(), Fund.EURO_ANLEIHEN, depotCents - equity, ym);
-    }
-
-    private void buyFund(Long planId, Fund fund, long cents, YearMonth ym) {
-        if (cents <= 0) {
-            return;
-        }
-        BigDecimal priceCents = BigDecimal.valueOf(fund.price(ym) * 100);
-        BigDecimal units = BigDecimal.valueOf(cents).divide(priceCents, 6, RoundingMode.HALF_UP);
-        DepotPosition pos = positions.findByPlanIdAndFund(planId, fund)
-                .orElseGet(() -> positions.save(new DepotPosition(planId, fund)));
-        pos.buy(units, cents);
+        Map<Fund, Long> cents = Map.of(Fund.WELT_AKTIEN, equity, Fund.EURO_ANLEIHEN, depotCents - equity);
+        DepotMath.unitsFor(p.getRiskLevel(), depotCents, ym).forEach((fund, units) -> {
+            DepotPosition pos = positions.findByPlanIdAndFund(p.getId(), fund)
+                    .orElseGet(() -> positions.save(new DepotPosition(p.getId(), fund)));
+            pos.buy(units, cents.get(fund));
+        });
     }
 
     // ------------------------------------------------------------------ Lesen
@@ -512,8 +504,7 @@ public class SavingsPlanService implements DailyJob {
     }
 
     private static long valueOf(DepotPosition dp, YearMonth ym) {
-        return dp.getUnits().multiply(BigDecimal.valueOf(dp.getFund().price(ym) * 100))
-                .setScale(0, RoundingMode.HALF_UP).longValue();
+        return DepotMath.value(dp.getFund(), dp.getUnits(), ym);
     }
 
     private static LocalDate projectDate(long w0, long rate, double i, Long target, LocalDate today) {
