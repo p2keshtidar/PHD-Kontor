@@ -1142,4 +1142,8 @@ const stringsEn = <String, String>{
   'Suche leeren': 'Clear search',
   'Datum entfernen': 'Remove date',
   'Wird geladen …': 'Loading …',
+  // Korrekturen
+  'Bericht': 'Report',
+  'Szenarien': 'Scenarios',
+  'PDF oder Bild': 'PDF or image',
 };

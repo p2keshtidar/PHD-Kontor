@@ -20,10 +20,10 @@ class AssistantScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: Text(tr('Finanzassistent')),
-            bottom: TabBar(isScrollable: true, tabs: [
+            bottom: TabBar(tabs: [
               Tab(key: const Key('assistant_tab_ask'), text: tr('Fragen')),
-              Tab(key: const Key('assistant_tab_report'), text: tr('Monatsbericht')),
-              Tab(key: const Key('assistant_tab_scenario'), text: tr('Was wäre, wenn …')),
+              Tab(key: const Key('assistant_tab_report'), text: tr('Bericht')),
+              Tab(key: const Key('assistant_tab_scenario'), text: tr('Szenarien')),
             ]),
           ),
           body: const TabBarView(children: [_AskTab(), _ReportTab(), _ScenarioTab()]),

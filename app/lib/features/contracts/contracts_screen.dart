@@ -111,13 +111,13 @@ class ContractDetailScreen extends ConsumerWidget {
   }
 
   Future<void> _upload(BuildContext context, WidgetRef ref) async {
-    const types = XTypeGroup(
-      label: 'PDF/Bild',
+    final types = XTypeGroup(
+      label: tr('PDF oder Bild'),
       extensions: ['pdf', 'png', 'jpg', 'jpeg'],
       mimeTypes: ['application/pdf', 'image/png', 'image/jpeg'],
       uniformTypeIdentifiers: ['com.adobe.pdf', 'public.png', 'public.jpeg'],
     );
-    final XFile? file = await openFile(acceptedTypeGroups: const [types]);
+    final XFile? file = await openFile(acceptedTypeGroups: [types]);
     if (file == null || !context.mounted) return;
     final bytes = await file.readAsBytes();
     if (bytes.length > 5 * 1024 * 1024) {
