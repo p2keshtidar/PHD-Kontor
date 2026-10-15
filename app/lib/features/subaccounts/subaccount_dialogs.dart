@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/money.dart';
@@ -32,7 +33,7 @@ class _SubaccountEditDialogState extends ConsumerState<SubaccountEditDialog> {
 
   Future<void> _save() async {
     if (_name.text.trim().isEmpty) {
-      setState(() => _error = 'Bitte Namen eingeben');
+      setState(() => _error = tr('Bitte Namen eingeben'));
       return;
     }
     setState(() {
@@ -61,16 +62,16 @@ class _SubaccountEditDialogState extends ConsumerState<SubaccountEditDialog> {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return AlertDialog(
-      title: Text(widget.id == null ? 'Neues Unterkonto' : 'Unterkonto bearbeiten'),
+      title: Text(widget.id == null ? tr('Neues Unterkonto') : tr('Unterkonto bearbeiten')),
       content: SingleChildScrollView(
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
           TextField(
             controller: _name,
             maxLength: 40,
             autofocus: true,
-            decoration: const InputDecoration(labelText: 'Name', hintText: 'z. B. Urlaub'),
+            decoration: InputDecoration(labelText: tr('Name'), hintText: tr('z. B. Urlaub')),
           ),
-          const Text('Symbol'),
+          Text(tr('Symbol')),
           const SizedBox(height: 8),
           Wrap(spacing: 8, runSpacing: 8, children: [
             for (final e in subaccountIcons.entries)
@@ -90,8 +91,8 @@ class _SubaccountEditDialogState extends ConsumerState<SubaccountEditDialog> {
         ]),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Abbrechen')),
-        FilledButton(onPressed: _saving ? null : _save, child: const Text('Speichern')),
+        TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(tr('Abbrechen'))),
+        FilledButton(onPressed: _saving ? null : _save, child: Text(tr('Speichern'))),
       ],
     );
   }
@@ -128,11 +129,11 @@ class _AmountDialogState extends State<_AmountDialog> {
   void _ok() {
     final cents = parseEuroToCents(_amount.text);
     if (cents == null || cents <= 0) {
-      setState(() => _error = 'Bitte gültigen Betrag eingeben');
+      setState(() => _error = tr('Bitte gültigen Betrag eingeben'));
       return;
     }
     if (cents > widget.maxCents) {
-      setState(() => _error = 'Höchstens ${formatCents(widget.maxCents)} verfügbar');
+      setState(() => _error = tr('Höchstens {0} verfügbar', [formatCents(widget.maxCents)]));
       return;
     }
     Navigator.of(context).pop(cents);
@@ -147,18 +148,18 @@ class _AmountDialogState extends State<_AmountDialog> {
           controller: _amount,
           autofocus: true,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          decoration: InputDecoration(labelText: 'Betrag', suffixText: '€', errorText: _error),
+          decoration: InputDecoration(labelText: tr('Betrag'), suffixText: '€', errorText: _error),
           onSubmitted: (_) => _ok(),
         ),
         const SizedBox(height: 8),
         TextButton(
           onPressed: () => _amount.text = formatCents(widget.maxCents).replaceAll(' €', ''),
-          child: Text('Alles (${formatCents(widget.maxCents)})'),
+          child: Text(tr('Alles ({0})', [formatCents(widget.maxCents)])),
         ),
       ])),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Abbrechen')),
-        FilledButton(onPressed: _ok, child: const Text('Umbuchen')),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(tr('Abbrechen'))),
+        FilledButton(onPressed: _ok, child: Text(tr('Umbuchen'))),
       ],
     );
   }

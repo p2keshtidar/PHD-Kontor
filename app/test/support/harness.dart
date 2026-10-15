@@ -5,6 +5,7 @@ import 'package:girokonto_app/core/api_client.dart';
 import 'package:girokonto_app/core/key_value_store.dart';
 import 'package:girokonto_app/core/token_storage.dart';
 import 'package:girokonto_app/features/auth/app_user.dart';
+import 'package:girokonto_app/l10n/l10n.dart';
 import 'package:girokonto_app/features/auth/auth_controller.dart';
 import 'package:go_router/go_router.dart';
 
@@ -55,6 +56,7 @@ Future<FakeBackend> pumpScreen(
   tester.view.physicalSize = size * 2.0;
   tester.platformDispatcher.textScaleFactorTestValue = textScale;
   addTearDown(() {
+    L10n.language.value = 'de';
     tester.view.resetPhysicalSize();
     tester.view.resetDevicePixelRatio();
     tester.platformDispatcher.clearTextScaleFactorTestValue();
@@ -73,7 +75,11 @@ Future<FakeBackend> pumpScreen(
       }),
       authControllerProvider.overrideWith(() => FakeAuthController(user)),
     ],
-    child: MaterialApp.router(routerConfig: router),
+    // wie in main.dart: bei Sprachwechsel neu aufbauen
+    child: ValueListenableBuilder<String>(
+      valueListenable: L10n.language,
+      builder: (_, lang, __) => MaterialApp.router(key: ValueKey(lang), routerConfig: router),
+    ),
   ));
   if (settle) {
     await tester.pumpAndSettle();

@@ -1,3 +1,5 @@
+import '../l10n/l10n.dart';
+
 // Eingabeprüfungen, die auch das Backend macht. In der App sorgen sie für schnelle Rückmeldung.
 
 const minAge = 18;
@@ -14,30 +16,30 @@ bool isAdult(DateTime birthDate, DateTime today) {
 
 String? validateEmail(String? value) {
   final v = value?.trim() ?? '';
-  if (v.isEmpty) return 'Bitte E-Mail eingeben';
+  if (v.isEmpty) return tr('Bitte E-Mail eingeben');
   if (!RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(v)) {
-    return 'E-Mail ist ungültig';
+    return tr('E-Mail ist ungültig');
   }
   return null;
 }
 
 String? validateRequired(String? value, String label) {
-  if (value == null || value.trim().isEmpty) return '$label fehlt';
+  if (value == null || value.trim().isEmpty) return tr('{0} fehlt', [label]);
   return null;
 }
 
 String? validatePhone(String? value) {
   final v = value?.trim() ?? '';
-  if (v.isEmpty) return 'Telefonnummer fehlt';
+  if (v.isEmpty) return tr('Telefonnummer fehlt');
   if (!RegExp(r'^\+?[0-9 ]{6,20}$').hasMatch(v)) {
-    return 'Telefonnummer ist ungültig';
+    return tr('Telefonnummer ist ungültig');
   }
   return null;
 }
 
 String? validateNewPassword(String? value) {
   if (value == null || value.length < minPasswordLength) {
-    return 'Mindestens $minPasswordLength Zeichen';
+    return tr('Mindestens {0} Zeichen', [minPasswordLength]);
   }
   return null;
 }

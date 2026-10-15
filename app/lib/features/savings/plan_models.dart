@@ -1,24 +1,26 @@
+import '../../l10n/l10n.dart';
+
 DateTime? _date(dynamic v) => v == null ? null : DateTime.parse(v as String);
 int? _int(dynamic v) => v == null ? null : (v as num).toInt();
 
 /// Risikostufen (/F710/), Schlüssel wie im Backend.
-const riskLevels = <String, String>{
-  'VORSICHTIG': 'Vorsichtig',
-  'AUSGEWOGEN': 'Ausgewogen',
-  'MUTIG': 'Mutig',
+Map<String, String> get riskLevels => {
+  'VORSICHTIG': tr('Vorsichtig'),
+  'AUSGEWOGEN': tr('Ausgewogen'),
+  'MUTIG': tr('Mutig'),
 };
 
 /// Kurze Erklärung je Risikostufe für den Assistenten.
 String riskDescription(String level, {required bool invest}) => switch (level) {
       'VORSICHTIG' => invest
-          ? '20 % Aktien, 80 % Anleihen. Geringe Schwankung, erwartet ca. 2,8 % pro Jahr.'
-          : 'Alles bleibt auf dem Sparkonto. Kein Risiko, aber auch kein Ertrag.',
+          ? tr('20 % Aktien, 80 % Anleihen. Geringe Schwankung, erwartet ca. 2,8 % pro Jahr.')
+          : tr('Alles bleibt auf dem Sparkonto. Kein Risiko, aber auch kein Ertrag.'),
       'AUSGEWOGEN' => invest
-          ? 'Halb Aktien, halb Anleihen. Mittlere Schwankung, erwartet ca. 4,0 % pro Jahr.'
-          : 'Die Hälfte der Rate fließt in Fonds. Etwas Schwankung, erwartet ca. 2,0 % pro Jahr.',
+          ? tr('Halb Aktien, halb Anleihen. Mittlere Schwankung, erwartet ca. 4,0 % pro Jahr.')
+          : tr('Die Hälfte der Rate fließt in Fonds. Etwas Schwankung, erwartet ca. 2,0 % pro Jahr.'),
       _ => invest
-          ? '80 % Aktien, 20 % Anleihen. Deutliche Schwankung, erwartet ca. 5,2 % pro Jahr.'
-          : '80 % der Rate fließen in Fonds, überwiegend Aktien. Erwartet ca. 4,2 % pro Jahr, kann aber schwanken.',
+          ? tr('80 % Aktien, 20 % Anleihen. Deutliche Schwankung, erwartet ca. 5,2 % pro Jahr.')
+          : tr('80 % der Rate fließen in Fonds, überwiegend Aktien. Erwartet ca. 4,2 % pro Jahr, kann aber schwanken.'),
     };
 
 /// Ergebnis der Machbarkeitsprüfung (/F620/).
@@ -221,9 +223,9 @@ class PlanDetail {
 }
 
 /// /K010/: Auswahl für die Erinnerung (Tage vor der Abbuchung)
-const reminderOptions = <int, String>{
-  0: 'Aus',
-  1: '1 Tag vorher',
-  3: '3 Tage vorher',
-  7: '7 Tage vorher',
+Map<int, String> get reminderOptions => {
+  0: tr('Aus'),
+  1: tr('1 Tag vorher'),
+  3: tr('3 Tage vorher'),
+  7: tr('7 Tage vorher'),
 };

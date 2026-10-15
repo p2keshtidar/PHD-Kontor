@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/charts.dart';
@@ -61,15 +62,15 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
   // ---------------------------------------------------------------- Schritt-Logik
 
   String? _validateStep0() {
-    if (_name.text.trim().isEmpty) return 'Bitte einen Namen eingeben';
+    if (_name.text.trim().isEmpty) return tr('Bitte einen Namen eingeben');
     if (!_invest) {
       final t = parseEuroToCents(_target.text);
-      if (t == null || t < 5000 || t > 10000000) return 'Zielbetrag zwischen 50 € und 100.000 €';
-      if (_targetDate == null) return 'Bitte ein Wunschdatum wählen';
+      if (t == null || t < 5000 || t > 10000000) return tr('Zielbetrag zwischen 50 € und 100.000 €');
+      if (_targetDate == null) return tr('Bitte ein Wunschdatum wählen');
     } else {
       final r = parseEuroToCents(_rate.text);
-      if (r == null || r < 1000 || r > 500000) return 'Monatsbetrag zwischen 10 € und 5.000 €';
-      if (_target.text.trim().isNotEmpty && parseEuroToCents(_target.text) == null) return 'Zielbetrag ungültig';
+      if (r == null || r < 1000 || r > 500000) return tr('Monatsbetrag zwischen 10 € und 5.000 €');
+      if (_target.text.trim().isNotEmpty && parseEuroToCents(_target.text) == null) return tr('Zielbetrag ungültig');
     }
     return null;
   }
@@ -123,7 +124,7 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
   Future<void> _create() async {
     final rate = parseEuroToCents(_rate.text);
     if (rate == null || rate < 100) {
-      setState(() => _error = 'Bitte eine gültige Monatsrate eingeben');
+      setState(() => _error = tr('Bitte eine gültige Monatsrate eingeben'));
       return;
     }
     setState(() {
@@ -169,7 +170,7 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
       initialDate: _targetDate ?? DateTime(today.year + 1, today.month, 1),
       firstDate: first,
       lastDate: DateTime(today.year + 30),
-      helpText: 'Bis wann?',
+      helpText: tr('Bis wann?'),
     );
     if (picked != null) setState(() => _targetDate = picked);
   }
@@ -179,10 +180,10 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
   @override
   Widget build(BuildContext context) {
     final titles = _invest
-        ? ['Betrag', 'Risikostufe', 'Prüfung']
-        : ['Ziel', 'Risikostufe', 'Sparrate'];
+        ? [tr('Betrag'), tr('Risikostufe'), tr('Prüfung')]
+        : [tr('Ziel'), tr('Risikostufe'), tr('Sparrate')];
     return Scaffold(
-      appBar: AppBar(title: Text(_invest ? 'Neuer Investplan' : 'Neuer Sparplan')),
+      appBar: AppBar(title: Text(_invest ? tr('Neuer Investplan') : tr('Neuer Sparplan'))),
       body: Column(children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
@@ -223,7 +224,7 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: _busy ? null : () => setState(() => _step--),
-                    child: const Text('Zurück'),
+                    child: Text(tr('Zurück')),
                   ),
                 ),
               if (_step > 0) const SizedBox(width: 12),
@@ -232,7 +233,7 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
                   onPressed: _busy ? null : (_step < 2 ? _next : _create),
                   child: _busy
                       ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-                      : Text(_step < 2 ? 'Weiter' : 'Plan anlegen'),
+                      : Text(_step < 2 ? tr('Weiter') : tr('Plan anlegen')),
                 ),
               ),
             ]),
@@ -253,58 +254,57 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
       ]);
 
   Widget _goalStep() => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Text('Wofür möchtest du sparen?', style: Theme.of(context).textTheme.titleMedium),
+        Text(tr('Wofür möchtest du sparen?'), style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 12),
         TextField(
           controller: _name,
           maxLength: 60,
-          decoration: const InputDecoration(labelText: 'Name', hintText: 'z. B. Urlaub in Italien'),
+          decoration: InputDecoration(labelText: tr('Name'), hintText: tr('z. B. Urlaub in Italien')),
         ),
         _iconPicker(),
         const SizedBox(height: 16),
         TextField(
           controller: _target,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          decoration: const InputDecoration(labelText: 'Zielbetrag', suffixText: '€', hintText: 'z. B. 3000'),
+          decoration: InputDecoration(labelText: tr('Zielbetrag'), suffixText: '€', hintText: 'z. B. 3000'),
         ),
         const SizedBox(height: 16),
         OutlinedButton.icon(
           onPressed: _pickDate,
           icon: const Icon(Icons.event),
-          label: Text(_targetDate == null ? 'Wunschdatum wählen' : 'Bis ${formatDate(_targetDate!)}'),
+          label: Text(_targetDate == null ? tr('Wunschdatum wählen') : tr('Bis {0}', [formatDate(_targetDate!)])),
         ),
       ]);
 
   Widget _investStep() => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Text('Wie viel möchtest du monatlich investieren?', style: Theme.of(context).textTheme.titleMedium),
+        Text(tr('Wie viel möchtest du monatlich investieren?'), style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 12),
         TextField(
           controller: _name,
           maxLength: 60,
-          decoration: const InputDecoration(labelText: 'Name', hintText: 'z. B. Altersvorsorge'),
+          decoration: InputDecoration(labelText: tr('Name'), hintText: tr('z. B. Altersvorsorge')),
         ),
         TextField(
           controller: _rate,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          decoration: const InputDecoration(labelText: 'Monatsbetrag', suffixText: '€'),
+          decoration: InputDecoration(labelText: tr('Monatsbetrag'), suffixText: '€'),
         ),
         const SizedBox(height: 16),
         TextField(
           controller: _target,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          decoration: const InputDecoration(
-              labelText: 'Zielbetrag (optional)', suffixText: '€', helperText: 'Ohne Ziel: einfach dauerhaft investieren'),
+          decoration: InputDecoration(
+              labelText: tr('Zielbetrag (optional)'), suffixText: '€', helperText: tr('Ohne Ziel: einfach dauerhaft investieren')),
         ),
         const SizedBox(height: 12),
         Text(
-          'Das Geld fließt vollständig in ein Musterdepot aus zwei fiktiven Fonds (Welt-Aktien und Euro-Anleihen). '
-          'Gerechnet wird mit Spielgeld.',
+          tr('Das Geld fließt vollständig in ein Musterdepot aus zwei fiktiven Fonds (Welt-Aktien und Euro-Anleihen). Gerechnet wird mit Spielgeld.'),
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ]);
 
   Widget _riskStep() => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Text('Wie viel Risiko passt zu dir?', style: Theme.of(context).textTheme.titleMedium),
+        Text(tr('Wie viel Risiko passt zu dir?'), style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 12),
         for (final e in riskLevels.entries)
           Card(
@@ -325,7 +325,7 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
           ),
         const SizedBox(height: 8),
         Text(
-          'Renditen sind Annahmen für die Simulation und keine Prognose echter Märkte.',
+          tr('Renditen sind Annahmen für die Simulation und keine Prognose echter Märkte.'),
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ]);
@@ -336,7 +336,7 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
     if (c == null) return const SizedBox.shrink();
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Row(children: [
-        Expanded(child: Text('Machbarkeit', style: theme.textTheme.titleMedium)),
+        Expanded(child: Text(tr('Machbarkeit'), style: theme.textTheme.titleMedium)),
         FeasibilityBadge(level: c.feasibility),
       ]),
       const SizedBox(height: 8),
@@ -346,8 +346,8 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
         Card(
           child: ListTile(
             leading: const Icon(Icons.account_balance_wallet),
-            title: const Text('Verfügbar für Pläne'),
-            subtitle: const Text('Ø freier Betrag minus laufende Pläne'),
+            title: Text(tr('Verfügbar für Pläne')),
+            subtitle: Text(tr('Ø freier Betrag minus laufende Pläne')),
             trailing: Text(formatCents(c.availableCents), style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
         ),
@@ -355,7 +355,7 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
         Card(
           child: ListTile(
             leading: const Icon(Icons.calculate),
-            title: const Text('Nötige Rate bis zum Wunschdatum'),
+            title: Text(tr('Nötige Rate bis zum Wunschdatum')),
             trailing: Text(formatCents(c.requiredRateCents!), style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
         ),
@@ -364,14 +364,14 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
           color: theme.colorScheme.tertiaryContainer,
           child: ListTile(
             leading: const Icon(Icons.lightbulb),
-            title: Text('Vorschlag: ${formatCents(c.alternativeRateCents!)} pro Monat'),
-            subtitle: c.alternativeDate == null ? null : Text('Ziel erreicht am ${formatDate(c.alternativeDate!)}'),
+            title: Text(tr('Vorschlag: {0} pro Monat', [formatCents(c.alternativeRateCents!)])),
+            subtitle: c.alternativeDate == null ? null : Text(tr('Ziel erreicht am {0}', [formatDate(c.alternativeDate!)])),
             trailing: TextButton(
               onPressed: () {
                 _rate.text = formatCents(c.alternativeRateCents!).replaceAll(' €', '');
                 _runCheck();
               },
-              child: const Text('Übernehmen'),
+              child: Text(tr('Übernehmen')),
             ),
           ),
         ),
@@ -381,22 +381,21 @@ class _PlanWizardScreenState extends ConsumerState<PlanWizardScreen> {
           child: TextField(
             controller: _rate,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            decoration: const InputDecoration(labelText: 'Monatsrate', suffixText: '€'),
+            decoration: InputDecoration(labelText: tr('Monatsrate'), suffixText: '€'),
           ),
         ),
         const SizedBox(width: 8),
-        OutlinedButton(onPressed: _busy ? null : _runCheck, child: const Text('Neu prüfen')),
+        OutlinedButton(onPressed: _busy ? null : _runCheck, child: Text(tr('Neu prüfen'))),
       ]),
       if (c.projectedDate != null)
         Padding(
           padding: const EdgeInsets.only(top: 8),
-          child: Text('Mit ${formatCents(c.rateCents)} pro Monat erreichst du das Ziel voraussichtlich am '
-              '${formatDate(c.projectedDate!)} (erwartete Rendite ${(c.expectedReturnPa * 100).toStringAsFixed(1).replaceAll('.', ',')} % p. a.).'),
+          child: Text(tr('Mit {0} pro Monat erreichst du das Ziel voraussichtlich am {1} (erwartete Rendite {2} % p. a.).', [formatCents(c.rateCents), formatDate(c.projectedDate!), (c.expectedReturnPa * 100).toStringAsFixed(1).localDecimal])),
         ),
       const SizedBox(height: 16),
       DropdownButtonFormField<int>(
         value: _day,
-        decoration: const InputDecoration(labelText: 'Abbuchung am', helperText: 'Tag im Monat, z. B. kurz nach dem Gehalt'),
+        decoration: InputDecoration(labelText: tr('Abbuchung am'), helperText: tr('Tag im Monat, z. B. kurz nach dem Gehalt')),
         items: [for (var d = 1; d <= 28; d++) DropdownMenuItem(value: d, child: Text('$d.'))],
         onChanged: (v) => setState(() => _day = v ?? 1),
       ),

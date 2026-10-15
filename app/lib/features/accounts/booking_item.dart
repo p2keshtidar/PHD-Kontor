@@ -1,3 +1,5 @@
+import '../../l10n/l10n.dart';
+
 /// Ein Umsatz aus Sicht eines Kontos (/F120/). amountCents > 0 = Eingang.
 class BookingItem {
   const BookingItem({
@@ -61,4 +63,4 @@ const bookingTypeLabels = <String, String>{
   'ENTRY_EXPENSE': 'Eigene Ausgabe',
 };
 
-String bookingTypeLabel(String type) => bookingTypeLabels[type] ?? type;
+String bookingTypeLabel(String type) => tr(bookingTypeLabels[type] ?? type);

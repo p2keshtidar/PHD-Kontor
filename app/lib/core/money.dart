@@ -1,3 +1,5 @@
+import '../l10n/l10n.dart';
+
 /// Formatiert einen Betrag in Cent als deutschen Euro-Betrag, z. B. 123456 -> "1.234,56 €".
 String formatCents(int cents) {
   final negative = cents < 0;
@@ -10,6 +12,9 @@ String formatCents(int cents) {
     final remaining = euros.length - i;
     if (i > 0 && remaining % 3 == 0) grouped.write('.');
     grouped.write(euros[i]);
+  }
+  if (L10n.isEnglish) {
+    return '${negative ? '-' : ''}€${grouped.toString().replaceAll('.', ',')}.$rest';
   }
   return '${negative ? '-' : ''}$grouped,$rest €';
 }
@@ -29,7 +34,10 @@ String formatIban(String iban) {
 int? parseEuroToCents(String input) {
   var s = input.trim().replaceAll('€', '').replaceAll(' ', '');
   if (s.isEmpty) return null;
-  if (s.contains(',')) {
+  if (L10n.isEnglish && (s.contains('.') || RegExp(r'^\d{1,3}(,\d{3})+$').hasMatch(s))) {
+    // englisches Format: Kommas sind Tausendertrenner ("1,234.50")
+    s = s.replaceAll(',', '');
+  } else if (s.contains(',')) {
     // deutsches Format: Punkte sind Tausendertrenner
     s = s.replaceAll('.', '').replaceAll(',', '.');
   }

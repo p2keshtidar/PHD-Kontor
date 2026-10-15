@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -50,8 +51,8 @@ class SavingsHomeScreen extends ConsumerWidget {
             Expanded(
               child: _ActionCard(
                 icon: Icons.flag,
-                title: 'Sparplan',
-                subtitle: 'Für ein Ziel sparen',
+                title: tr('Sparplan'),
+                subtitle: tr('Für ein Ziel sparen'),
                 onTap: () => context.push('/plan/neu?type=GOAL'),
               ),
             ),
@@ -59,8 +60,8 @@ class SavingsHomeScreen extends ConsumerWidget {
             Expanded(
               child: _ActionCard(
                 icon: Icons.show_chart,
-                title: 'Investplan',
-                subtitle: 'Monatlich in Fonds',
+                title: tr('Investplan'),
+                subtitle: tr('Monatlich in Fonds'),
                 onTap: () => context.push('/plan/neu?type=INVEST'),
               ),
             ),
@@ -68,8 +69,8 @@ class SavingsHomeScreen extends ConsumerWidget {
             Expanded(
               child: _ActionCard(
                 icon: Icons.request_quote,
-                title: 'Kredit',
-                subtitle: 'Planen & vergleichen',
+                title: tr('Kredit'),
+                subtitle: tr('Planen & vergleichen'),
                 onTap: () => context.push('/kredit/neu'),
               ),
             ),
@@ -78,31 +79,31 @@ class SavingsHomeScreen extends ConsumerWidget {
           _ActionCard(
             key: const Key('savings_entries'),
             icon: Icons.swap_vert,
-            title: 'Einnahmen & Ausgaben',
-            subtitle: 'Gehalt, Miete, Urlaub … eintragen – einmalig oder regelmäßig',
+            title: tr('Einnahmen & Ausgaben'),
+            subtitle: tr('Gehalt, Miete, Urlaub … eintragen – einmalig oder regelmäßig'),
             onTap: () => context.push('/eintraege'),
           ),
           const SizedBox(height: 20),
-          Text('Meine Pläne', style: theme.textTheme.titleMedium),
+          Text(tr('Meine Pläne'), style: theme.textTheme.titleMedium),
           const SizedBox(height: 4),
           plans.when(
             loading: () => const Padding(padding: EdgeInsets.all(16), child: Center(child: CircularProgressIndicator())),
             error: (e, _) => Text(apiErrorMessage(e)),
             data: (list) => list.isEmpty
-                ? const Padding(
+                ? Padding(
                     padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text('Noch keine Pläne. Starte oben mit einem Spar- oder Investplan.'),
+                    child: Text(tr('Noch keine Pläne. Starte oben mit einem Spar- oder Investplan.')),
                   )
                 : Column(children: [for (final p in list) _PlanTile(plan: p)]),
           ),
           const SizedBox(height: 20),
-          Text('Meine Kredite', style: theme.textTheme.titleMedium),
+          Text(tr('Meine Kredite'), style: theme.textTheme.titleMedium),
           const SizedBox(height: 4),
           loans.when(
             loading: () => const SizedBox.shrink(),
             error: (e, _) => Text(apiErrorMessage(e)),
             data: (list) => list.isEmpty
-                ? const Padding(padding: EdgeInsets.symmetric(vertical: 12), child: Text('Keine Kredite.'))
+                ? Padding(padding: EdgeInsets.symmetric(vertical: 12), child: Text(tr('Keine Kredite.')))
                 : Column(children: [for (final l in list) _LoanTile(loan: l)]),
           ),
         ],
@@ -127,10 +128,9 @@ class _OverviewCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('Dein Finanzassistent', style: theme.textTheme.titleMedium),
+            Text(tr('Dein Finanzassistent'), style: theme.textTheme.titleMedium),
             const SizedBox(height: 6),
-            const Text('Sobald Einnahmen und Ausgaben bekannt sind, zeigt die App, wie viel dir jeden Monat übrig '
-                'bleibt, und prüft deine Pläne. Zum Ausprobieren kannst du Beispielmonate erzeugen.'),
+            Text(tr('Sobald Einnahmen und Ausgaben bekannt sind, zeigt die App, wie viel dir jeden Monat übrig bleibt, und prüft deine Pläne. Zum Ausprobieren kannst du Beispielmonate erzeugen.')),
             const SizedBox(height: 12),
             Wrap(spacing: 8, children: [
               FilledButton.icon(
@@ -138,9 +138,9 @@ class _OverviewCard extends StatelessWidget {
                   if (await showDemoDialog(context)) onDemoCreated();
                 },
                 icon: const Icon(Icons.auto_awesome),
-                label: const Text('Beispielmonate erzeugen'),
+                label: Text(tr('Beispielmonate erzeugen')),
               ),
-              OutlinedButton(onPressed: () => context.push('/finanzen'), child: const Text('Finanzüberblick')),
+              OutlinedButton(onPressed: () => context.push('/finanzen'), child: Text(tr('Finanzüberblick'))),
             ]),
           ]),
         ),
@@ -155,20 +155,20 @@ class _OverviewCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(children: [
-              Expanded(child: Text('Jeden Monat übrig', style: theme.textTheme.titleSmall)),
+              Expanded(child: Text(tr('Jeden Monat übrig'), style: theme.textTheme.titleSmall)),
               const Icon(Icons.chevron_right),
             ]),
             Text(formatCents(o.avgFreeCents),
                 style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
-            Text('Ø Einnahmen ${formatCents(o.avgIncomeCents)} · Ø Ausgaben ${formatCents(o.avgExpenseCents)}',
+            Text(tr('Ø Einnahmen {0} · Ø Ausgaben {1}', [formatCents(o.avgIncomeCents), formatCents(o.avgExpenseCents)]),
                 style: theme.textTheme.bodySmall),
             const Divider(height: 24),
             Row(children: [
-              Expanded(child: Text('Verfügbar für neue Pläne', style: theme.textTheme.bodyMedium)),
+              Expanded(child: Text(tr('Verfügbar für neue Pläne'), style: theme.textTheme.bodyMedium)),
               Text(formatCents(o.availableCents), style: const TextStyle(fontWeight: FontWeight.bold)),
             ]),
             if (o.planRatesCents > 0)
-              Text('Bereits verplant: ${formatCents(o.planRatesCents)} pro Monat', style: theme.textTheme.bodySmall),
+              Text(tr('Bereits verplant: {0} pro Monat', [formatCents(o.planRatesCents)]), style: theme.textTheme.bodySmall),
           ]),
         ),
       ),
@@ -216,15 +216,15 @@ class _PlanTile extends StatelessWidget {
     final p = plan;
     String status;
     if (p.status == 'COMPLETED') {
-      status = 'Ausgezahlt';
+      status = tr('Ausgezahlt');
     } else if (p.isPaused) {
-      status = 'Pausiert';
+      status = tr('Pausiert');
     } else if (p.onTrack == true) {
-      status = 'Im Plan';
+      status = tr('Im Plan');
     } else if (p.onTrack == false) {
-      status = 'Hinter Plan';
+      status = tr('Hinter Plan');
     } else {
-      status = '${formatCents(p.monthlyRateCents)} / Monat';
+      status = tr('{0} / Monat', [formatCents(p.monthlyRateCents)]);
     }
     return Card(
       child: InkWell(
@@ -256,8 +256,7 @@ class _PlanTile extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                '${p.progressPercent!.toStringAsFixed(0)} % von ${formatCents(p.targetCents!)}'
-                '${p.projectedDate != null ? ' · voraussichtlich ${formatDate(p.projectedDate!)}' : ''}',
+                tr('{0} % von {1}{2}', [p.progressPercent!.toStringAsFixed(0), formatCents(p.targetCents!), p.projectedDate != null ? tr(' · voraussichtlich {0}', [formatDate(p.projectedDate!)]) : '']),
                 style: theme.textTheme.bodySmall,
               ),
             ],
@@ -291,8 +290,8 @@ class _LoanTile extends StatelessWidget {
                   Text('${loan.purposeLabel} · ${loan.bankName}', style: const TextStyle(fontWeight: FontWeight.bold)),
                   Text(
                     loan.isActive
-                        ? '${formatCents(loan.monthlyRateCents)} / Monat · nächste Rate ${loan.nextDueDate == null ? '–' : formatDate(loan.nextDueDate!)}'
-                        : 'Abbezahlt',
+                        ? tr('{0} / Monat · nächste Rate {1}', [formatCents(loan.monthlyRateCents), loan.nextDueDate == null ? '–' : formatDate(loan.nextDueDate!)])
+                        : tr('Abbezahlt'),
                     style: theme.textTheme.bodySmall,
                   ),
                 ]),
@@ -306,7 +305,7 @@ class _LoanTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(4),
             ),
             const SizedBox(height: 4),
-            Text('${loan.progressPercent.toStringAsFixed(0)} % getilgt', style: theme.textTheme.bodySmall),
+            Text(tr('{0} % getilgt', [loan.progressPercent.toStringAsFixed(0)]), style: theme.textTheme.bodySmall),
           ]),
         ),
       ),

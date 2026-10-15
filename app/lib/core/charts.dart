@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import '../l10n/l10n.dart';
 
 import 'package:flutter/material.dart';
 
@@ -40,8 +41,8 @@ class IncomeExpenseChart extends StatelessWidget {
         const SizedBox(height: 8),
         // Wrap statt Row: bei großer Schrift in die nächste Zeile umbrechen statt überlaufen
         Wrap(spacing: 16, runSpacing: 4, children: [
-          const _Legend(color: incomeColor, text: 'Einnahmen'),
-          _Legend(color: scheme.error, text: 'Ausgaben'),
+          _Legend(color: incomeColor, text: tr('Einnahmen')),
+          _Legend(color: scheme.error, text: tr('Ausgaben')),
         ]),
       ],
     );
@@ -123,7 +124,7 @@ class CategoryBars extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final total = items.fold<int>(0, (s, e) => s + e.$2);
-    if (total <= 0) return const Text('Keine Ausgaben in diesem Monat.');
+    if (total <= 0) return Text(tr('Keine Ausgaben in diesem Monat.'));
     return Column(children: [
       for (final (label, cents) in items)
         Padding(
@@ -176,7 +177,7 @@ class ValueLineChart extends StatelessWidget {
       return SizedBox(
         height: 60,
         child: Center(
-          child: Text('Der Verlauf erscheint nach der ersten Rate.', style: Theme.of(context).textTheme.bodySmall),
+          child: Text(tr('Der Verlauf erscheint nach der ersten Rate.'), style: Theme.of(context).textTheme.bodySmall),
         ),
       );
     }
@@ -188,8 +189,8 @@ class ValueLineChart extends StatelessWidget {
       ),
       const SizedBox(height: 8),
       Wrap(spacing: 16, runSpacing: 4, children: [
-        _Legend(color: scheme.primary, text: 'Wert'),
-        _Legend(color: scheme.outline, text: 'Eingezahlt'),
+        _Legend(color: scheme.primary, text: tr('Wert')),
+        _Legend(color: scheme.outline, text: tr('Eingezahlt')),
       ]),
     ]);
   }
@@ -259,10 +260,10 @@ class FeasibilityBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (color, text, icon) = switch (level) {
-      'GREEN' => (const Color(0xFF2E7D32), 'Gut machbar', Icons.check_circle),
-      'YELLOW' => (const Color(0xFFE0A100), 'Knapp', Icons.warning_amber),
-      'RED' => (Theme.of(context).colorScheme.error, 'Nicht machbar', Icons.cancel),
-      _ => (Colors.grey, 'Unbekannt', Icons.help_outline),
+      'GREEN' => (const Color(0xFF2E7D32), tr('Gut machbar'), Icons.check_circle),
+      'YELLOW' => (const Color(0xFFE0A100), tr('Knapp'), Icons.warning_amber),
+      'RED' => (Theme.of(context).colorScheme.error, tr('Nicht machbar'), Icons.cancel),
+      _ => (Colors.grey, tr('Unbekannt'), Icons.help_outline),
     };
     return Chip(
       avatar: Icon(icon, color: color, size: 18),

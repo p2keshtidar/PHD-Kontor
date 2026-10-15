@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../l10n/l10n.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -124,10 +125,10 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
     final activeFilters = _filter.activeCount;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Umsätze'),
+        title: Text(tr('Umsätze')),
         actions: [
           IconButton(
-            tooltip: 'Filter',
+            tooltip: tr('Filter'),
             onPressed: _openFilter,
             icon: Badge(
               isLabelVisible: activeFilters > 0,
@@ -144,7 +145,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
               controller: _search,
               onChanged: _onSearchChanged,
               decoration: InputDecoration(
-                hintText: 'Name oder Verwendungszweck suchen',
+                hintText: tr('Name oder Verwendungszweck suchen'),
                 prefixIcon: const Icon(Icons.search),
                 isDense: true,
                 suffixIcon: _search.text.isEmpty
@@ -175,10 +176,10 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
         content = Column(children: [
           Text(_error!, textAlign: TextAlign.center),
           const SizedBox(height: 12),
-          OutlinedButton(onPressed: _reload, child: const Text('Erneut versuchen')),
+          OutlinedButton(onPressed: _reload, child: Text(tr('Erneut versuchen'))),
         ]);
       } else {
-        content = const Text('Keine Umsätze gefunden.', textAlign: TextAlign.center);
+        content = Text(tr('Keine Umsätze gefunden.'), textAlign: TextAlign.center);
       }
       return ListView(
         physics: const AlwaysScrollableScrollPhysics(),
@@ -201,7 +202,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
             );
           }
           if (_error != null) {
-            return TextButton(onPressed: _loadMore, child: const Text('Weitere laden'));
+            return TextButton(onPressed: _loadMore, child: Text(tr('Weitere laden')));
           }
           return const SizedBox(height: 24);
         }
@@ -262,7 +263,7 @@ class _FilterSheetState extends State<_FilterSheet> {
       firstDate: DateTime(now.year - 5),
       lastDate: now,
       initialDateRange: _range,
-      helpText: 'Zeitraum wählen',
+      helpText: tr('Zeitraum wählen'),
     );
     if (picked != null) setState(() => _range = picked);
   }
@@ -271,11 +272,11 @@ class _FilterSheetState extends State<_FilterSheet> {
     final min = _min.text.trim().isEmpty ? null : parseEuroToCents(_min.text);
     final max = _max.text.trim().isEmpty ? null : parseEuroToCents(_max.text);
     if ((_min.text.trim().isNotEmpty && min == null) || (_max.text.trim().isNotEmpty && max == null)) {
-      setState(() => _amountError = 'Betrag ungültig, z. B. 25,50');
+      setState(() => _amountError = tr('Betrag ungültig, z. B. 25,50'));
       return;
     }
     if (min != null && max != null && min > max) {
-      setState(() => _amountError = '„Von“ muss kleiner als „Bis“ sein');
+      setState(() => _amountError = tr('„Von“ muss kleiner als „Bis“ sein'));
       return;
     }
     Navigator.of(context).pop(BookingFilter(
@@ -299,39 +300,39 @@ class _FilterSheetState extends State<_FilterSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Filter', style: Theme.of(context).textTheme.titleLarge),
+            Text(tr('Filter'), style: Theme.of(context).textTheme.titleLarge),
             const SizedBox(height: 16),
-            const Text('Zeitraum'),
+            Text(tr('Zeitraum')),
             const SizedBox(height: 6),
             OutlinedButton.icon(
               icon: const Icon(Icons.date_range),
               label: Text(_range == null
-                  ? 'Alle'
+                  ? tr('Alle')
                   : '${formatDate(_range!.start)} – ${formatDate(_range!.end)}'),
               onPressed: _pickRange,
             ),
             const SizedBox(height: 16),
-            const Text('Richtung'),
+            Text(tr('Richtung')),
             const SizedBox(height: 6),
             SegmentedButton<String>(
-              segments: const [
-                ButtonSegment(value: 'ALL', label: Text('Alle')),
-                ButtonSegment(value: 'IN', label: Text('Eingänge')),
-                ButtonSegment(value: 'OUT', label: Text('Ausgänge')),
+              segments: [
+                ButtonSegment(value: 'ALL', label: Text(tr('Alle'))),
+                ButtonSegment(value: 'IN', label: Text(tr('Eingänge'))),
+                ButtonSegment(value: 'OUT', label: Text(tr('Ausgänge'))),
               ],
               selected: {_direction ?? 'ALL'},
               onSelectionChanged: (s) =>
                   setState(() => _direction = s.first == 'ALL' ? null : s.first),
             ),
             const SizedBox(height: 16),
-            const Text('Betrag in €'),
+            Text(tr('Betrag in €')),
             const SizedBox(height: 6),
             Row(children: [
               Expanded(
                 child: TextField(
                   controller: _min,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(labelText: 'Von', isDense: true),
+                  decoration: InputDecoration(labelText: tr('Von'), isDense: true),
                 ),
               ),
               const SizedBox(width: 12),
@@ -339,7 +340,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                 child: TextField(
                   controller: _max,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(labelText: 'Bis', isDense: true),
+                  decoration: InputDecoration(labelText: tr('Bis'), isDense: true),
                 ),
               ),
             ]),
@@ -352,9 +353,9 @@ class _FilterSheetState extends State<_FilterSheet> {
             const SizedBox(height: 16),
             DropdownButtonFormField<String?>(
               value: _type,
-              decoration: const InputDecoration(labelText: 'Art', isDense: true),
+              decoration: InputDecoration(labelText: tr('Art'), isDense: true),
               items: [
-                const DropdownMenuItem<String?>(value: null, child: Text('Alle')),
+                DropdownMenuItem<String?>(value: null, child: Text(tr('Alle'))),
                 for (final e in bookingTypeLabels.entries)
                   DropdownMenuItem<String?>(value: e.key, child: Text(e.value)),
               ],
@@ -365,11 +366,11 @@ class _FilterSheetState extends State<_FilterSheet> {
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(context).pop(widget.initial.withoutFilters()),
-                  child: const Text('Zurücksetzen'),
+                  child: Text(tr('Zurücksetzen')),
                 ),
               ),
               const SizedBox(width: 12),
-              Expanded(child: FilledButton(onPressed: _apply, child: const Text('Anwenden'))),
+              Expanded(child: FilledButton(onPressed: _apply, child: Text(tr('Anwenden')))),
             ]),
           ],
         ),

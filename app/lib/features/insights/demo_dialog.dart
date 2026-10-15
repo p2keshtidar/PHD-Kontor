@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import 'insights_models.dart';
@@ -44,10 +45,9 @@ class _DemoDialogState extends ConsumerState<_DemoDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Beispielmonate erzeugen'),
+      title: Text(tr('Beispielmonate erzeugen')),
       content: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text('Die App bucht 6 Monate mit typischen Einnahmen und Ausgaben, damit der Finanzüberblick '
-            'und die Pläne etwas zum Rechnen haben. Das geht nur einmal pro Konto.'),
+        Text(tr('Die App bucht 6 Monate mit typischen Einnahmen und Ausgaben, damit der Finanzüberblick und die Pläne etwas zum Rechnen haben. Das geht nur einmal pro Konto.')),
         const SizedBox(height: 12),
         for (final e in demoProfiles.entries)
           RadioListTile<String>(
@@ -60,12 +60,12 @@ class _DemoDialogState extends ConsumerState<_DemoDialog> {
         if (_error != null) Text(_error!, style: TextStyle(color: Theme.of(context).colorScheme.error)),
       ])),
       actions: [
-        TextButton(onPressed: _busy ? null : () => Navigator.of(context).pop(false), child: const Text('Abbrechen')),
+        TextButton(onPressed: _busy ? null : () => Navigator.of(context).pop(false), child: Text(tr('Abbrechen'))),
         FilledButton(
           onPressed: _busy ? null : _create,
           child: _busy
               ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
-              : const Text('Erzeugen'),
+              : Text(tr('Erzeugen')),
         ),
       ],
     );

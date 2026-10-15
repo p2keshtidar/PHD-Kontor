@@ -244,6 +244,7 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/loans/*': (_) => loanDetail(),
         'GET /api/standing-orders': (_) => [standingOrder()],
         'GET /api/entries': (_) => entriesSummary(),
+        'PUT /api/me/language': (_) => const FakeResponse(204),
         'GET /api/entries/categories': (_) => entryCategories(),
         'GET /api/imports': (_) => [],
         'GET /api/subaccounts/*/members': (_) => [

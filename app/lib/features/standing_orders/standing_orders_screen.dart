@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -24,12 +25,12 @@ class StandingOrdersScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final orders = ref.watch(standingOrdersProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Daueraufträge')),
+      appBar: AppBar(title: Text(tr('Daueraufträge'))),
       floatingActionButton: FloatingActionButton.extended(
         key: const Key('standing_order_new'),
         onPressed: () => _openForm(context, ref),
         icon: const Icon(Icons.add),
-        label: const Text('Neuer Dauerauftrag'),
+        label: Text(tr('Neuer Dauerauftrag')),
       ),
       body: orders.when(
         loading: () => const Center(child: CircularProgressIndicator()),
@@ -37,11 +38,11 @@ class StandingOrdersScreen extends ConsumerWidget {
         data: (list) => RefreshIndicator(
           onRefresh: () => ref.refresh(standingOrdersProvider.future),
           child: list.isEmpty
-              ? ListView(padding: safeListPadding(context, 24), children: const [
+              ? ListView(padding: safeListPadding(context, 24), children: [
                   SizedBox(height: 40),
                   Icon(Icons.event_repeat, size: 56),
                   SizedBox(height: 12),
-                  Text('Noch keine Daueraufträge.\nZum Beispiel für Miete, Taschengeld oder die WG-Kasse.',
+                  Text(tr('Noch keine Daueraufträge.\nZum Beispiel für Miete, Taschengeld oder die WG-Kasse.'),
                       textAlign: TextAlign.center),
                 ])
               : ListView(padding: const EdgeInsets.fromLTRB(16, 16, 16, 96), children: [
@@ -79,22 +80,22 @@ class _OrderCard extends ConsumerWidget {
         child: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
           ListTile(
             leading: const Icon(Icons.euro),
-            title: const Text('Betrag ändern'),
+            title: Text(tr('Betrag ändern')),
             onTap: () => Navigator.pop(ctx, 'amount'),
           ),
           ListTile(
             leading: const Icon(Icons.today),
-            title: const Text('Ausführungstag ändern'),
+            title: Text(tr('Ausführungstag ändern')),
             onTap: () => Navigator.pop(ctx, 'day'),
           ),
           ListTile(
             leading: Icon(order.isPaused ? Icons.play_arrow : Icons.pause),
-            title: Text(order.isPaused ? 'Fortsetzen' : 'Pausieren'),
+            title: Text(order.isPaused ? tr('Fortsetzen') : tr('Pausieren')),
             onTap: () => Navigator.pop(ctx, 'pause'),
           ),
           ListTile(
             leading: Icon(Icons.delete_outline, color: Theme.of(ctx).colorScheme.error),
-            title: Text('Löschen', style: TextStyle(color: Theme.of(ctx).colorScheme.error)),
+            title: Text(tr('Löschen'), style: TextStyle(color: Theme.of(ctx).colorScheme.error)),
             onTap: () => Navigator.pop(ctx, 'delete'),
           ),
         ])),
@@ -103,27 +104,27 @@ class _OrderCard extends ConsumerWidget {
     if (!context.mounted || action == null) return;
     switch (action) {
       case 'amount':
-        final cents = await askAmount(context, title: 'Neuer Betrag', maxCents: 500000);
+        final cents = await askAmount(context, title: tr('Neuer Betrag'), maxCents: 500000);
         if (cents != null && context.mounted) {
-          await _change(context, ref, {'amountCents': cents}, 'Betrag auf ${formatCents(cents)} geändert');
+          await _change(context, ref, {'amountCents': cents}, tr('Betrag auf {0} geändert', [formatCents(cents)]));
         }
       case 'day':
         final day = await showDialog<int>(context: context, builder: (_) => DayPickerDialog(selected: order.executionDay));
         if (day != null && context.mounted) {
-          await _change(context, ref, {'executionDay': day}, 'Ausführung jetzt am $day.');
+          await _change(context, ref, {'executionDay': day}, tr('Ausführung jetzt am {0}.', [day]));
         }
       case 'pause':
         await _change(context, ref, {'paused': !order.isPaused},
-            order.isPaused ? 'Dauerauftrag fortgesetzt' : 'Dauerauftrag pausiert');
+            order.isPaused ? tr('Dauerauftrag fortgesetzt') : tr('Dauerauftrag pausiert'));
       case 'delete':
         final ok = await showDialog<bool>(
           context: context,
           builder: (ctx) => AlertDialog(
-            title: const Text('Dauerauftrag löschen?'),
-            content: Text('${formatCents(order.amountCents)} an ${order.recipientName} werden nicht mehr überwiesen.'),
+            title: Text(tr('Dauerauftrag löschen?')),
+            content: Text(tr('{0} an {1} werden nicht mehr überwiesen.', [formatCents(order.amountCents), order.recipientName])),
             actions: [
-              TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Abbrechen')),
-              FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Löschen')),
+              TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr('Abbrechen'))),
+              FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(tr('Löschen'))),
             ],
           ),
         );
@@ -167,13 +168,13 @@ class _OrderCard extends ConsumerWidget {
               Chip(
                 visualDensity: VisualDensity.compact,
                 avatar: const Icon(Icons.event_repeat, size: 16),
-                label: Text('${o.intervalLabel}, am ${o.executionDay}.'),
+                label: Text(tr('{0}, am {1}.', [o.intervalLabel, o.executionDay])),
               ),
               if (o.isPaused)
-                const Chip(visualDensity: VisualDensity.compact, avatar: Icon(Icons.pause, size: 16), label: Text('Pausiert'))
+                Chip(visualDensity: VisualDensity.compact, avatar: Icon(Icons.pause, size: 16), label: Text(tr('Pausiert')))
               else if (o.nextExecutionDate != null)
-                Text('Nächste: ${formatDate(o.nextExecutionDate!)}', style: theme.textTheme.bodySmall),
-              if (o.endDate != null) Text('bis ${formatDate(o.endDate!)}', style: theme.textTheme.bodySmall),
+                Text(tr('Nächste: {0}', [formatDate(o.nextExecutionDate!)]), style: theme.textTheme.bodySmall),
+              if (o.endDate != null) Text(tr('bis {0}', [formatDate(o.endDate!)]), style: theme.textTheme.bodySmall),
             ]),
           ]),
         ),
@@ -192,7 +193,7 @@ class DayPickerDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     return AlertDialog(
-      title: const Text('Ausführungstag'),
+      title: Text(tr('Ausführungstag')),
       content: SizedBox(
         width: 280,
         child: SingleChildScrollView(
@@ -216,7 +217,7 @@ class DayPickerDialog extends StatelessWidget {
           ]),
         ),
       ),
-      actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('Abbrechen'))],
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(tr('Abbrechen')))],
     );
   }
 }

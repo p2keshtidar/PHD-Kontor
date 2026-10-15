@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -40,7 +41,7 @@ class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
     final picked = await showDialog<String>(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: const Text('Kategorie wählen'),
+        title: Text(tr('Kategorie wählen')),
         children: [
           for (final e in selectableCategories.entries)
             SimpleDialogOption(
@@ -73,14 +74,14 @@ class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
     final b = widget.item;
     if (b == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Umsatz')),
-        body: const Center(child: Text('Umsatz nicht verfügbar. Bitte aus der Liste öffnen.')),
+        appBar: AppBar(title: Text(tr('Umsatz'))),
+        body: Center(child: Text(tr('Umsatz nicht verfügbar. Bitte aus der Liste öffnen.'))),
       );
     }
     final theme = Theme.of(context);
     final color = b.isIncoming ? BookingTile.incomingColor : theme.colorScheme.error;
     return Scaffold(
-      appBar: AppBar(title: const Text('Umsatz')),
+      appBar: AppBar(title: Text(tr('Umsatz'))),
       body: ListView(
         padding: safeListPadding(context),
         children: [
@@ -92,25 +93,25 @@ class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
             ),
           ),
           const SizedBox(height: 6),
-          Center(child: Text(b.isIncoming ? 'Eingang' : 'Ausgang')),
+          Center(child: Text(b.isIncoming ? tr('Eingang') : tr('Ausgang'))),
           const SizedBox(height: 24),
           Card(
             child: Column(children: [
-              _row(Icons.person, b.isIncoming ? 'Von' : 'An', b.counterpartyName.isEmpty ? '–' : b.counterpartyName),
+              _row(Icons.person, b.isIncoming ? tr('Von') : tr('An'), b.counterpartyName.isEmpty ? '–' : b.counterpartyName),
               if (b.counterpartyIban != null)
                 _row(Icons.account_balance, 'IBAN', formatIban(b.counterpartyIban!), copyValue: b.counterpartyIban),
-              _row(Icons.notes, 'Verwendungszweck', b.description),
-              _row(Icons.category, 'Art', bookingTypeLabel(b.type)),
+              _row(Icons.notes, tr('Verwendungszweck'), b.description),
+              _row(Icons.category, tr('Art'), bookingTypeLabel(b.type)),
               ListTile(
                 leading: const Icon(Icons.label),
-                title: const Text('Kategorie'),
+                title: Text(tr('Kategorie')),
                 subtitle: Text(_categoryLabel ?? '–'),
                 trailing: _editable && b.accountId != null
-                    ? TextButton(onPressed: () => _changeCategory(b), child: const Text('Ändern'))
+                    ? TextButton(onPressed: () => _changeCategory(b), child: Text(tr('Ändern')))
                     : null,
               ),
-              _row(Icons.schedule, 'Datum', formatDateTime(b.bookedAt)),
-              _row(Icons.tag, 'Buchungsnummer', '${b.bookingId}'),
+              _row(Icons.schedule, tr('Datum'), formatDateTime(b.bookedAt)),
+              _row(Icons.tag, tr('Buchungsnummer'), '${b.bookingId}'),
             ]),
           ),
         ],
@@ -127,10 +128,10 @@ class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
           ? null
           : IconButton(
               icon: const Icon(Icons.copy),
-              tooltip: 'Kopieren',
+              tooltip: tr('Kopieren'),
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: copyValue));
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Kopiert')));
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(tr('Kopiert'))));
               },
             ),
     );

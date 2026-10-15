@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/money.dart';
@@ -48,11 +49,11 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
     final amount = parseEuroToCents(_amount.text);
     final equity = _equity.text.trim().isEmpty ? 0 : parseEuroToCents(_equity.text);
     if (amount == null || amount < _purpose.minEuro * 100 || amount > _purpose.maxEuro * 100) {
-      setState(() => _error = 'Kreditbetrag zwischen ${formatCents(_purpose.minEuro * 100)} und ${formatCents(_purpose.maxEuro * 100)}');
+      setState(() => _error = tr('Kreditbetrag zwischen {0} und {1}', [formatCents(_purpose.minEuro * 100), formatCents(_purpose.maxEuro * 100)]));
       return;
     }
     if (equity == null) {
-      setState(() => _error = 'Eigenkapital ungültig');
+      setState(() => _error = tr('Eigenkapital ungültig'));
       return;
     }
     setState(() {
@@ -75,7 +76,7 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
     final theme = Theme.of(context);
     final steps = ((_purpose.maxTerm - _purpose.minTerm) / 12).round();
     return Scaffold(
-      appBar: AppBar(title: const Text('Kredit planen')),
+      appBar: AppBar(title: Text(tr('Kredit planen'))),
       body: ListView(padding: safeListPadding(context), children: [
         overview.maybeWhen(
           data: (o) => o.hasData
@@ -83,31 +84,31 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
                   color: theme.colorScheme.primaryContainer,
                   child: ListTile(
                     leading: const Icon(Icons.verified),
-                    title: Text('Tragbare Rate: bis ${formatCents(o.maxLoanRateCents)} pro Monat'),
-                    subtitle: Text('70 % von ${formatCents(o.availableCents)}, die dir nach Ausgaben und Plänen bleiben'),
+                    title: Text(tr('Tragbare Rate: bis {0} pro Monat', [formatCents(o.maxLoanRateCents)])),
+                    subtitle: Text(tr('70 % von {0}, die dir nach Ausgaben und Plänen bleiben', [formatCents(o.availableCents)])),
                   ),
                 )
               : Card(
                   color: theme.colorScheme.secondaryContainer,
                   child: ListTile(
                     leading: const Icon(Icons.info_outline),
-                    title: const Text('Noch keine Einnahmen bekannt'),
-                    subtitle: const Text('Ohne Einnahmen lehnen alle Banken ab. Erzeuge zuerst Beispielmonate.'),
+                    title: Text(tr('Noch keine Einnahmen bekannt')),
+                    subtitle: Text(tr('Ohne Einnahmen lehnen alle Banken ab. Erzeuge zuerst Beispielmonate.')),
                     trailing: TextButton(
                       onPressed: () async {
                         if (await showDemoDialog(context)) ref.invalidate(overviewProvider);
                       },
-                      child: const Text('Erzeugen'),
+                      child: Text(tr('Erzeugen')),
                     ),
                   ),
                 ),
           orElse: () => const SizedBox.shrink(),
         ),
         const SizedBox(height: 16),
-        Text('Wofür?', style: theme.textTheme.titleMedium),
+        Text(tr('Wofür?'), style: theme.textTheme.titleMedium),
         const SizedBox(height: 8),
         SegmentedButton<String>(
-          segments: [for (final p in loanPurposes) ButtonSegment(value: p.key, label: Text(p.label))],
+          segments: [for (final p in loanPurposes) ButtonSegment(value: p.key, label: Text(tr(p.label)))],
           selected: {_purpose.key},
           onSelectionChanged: (s) => _selectPurpose(loanPurposes.firstWhere((p) => p.key == s.first)),
         ),
@@ -116,9 +117,9 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
           controller: _amount,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
           decoration: InputDecoration(
-            labelText: 'Kreditbetrag',
+            labelText: tr('Kreditbetrag'),
             suffixText: '€',
-            helperText: '${formatCents(_purpose.minEuro * 100)} bis ${formatCents(_purpose.maxEuro * 100)}',
+            helperText: tr('{0} bis {1}', [formatCents(_purpose.minEuro * 100), formatCents(_purpose.maxEuro * 100)]),
           ),
           onChanged: (_) => setState(() => _result = null),
         ),
@@ -126,21 +127,21 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
         TextField(
           controller: _equity,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          decoration: const InputDecoration(
-            labelText: 'Eigenkapital (optional)',
+          decoration: InputDecoration(
+            labelText: tr('Eigenkapital (optional)'),
             suffixText: '€',
-            helperText: 'Ab 20 % Eigenanteil gibt es einen Zinsrabatt',
+            helperText: tr('Ab 20 % Eigenanteil gibt es einen Zinsrabatt'),
           ),
           onChanged: (_) => setState(() => _result = null),
         ),
         const SizedBox(height: 16),
-        Text('Laufzeit: $_term Monate (${(_term / 12).toStringAsFixed(_term % 12 == 0 ? 0 : 1).replaceAll('.', ',')} Jahre)'),
+        Text(tr('Laufzeit: {0} Monate ({1} Jahre)', [_term, (_term / 12).toStringAsFixed(_term % 12 == 0 ? 0 : 1).localDecimal])),
         Slider(
           value: _term.toDouble(),
           min: _purpose.minTerm.toDouble(),
           max: _purpose.maxTerm.toDouble(),
           divisions: steps,
-          label: '$_term Monate',
+          label: tr('{0} Monate', [_term]),
           onChanged: (v) => setState(() {
             _term = v.round();
             _result = null;
@@ -153,7 +154,7 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
           icon: _busy
               ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
               : const Icon(Icons.compare_arrows),
-          label: const Text('Angebote vergleichen'),
+          label: Text(tr('Angebote vergleichen')),
         ),
         if (_result != null) ..._offers(_result!),
       ]),
@@ -164,11 +165,11 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
     final theme = Theme.of(context);
     return [
       const SizedBox(height: 20),
-      Text('Angebote (${r.offers.length})', style: theme.textTheme.titleMedium),
+      Text(tr('Angebote ({0})', [r.offers.length]), style: theme.textTheme.titleMedium),
       if (r.hasData)
         Padding(
           padding: const EdgeInsets.only(top: 4, bottom: 8),
-          child: Text('Bei ${r.termMonths} Monaten wären höchstens ca. ${formatCents(r.maxPrincipalCents)} tragbar.',
+          child: Text(tr('Bei {0} Monaten wären höchstens ca. {1} tragbar.', [r.termMonths, formatCents(r.maxPrincipalCents)]),
               style: theme.textTheme.bodySmall),
         ),
       for (final o in r.offers)
@@ -186,32 +187,32 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
                 Row(children: [
                   Expanded(child: Text(o.bankName, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
                   if (o.recommended)
-                    const Chip(label: Text('Empfohlen'), avatar: Icon(Icons.star, size: 16), visualDensity: VisualDensity.compact),
+                    Chip(label: Text(tr('Empfohlen')), avatar: Icon(Icons.star, size: 16), visualDensity: VisualDensity.compact),
                 ]),
                 const SizedBox(height: 6),
                 Row(children: [
-                  Expanded(child: _kv('Zins p. a.', formatPercent(o.interestRate))),
-                  Expanded(child: _kv('Monatsrate', formatCents(o.monthlyRateCents))),
-                  Expanded(child: _kv('Zinskosten', formatCents(o.totalInterestCents))),
+                  Expanded(child: _kv(tr('Zins p. a.'), formatPercent(o.interestRate))),
+                  Expanded(child: _kv(tr('Monatsrate'), formatCents(o.monthlyRateCents))),
+                  Expanded(child: _kv(tr('Zinskosten'), formatCents(o.totalInterestCents))),
                 ]),
                 const SizedBox(height: 6),
-                Text('Gesamtkosten ${formatCents(o.totalCostCents)}', style: theme.textTheme.bodySmall),
+                Text(tr('Gesamtkosten {0}', [formatCents(o.totalCostCents)]), style: theme.textTheme.bodySmall),
                 if (o.declined)
                   Padding(
                     padding: const EdgeInsets.only(top: 6),
-                    child: Text('Abgelehnt: ${o.declineReason}', style: TextStyle(color: theme.colorScheme.error)),
+                    child: Text(tr('Abgelehnt: {0}', [o.declineReason]), style: TextStyle(color: theme.colorScheme.error)),
                   )
                 else if (!o.affordable)
                   Padding(
                     padding: const EdgeInsets.only(top: 6),
-                    child: Text('Achtung: Rate über deiner tragbaren Rate', style: TextStyle(color: Colors.orange.shade800)),
+                    child: Text(tr('Achtung: Rate über deiner tragbaren Rate'), style: TextStyle(color: Colors.orange.shade800)),
                   ),
               ]),
             ),
           ),
         ),
       const SizedBox(height: 8),
-      Text('Alle Banken und Zinssätze sind fiktiv und nach festen Regeln berechnet (Simulation).',
+      Text(tr('Alle Banken und Zinssätze sind fiktiv und nach festen Regeln berechnet (Simulation).'),
           style: theme.textTheme.bodySmall),
     ];
   }

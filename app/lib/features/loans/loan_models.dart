@@ -1,3 +1,5 @@
+import '../../l10n/l10n.dart';
+
 DateTime? _date(dynamic v) => v == null ? null : DateTime.parse(v as String);
 
 /// Zwecke (/F1010/) mit Grenzen wie im Backend (Pflichtenheft Kap. 8.5).
@@ -277,4 +279,5 @@ class ExtraPreview {
 }
 
 /// "5.59" -> "5,59 %"
-String formatPercent(double value) => '${value.toStringAsFixed(2).replaceAll('.', ',')} %';
+String formatPercent(double value) =>
+    L10n.isEnglish ? '${value.toStringAsFixed(2)}%' : '${value.toStringAsFixed(2).localDecimal} %';

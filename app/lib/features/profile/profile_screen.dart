@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/language_button.dart';
+import '../../l10n/language_controller.dart';
+import '../../core/api_client.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/validators.dart';
@@ -29,7 +33,7 @@ class ProfileScreen extends ConsumerWidget {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     return Scaffold(
-      appBar: AppBar(title: const Text('Profil')),
+      appBar: AppBar(title: Text(tr('Profil')), actions: const [LanguageButton()]),
       body: ListView(
         padding: safeListPadding(context),
         children: [
@@ -48,18 +52,36 @@ class ProfileScreen extends ConsumerWidget {
                   style: Theme.of(context).textTheme.titleLarge)),
           const SizedBox(height: 24),
           Card(
+            child: ListTile(
+              key: const Key('profile_language'),
+              leading: const Icon(Icons.translate),
+              title: Text(tr('Sprache')),
+              subtitle: Text(tr('Die Sprache gilt für dieses Konto auf allen Geräten.')),
+              trailing: SegmentedButton<String>(
+                showSelectedIcon: false,
+                segments: const [
+                  ButtonSegment(value: 'de', label: Text('DE')),
+                  ButtonSegment(value: 'en', label: Text('EN')),
+                ],
+                selected: {L10n.lang},
+                onSelectionChanged: (s) => LanguageController.set(s.first, api: ref.read(apiClientProvider)),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Card(
             child: Column(children: [
               ListTile(
                   leading: const Icon(Icons.mail),
-                  title: const Text('E-Mail'),
+                  title: Text(tr('E-Mail')),
                   subtitle: Text(user.email)),
               ListTile(
                   leading: const Icon(Icons.phone),
-                  title: const Text('Telefon'),
+                  title: Text(tr('Telefon')),
                   subtitle: Text(user.phone)),
               ListTile(
                   leading: const Icon(Icons.cake),
-                  title: const Text('Geburtsdatum'),
+                  title: Text(tr('Geburtsdatum')),
                   subtitle: Text(toGermanDate(user.birthDate))),
             ]),
           ),
@@ -68,19 +90,19 @@ class ProfileScreen extends ConsumerWidget {
             child: Column(children: [
               ListTile(
                 leading: const Icon(Icons.contacts),
-                title: const Text('Adressbuch'),
+                title: Text(tr('Adressbuch')),
                 onTap: () => context.push('/adressbuch'),
               ),
               ListTile(
                 leading: const Icon(Icons.edit),
-                title: const Text('Daten ändern'),
+                title: Text(tr('Daten ändern')),
                 onTap: () => showDialog<void>(
                     context: context,
                     builder: (_) => _EditProfileDialog(user: user)),
               ),
               ListTile(
                 leading: const Icon(Icons.password),
-                title: const Text('Passwort ändern'),
+                title: Text(tr('Passwort ändern')),
                 onTap: () => showDialog<void>(
                     context: context,
                     builder: (_) => const _ChangePasswordDialog()),
@@ -88,8 +110,8 @@ class ProfileScreen extends ConsumerWidget {
               ListTile(
                 key: const Key('profile_2fa'),
                 leading: Icon(user.twoFactorEnabled ? Icons.verified_user : Icons.security),
-                title: const Text('Zwei-Faktor-Anmeldung'),
-                subtitle: Text(user.twoFactorEnabled ? 'Aktiv' : 'Aus'),
+                title: Text(tr('Zwei-Faktor-Anmeldung')),
+                subtitle: Text(user.twoFactorEnabled ? tr('Aktiv') : tr('Aus')),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () => Navigator.of(context).push(
                     MaterialPageRoute<void>(builder: (_) => const TwoFactorScreen())),
@@ -101,7 +123,7 @@ class ProfileScreen extends ConsumerWidget {
           const SizedBox(height: 24),
           OutlinedButton.icon(
             icon: const Icon(Icons.logout),
-            label: const Text('Abmelden'),
+            label: Text(tr('Abmelden')),
             // Nach dem Abmelden leitet der Router automatisch zur Login-Seite um.
             onPressed: () => ref.read(authControllerProvider.notifier).logout(),
           ),
@@ -163,22 +185,22 @@ class _EditProfileDialogState extends ConsumerState<_EditProfileDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Daten ändern'),
+      title: Text(tr('Daten ändern')),
       content: Form(
         key: _formKey,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           TextFormField(
               controller: _firstName,
-              decoration: const InputDecoration(labelText: 'Vorname'),
-              validator: (v) => validateRequired(v, 'Vorname')),
+              decoration: InputDecoration(labelText: tr('Vorname')),
+              validator: (v) => validateRequired(v, tr('Vorname'))),
           TextFormField(
               controller: _lastName,
-              decoration: const InputDecoration(labelText: 'Nachname'),
-              validator: (v) => validateRequired(v, 'Nachname')),
+              decoration: InputDecoration(labelText: tr('Nachname')),
+              validator: (v) => validateRequired(v, tr('Nachname'))),
           TextFormField(
               controller: _phone,
               keyboardType: TextInputType.phone,
-              decoration: const InputDecoration(labelText: 'Telefon'),
+              decoration: InputDecoration(labelText: tr('Telefon')),
               validator: validatePhone),
           if (_error != null)
             Padding(
@@ -191,9 +213,9 @@ class _EditProfileDialogState extends ConsumerState<_EditProfileDialog> {
       actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Abbrechen')),
+            child: Text(tr('Abbrechen'))),
         FilledButton(
-            onPressed: _saving ? null : _save, child: const Text('Speichern')),
+            onPressed: _saving ? null : _save, child: Text(tr('Speichern'))),
       ],
     );
   }
@@ -234,7 +256,7 @@ class _ChangePasswordDialogState extends ConsumerState<_ChangePasswordDialog> {
       if (!mounted) return;
       final messenger = ScaffoldMessenger.of(context);
       Navigator.of(context).pop();
-      messenger.showSnackBar(const SnackBar(content: Text('Passwort geändert')));
+      messenger.showSnackBar(SnackBar(content: Text(tr('Passwort geändert'))));
     } catch (e) {
       if (mounted) {
         setState(() {
@@ -248,27 +270,27 @@ class _ChangePasswordDialogState extends ConsumerState<_ChangePasswordDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Passwort ändern'),
+      title: Text(tr('Passwort ändern')),
       content: Form(
         key: _formKey,
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           TextFormField(
               controller: _old,
               obscureText: true,
-              decoration: const InputDecoration(labelText: 'Altes Passwort'),
-              validator: (v) => validateRequired(v, 'Altes Passwort')),
+              decoration: InputDecoration(labelText: tr('Altes Passwort')),
+              validator: (v) => validateRequired(v, tr('Altes Passwort'))),
           TextFormField(
               controller: _new,
               obscureText: true,
-              decoration: const InputDecoration(labelText: 'Neues Passwort'),
+              decoration: InputDecoration(labelText: tr('Neues Passwort')),
               validator: validateNewPassword),
           TextFormField(
               controller: _new2,
               obscureText: true,
               decoration:
-                  const InputDecoration(labelText: 'Neues Passwort wiederholen'),
+                  InputDecoration(labelText: tr('Neues Passwort wiederholen')),
               validator: (v) =>
-                  v != _new.text ? 'Passwörter stimmen nicht überein' : null),
+                  v != _new.text ? tr('Passwörter stimmen nicht überein') : null),
           if (_error != null)
             Padding(
               padding: const EdgeInsets.only(top: 12),
@@ -280,9 +302,9 @@ class _ChangePasswordDialogState extends ConsumerState<_ChangePasswordDialog> {
       actions: [
         TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Abbrechen')),
+            child: Text(tr('Abbrechen'))),
         FilledButton(
-            onPressed: _saving ? null : _save, child: const Text('Speichern')),
+            onPressed: _saving ? null : _save, child: Text(tr('Speichern'))),
       ],
     );
   }
@@ -326,7 +348,7 @@ class _DemoSectionState extends ConsumerState<_DemoSection> {
       _refreshEverything();
       if (mounted) {
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Neues Simulationsdatum: ${toGermanDate(date)}')));
+            .showSnackBar(SnackBar(content: Text(tr('Neues Simulationsdatum: {0}', [toGermanDate(date)]))));
       }
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
@@ -345,18 +367,18 @@ class _DemoSectionState extends ConsumerState<_DemoSection> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           ListTile(
             leading: const Icon(Icons.science),
-            title: const Text('Demo-Modus'),
+            title: Text(tr('Demo-Modus')),
             subtitle: Text(clock.maybeWhen(
-              data: (d) => 'Simulationsdatum: ${toGermanDate(d)}',
-              orElse: () => 'Simulationsdatum wird geladen …',
+              data: (d) => tr('Simulationsdatum: {0}', [toGermanDate(d)]),
+              orElse: () => tr('Simulationsdatum wird geladen …'),
             )),
           ),
           ListTile(
             leading: const Icon(Icons.auto_awesome),
-            title: const Text('Beispielmonate erzeugen'),
+            title: Text(tr('Beispielmonate erzeugen')),
             subtitle: Text(overview?.demoProfile != null
-                ? 'Bereits erzeugt (${overview!.demoProfile})'
-                : '6 Monate Einnahmen und Ausgaben zum Ausprobieren'),
+                ? tr('Bereits erzeugt ({0})', [overview!.demoProfile])
+                : tr('6 Monate Einnahmen und Ausgaben zum Ausprobieren')),
             enabled: overview?.demoProfile == null && !_busy,
             onTap: () async {
               if (await showDemoDialog(context)) _refreshEverything();
@@ -364,18 +386,17 @@ class _DemoSectionState extends ConsumerState<_DemoSection> {
           ),
           if (widget.isAdmin) ...[
             const Divider(),
-            const Padding(
+            Padding(
               padding: EdgeInsets.fromLTRB(16, 4, 16, 8),
-              child: Text('Zeit vorspulen (nur Administrator). Dabei laufen für jeden Tag Gehälter, '
-                  'Sparraten und Kreditraten wie in echt.'),
+              child: Text(tr('Zeit vorspulen (nur Administrator). Dabei laufen für jeden Tag Gehälter, Sparraten und Kreditraten wie in echt.')),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Wrap(spacing: 8, runSpacing: 8, children: [
-                OutlinedButton(onPressed: _busy ? null : () => _advance(days: 1), child: const Text('+1 Tag')),
-                OutlinedButton(onPressed: _busy ? null : () => _advance(months: 1), child: const Text('+1 Monat')),
-                OutlinedButton(onPressed: _busy ? null : () => _advance(months: 3), child: const Text('+3 Monate')),
-                OutlinedButton(onPressed: _busy ? null : () => _advance(months: 12), child: const Text('+12 Monate')),
+                OutlinedButton(onPressed: _busy ? null : () => _advance(days: 1), child: Text(tr('+1 Tag'))),
+                OutlinedButton(onPressed: _busy ? null : () => _advance(months: 1), child: Text(tr('+1 Monat'))),
+                OutlinedButton(onPressed: _busy ? null : () => _advance(months: 3), child: Text(tr('+3 Monate'))),
+                OutlinedButton(onPressed: _busy ? null : () => _advance(months: 12), child: Text(tr('+12 Monate'))),
               ]),
             ),
             if (_busy)

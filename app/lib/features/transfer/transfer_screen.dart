@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/ids.dart';
@@ -112,12 +113,12 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   _QuickContact(
-                    label: 'Adressbuch',
+                    label: tr('Adressbuch'),
                     icon: Icons.contacts,
                     onTap: _openAddressBook,
                   ),
                   _QuickContact(
-                    label: 'Daueraufträge',
+                    label: tr('Daueraufträge'),
                     icon: Icons.event_repeat,
                     onTap: () => context.push('/dauerauftraege'),
                   ),
@@ -131,9 +132,9 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                 ],
               ),
               orElse: () => Row(children: [
-                _QuickContact(label: 'Adressbuch', icon: Icons.contacts, onTap: _openAddressBook),
+                _QuickContact(label: tr('Adressbuch'), icon: Icons.contacts, onTap: _openAddressBook),
                 _QuickContact(
-                  label: 'Daueraufträge',
+                  label: tr('Daueraufträge'),
                   icon: Icons.event_repeat,
                   onTap: () => context.push('/dauerauftraege'),
                 ),
@@ -153,28 +154,28 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                     if (_selected != null) setState(() => _selected = null);
                   },
                   decoration: InputDecoration(
-                    labelText: 'Empfänger',
-                    hintText: 'IBAN, E-Mail oder Telefonnummer',
+                    labelText: tr('Empfänger'),
+                    hintText: tr('IBAN, E-Mail oder Telefonnummer'),
                     prefixIcon: const Icon(Icons.person),
-                    helperText: _selected == null ? null : 'Ausgewählt: ${_selected!.fullName}',
+                    helperText: _selected == null ? null : tr('Ausgewählt: {0}', [_selected!.fullName]),
                   ),
-                  validator: (v) => (v == null || v.trim().isEmpty) ? 'Bitte Empfänger eingeben' : null,
+                  validator: (v) => (v == null || v.trim().isEmpty) ? tr('Bitte Empfänger eingeben') : null,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   key: const Key('transfer_amount'),
                   controller: _amount,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                  decoration: const InputDecoration(
-                    labelText: 'Betrag',
+                  decoration: InputDecoration(
+                    labelText: tr('Betrag'),
                     hintText: 'z. B. 25,50',
                     suffixText: '€',
                     prefixIcon: Icon(Icons.euro),
                   ),
                   validator: (v) {
                     final cents = parseEuroToCents(v ?? '');
-                    if (cents == null) return 'Bitte gültigen Betrag eingeben (max. 2 Nachkommastellen)';
-                    if (cents <= 0) return 'Der Betrag muss größer als 0 sein';
+                    if (cents == null) return tr('Bitte gültigen Betrag eingeben (max. 2 Nachkommastellen)');
+                    if (cents <= 0) return tr('Der Betrag muss größer als 0 sein');
                     return null;
                   },
                 ),
@@ -182,8 +183,8 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                 TextFormField(
                   controller: _description,
                   maxLength: 140,
-                  decoration: const InputDecoration(
-                    labelText: 'Verwendungszweck (optional)',
+                  decoration: InputDecoration(
+                    labelText: tr('Verwendungszweck (optional)'),
                     prefixIcon: Icon(Icons.notes),
                   ),
                 ),
@@ -199,7 +200,7 @@ class _TransferScreenState extends ConsumerState<TransferScreen> {
                       ? const SizedBox(
                           width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                       : const Icon(Icons.arrow_forward),
-                  label: const Text('Weiter'),
+                  label: Text(tr('Weiter')),
                 ),
               ],
             ),
@@ -300,7 +301,7 @@ class _SummarySheetState extends ConsumerState<_SummarySheet> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('Überweisung prüfen', style: theme.textTheme.titleLarge),
+          Text(tr('Überweisung prüfen'), style: theme.textTheme.titleLarge),
           const SizedBox(height: 16),
           Center(
             child: Text(formatCents(c.amountCents),
@@ -316,13 +317,13 @@ class _SummarySheetState extends ConsumerState<_SummarySheet> {
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.notes),
-            title: const Text('Verwendungszweck'),
+            title: Text(tr('Verwendungszweck')),
             subtitle: Text(c.description),
           ),
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.account_balance_wallet),
-            title: const Text('Kontostand danach'),
+            title: Text(tr('Kontostand danach')),
             subtitle: Text(formatCents(c.availableCents - c.amountCents)),
           ),
           if (_error != null)
@@ -336,12 +337,12 @@ class _SummarySheetState extends ConsumerState<_SummarySheet> {
             icon: _sending
                 ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                 : const Icon(Icons.send),
-            label: const Text('Jetzt senden'),
+            label: Text(tr('Jetzt senden')),
           ),
           const SizedBox(height: 8),
           TextButton(
             onPressed: _sending ? null : () => Navigator.of(context).pop(),
-            child: const Text('Abbrechen'),
+            child: Text(tr('Abbrechen')),
           ),
         ],
       ),

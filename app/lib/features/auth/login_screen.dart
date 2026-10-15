@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/language_button.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/config.dart';
@@ -62,13 +64,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final result = await showDialog<String>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Server-Adresse'),
+        title: Text(tr('Server-Adresse')),
         content: SingleChildScrollView(child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Adresse des Backends, z. B. http://192.168.178.20:8080 '
-                '(IP deines PCs im selben WLAN). Leer lassen = Standard.'),
+            Text(tr('Adresse des Backends, z. B. http://192.168.178.20:8080 (IP deines PCs im selben WLAN). Leer lassen = Standard.')),
             const SizedBox(height: 12),
             TextField(
               controller: controller,
@@ -80,10 +81,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         )),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(ctx), child: const Text('Abbrechen')),
+              onPressed: () => Navigator.pop(ctx), child: Text(tr('Abbrechen'))),
           FilledButton(
               onPressed: () => Navigator.pop(ctx, controller.text),
-              child: const Text('Speichern')),
+              child: Text(tr('Speichern'))),
         ],
       ),
     );
@@ -96,6 +97,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: const [LanguageButton()],
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -110,11 +116,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     Icon(Icons.account_balance_wallet_rounded,
                         size: 64, color: theme.colorScheme.primary),
                     const SizedBox(height: 12),
-                    Text('Willkommen zurück',
+                    Text(tr('Willkommen zurück'),
                         textAlign: TextAlign.center,
                         style: theme.textTheme.headlineSmall),
                     const SizedBox(height: 4),
-                    Text('Melde dich bei deinem Konto an',
+                    Text(tr('Melde dich bei deinem Konto an'),
                         textAlign: TextAlign.center,
                         style: theme.textTheme.bodyMedium),
                     const SizedBox(height: 32),
@@ -123,8 +129,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       controller: _email,
                       keyboardType: TextInputType.emailAddress,
                       autofillHints: const [AutofillHints.email],
-                      decoration: const InputDecoration(
-                          labelText: 'E-Mail', prefixIcon: Icon(Icons.mail)),
+                      decoration: InputDecoration(
+                          labelText: tr('E-Mail'), prefixIcon: Icon(Icons.mail)),
                       validator: validateEmail,
                     ),
                     const SizedBox(height: 16),
@@ -134,7 +140,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       obscureText: _obscure,
                       autofillHints: const [AutofillHints.password],
                       decoration: InputDecoration(
-                        labelText: 'Passwort',
+                        labelText: tr('Passwort'),
                         prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -143,7 +149,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                       ),
                       validator: (v) =>
-                          (v == null || v.isEmpty) ? 'Bitte Passwort eingeben' : null,
+                          (v == null || v.isEmpty) ? tr('Bitte Passwort eingeben') : null,
                       onFieldSubmitted: (_) => _submit(),
                     ),
                     if (_needsCode) ...[
@@ -157,13 +163,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         maxLength: 6,
                         // "123 456" aus der Authenticator-App einfügen: Leerzeichen ignorieren
                         inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6)],
-                        decoration: const InputDecoration(
-                          labelText: 'Code aus der Authenticator-App',
+                        decoration: InputDecoration(
+                          labelText: tr('Code aus der Authenticator-App'),
                           prefixIcon: Icon(Icons.verified_user),
                           counterText: '',
                         ),
                         validator: (v) => (v == null || !RegExp(r'^\d{6}$').hasMatch(v.trim()))
-                            ? 'Bitte den 6-stelligen Code eingeben'
+                            ? tr('Bitte den 6-stelligen Code eingeben')
                             : null,
                         onFieldSubmitted: (_) => _submit(),
                       ),
@@ -182,19 +188,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(strokeWidth: 2))
-                          : const Text('Anmelden'),
+                          : Text(tr('Anmelden')),
                     ),
                     const SizedBox(height: 12),
                     TextButton(
                       onPressed: _loading ? null : () => context.go('/register'),
-                      child: const Text('Noch kein Konto? Jetzt registrieren'),
+                      child: Text(tr('Noch kein Konto? Jetzt registrieren')),
                     ),
                     const SizedBox(height: 8),
                     TextButton.icon(
                       key: const Key('server_settings'),
                       onPressed: _editServer,
                       icon: const Icon(Icons.dns_outlined, size: 18),
-                      label: Text('Server: ${AppConfig.apiBaseUrl}',
+                      label: Text(tr('Server: {0}', [AppConfig.apiBaseUrl]),
                           style: theme.textTheme.bodySmall),
                     ),
                   ],

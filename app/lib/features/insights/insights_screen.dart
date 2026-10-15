@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/charts.dart';
@@ -33,10 +34,10 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
     final overview = ref.watch(overviewProvider);
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Finanzüberblick'), actions: [
+      appBar: AppBar(title: Text(tr('Finanzüberblick')), actions: [
         IconButton(
           key: const Key('csv_import_open'),
-          tooltip: 'Umsätze anderer Bank importieren (CSV)',
+          tooltip: tr('Umsätze anderer Bank importieren (CSV)'),
           icon: const Icon(Icons.upload_file),
           onPressed: () async {
             await Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => const CsvImportScreen()));
@@ -65,10 +66,9 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(16),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        const Text('Noch keine Einnahmen und Ausgaben', style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(tr('Noch keine Einnahmen und Ausgaben'), style: TextStyle(fontWeight: FontWeight.bold)),
                         const SizedBox(height: 6),
-                        const Text('Trag dein Gehalt, deine Miete und andere Ausgaben ein, erzeuge Beispielmonate '
-                            'oder importiere die Umsätze deiner echten Bank als CSV-Datei.'),
+                        Text(tr('Trag dein Gehalt, deine Miete und andere Ausgaben ein, erzeuge Beispielmonate oder importiere die Umsätze deiner echten Bank als CSV-Datei.')),
                         const SizedBox(height: 12),
                         FilledButton.icon(
                           key: const Key('insights_entries'),
@@ -77,7 +77,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                             _refreshAll();
                           },
                           icon: const Icon(Icons.edit_note),
-                          label: const Text('Einnahmen & Ausgaben eintragen'),
+                          label: Text(tr('Einnahmen & Ausgaben eintragen')),
                         ),
                         const SizedBox(height: 8),
                         OutlinedButton.icon(
@@ -85,7 +85,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                             if (await showDemoDialog(context)) _refreshAll();
                           },
                           icon: const Icon(Icons.auto_awesome),
-                          label: const Text('Beispielmonate erzeugen'),
+                          label: Text(tr('Beispielmonate erzeugen')),
                         ),
                         const SizedBox(height: 8),
                         OutlinedButton.icon(
@@ -95,7 +95,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                             _refreshAll();
                           },
                           icon: const Icon(Icons.upload_file),
-                          label: const Text('CSV-Datei importieren'),
+                          label: Text(tr('CSV-Datei importieren')),
                         ),
                       ]),
                     ),
@@ -105,7 +105,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                   orElse: () => const SizedBox.shrink(),
                 ),
                 const SizedBox(height: 12),
-                Text('Letzte 6 Monate', style: theme.textTheme.titleMedium),
+                Text(tr('Letzte 6 Monate'), style: theme.textTheme.titleMedium),
                 const SizedBox(height: 12),
                 IncomeExpenseChart(
                   months: [for (final m in list) MonthBar(m.shortLabel, m.incomeCents, m.expenseCents)],
@@ -118,7 +118,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                       Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: ChoiceChip(
-                          label: Text(list[i].shortLabel + (list[i].complete ? '' : ' (laufend)')),
+                          label: Text(list[i].shortLabel + (list[i].complete ? '' : tr(' (laufend)'))),
                           selected: i == index,
                           onSelected: (_) => setState(() => _selected = i),
                         ),
@@ -132,13 +132,13 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(selected.longLabel, style: theme.textTheme.titleMedium),
                       const SizedBox(height: 8),
-                      _row('Einnahmen', selected.incomeCents, color: IncomeExpenseChart.incomeColor),
-                      _row('Ausgaben', -selected.expenseCents, color: theme.colorScheme.error),
-                      _row('davon Fixkosten', -selected.fixedCents),
+                      _row(tr('Einnahmen'), selected.incomeCents, color: IncomeExpenseChart.incomeColor),
+                      _row(tr('Ausgaben'), -selected.expenseCents, color: theme.colorScheme.error),
+                      _row(tr('davon Fixkosten'), -selected.fixedCents),
                       const Divider(),
-                      _row('Freier Betrag', selected.freeCents, bold: true),
+                      _row(tr('Freier Betrag'), selected.freeCents, bold: true),
                       const SizedBox(height: 16),
-                      Text('Ausgaben nach Kategorie', style: theme.textTheme.titleSmall),
+                      Text(tr('Ausgaben nach Kategorie'), style: theme.textTheme.titleSmall),
                       const SizedBox(height: 8),
                       CategoryBars(items: [for (final c in selected.expenses) (c.label, c.cents)]),
                     ]),
@@ -146,8 +146,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Umbuchungen, Sparraten, Startguthaben und Kreditauszahlungen zählen nicht als Einnahme oder Ausgabe. '
-                  'Die Kategorie eines Umsatzes kannst du in der Umsatzdetailansicht ändern.',
+                  tr('Umbuchungen, Sparraten, Startguthaben und Kreditauszahlungen zählen nicht als Einnahme oder Ausgabe. Die Kategorie eines Umsatzes kannst du in der Umsatzdetailansicht ändern.'),
                   style: theme.textTheme.bodySmall,
                 ),
               ],
@@ -187,14 +186,14 @@ class _AverageCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('Durchschnitt der letzten ${o.monthsUsed} Monate', style: theme.textTheme.titleSmall),
+          Text(tr('Durchschnitt der letzten {0} Monate', [o.monthsUsed]), style: theme.textTheme.titleSmall),
           const SizedBox(height: 12),
-          Row(children: [cell('Einnahmen', o.avgIncomeCents), cell('Ausgaben', o.avgExpenseCents)]),
+          Row(children: [cell(tr('Einnahmen'), o.avgIncomeCents), cell(tr('Ausgaben'), o.avgExpenseCents)]),
           const SizedBox(height: 12),
-          Row(children: [cell('Freier Betrag', o.avgFreeCents), cell('Verfügbar für Pläne', o.availableCents)]),
+          Row(children: [cell(tr('Freier Betrag'), o.avgFreeCents), cell(tr('Verfügbar für Pläne'), o.availableCents)]),
           if (o.planRatesCents > 0) ...[
             const SizedBox(height: 8),
-            Text('Bereits verplant: ${formatCents(o.planRatesCents)} pro Monat in Spar- und Investplänen.',
+            Text(tr('Bereits verplant: {0} pro Monat in Spar- und Investplänen.', [formatCents(o.planRatesCents)]),
                 style: theme.textTheme.bodySmall),
           ],
         ]),

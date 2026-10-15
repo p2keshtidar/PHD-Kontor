@@ -25,6 +25,8 @@ import 'package:girokonto_app/features/standing_orders/standing_orders_screen.da
 import 'package:girokonto_app/features/subaccounts/subaccount_screen.dart';
 import 'package:girokonto_app/features/transfer/transfer_screen.dart';
 
+import 'package:girokonto_app/l10n/l10n.dart';
+
 import 'support/fake_backend.dart';
 import 'support/harness.dart';
 
@@ -66,6 +68,26 @@ void main() {
     'Tablet 1280×800': (const Size(1280, 800), 1.0),
     'große Schrift 150 %': (const Size(375, 812), 1.5),
   };
+
+  // Englisch: alle Bildschirme auf einem normalen Handy (Texte sind oft länger)
+  group('Englisch', () {
+    for (final s in screens.entries) {
+      testWidgets(s.key, (tester) async {
+        final errors = <String>[];
+        final previous = FlutterError.onError;
+        FlutterError.onError = (d) => errors.add(d.toString());
+        addTearDown(() => FlutterError.onError = previous);
+        L10n.language.value = 'en';
+        await pumpScreen(tester, s.value(), size: const Size(360, 740), settle: false);
+        for (var i = 0; i < 10; i++) {
+          await tester.pump(const Duration(milliseconds: 100));
+        }
+        FlutterError.onError = previous;
+        expect(errors, isEmpty, reason: errors.join('\n----\n'));
+        expect(find.byType(ErrorWidget), findsNothing);
+      });
+    }
+  });
 
   for (final s in screens.entries) {
     group(s.key, () {

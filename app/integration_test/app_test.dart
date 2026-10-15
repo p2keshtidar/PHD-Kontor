@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:girokonto_app/core/config.dart';
+import 'package:girokonto_app/core/key_value_store.dart';
 import 'package:girokonto_app/core/messenger.dart';
 import 'package:girokonto_app/core/token_storage.dart';
 import 'package:girokonto_app/main.dart' as app;
@@ -151,6 +152,8 @@ void main() {
     final stamp = DateTime.now().millisecondsSinceEpoch;
     // abgemeldet starten (falls ein früherer Lauf auf diesem Gerät angemeldet blieb)
     await TokenStorage().clear();
+    // Die Testgeräte sind auf Englisch eingestellt; die Abläufe prüfen die deutschen Texte
+    await KeyValueStore.instance.write('language', 'de');
     app.main();
 
     // Login-Seite -> Registrierung (erster Start auf alten Simulatoren kann lange dauern)
@@ -277,6 +280,8 @@ void main() {
     final sub = await b.dio.post<Map<String, dynamic>>('/api/subaccounts', data: {'name': 'WG-Kasse E2E', 'icon': 'home'});
     await b.dio.post<dynamic>('/api/subaccounts/${sub.data!['id']}/members', data: {'recipient': a.email});
 
+    // Die Testgeräte sind auf Englisch eingestellt; die Abläufe prüfen die deutschen Texte
+    await KeyValueStore.instance.write('language', 'de');
     app.main();
     await pumpUntil(tester, find.byKey(const Key('login_email')), timeout: const Duration(seconds: 120));
     await tester.enterText(find.byKey(const Key('login_email')), a.email);

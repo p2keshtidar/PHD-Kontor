@@ -1,6 +1,7 @@
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -61,11 +62,11 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Import löschen?'),
-        content: Text('Die ${i.rowsImported} Umsätze aus „${i.fileName}“ werden aus dem Finanzüberblick entfernt.'),
+        title: Text(tr('Import löschen?')),
+        content: Text(tr('Die {0} Umsätze aus „{1}“ werden aus dem Finanzüberblick entfernt.', [i.rowsImported, i.fileName])),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Abbrechen')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Löschen')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr('Abbrechen'))),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(tr('Löschen'))),
         ],
       ),
     );
@@ -88,26 +89,24 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('CSV-Import')),
       body: ListView(padding: safeListPadding(context), children: [
-        Text('Umsätze deiner echten Bank einbeziehen', style: theme.textTheme.titleMedium),
+        Text(tr('Umsätze deiner echten Bank einbeziehen'), style: theme.textTheme.titleMedium),
         const SizedBox(height: 6),
-        const Text(
-          'Exportiere im Online-Banking deine Umsätze als CSV-Datei (z. B. Sparkasse, Volksbank, ING, DKB, '
-          'comdirect, N26) und lade sie hier hoch. Die Umsätze fließen in Einnahmen, Ausgaben und Kategorien '
-          'ein – deine Kontostände in dieser App ändern sich dadurch nicht.',
+        Text(
+          tr('Exportiere im Online-Banking deine Umsätze als CSV-Datei (z. B. Sparkasse, Volksbank, ING, DKB, comdirect, N26) und lade sie hier hoch. Die Umsätze fließen in Einnahmen, Ausgaben und Kategorien ein – deine Kontostände in dieser App ändern sich dadurch nicht.'),
         ),
         const SizedBox(height: 16),
         FilledButton.icon(
           key: const Key('csv_pick'),
           onPressed: _busy ? null : _pickFile,
           icon: const Icon(Icons.upload_file),
-          label: const Text('CSV-Datei auswählen'),
+          label: Text(tr('CSV-Datei auswählen')),
         ),
         const SizedBox(height: 8),
         OutlinedButton.icon(
           key: const Key('csv_sample'),
           onPressed: _busy ? null : _sample,
           icon: const Icon(Icons.science_outlined),
-          label: const Text('Beispieldatei importieren'),
+          label: Text(tr('Beispieldatei importieren')),
         ),
         if (_busy) const Padding(padding: EdgeInsets.all(16), child: Center(child: CircularProgressIndicator())),
         if (_error != null)
@@ -122,15 +121,15 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(r.imported > 0 ? '${r.imported} Umsätze importiert' : 'Keine neuen Umsätze',
+                Text(r.imported > 0 ? tr('{0} Umsätze importiert', [r.imported]) : tr('Keine neuen Umsätze'),
                     style: theme.textTheme.titleMedium),
                 if (r.firstDate != null && r.lastDate != null)
-                  Text('Zeitraum: ${formatDate(r.firstDate!)} bis ${formatDate(r.lastDate!)}'),
-                if (r.skipped > 0) Text('${r.skipped} schon vorhanden und übersprungen'),
+                  Text(tr('Zeitraum: {0} bis {1}', [formatDate(r.firstDate!), formatDate(r.lastDate!)])),
+                if (r.skipped > 0) Text(tr('{0} schon vorhanden und übersprungen', [r.skipped])),
                 if (r.imported > 0) ...[
                   const SizedBox(height: 6),
-                  Text('Einnahmen: ${formatCents(r.incomeCents)}'),
-                  Text('Ausgaben: ${formatCents(r.expenseCents)}'),
+                  Text(tr('Einnahmen: {0}', [formatCents(r.incomeCents)])),
+                  Text(tr('Ausgaben: {0}', [formatCents(r.expenseCents)])),
                 ],
                 for (final e in r.errors)
                   Text(e, style: TextStyle(color: theme.colorScheme.error, fontSize: 12)),
@@ -139,22 +138,21 @@ class _CsvImportScreenState extends ConsumerState<CsvImportScreen> {
           ),
         ],
         const SizedBox(height: 24),
-        Text('Bisherige Importe', style: theme.textTheme.titleSmall),
+        Text(tr('Bisherige Importe'), style: theme.textTheme.titleSmall),
         imports.when(
           loading: () => const Padding(padding: EdgeInsets.all(16), child: LinearProgressIndicator()),
           error: (e, _) => Text(apiErrorMessage(e)),
           data: (list) => list.isEmpty
-              ? const Padding(padding: EdgeInsets.symmetric(vertical: 8), child: Text('Noch keine.'))
+              ? Padding(padding: EdgeInsets.symmetric(vertical: 8), child: Text(tr('Noch keine.')))
               : Column(children: [
                   for (final i in list)
                     ListTile(
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(Icons.description_outlined),
                       title: Text(i.fileName, overflow: TextOverflow.ellipsis),
-                      subtitle: Text('${i.rowsImported} Umsätze'
-                          '${i.firstDate != null && i.lastDate != null ? ' · ${formatDate(i.firstDate!)} – ${formatDate(i.lastDate!)}' : ''}'),
+                      subtitle: Text(tr('{0} Umsätze{1}', [i.rowsImported, i.firstDate != null && i.lastDate != null ? ' · ${formatDate(i.firstDate!)} – ${formatDate(i.lastDate!)}' : ''])),
                       trailing: IconButton(
-                        tooltip: 'Löschen',
+                        tooltip: tr('Löschen'),
                         icon: const Icon(Icons.delete_outline),
                         onPressed: () => _delete(i),
                       ),

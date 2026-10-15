@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../l10n/l10n.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -69,7 +70,7 @@ class _CardScreenState extends ConsumerState<CardScreen> {
   Future<void> _toggleLock(bool locked) => _run(() async {
         await ref.read(cardRepositoryProvider).setLocked(locked);
         ref.invalidate(cardProvider);
-        _snack(locked ? 'Karte gesperrt' : 'Karte entsperrt');
+        _snack(locked ? tr('Karte gesperrt') : tr('Karte entsperrt'));
       });
 
   Future<void> _saveLimits(PaymentCard card) => _run(() async {
@@ -80,7 +81,7 @@ class _CardScreenState extends ConsumerState<CardScreen> {
           _limitEuro = null;
           _online = null;
         });
-        _snack('Limits gespeichert');
+        _snack(tr('Limits gespeichert'));
       });
 
   Future<void> _simulatePayment() async {
@@ -97,9 +98,8 @@ class _CardScreenState extends ConsumerState<CardScreen> {
       builder: (ctx) => AlertDialog(
         icon: Icon(result.approved ? Icons.check_circle : Icons.cancel,
             color: result.approved ? Colors.green : Theme.of(ctx).colorScheme.error, size: 48),
-        title: Text(result.approved ? 'Zahlung erfolgreich' : 'Zahlung abgelehnt'),
-        content: Text('${formatCents(result.amountCents)} bei ${result.merchant}'
-            '${result.approved ? '' : '\n\nGrund: ${result.message}'}'),
+        title: Text(result.approved ? tr('Zahlung erfolgreich') : tr('Zahlung abgelehnt')),
+        content: Text(tr('{0} bei {1}{2}', [formatCents(result.amountCents), result.merchant, result.approved ? '' : tr('\n\nGrund: {0}', [result.message])])),
         actions: [TextButton(onPressed: () => Navigator.of(ctx).pop(), child: const Text('OK'))],
       ),
     );
@@ -114,7 +114,7 @@ class _CardScreenState extends ConsumerState<CardScreen> {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Text(apiErrorMessage(e)),
           const SizedBox(height: 12),
-          OutlinedButton(onPressed: () => ref.invalidate(cardProvider), child: const Text('Erneut versuchen')),
+          OutlinedButton(onPressed: () => ref.invalidate(cardProvider), child: Text(tr('Erneut versuchen'))),
         ]),
       ),
       data: (c) => _buildContent(c),
@@ -149,17 +149,17 @@ class _CardScreenState extends ConsumerState<CardScreen> {
                         ? _showDetails
                         : () => setState(() => _details = null),
                 icon: Icon(_details == null ? Icons.visibility : Icons.visibility_off),
-                label: Text(_details == null ? 'Kartendaten zeigen' : 'Verbergen'),
+                label: Text(_details == null ? tr('Kartendaten zeigen') : tr('Verbergen')),
               ),
             ),
             if (_details != null) ...[
               const SizedBox(width: 8),
               IconButton(
-                tooltip: 'Nummer kopieren',
+                tooltip: tr('Nummer kopieren'),
                 icon: const Icon(Icons.copy),
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: _details!.number));
-                  _snack('Kartennummer kopiert');
+                  _snack(tr('Kartennummer kopiert'));
                 },
               ),
             ],
@@ -168,10 +168,10 @@ class _CardScreenState extends ConsumerState<CardScreen> {
           Card(
             child: SwitchListTile(
               secondary: Icon(c.isLocked ? Icons.lock : Icons.lock_open),
-              title: const Text('Karte sperren'),
+              title: Text(tr('Karte sperren')),
               subtitle: Text(c.isLocked
-                  ? 'Gesperrt: alle Zahlungen werden abgelehnt'
-                  : 'Aktiv: vorübergehend sperren, z. B. wenn du sie verlegt hast'),
+                  ? tr('Gesperrt: alle Zahlungen werden abgelehnt')
+                  : tr('Aktiv: vorübergehend sperren, z. B. wenn du sie verlegt hast')),
               value: c.isLocked,
               onChanged: _busy ? null : _toggleLock,
             ),
@@ -180,13 +180,13 @@ class _CardScreenState extends ConsumerState<CardScreen> {
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('Heute ausgegeben', style: theme.textTheme.titleSmall),
+                Text(tr('Heute ausgegeben'), style: theme.textTheme.titleSmall),
                 const SizedBox(height: 8),
                 LinearProgressIndicator(value: usedRatio, minHeight: 8, borderRadius: BorderRadius.circular(4)),
                 const SizedBox(height: 6),
-                Text('${formatCents(c.spentTodayCents)} von ${formatCents(c.dailyLimitCents)}'),
+                Text(tr('{0} von {1}', [formatCents(c.spentTodayCents), formatCents(c.dailyLimitCents)])),
                 const Divider(height: 32),
-                Text('Tageslimit: ${formatCents((limitEuro * 100).round())}', style: theme.textTheme.titleSmall),
+                Text(tr('Tageslimit: {0}', [formatCents((limitEuro * 100).round())]), style: theme.textTheme.titleSmall),
                 Slider(
                   value: limitEuro.clamp(0, c.maxDailyLimitCents / 100).toDouble(),
                   min: 0,
@@ -197,7 +197,7 @@ class _CardScreenState extends ConsumerState<CardScreen> {
                 ),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text('Online-Zahlungen erlauben'),
+                  title: Text(tr('Online-Zahlungen erlauben')),
                   value: online,
                   onChanged: _busy ? null : (v) => setState(() => _online = v),
                 ),
@@ -206,7 +206,7 @@ class _CardScreenState extends ConsumerState<CardScreen> {
                     alignment: Alignment.centerRight,
                     child: FilledButton(
                       onPressed: _busy ? null : () => _saveLimits(c),
-                      child: const Text('Limits speichern'),
+                      child: Text(tr('Limits speichern')),
                     ),
                   ),
               ]),
@@ -217,8 +217,8 @@ class _CardScreenState extends ConsumerState<CardScreen> {
             color: theme.colorScheme.tertiaryContainer,
             child: ListTile(
               leading: const Icon(Icons.storefront),
-              title: const Text('Demo: Kartenzahlung simulieren'),
-              subtitle: const Text('Löst eine Zahlung bei einem fiktiven Händler aus'),
+              title: Text(tr('Demo: Kartenzahlung simulieren')),
+              subtitle: Text(tr('Löst eine Zahlung bei einem fiktiven Händler aus')),
               trailing: const Icon(Icons.chevron_right),
               onTap: _busy ? null : _simulatePayment,
             ),
@@ -260,9 +260,9 @@ class _CardVisual extends StatelessWidget {
               const Text('Projektbank', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               const Spacer(),
               if (card.isLocked)
-                const Chip(
+                Chip(
                   avatar: Icon(Icons.lock, size: 16),
-                  label: Text('Gesperrt'),
+                  label: Text(tr('Gesperrt')),
                   visualDensity: VisualDensity.compact,
                 ),
             ]),
@@ -274,10 +274,10 @@ class _CardVisual extends StatelessWidget {
             const SizedBox(height: 12),
             Row(children: [
               Expanded(child: Text(card.holderName, style: white, overflow: TextOverflow.ellipsis)),
-              Text('gültig bis ${card.expiry}', style: white),
+              Text(tr('gültig bis {0}', [card.expiry]), style: white),
               if (details != null) ...[
                 const SizedBox(width: 12),
-                Text('CVC ${details!.cvc}', style: white),
+                Text(tr('CVC {0}', [details!.cvc]), style: white),
               ],
             ]),
           ],
@@ -306,17 +306,17 @@ class _PasswordDialogState extends State<_PasswordDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Passwort bestätigen'),
+      title: Text(tr('Passwort bestätigen')),
       content: TextField(
         controller: _password,
         obscureText: true,
         autofocus: true,
-        decoration: const InputDecoration(labelText: 'Passwort'),
+        decoration: InputDecoration(labelText: tr('Passwort')),
         onSubmitted: (v) => Navigator.of(context).pop(v),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Abbrechen')),
-        FilledButton(onPressed: () => Navigator.of(context).pop(_password.text), child: const Text('Anzeigen')),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(tr('Abbrechen'))),
+        FilledButton(onPressed: () => Navigator.of(context).pop(_password.text), child: Text(tr('Anzeigen'))),
       ],
     );
   }
@@ -349,11 +349,11 @@ class _PaymentDialogState extends ConsumerState<_PaymentDialog> {
   Future<void> _pay() async {
     final cents = parseEuroToCents(_amount.text);
     if (cents == null || cents <= 0) {
-      setState(() => _error = 'Bitte gültigen Betrag eingeben');
+      setState(() => _error = tr('Bitte gültigen Betrag eingeben'));
       return;
     }
     if (_merchant.text.trim().isEmpty) {
-      setState(() => _error = 'Bitte Händler eingeben');
+      setState(() => _error = tr('Bitte Händler eingeben'));
       return;
     }
     setState(() {
@@ -376,7 +376,7 @@ class _PaymentDialogState extends ConsumerState<_PaymentDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Kartenzahlung simulieren'),
+      title: Text(tr('Kartenzahlung simulieren')),
       content: SingleChildScrollView(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Wrap(spacing: 6, runSpacing: 6, children: [
@@ -385,21 +385,21 @@ class _PaymentDialogState extends ConsumerState<_PaymentDialog> {
                 label: Text(m),
                 onPressed: () => setState(() {
                   _merchant.text = m;
-                  _online = m.startsWith('Online');
+                  _online = m.startsWith(tr('Online'));
                 }),
               ),
           ]),
           const SizedBox(height: 12),
-          TextField(controller: _merchant, decoration: const InputDecoration(labelText: 'Händler')),
+          TextField(controller: _merchant, decoration: InputDecoration(labelText: tr('Händler'))),
           const SizedBox(height: 12),
           TextField(
             controller: _amount,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            decoration: const InputDecoration(labelText: 'Betrag', suffixText: '€'),
+            decoration: InputDecoration(labelText: tr('Betrag'), suffixText: '€'),
           ),
           SwitchListTile(
             contentPadding: EdgeInsets.zero,
-            title: const Text('Online-Zahlung'),
+            title: Text(tr('Online-Zahlung')),
             value: _online,
             onChanged: (v) => setState(() => _online = v),
           ),
@@ -407,8 +407,8 @@ class _PaymentDialogState extends ConsumerState<_PaymentDialog> {
         ]),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Abbrechen')),
-        FilledButton(onPressed: _sending ? null : _pay, child: const Text('Bezahlen')),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(tr('Abbrechen'))),
+        FilledButton(onPressed: _sending ? null : _pay, child: Text(tr('Bezahlen'))),
       ],
     );
   }

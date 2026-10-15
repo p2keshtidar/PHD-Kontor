@@ -9,6 +9,7 @@ class AppUser {
     required this.birthDate,
     required this.role,
     this.twoFactorEnabled = false,
+    this.language,
   });
 
   final int id;
@@ -22,6 +23,9 @@ class AppUser {
   /// /K050/
   final bool twoFactorEnabled;
 
+  /// Gespeicherte Sprache des Kontos ('de'/'en') oder null
+  final String? language;
+
   String get fullName => '$firstName $lastName';
   bool get isAdmin => role == 'ADMIN';
 
@@ -34,5 +38,6 @@ class AppUser {
         birthDate: DateTime.parse(json['birthDate'] as String),
         role: json['role'] as String,
         twoFactorEnabled: json['twoFactorEnabled'] as bool? ?? false,
+        language: json['language'] as String?,
       );
 }

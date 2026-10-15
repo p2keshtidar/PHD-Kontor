@@ -4,6 +4,7 @@ import '../../core/api_client.dart';
 import '../notifications/background_check.dart';
 import 'app_user.dart';
 import 'auth_repository.dart';
+import '../../l10n/language_controller.dart';
 
 /// Hält den aktuell angemeldeten Nutzer.
 ///
@@ -20,11 +21,19 @@ class AuthController extends AsyncNotifier<AppUser?> {
     ref.read(apiClientProvider).onSessionExpired = () {
       state = const AsyncData(null);
     };
-    return _repo.restoreSession();
+    final user = await _repo.restoreSession();
+    if (user != null) _applyLanguage(user);
+    return user;
+  }
+
+  /// Sprache des Kontos übernehmen (oder die aktuelle beim Konto speichern).
+  void _applyLanguage(AppUser user) {
+    LanguageController.applyUser(user, ref.read(apiClientProvider));
   }
 
   Future<void> login(String email, String password, {String? code}) async {
     final user = await _repo.login(email, password, code: code);
+    _applyLanguage(user);
     state = AsyncData(user);
   }
 
@@ -44,6 +53,7 @@ class AuthController extends AsyncNotifier<AppUser?> {
       birthDate: birthDate,
       password: password,
     );
+    _applyLanguage(user);
     state = AsyncData(user);
   }
 

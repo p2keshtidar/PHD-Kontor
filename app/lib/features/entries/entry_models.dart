@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_client.dart';
 import '../accounts/accounts_repository.dart';
@@ -82,12 +83,12 @@ class Entry {
 }
 
 /// Häufigkeiten: Monate → Text (0 = einmalig)
-const entryIntervals = <int, String>{
-  0: 'einmalig',
-  1: 'monatlich',
-  3: 'vierteljährlich',
-  6: 'halbjährlich',
-  12: 'jährlich',
+Map<int, String> get entryIntervals => {
+  0: tr('einmalig'),
+  1: tr('monatlich'),
+  3: tr('vierteljährlich'),
+  6: tr('halbjährlich'),
+  12: tr('jährlich'),
 };
 
 class EntriesSummary {

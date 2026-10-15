@@ -1,3 +1,5 @@
+import '../../core/dates.dart';
+import '../../l10n/l10n.dart';
 /// Ein Monat im Finanzüberblick (/F570/).
 class MonthSummary {
   const MonthSummary({
@@ -21,15 +23,10 @@ class MonthSummary {
   final int freeCents;
   final List<CategoryAmount> categories;
 
-  static const _names = ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
-  static const _longNames = [
-    'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
-    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
-  ];
 
   int get _monthIndex => int.parse(month.substring(5, 7)) - 1;
-  String get shortLabel => _names[_monthIndex];
-  String get longLabel => '${_longNames[_monthIndex]} ${month.substring(0, 4)}';
+  String get shortLabel => monthShort(_monthIndex + 1);
+  String get longLabel => '${monthName(_monthIndex + 1)} ${month.substring(0, 4)}';
 
   List<CategoryAmount> get expenses => categories.where((c) => c.kind != 'INCOME').toList();
 
@@ -122,22 +119,22 @@ class NetWorth {
 }
 
 /// Demo-Profile (/F590/), Schlüssel wie im Backend.
-const demoProfiles = <String, String>{
-  'STUDENT': 'Studierende (ca. 1.170 € Einnahmen)',
-  'EINSTEIGER': 'Berufseinsteiger (2.650 € Gehalt)',
-  'FAMILIE': 'Familie (3.900 € Gehalt + Kindergeld)',
+Map<String, String> get demoProfiles => {
+  'STUDENT': tr('Studierende (ca. 1.170 € Einnahmen)'),
+  'EINSTEIGER': tr('Berufseinsteiger (2.650 € Gehalt)'),
+  'FAMILIE': tr('Familie (3.900 € Gehalt + Kindergeld)'),
 };
 
 /// Kategorien, die der Nutzer wählen kann (/F560/).
-const selectableCategories = <String, String>{
-  'GEHALT': 'Gehalt',
-  'SONSTIGE_EINNAHMEN': 'Sonstige Einnahmen',
-  'WOHNEN': 'Wohnen',
-  'VERTRAEGE': 'Verträge & Abos',
-  'KREDIT': 'Kredit',
-  'LEBENSMITTEL': 'Lebensmittel',
-  'MOBILITAET': 'Mobilität',
-  'FREIZEIT': 'Freizeit',
-  'SHOPPING': 'Shopping',
-  'SONSTIGES': 'Sonstiges',
+Map<String, String> get selectableCategories => {
+  'GEHALT': tr('Gehalt'),
+  'SONSTIGE_EINNAHMEN': tr('Sonstige Einnahmen'),
+  'WOHNEN': tr('Wohnen'),
+  'VERTRAEGE': tr('Verträge & Abos'),
+  'KREDIT': tr('Kredit'),
+  'LEBENSMITTEL': tr('Lebensmittel'),
+  'MOBILITAET': tr('Mobilität'),
+  'FREIZEIT': tr('Freizeit'),
+  'SHOPPING': tr('Shopping'),
+  'SONSTIGES': tr('Sonstiges'),
 };

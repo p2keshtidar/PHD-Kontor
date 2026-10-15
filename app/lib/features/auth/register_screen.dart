@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/language_button.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/validators.dart';
@@ -51,7 +53,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       initialDate: _birthDate ?? DateTime(now.year - 20, now.month, now.day),
       firstDate: DateTime(now.year - 100),
       lastDate: now,
-      helpText: 'Geburtsdatum',
+      helpText: tr('Geburtsdatum'),
     );
     if (picked != null) {
       setState(() {
@@ -62,9 +64,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   }
 
   String? _validateBirthDate(String? _) {
-    if (_birthDate == null) return 'Geburtsdatum fehlt';
+    if (_birthDate == null) return tr('Geburtsdatum fehlt');
     if (!isAdult(_birthDate!, DateTime.now())) {
-      return 'Ein Konto ist erst ab 18 Jahren möglich';
+      return tr('Ein Konto ist erst ab 18 Jahren möglich');
     }
     return null;
   }
@@ -97,11 +99,12 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     const gap = SizedBox(height: 14);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Konto eröffnen'),
+        title: Text(tr('Konto eröffnen')),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/login'),
         ),
+        actions: const [LanguageButton()],
       ),
       body: SafeArea(
         child: Center(
@@ -115,7 +118,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
-                      'In wenigen Schritten zu deinem Konto. Du startest mit 1.000 € Spielgeld.',
+                      tr('In wenigen Schritten zu deinem Konto. Du startest mit 1.000 € Spielgeld.'),
                       style: theme.textTheme.bodyMedium,
                     ),
                     const SizedBox(height: 20),
@@ -124,8 +127,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         child: TextFormField(
                           controller: _firstName,
                           textCapitalization: TextCapitalization.words,
-                          decoration: const InputDecoration(labelText: 'Vorname'),
-                          validator: (v) => validateRequired(v, 'Vorname'),
+                          decoration: InputDecoration(labelText: tr('Vorname')),
+                          validator: (v) => validateRequired(v, tr('Vorname')),
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -133,8 +136,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         child: TextFormField(
                           controller: _lastName,
                           textCapitalization: TextCapitalization.words,
-                          decoration: const InputDecoration(labelText: 'Nachname'),
-                          validator: (v) => validateRequired(v, 'Nachname'),
+                          decoration: InputDecoration(labelText: tr('Nachname')),
+                          validator: (v) => validateRequired(v, tr('Nachname')),
                         ),
                       ),
                     ]),
@@ -142,16 +145,16 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     TextFormField(
                       controller: _email,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                          labelText: 'E-Mail', prefixIcon: Icon(Icons.mail)),
+                      decoration: InputDecoration(
+                          labelText: tr('E-Mail'), prefixIcon: Icon(Icons.mail)),
                       validator: validateEmail,
                     ),
                     gap,
                     TextFormField(
                       controller: _phone,
                       keyboardType: TextInputType.phone,
-                      decoration: const InputDecoration(
-                          labelText: 'Telefonnummer',
+                      decoration: InputDecoration(
+                          labelText: tr('Telefonnummer'),
                           hintText: 'z. B. 0151 12345678',
                           prefixIcon: Icon(Icons.phone)),
                       validator: validatePhone,
@@ -161,8 +164,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                       controller: _birthDateText,
                       readOnly: true,
                       onTap: _pickBirthDate,
-                      decoration: const InputDecoration(
-                          labelText: 'Geburtsdatum',
+                      decoration: InputDecoration(
+                          labelText: tr('Geburtsdatum'),
                           prefixIcon: Icon(Icons.cake)),
                       validator: _validateBirthDate,
                     ),
@@ -170,9 +173,9 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     TextFormField(
                       controller: _password,
                       obscureText: true,
-                      decoration: const InputDecoration(
-                          labelText: 'Passwort',
-                          helperText: 'Mindestens 10 Zeichen',
+                      decoration: InputDecoration(
+                          labelText: tr('Passwort'),
+                          helperText: tr('Mindestens 10 Zeichen'),
                           prefixIcon: Icon(Icons.lock)),
                       validator: validateNewPassword,
                     ),
@@ -180,11 +183,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                     TextFormField(
                       controller: _password2,
                       obscureText: true,
-                      decoration: const InputDecoration(
-                          labelText: 'Passwort wiederholen',
+                      decoration: InputDecoration(
+                          labelText: tr('Passwort wiederholen'),
                           prefixIcon: Icon(Icons.lock_outline)),
                       validator: (v) => v != _password.text
-                          ? 'Passwörter stimmen nicht überein'
+                          ? tr('Passwörter stimmen nicht überein')
                           : null,
                     ),
                     if (_error != null) ...[
@@ -200,7 +203,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(strokeWidth: 2))
-                          : const Text('Konto eröffnen'),
+                          : Text(tr('Konto eröffnen')),
                     ),
                   ],
                 ),

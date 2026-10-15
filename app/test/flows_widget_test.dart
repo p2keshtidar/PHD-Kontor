@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:girokonto_app/core/config.dart';
+import 'package:girokonto_app/l10n/l10n.dart';
 import 'package:girokonto_app/features/accounts/account_home_screen.dart';
 import 'package:girokonto_app/features/auth/login_screen.dart';
 import 'package:girokonto_app/features/entries/entries_screen.dart';
@@ -349,6 +350,38 @@ void main() {
     await tester.tap(find.text('7 Tage vorher'));
     await tester.pumpAndSettle();
     expect(fake.lastBody('PUT /api/plans/*')['reminderDays'], 7);
+  });
+
+  group('Sprache', () {
+    testWidgets('A23 Sprachumschalter: sofort Englisch, beim Konto gespeichert, zurück auf Deutsch', (tester) async {
+      final fake = await pumpScreen(tester, const LoginScreen());
+      expect(find.text('Willkommen zurück'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('language_switch')));
+      await tester.pumpAndSettle();
+      expect(L10n.lang, 'en');
+      expect(find.text('Welcome back'), findsOneWidget);
+      expect(find.text('Log in'), findsOneWidget);
+      expect(find.text('Willkommen zurück'), findsNothing);
+      expect(fake.lastBody('PUT /api/me/language')['language'], 'en');
+      await tester.tap(find.byKey(const Key('login_submit')));
+      await tester.pumpAndSettle();
+      expect(find.text('Please enter your password'), findsOneWidget);   // Prüfmeldung übersetzt
+      await tester.tap(find.byKey(const Key('language_switch')));
+      await tester.pumpAndSettle();
+      expect(find.text('Willkommen zurück'), findsOneWidget);
+    });
+
+    testWidgets('A24 Startseite und Überweisung auf Englisch, Accept-Language wird gesendet', (tester) async {
+      L10n.language.value = 'en';
+      final fake = await pumpScreen(tester, const AccountHomeScreen(), settle: false);
+      for (var i = 0; i < 10; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      expect(find.text('Hello Erika!'), findsOneWidget);
+      expect(find.text('Net worth'), findsOneWidget);
+      expect(find.text('€5,234.50'), findsWidgets);
+      expect(fake.requests.first.headers['Accept-Language'], 'en');
+    });
   });
 
   group('Einnahmen & Ausgaben', () {

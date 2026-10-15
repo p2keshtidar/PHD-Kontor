@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../l10n/l10n.dart';
 
 import 'config.dart';
 import 'token_storage.dart';
@@ -39,6 +40,8 @@ class ApiClient {
   Future<void> _onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     options.baseUrl = AppConfig.apiBaseUrl;
+    // Server liefert Fehlermeldungen und Bezeichnungen in dieser Sprache
+    options.headers['Accept-Language'] = L10n.lang;
     if (options.extra['noAuth'] != true) {
       final token = await _storage.readAccessToken();
       if (token != null) {

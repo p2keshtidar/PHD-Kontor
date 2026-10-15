@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/money.dart';
@@ -46,7 +47,7 @@ class AccountHomeScreen extends ConsumerWidget {
             Center(
               child: OutlinedButton(
                 onPressed: () => ref.invalidate(accountsProvider),
-                child: const Text('Erneut versuchen'),
+                child: Text(tr('Erneut versuchen')),
               ),
             ),
           ],
@@ -65,7 +66,7 @@ class AccountHomeScreen extends ConsumerWidget {
               if (user != null)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),
-                  child: Text('Hallo ${user.firstName}!',
+                  child: Text(tr('Hallo {0}!', [user.firstName]),
                       style: Theme.of(context).textTheme.titleLarge),
                 ),
               _TotalCard(totalCents: netWorth?.totalCents ?? total, netWorth: netWorth),
@@ -77,7 +78,7 @@ class AccountHomeScreen extends ConsumerWidget {
                     key: const Key('home_add_income'),
                     onPressed: () => context.push('/eintraege/neu?art=einnahme'),
                     icon: const Icon(Icons.add),
-                    label: const Text('Einnahme'),
+                    label: Text(tr('Einnahme')),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -86,7 +87,7 @@ class AccountHomeScreen extends ConsumerWidget {
                     key: const Key('home_add_expense'),
                     onPressed: () => context.push('/eintraege/neu?art=ausgabe'),
                     icon: const Icon(Icons.remove),
-                    label: const Text('Ausgabe'),
+                    label: Text(tr('Ausgabe')),
                   ),
                 ),
               ]),
@@ -95,7 +96,7 @@ class AccountHomeScreen extends ConsumerWidget {
                 child: TextButton(
                   key: const Key('home_entries'),
                   onPressed: () => context.push('/eintraege'),
-                  child: const Text('Einnahmen & Ausgaben verwalten'),
+                  child: Text(tr('Einnahmen & Ausgaben verwalten')),
                 ),
               ),
               const SizedBox(height: 4),
@@ -115,7 +116,7 @@ class AccountHomeScreen extends ConsumerWidget {
                     if (saved == true) ref.invalidate(accountsProvider);
                   },
                   icon: const Icon(Icons.add),
-                  label: const Text('Neues Unterkonto'),
+                  label: Text(tr('Neues Unterkonto')),
                 ),
               ),
               if (main != null) _RecentBookings(accountId: main.id),
@@ -143,7 +144,7 @@ class _TotalCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Gesamtvermögen',
+            Text(tr('Gesamtvermögen'),
                 style: TextStyle(color: scheme.onPrimaryContainer)),
             const SizedBox(height: 6),
             Text(
@@ -156,9 +157,7 @@ class _TotalCard extends StatelessWidget {
             if (netWorth != null && (netWorth!.depotCents != 0 || netWorth!.loansCents != 0)) ...[
               const SizedBox(height: 6),
               Text(
-                'Konten ${formatCents(netWorth!.accountsCents)}'
-                '${netWorth!.depotCents != 0 ? ' · Depots ${formatCents(netWorth!.depotCents)}' : ''}'
-                '${netWorth!.loansCents != 0 ? ' · Kredite ${formatCents(netWorth!.loansCents)}' : ''}',
+                tr('Konten {0}{1}{2}', [formatCents(netWorth!.accountsCents), netWorth!.depotCents != 0 ? tr(' · Depots {0}', [formatCents(netWorth!.depotCents)]) : '', netWorth!.loansCents != 0 ? tr(' · Kredite {0}', [formatCents(netWorth!.loansCents)]) : '']),
                 style: TextStyle(color: scheme.onPrimaryContainer),
               ),
             ],
@@ -183,11 +182,11 @@ class _RecentBookings extends ConsumerWidget {
         const SizedBox(height: 16),
         Row(children: [
           Expanded(
-            child: Text('Letzte Umsätze', style: Theme.of(context).textTheme.titleMedium),
+            child: Text(tr('Letzte Umsätze'), style: Theme.of(context).textTheme.titleMedium),
           ),
           TextButton(
             onPressed: () => context.push('/umsaetze/$accountId'),
-            child: const Text('Alle anzeigen'),
+            child: Text(tr('Alle anzeigen')),
           ),
         ]),
         Card(
@@ -201,9 +200,9 @@ class _RecentBookings extends ConsumerWidget {
               child: Text(apiErrorMessage(e)),
             ),
             data: (items) => items.isEmpty
-                ? const Padding(
+                ? Padding(
                     padding: EdgeInsets.all(16),
-                    child: Text('Noch keine Umsätze.'),
+                    child: Text(tr('Noch keine Umsätze.')),
                   )
                 : Column(children: [
                     for (final b in items)
@@ -241,8 +240,8 @@ class _AccountTile extends StatelessWidget {
                     Flexible(
                       child: Text(
                         account.isForeign
-                            ? 'Geteilt von ${account.ownerName}'
-                            : 'Geteilt mit ${account.memberCount} ${account.memberCount == 1 ? 'Person' : 'Personen'}',
+                            ? tr('Geteilt von {0}', [account.ownerName])
+                            : tr('Geteilt mit {0} {1}', [account.memberCount, account.memberCount == 1 ? tr('Person') : tr('Personen')]),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -258,7 +257,7 @@ class _AccountTile extends StatelessWidget {
             : () {
                 Clipboard.setData(ClipboardData(text: iban));
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('IBAN kopiert')),
+                  SnackBar(content: Text(tr('IBAN kopiert'))),
                 );
               },
       ),

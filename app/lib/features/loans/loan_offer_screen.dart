@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/money.dart';
@@ -62,8 +63,8 @@ class _LoanOfferScreenState extends ConsumerState<LoanOfferScreen> {
     final s = widget.selected;
     if (s == null) {
       return Scaffold(
-        appBar: AppBar(title: const Text('Angebot')),
-        body: const Center(child: Text('Bitte das Angebot aus dem Vergleich öffnen.')),
+        appBar: AppBar(title: Text(tr('Angebot'))),
+        body: Center(child: Text(tr('Bitte das Angebot aus dem Vergleich öffnen.'))),
       );
     }
     final o = s.offer;
@@ -73,25 +74,25 @@ class _LoanOfferScreenState extends ConsumerState<LoanOfferScreen> {
       appBar: AppBar(title: Text(o.bankName)),
       body: ListView(padding: safeListPadding(context), children: [
         Text('${r.purposeLabel}: ${formatCents(r.principalCents)}', style: theme.textTheme.titleLarge),
-        if (r.equityCents > 0) Text('Eigenkapital: ${formatCents(r.equityCents)}'),
+        if (r.equityCents > 0) Text(tr('Eigenkapital: {0}', [formatCents(r.equityCents)])),
         const SizedBox(height: 12),
         Card(
           child: Column(children: [
-            _row('Zinssatz p. a.', formatPercent(o.interestRate)),
-            _row('Laufzeit', '${r.termMonths} Monate'),
-            _row('Monatsrate', formatCents(o.monthlyRateCents)),
-            _row('Zinskosten gesamt', formatCents(o.totalInterestCents)),
-            _row('Gesamtkosten', formatCents(o.totalCostCents)),
-            if (r.hasData) _row('Deine tragbare Rate', formatCents(r.maxRateCents)),
+            _row(tr('Zinssatz p. a.'), formatPercent(o.interestRate)),
+            _row(tr('Laufzeit'), tr('{0} Monate', [r.termMonths])),
+            _row(tr('Monatsrate'), formatCents(o.monthlyRateCents)),
+            _row(tr('Zinskosten gesamt'), formatCents(o.totalInterestCents)),
+            _row(tr('Gesamtkosten'), formatCents(o.totalCostCents)),
+            if (r.hasData) _row(tr('Deine tragbare Rate'), formatCents(r.maxRateCents)),
           ]),
         ),
         if (o.declined)
           Card(
             color: theme.colorScheme.errorContainer,
-            child: ListTile(leading: const Icon(Icons.block), title: const Text('Abgelehnt'), subtitle: Text(o.declineReason ?? '')),
+            child: ListTile(leading: const Icon(Icons.block), title: Text(tr('Abgelehnt')), subtitle: Text(o.declineReason ?? '')),
           ),
         const SizedBox(height: 12),
-        Text('Tilgungsplan', style: theme.textTheme.titleMedium),
+        Text(tr('Tilgungsplan'), style: theme.textTheme.titleMedium),
         FutureBuilder<List<ScheduleRow>>(
           future: _schedule,
           builder: (context, snap) {
@@ -106,13 +107,12 @@ class _LoanOfferScreenState extends ConsumerState<LoanOfferScreen> {
             contentPadding: EdgeInsets.zero,
             value: _understood,
             onChanged: (v) => setState(() => _understood = v ?? false),
-            title: const Text('Mir ist klar, dass dies eine Simulation mit Spielgeld ist. Der Betrag wird auf mein '
-                'Girokonto ausgezahlt, die Raten werden monatlich automatisch abgebucht.'),
+            title: Text(tr('Mir ist klar, dass dies eine Simulation mit Spielgeld ist. Der Betrag wird auf mein Girokonto ausgezahlt, die Raten werden monatlich automatisch abgebucht.')),
           ),
           FilledButton.icon(
             onPressed: _busy || !_understood ? null : () => _conclude(s),
             icon: const Icon(Icons.handshake),
-            label: const Text('Kredit abschließen'),
+            label: Text(tr('Kredit abschließen')),
           ),
         ],
       ]),

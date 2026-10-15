@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -37,7 +38,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
     final cents = parseEuroToCents(_amount.text);
     if (cents == null || cents < 100) {
       setState(() {
-        _error = 'Bitte mindestens 1,00 € eingeben';
+        _error = tr('Bitte mindestens 1,00 € eingeben');
         _preview = null;
       });
       return;
@@ -69,8 +70,8 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(p.paysOff
-            ? 'Kredit vollständig zurückgezahlt 🎉'
-            : 'Sondertilgung über ${formatCents(p.amountCents)} gebucht'),
+            ? tr('Kredit vollständig zurückgezahlt 🎉')
+            : tr('Sondertilgung über {0} gebucht', [formatCents(p.amountCents)])),
       ));
       Navigator.of(context).pop();
     } catch (e) {
@@ -86,14 +87,13 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
     final l = widget.loan;
     final p = _preview;
     return Scaffold(
-      appBar: AppBar(title: const Text('Sondertilgung')),
+      appBar: AppBar(title: Text(tr('Sondertilgung'))),
       body: SafeArea(
         child: ListView(padding: safeListPadding(context), children: [
-          Text('Zahle zusätzlich etwas zurück. Deine Monatsrate bleibt gleich – '
-              'dadurch ist der Kredit früher abbezahlt und du sparst Zinsen.',
+          Text(tr('Zahle zusätzlich etwas zurück. Deine Monatsrate bleibt gleich – dadurch ist der Kredit früher abbezahlt und du sparst Zinsen.'),
               style: theme.textTheme.bodyMedium),
           const SizedBox(height: 16),
-          Text('Restschuld bei der ${l.bankName}: ${formatCents(l.remainingCents)}',
+          Text(tr('Restschuld bei der {0}: {1}', [l.bankName, formatCents(l.remainingCents)]),
               style: theme.textTheme.titleSmall),
           const SizedBox(height: 12),
           TextField(
@@ -101,7 +101,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
             controller: _amount,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
             decoration: InputDecoration(
-              labelText: 'Betrag',
+              labelText: tr('Betrag'),
               suffixText: '€',
               errorText: _error,
               prefixIcon: const Icon(Icons.euro),
@@ -123,7 +123,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
                   },
                 ),
             ActionChip(
-              label: const Text('Alles'),
+              label: Text(tr('Alles')),
               onPressed: () {
                 _amount.text = formatCents(l.remainingCents).replaceAll(' €', '').replaceAll('.', '');
                 _calculate();
@@ -135,7 +135,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
             key: const Key('extra_preview'),
             onPressed: _busy ? null : _calculate,
             icon: const Icon(Icons.calculate_outlined),
-            label: const Text('Auswirkung berechnen'),
+            label: Text(tr('Auswirkung berechnen')),
           ),
           if (p != null) ...[
             const SizedBox(height: 16),
@@ -143,15 +143,15 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Column(children: [
-                  _compare('Restschuld', formatCents(p.remainingBeforeCents), formatCents(p.remainingAfterCents)),
-                  _compare('Offene Raten', '${p.installmentsBefore}', '${p.installmentsAfter}'),
-                  _compare('Letzte Rate', formatMonthYear(p.endBefore),
-                      p.paysOff ? 'sofort' : formatMonthYear(p.endAfter)),
+                  _compare(tr('Restschuld'), formatCents(p.remainingBeforeCents), formatCents(p.remainingAfterCents)),
+                  _compare(tr('Offene Raten'), '${p.installmentsBefore}', '${p.installmentsAfter}'),
+                  _compare(tr('Letzte Rate'), formatMonthYear(p.endBefore),
+                      p.paysOff ? tr('sofort') : formatMonthYear(p.endAfter)),
                   const Divider(),
                   ListTile(
                     dense: true,
                     leading: Icon(Icons.savings_outlined, color: theme.colorScheme.primary),
-                    title: const Text('Du sparst Zinsen'),
+                    title: Text(tr('Du sparst Zinsen')),
                     trailing: Text(formatCents(p.interestSavedCents),
                         style: TextStyle(fontWeight: FontWeight.bold, color: theme.colorScheme.primary)),
                   ),
@@ -159,7 +159,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
                     ListTile(
                       dense: true,
                       leading: const Icon(Icons.event_available_outlined),
-                      title: Text('${p.installmentsSaved} ${p.installmentsSaved == 1 ? 'Rate' : 'Raten'} weniger'),
+                      title: Text(tr('{0} {1} weniger', [p.installmentsSaved, p.installmentsSaved == 1 ? tr('Rate') : tr('Raten')])),
                     ),
                 ]),
               ),
@@ -167,7 +167,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
             if (p.availableCents < p.amountCents)
               Padding(
                 padding: const EdgeInsets.only(top: 8),
-                child: Text('Auf dem Girokonto sind nur ${formatCents(p.availableCents)}.',
+                child: Text(tr('Auf dem Girokonto sind nur {0}.', [formatCents(p.availableCents)]),
                     style: TextStyle(color: theme.colorScheme.error)),
               ),
             const SizedBox(height: 16),
@@ -175,7 +175,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
               key: const Key('extra_pay'),
               onPressed: _busy || p.availableCents < p.amountCents ? null : _pay,
               icon: const Icon(Icons.check),
-              label: Text('${formatCents(p.amountCents)} jetzt sondertilgen'),
+              label: Text(tr('{0} jetzt sondertilgen', [formatCents(p.amountCents)])),
             ),
           ],
         ]),

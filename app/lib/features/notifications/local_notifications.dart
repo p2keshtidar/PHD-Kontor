@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '../../l10n/l10n.dart';
 
 /// Systembenachrichtigungen auf iOS und Android (/F510/). Im Browser nicht verfügbar.
 class LocalNotifications {
@@ -34,15 +35,15 @@ class LocalNotifications {
 
   static Future<void> show(int id, String title, String body) async {
     if (!_ready) return;
-    const details = NotificationDetails(
+    final details = NotificationDetails(
       android: AndroidNotificationDetails(
         'buchungen',
-        'Buchungen',
-        channelDescription: 'Meldungen zu Ein- und Ausgängen',
+        tr('Buchungen'),
+        channelDescription: tr('Meldungen zu Ein- und Ausgängen'),
         importance: Importance.high,
         priority: Priority.high,
       ),
-      iOS: DarwinNotificationDetails(),
+      iOS: const DarwinNotificationDetails(),
     );
     try {
       await _plugin.show(id, title, body, details);

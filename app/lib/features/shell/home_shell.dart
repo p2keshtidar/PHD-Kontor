@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/language_button.dart';
+import '../../l10n/l10n.dart';
 
 import '../notifications/notifications_repository.dart';
 import '../notifications/realtime_provider.dart';
@@ -22,10 +24,11 @@ class HomeShell extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titles[shell.currentIndex]),
+        title: Text(tr(_titles[shell.currentIndex])),
         actions: [
+          const LanguageButton(),
           IconButton(
-            tooltip: 'Benachrichtigungen',
+            tooltip: tr('Benachrichtigungen'),
             icon: Badge(
               isLabelVisible: unread > 0,
               label: Text(unread > 99 ? '99+' : '$unread'),
@@ -34,7 +37,7 @@ class HomeShell extends ConsumerWidget {
             onPressed: () => context.push('/benachrichtigungen'),
           ),
           IconButton(
-            tooltip: 'Profil',
+            tooltip: tr('Profil'),
             icon: const Icon(Icons.account_circle),
             onPressed: () => context.push('/profil'),
           ),
@@ -45,21 +48,21 @@ class HomeShell extends ConsumerWidget {
         selectedIndex: shell.currentIndex,
         onDestinationSelected: (i) =>
             shell.goBranch(i, initialLocation: i == shell.currentIndex),
-        destinations: const [
+        destinations: [
           NavigationDestination(
               icon: Icon(Icons.account_balance_outlined),
               selectedIcon: Icon(Icons.account_balance),
-              label: 'Konto'),
+              label: tr('Konto')),
           NavigationDestination(
-              icon: Icon(Icons.swap_horiz), label: 'Überweisen'),
+              icon: Icon(Icons.swap_horiz), label: tr('Überweisen')),
           NavigationDestination(
               icon: Icon(Icons.savings_outlined),
               selectedIcon: Icon(Icons.savings),
-              label: 'Sparen'),
+              label: tr('Sparen')),
           NavigationDestination(
               icon: Icon(Icons.credit_card_outlined),
               selectedIcon: Icon(Icons.credit_card),
-              label: 'Karte'),
+              label: tr('Karte')),
         ],
       ),
     );

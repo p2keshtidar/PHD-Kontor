@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/money.dart';
 import 'loan_models.dart';
@@ -22,12 +23,12 @@ class ScheduleTable extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 6),
         child: Row(children: [
-          cell('Nr.', bold: true, align: TextAlign.left, flex: 2),
-          cell('Monat', bold: true),
-          cell('Rate', bold: true),
-          cell('Zins', bold: true),
-          cell('Tilgung', bold: true),
-          cell('Rest', bold: true, flex: 4),
+          cell(tr('Nr.'), bold: true, align: TextAlign.left, flex: 2),
+          cell(tr('Monat'), bold: true),
+          cell(tr('Rate'), bold: true),
+          cell(tr('Zins'), bold: true),
+          cell(tr('Tilgung'), bold: true),
+          cell(tr('Rest'), bold: true, flex: 4),
         ]),
       ),
       const Divider(height: 1),
@@ -51,7 +52,7 @@ class ScheduleTable extends StatelessWidget {
             child: Row(children: [
               Icon(Icons.bolt, size: 14, color: theme.colorScheme.tertiary),
               const SizedBox(width: 4),
-              Expanded(child: Text('Sondertilgung ${formatCents(r.extraCents)}', style: small)),
+              Expanded(child: Text(tr('Sondertilgung {0}', [formatCents(r.extraCents)]), style: small)),
             ]),
           ),
       ],

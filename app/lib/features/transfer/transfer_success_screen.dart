@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -46,29 +47,29 @@ class _TransferSuccessScreenState extends ConsumerState<TransferSuccessScreen> {
     final known = r != null && contacts.any((c) => c.userId == r.recipientUserId);
 
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: const Text('Überweisung')),
+      appBar: AppBar(automaticallyImplyLeading: false, title: Text(tr('Überweisung'))),
       body: r == null
-          ? const Center(child: Text('Keine Daten.'))
+          ? Center(child: Text(tr('Keine Daten.')))
           : ListView(
               padding: safeListPadding(context, 24),
               children: [
                 const SizedBox(height: 24),
                 Icon(Icons.check_circle, size: 88, color: theme.colorScheme.primary),
                 const SizedBox(height: 16),
-                Text('Geld gesendet', textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
+                Text(tr('Geld gesendet'), textAlign: TextAlign.center, style: theme.textTheme.headlineSmall),
                 const SizedBox(height: 8),
                 Text(
-                  '${formatCents(r.amountCents)} an ${r.recipientName}',
+                  tr('{0} an {1}', [formatCents(r.amountCents), r.recipientName]),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.titleMedium,
                 ),
                 const SizedBox(height: 24),
                 Card(
                   child: Column(children: [
-                    ListTile(title: const Text('Verwendungszweck'), subtitle: Text(r.description)),
-                    ListTile(title: const Text('Ausgeführt am'), subtitle: Text(formatDateTime(r.bookedAt))),
-                    ListTile(title: const Text('Neuer Kontostand'), subtitle: Text(formatCents(r.newBalanceCents))),
-                    ListTile(title: const Text('Buchungsnummer'), subtitle: Text('${r.bookingId}')),
+                    ListTile(title: Text(tr('Verwendungszweck')), subtitle: Text(r.description)),
+                    ListTile(title: Text(tr('Ausgeführt am')), subtitle: Text(formatDateTime(r.bookedAt))),
+                    ListTile(title: Text(tr('Neuer Kontostand')), subtitle: Text(formatCents(r.newBalanceCents))),
+                    ListTile(title: Text(tr('Buchungsnummer')), subtitle: Text('${r.bookingId}')),
                   ]),
                 ),
                 const SizedBox(height: 16),
@@ -76,13 +77,13 @@ class _TransferSuccessScreenState extends ConsumerState<TransferSuccessScreen> {
                   OutlinedButton.icon(
                     onPressed: _saving ? null : () => _saveContact(r),
                     icon: const Icon(Icons.person_add),
-                    label: const Text('Empfänger im Adressbuch speichern'),
+                    label: Text(tr('Empfänger im Adressbuch speichern')),
                   ),
-                if (_saved) const Text('Im Adressbuch gespeichert ✓', textAlign: TextAlign.center),
+                if (_saved) Text(tr('Im Adressbuch gespeichert ✓'), textAlign: TextAlign.center),
                 const SizedBox(height: 12),
                 FilledButton(
                   onPressed: () => context.go('/konto'),
-                  child: const Text('Fertig'),
+                  child: Text(tr('Fertig')),
                 ),
               ],
             ),

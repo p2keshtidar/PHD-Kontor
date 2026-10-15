@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -69,7 +70,7 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
 
   void _useSuggestion(EntrySuggestion s) {
     setState(() {
-      _title.text = s.title;
+      _title.text = tr(s.title);
       _category = s.category;
       _interval = s.interval;
     });
@@ -81,7 +82,7 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
       initialDate: _dateOrToday,
       firstDate: DateTime(_today.year - 1, _today.month, _today.day),
       lastDate: DateTime(_today.year + 2, _today.month, _today.day),
-      helpText: _interval == 0 ? 'Datum' : 'Erste Buchung',
+      helpText: _interval == 0 ? tr('Datum') : tr('Erste Buchung'),
     );
     if (d != null) setState(() => _date = d);
   }
@@ -92,7 +93,7 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
       initialDate: _endDate ?? DateTime(_dateOrToday.year + 1, _dateOrToday.month, _dateOrToday.day),
       firstDate: _dateOrToday,
       lastDate: DateTime(_today.year + 30),
-      helpText: 'Letzte Buchung',
+      helpText: tr('Letzte Buchung'),
     );
     if (d != null) setState(() => _endDate = d);
   }
@@ -113,7 +114,7 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
 
   String? _dateProblem() {
     if (_interval > 0 && _dateOrToday.day > 28) {
-      return 'Regelmäßig: bitte einen Tag zwischen 1. und 28. wählen (nicht jeder Monat hat mehr Tage).';
+      return tr('Regelmäßig: bitte einen Tag zwischen 1. und 28. wählen (nicht jeder Monat hat mehr Tage).');
     }
     return null;
   }
@@ -142,10 +143,10 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
       refreshAfterEntryChange(ref);
       if (!mounted) return;
       final text = r.bookedNow == 0
-          ? 'Eingetragen – gebucht wird am ${formatDate(r.entry.nextDate ?? _dateOrToday)}'
+          ? tr('Eingetragen – gebucht wird am {0}', [formatDate(r.entry.nextDate ?? _dateOrToday)])
           : r.bookedNow == 1
-              ? 'Gebucht: ${_signed(r.bookedNowCents)}'
-              : '${r.bookedNow} Monate nachgebucht: ${_signed(r.bookedNowCents)}';
+              ? tr('Gebucht: {0}', [_signed(r.bookedNowCents)])
+              : tr('{0} Monate nachgebucht: {1}', [r.bookedNow, _signed(r.bookedNowCents)]);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
       Navigator.of(context).pop(true);
     } catch (e) {
@@ -168,19 +169,19 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
     final dateProblem = _dateProblem();
 
     return Scaffold(
-      appBar: AppBar(title: Text(income ? 'Einnahme eintragen' : 'Ausgabe eintragen')),
+      appBar: AppBar(title: Text(income ? tr('Einnahme eintragen') : tr('Ausgabe eintragen'))),
       body: Form(
         key: _formKey,
         child: ListView(padding: safeListPadding(context), children: [
           SegmentedButton<String>(
-            segments: const [
+            segments: [
               ButtonSegment(
                   value: 'INCOME',
-                  label: Text('Einnahme', key: Key('entry_kind_income')),
+                  label: Text(tr('Einnahme'), key: Key('entry_kind_income')),
                   icon: Icon(Icons.south_west)),
               ButtonSegment(
                   value: 'EXPENSE',
-                  label: Text('Ausgabe', key: Key('entry_kind_expense')),
+                  label: Text(tr('Ausgabe'), key: Key('entry_kind_expense')),
                   icon: Icon(Icons.north_east)),
             ],
             selected: {_kind},
@@ -191,7 +192,7 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
             for (final s in suggestions)
               ActionChip(
                 key: Key('entry_suggest_${s.title}'),
-                label: Text(s.title),
+                label: Text(tr(s.title)),
                 onPressed: () => _useSuggestion(s),
               ),
           ]),
@@ -202,22 +203,22 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
             maxLength: 60,
             textCapitalization: TextCapitalization.sentences,
             decoration: InputDecoration(
-              labelText: 'Bezeichnung',
-              hintText: income ? 'z. B. Gehalt, Nebenjob' : 'z. B. Miete, Urlaub, Einkauf',
+              labelText: tr('Bezeichnung'),
+              hintText: income ? tr('z. B. Gehalt, Nebenjob') : tr('z. B. Miete, Urlaub, Einkauf'),
               prefixIcon: const Icon(Icons.edit_note),
             ),
-            validator: (v) => (v == null || v.trim().isEmpty) ? 'Bitte eine Bezeichnung eingeben' : null,
+            validator: (v) => (v == null || v.trim().isEmpty) ? tr('Bitte eine Bezeichnung eingeben') : null,
           ),
           const SizedBox(height: 4),
           TextFormField(
             key: const Key('entry_amount'),
             controller: _amount,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            decoration: const InputDecoration(labelText: 'Betrag', suffixText: '€', prefixIcon: Icon(Icons.euro)),
+            decoration: InputDecoration(labelText: tr('Betrag'), suffixText: '€', prefixIcon: Icon(Icons.euro)),
             validator: (v) {
               final c = parseEuroToCents(v ?? '');
-              if (c == null || c <= 0) return 'Bitte gültigen Betrag eingeben';
-              if (c > 5000000) return 'Höchstens 50.000,00 € je Eintrag';
+              if (c == null || c <= 0) return tr('Bitte gültigen Betrag eingeben');
+              if (c > 5000000) return tr('Höchstens 50.000,00 € je Eintrag');
               return null;
             },
           ),
@@ -227,21 +228,21 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
             // ignore: deprecated_member_use
             value: options.any((o) => o.key == _category) ? _category : null,
             isExpanded: true,
-            decoration: const InputDecoration(labelText: 'Kategorie', prefixIcon: Icon(Icons.category)),
+            decoration: InputDecoration(labelText: tr('Kategorie'), prefixIcon: Icon(Icons.category)),
             items: [
-              const DropdownMenuItem<String?>(value: null, child: Text('Automatisch (aus der Bezeichnung)')),
+              DropdownMenuItem<String?>(value: null, child: Text(tr('Automatisch (aus der Bezeichnung)'))),
               for (final o in options) DropdownMenuItem<String?>(value: o.key, child: Text(o.label)),
             ],
             onChanged: (v) => setState(() => _category = v),
           ),
           const SizedBox(height: 16),
-          Text('Wie oft?', style: theme.textTheme.titleSmall),
+          Text(tr('Wie oft?'), style: theme.textTheme.titleSmall),
           const SizedBox(height: 6),
           Wrap(spacing: 8, runSpacing: 4, children: [
             for (final e in entryIntervals.entries)
               ChoiceChip(
                 key: Key('entry_interval_${e.key}'),
-                label: Text(e.value),
+                label: Text(tr(e.value)),
                 selected: _interval == e.key,
                 onSelected: (_) => setState(() {
                   _interval = e.key;
@@ -254,10 +255,10 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
             key: const Key('entry_date'),
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.event),
-            title: Text(_interval == 0 ? 'Datum' : 'Erste Buchung'),
+            title: Text(_interval == 0 ? tr('Datum') : tr('Erste Buchung')),
             subtitle: Text(_interval == 0
                 ? formatDate(_dateOrToday)
-                : '${formatDate(_dateOrToday)} – danach ${entryIntervals[_interval]} am ${_dateOrToday.day}.'),
+                : tr('{0} – danach {1} am {2}.', [formatDate(_dateOrToday), tr(entryIntervals[_interval]!), _dateOrToday.day])),
             trailing: const Icon(Icons.chevron_right),
             onTap: _pickDate,
           ),
@@ -265,8 +266,8 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
             ListTile(
               contentPadding: EdgeInsets.zero,
               leading: const Icon(Icons.event_busy),
-              title: const Text('Enddatum (optional)'),
-              subtitle: Text(_endDate == null ? 'Unbegrenzt' : 'Bis ${formatDate(_endDate!)}'),
+              title: Text(tr('Enddatum (optional)')),
+              subtitle: Text(_endDate == null ? tr('Unbegrenzt') : tr('Bis {0}', [formatDate(_endDate!)])),
               trailing: _endDate == null
                   ? const Icon(Icons.chevron_right)
                   : IconButton(icon: const Icon(Icons.clear), onPressed: () => setState(() => _endDate = null)),
@@ -277,10 +278,10 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
           else
             Text(
               occurrences == 0
-                  ? 'Gebucht wird am ${formatDate(_dateOrToday)}.'
+                  ? tr('Gebucht wird am {0}.', [formatDate(_dateOrToday)])
                   : occurrences == 1
-                      ? 'Wird sofort gebucht (mit diesem Datum).'
-                      : 'Wird sofort ${occurrences}× gebucht – für jeden Termin seit ${formatDate(_dateOrToday)}.',
+                      ? tr('Wird sofort gebucht (mit diesem Datum).')
+                      : tr('Wird sofort {0}× gebucht – für jeden Termin seit {1}.', [occurrences, formatDate(_dateOrToday)]),
               style: theme.textTheme.bodySmall,
             ),
           if (_error != null)
@@ -295,13 +296,11 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
             icon: _busy
                 ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                 : const Icon(Icons.check),
-            label: Text(income ? 'Einnahme speichern' : 'Ausgabe speichern'),
+            label: Text(income ? tr('Einnahme speichern') : tr('Ausgabe speichern')),
           ),
           const SizedBox(height: 8),
           Text(
-            'Der Betrag wird auf dein Girokonto gebucht – als Geld von außerhalb der Bank (z. B. Gehalt vom '
-            'Arbeitgeber) bzw. nach außerhalb (z. B. Miete an den Vermieter). So stimmen Kontostand, Umsätze und '
-            'Finanzüberblick. Termine in der Vergangenheit (bis 12 Monate) werden sofort nachgebucht.',
+            tr('Der Betrag wird auf dein Girokonto gebucht – als Geld von außerhalb der Bank (z. B. Gehalt vom Arbeitgeber) bzw. nach außerhalb (z. B. Miete an den Vermieter). So stimmen Kontostand, Umsätze und Finanzüberblick. Termine in der Vergangenheit (bis 12 Monate) werden sofort nachgebucht.'),
             style: theme.textTheme.bodySmall,
           ),
         ]),

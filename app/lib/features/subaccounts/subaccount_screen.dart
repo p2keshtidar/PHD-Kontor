@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/money.dart';
@@ -45,17 +46,17 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
   }
 
   Future<void> _deposit(Account main, Account sub) async {
-    final cents = await askAmount(context, title: 'Vom Girokonto einzahlen', maxCents: main.balanceCents);
+    final cents = await askAmount(context, title: tr('Vom Girokonto einzahlen'), maxCents: main.balanceCents);
     if (cents == null) return;
     await _run(() => ref.read(subaccountsRepositoryProvider).move(main.id, sub.id, cents),
-        '${formatCents(cents)} eingezahlt');
+        tr('{0} eingezahlt', [formatCents(cents)]));
   }
 
   Future<void> _withdraw(Account main, Account sub) async {
-    final cents = await askAmount(context, title: 'Aufs Girokonto auszahlen', maxCents: sub.balanceCents);
+    final cents = await askAmount(context, title: tr('Aufs Girokonto auszahlen'), maxCents: sub.balanceCents);
     if (cents == null) return;
     await _run(() => ref.read(subaccountsRepositoryProvider).move(sub.id, main.id, cents),
-        '${formatCents(cents)} ausgezahlt');
+        tr('{0} ausgezahlt', [formatCents(cents)]));
   }
 
   /// /K060/: Person per E-Mail, Telefonnummer oder IBAN hinzufügen
@@ -64,27 +65,27 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
     final recipient = await showDialog<String>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Unterkonto teilen'),
+        title: Text(tr('Unterkonto teilen')),
         content: SingleChildScrollView(
           child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('Die Person kann in „${sub.name}“ einzahlen, auszahlen und die Umsätze sehen.'),
+            Text(tr('Die Person kann in „{0}“ einzahlen, auszahlen und die Umsätze sehen.', [sub.name])),
             const SizedBox(height: 12),
             TextField(
               key: const Key('share_recipient'),
               controller: controller,
               autofocus: true,
-              decoration: const InputDecoration(labelText: 'E-Mail, Telefonnummer oder IBAN'),
+              decoration: InputDecoration(labelText: tr('E-Mail, Telefonnummer oder IBAN')),
             ),
           ]),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Abbrechen')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, controller.text), child: const Text('Teilen')),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('Abbrechen'))),
+          FilledButton(onPressed: () => Navigator.pop(ctx, controller.text), child: Text(tr('Teilen'))),
         ],
       ),
     );
     if (recipient == null || recipient.trim().isEmpty) return;
-    await _run(() => ref.read(subaccountsRepositoryProvider).addMember(sub.id, recipient), 'Geteilt');
+    await _run(() => ref.read(subaccountsRepositoryProvider).addMember(sub.id, recipient), tr('Geteilt'));
     ref.invalidate(subaccountMembersProvider(sub.id));
   }
 
@@ -92,19 +93,19 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(leave ? 'Austreten?' : '${m.name} entfernen?'),
+        title: Text(leave ? tr('Austreten?') : tr('{0} entfernen?', [m.name])),
         content: Text(leave
-            ? 'Du siehst „${sub.name}“ danach nicht mehr. Das Guthaben bleibt im Unterkonto.'
-            : '${m.name} hat danach keinen Zugriff mehr auf „${sub.name}“.'),
+            ? tr('Du siehst „{0}“ danach nicht mehr. Das Guthaben bleibt im Unterkonto.', [sub.name])
+            : tr('{0} hat danach keinen Zugriff mehr auf „{1}“.', [m.name, sub.name])),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Abbrechen')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(leave ? 'Austreten' : 'Entfernen')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr('Abbrechen'))),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(leave ? tr('Austreten') : tr('Entfernen'))),
         ],
       ),
     );
     if (ok != true) return;
     await _run(() => ref.read(subaccountsRepositoryProvider).removeMember(sub.id, m.userId),
-        leave ? 'Ausgetreten' : '${m.name} entfernt');
+        leave ? tr('Ausgetreten') : tr('{0} entfernt', [m.name]));
     ref.invalidate(subaccountMembersProvider(sub.id));
     if (leave && mounted) context.pop();
   }
@@ -125,24 +126,24 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                 child: Row(children: [
                   const Icon(Icons.group, size: 20),
                   const SizedBox(width: 8),
-                  Text(list.length > 1 ? 'Geteilt' : 'Teilen', style: theme.textTheme.titleSmall),
+                  Text(list.length > 1 ? tr('Geteilt') : tr('Teilen'), style: theme.textTheme.titleSmall),
                 ]),
               ),
               if (list.length == 1)
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  child: Text('Teile dieses Unterkonto, z. B. als WG-Kasse oder gemeinsames Urlaubsbudget.'),
+                  child: Text(tr('Teile dieses Unterkonto, z. B. als WG-Kasse oder gemeinsames Urlaubsbudget.')),
                 ),
               if (list.length > 1)
                 for (final m in list)
                   ListTile(
                     dense: true,
                     leading: CircleAvatar(radius: 14, child: Text(m.name.isEmpty ? '?' : m.name[0])),
-                    title: Text(m.you ? '${m.name} (du)' : m.name),
-                    subtitle: m.owner ? const Text('Besitzer') : null,
+                    title: Text(m.you ? tr('{0} (du)', [m.name]) : m.name),
+                    subtitle: m.owner ? Text(tr('Besitzer')) : null,
                     trailing: !sub.isForeign && !m.owner
                         ? IconButton(
-                            tooltip: 'Entfernen',
+                            tooltip: tr('Entfernen'),
                             icon: const Icon(Icons.person_remove_outlined),
                             onPressed: _busy ? null : () => _removeMember(sub, m, leave: false),
                           )
@@ -152,13 +153,13 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                 ListTile(
                   key: const Key('share_add'),
                   leading: const Icon(Icons.person_add_alt_1),
-                  title: const Text('Person hinzufügen'),
+                  title: Text(tr('Person hinzufügen')),
                   onTap: _busy ? null : () => _addMember(sub),
                 )
               else if (me.isNotEmpty)
                 ListTile(
                   leading: Icon(Icons.logout, color: theme.colorScheme.error),
-                  title: Text('Austreten', style: TextStyle(color: theme.colorScheme.error)),
+                  title: Text(tr('Austreten'), style: TextStyle(color: theme.colorScheme.error)),
                   onTap: _busy ? null : () => _removeMember(sub, me.first, leave: true),
                 ),
             ]);
@@ -180,13 +181,13 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('„${sub.name}“ auflösen?'),
+        title: Text(tr('„{0}“ auflösen?', [sub.name])),
         content: Text(sub.balanceCents > 0
-            ? 'Das Guthaben von ${formatCents(sub.balanceCents)} wird aufs Girokonto gebucht.'
-            : 'Das Unterkonto wird gelöscht.'),
+            ? tr('Das Guthaben von {0} wird aufs Girokonto gebucht.', [formatCents(sub.balanceCents)])
+            : tr('Das Unterkonto wird gelöscht.')),
         actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: const Text('Abbrechen')),
-          FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: const Text('Auflösen')),
+          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: Text(tr('Abbrechen'))),
+          FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: Text(tr('Auflösen'))),
         ],
       ),
     );
@@ -208,7 +209,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
   Widget build(BuildContext context) {
     final accounts = ref.watch(accountsProvider);
     return Scaffold(
-      appBar: AppBar(title: const Text('Unterkonto')),
+      appBar: AppBar(title: Text(tr('Unterkonto'))),
       body: accounts.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text(apiErrorMessage(e))),
@@ -216,7 +217,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
           final subs = list.where((a) => a.id == widget.accountId);
           final mains = list.where((a) => a.isMain);
           if (subs.isEmpty || mains.isEmpty) {
-            return const Center(child: Text('Unterkonto nicht gefunden.'));
+            return Center(child: Text(tr('Unterkonto nicht gefunden.')));
           }
           final sub = subs.first;
           final main = mains.first;
@@ -232,7 +233,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
               const SizedBox(height: 12),
               Center(child: Text(sub.name, style: theme.textTheme.titleLarge)),
               if (sub.isForeign)
-                Center(child: Text('Geteilt von ${sub.ownerName}', style: theme.textTheme.bodySmall)),
+                Center(child: Text(tr('Geteilt von {0}', [sub.ownerName]), style: theme.textTheme.bodySmall)),
               const SizedBox(height: 4),
               Center(
                 child: Text(formatCents(sub.balanceCents),
@@ -244,7 +245,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                   child: FilledButton.icon(
                     onPressed: _busy || main.balanceCents <= 0 ? null : () => _deposit(main, sub),
                     icon: const Icon(Icons.add),
-                    label: const Text('Einzahlen'),
+                    label: Text(tr('Einzahlen')),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -252,12 +253,12 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                   child: FilledButton.tonalIcon(
                     onPressed: _busy || sub.balanceCents <= 0 ? null : () => _withdraw(main, sub),
                     icon: const Icon(Icons.remove),
-                    label: const Text('Auszahlen'),
+                    label: Text(tr('Auszahlen')),
                   ),
                 ),
               ]),
               const SizedBox(height: 8),
-              Text('Auf dem Girokonto verfügbar: ${formatCents(main.balanceCents)}',
+              Text(tr('Auf dem Girokonto verfügbar: {0}', [formatCents(main.balanceCents)]),
                   textAlign: TextAlign.center, style: theme.textTheme.bodySmall),
               const SizedBox(height: 16),
               _sharing(sub, theme),
@@ -267,24 +268,24 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                   if (!sub.isForeign)
                     ListTile(
                       leading: const Icon(Icons.edit),
-                      title: const Text('Name und Symbol ändern'),
+                      title: Text(tr('Name und Symbol ändern')),
                       onTap: _busy ? null : () => _edit(sub),
                     ),
                   ListTile(
                     leading: const Icon(Icons.receipt_long),
-                    title: const Text('Alle Umsätze'),
+                    title: Text(tr('Alle Umsätze')),
                     onTap: () => context.push('/umsaetze/${sub.id}'),
                   ),
                   if (!sub.isForeign)
                     ListTile(
                       leading: Icon(Icons.delete_outline, color: theme.colorScheme.error),
-                      title: Text('Unterkonto auflösen', style: TextStyle(color: theme.colorScheme.error)),
+                      title: Text(tr('Unterkonto auflösen'), style: TextStyle(color: theme.colorScheme.error)),
                       onTap: _busy ? null : () => _close(sub),
                     ),
                 ]),
               ),
               const SizedBox(height: 8),
-              Text('Letzte Bewegungen', style: theme.textTheme.titleMedium),
+              Text(tr('Letzte Bewegungen'), style: theme.textTheme.titleMedium),
               recent.when(
                 loading: () => const Padding(
                   padding: EdgeInsets.all(16),
@@ -292,7 +293,7 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
                 ),
                 error: (e, _) => Text(apiErrorMessage(e)),
                 data: (items) => items.isEmpty
-                    ? const Padding(padding: EdgeInsets.all(16), child: Text('Noch keine Bewegungen.'))
+                    ? Padding(padding: EdgeInsets.all(16), child: Text(tr('Noch keine Bewegungen.')))
                     : Column(children: [
                         for (final b in items)
                           BookingTile(item: b, onTap: () => context.push('/umsatz', extra: b)),

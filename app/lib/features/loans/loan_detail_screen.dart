@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -20,7 +21,7 @@ class LoanDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final detail = ref.watch(loanDetailProvider(loanId));
     return Scaffold(
-      appBar: AppBar(title: const Text('Kredit')),
+      appBar: AppBar(title: Text(tr('Kredit'))),
       body: detail.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text(apiErrorMessage(e))),
@@ -38,7 +39,7 @@ class LoanDetailScreen extends ConsumerWidget {
     return ListView(padding: safeListPadding(context), children: [
       Text('${l.purposeLabel} · ${l.bankName}', style: theme.textTheme.titleLarge),
       const SizedBox(height: 12),
-      Text(l.isActive ? 'Restschuld' : 'Abbezahlt', style: theme.textTheme.bodySmall),
+      Text(l.isActive ? tr('Restschuld') : tr('Abbezahlt'), style: theme.textTheme.bodySmall),
       Text(formatCents(l.remainingCents), style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)),
       const SizedBox(height: 12),
       LinearProgressIndicator(
@@ -47,20 +48,20 @@ class LoanDetailScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(6),
       ),
       const SizedBox(height: 4),
-      Text('${l.paidInstallments} von ${l.totalInstallments} Raten bezahlt · ${l.progressPercent.toStringAsFixed(0)} % getilgt'),
+      Text(tr('{0} von {1} Raten bezahlt · {2} % getilgt', [l.paidInstallments, l.totalInstallments, l.progressPercent.toStringAsFixed(0)])),
       const SizedBox(height: 12),
       Card(
         child: Column(children: [
-          _row('Kreditbetrag', formatCents(l.principalCents)),
-          _row('Zinssatz p. a.', formatPercent(l.interestRate)),
-          _row('Monatsrate', formatCents(l.monthlyRateCents)),
-          if (l.nextDueDate != null) _row('Nächste Rate', formatDate(l.nextDueDate!)),
-          _row('Beginn', formatDate(l.startDate)),
+          _row(tr('Kreditbetrag'), formatCents(l.principalCents)),
+          _row(tr('Zinssatz p. a.'), formatPercent(l.interestRate)),
+          _row(tr('Monatsrate'), formatCents(l.monthlyRateCents)),
+          if (l.nextDueDate != null) _row(tr('Nächste Rate'), formatDate(l.nextDueDate!)),
+          _row(tr('Beginn'), formatDate(l.startDate)),
           if (l.isActive && l.expectedEndDate != null)
-            _row('Voraussichtlich abbezahlt', formatMonthYear(l.expectedEndDate!)),
-          _row('Zinskosten gesamt', formatCents(d.totalInterestCents)),
-          if (l.extraPaidCents > 0) _row('Sondertilgungen', formatCents(l.extraPaidCents)),
-          if (d.interestSavedCents > 0) _row('Gesparte Zinsen', formatCents(d.interestSavedCents)),
+            _row(tr('Voraussichtlich abbezahlt'), formatMonthYear(l.expectedEndDate!)),
+          _row(tr('Zinskosten gesamt'), formatCents(d.totalInterestCents)),
+          if (l.extraPaidCents > 0) _row(tr('Sondertilgungen'), formatCents(l.extraPaidCents)),
+          if (d.interestSavedCents > 0) _row(tr('Gesparte Zinsen'), formatCents(d.interestSavedCents)),
         ]),
       ),
       if (l.isActive) ...[
@@ -71,11 +72,11 @@ class LoanDetailScreen extends ConsumerWidget {
             MaterialPageRoute<void>(builder: (_) => ExtraPaymentScreen(loan: l)),
           ),
           icon: const Icon(Icons.bolt),
-          label: const Text('Sondertilgung'),
+          label: Text(tr('Sondertilgung')),
         ),
       ],
       const SizedBox(height: 12),
-      Text('Tilgungsplan', style: theme.textTheme.titleMedium),
+      Text(tr('Tilgungsplan'), style: theme.textTheme.titleMedium),
       ScheduleTable(rows: d.schedule),
     ]);
   }

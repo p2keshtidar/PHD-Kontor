@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -41,7 +42,7 @@ class NotificationsScreen extends ConsumerWidget {
     final scheme = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Benachrichtigungen'),
+        title: Text(tr('Benachrichtigungen')),
         actions: [
           TextButton(
             onPressed: () async {
@@ -54,7 +55,7 @@ class NotificationsScreen extends ConsumerWidget {
                 }
               }
             },
-            child: const Text('Alle gelesen'),
+            child: Text(tr('Alle gelesen')),
           ),
         ],
       ),
@@ -66,10 +67,10 @@ class NotificationsScreen extends ConsumerWidget {
             Padding(padding: const EdgeInsets.all(24), child: Text(apiErrorMessage(e))),
           ]),
           data: (items) => items.isEmpty
-              ? ListView(children: const [
+              ? ListView(children: [
                   Padding(
                     padding: EdgeInsets.all(32),
-                    child: Text('Keine Benachrichtigungen.', textAlign: TextAlign.center),
+                    child: Text(tr('Keine Benachrichtigungen.'), textAlign: TextAlign.center),
                   ),
                 ])
               : ListView.separated(

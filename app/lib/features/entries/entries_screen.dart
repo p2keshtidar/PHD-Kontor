@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -22,7 +23,7 @@ class EntriesScreen extends ConsumerWidget {
     final data = ref.watch(entriesProvider);
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Einnahmen & Ausgaben')),
+      appBar: AppBar(title: Text(tr('Einnahmen & Ausgaben'))),
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(entriesProvider);
@@ -42,7 +43,7 @@ class EntriesScreen extends ConsumerWidget {
                   key: const Key('entries_add_income'),
                   onPressed: () => openForm(context, 'INCOME'),
                   icon: const Icon(Icons.add),
-                  label: const Text('Einnahme'),
+                  label: Text(tr('Einnahme')),
                 ),
               ),
               const SizedBox(width: 8),
@@ -51,7 +52,7 @@ class EntriesScreen extends ConsumerWidget {
                   key: const Key('entries_add_expense'),
                   onPressed: () => openForm(context, 'EXPENSE'),
                   icon: const Icon(Icons.remove),
-                  label: const Text('Ausgabe'),
+                  label: Text(tr('Ausgabe')),
                 ),
               ),
             ]),
@@ -60,20 +61,19 @@ class EntriesScreen extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 24),
                 child: Text(
-                  'Noch nichts eingetragen.\nTrag zum Beispiel dein Gehalt und deine Miete als monatlich ein – '
-                  'oder einen Urlaub als einmalige Ausgabe. Der Finanzassistent rechnet dann damit.',
+                  tr('Noch nichts eingetragen.\nTrag zum Beispiel dein Gehalt und deine Miete als monatlich ein – oder einen Urlaub als einmalige Ausgabe. Der Finanzassistent rechnet dann damit.'),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
             if (s.recurring.isNotEmpty) ...[
-              Text('Regelmäßig', style: theme.textTheme.titleMedium),
+              Text(tr('Regelmäßig'), style: theme.textTheme.titleMedium),
               const SizedBox(height: 4),
               for (final e in s.recurring) _EntryTile(entry: e),
               const SizedBox(height: 16),
             ],
             if (s.once.isNotEmpty) ...[
-              Text('Einmalig', style: theme.textTheme.titleMedium),
+              Text(tr('Einmalig'), style: theme.textTheme.titleMedium),
               const SizedBox(height: 4),
               for (final e in s.once) _EntryTile(entry: e),
             ],
@@ -109,12 +109,12 @@ class _MonthlyCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text('Regelmäßig pro Monat', style: theme.textTheme.titleSmall),
+          Text(tr('Regelmäßig pro Monat'), style: theme.textTheme.titleSmall),
           const SizedBox(height: 10),
           Row(children: [
-            cell('Einnahmen', summary.monthlyIncomeCents, IncomeExpenseChart.incomeColor),
-            cell('Ausgaben', -summary.monthlyExpenseCents, scheme.error),
-            cell('Übrig', summary.monthlyBalanceCents, scheme.onPrimaryContainer),
+            cell(tr('Einnahmen'), summary.monthlyIncomeCents, IncomeExpenseChart.incomeColor),
+            cell(tr('Ausgaben'), -summary.monthlyExpenseCents, scheme.error),
+            cell(tr('Übrig'), summary.monthlyBalanceCents, scheme.onPrimaryContainer),
           ]),
         ]),
       ),
@@ -131,13 +131,13 @@ class _EntryTile extends ConsumerWidget {
     final parts = <String>[entry.intervalLabel, entry.categoryLabel];
     if (entry.isOnce) {
       parts.add(formatDate(entry.startDate));
-      parts.add(entry.bookedCount > 0 ? 'gebucht' : (entry.isDone ? 'nicht gebucht' : 'geplant'));
+      parts.add(entry.bookedCount > 0 ? tr('gebucht') : (entry.isDone ? tr('nicht gebucht') : tr('geplant')));
     } else if (entry.isPaused) {
-      parts.add('pausiert');
+      parts.add(tr('pausiert'));
     } else if (entry.nextDate != null) {
-      parts.add('nächste: ${formatDate(entry.nextDate!)}');
+      parts.add(tr('nächste: {0}', [formatDate(entry.nextDate!)]));
     } else {
-      parts.add('beendet');
+      parts.add(tr('beendet'));
     }
     return parts.where((p) => p.isNotEmpty).join(' · ');
   }
@@ -157,18 +157,18 @@ class _EntryTile extends ConsumerWidget {
             if (!entry.isDone)
               ListTile(
                 leading: const Icon(Icons.euro),
-                title: const Text('Betrag ändern'),
+                title: Text(tr('Betrag ändern')),
                 onTap: () => Navigator.pop(ctx, 'amount'),
               ),
             if (!entry.isOnce && !entry.isDone)
               ListTile(
                 leading: Icon(entry.isPaused ? Icons.play_arrow : Icons.pause),
-                title: Text(entry.isPaused ? 'Fortsetzen' : 'Pausieren'),
+                title: Text(entry.isPaused ? tr('Fortsetzen') : tr('Pausieren')),
                 onTap: () => Navigator.pop(ctx, 'pause'),
               ),
             ListTile(
               leading: Icon(Icons.delete_outline, color: Theme.of(ctx).colorScheme.error),
-              title: Text('Löschen', style: TextStyle(color: Theme.of(ctx).colorScheme.error)),
+              title: Text(tr('Löschen'), style: TextStyle(color: Theme.of(ctx).colorScheme.error)),
               onTap: () => Navigator.pop(ctx, 'delete'),
             ),
           ]),
@@ -180,7 +180,7 @@ class _EntryTile extends ConsumerWidget {
     try {
       switch (action) {
         case 'amount':
-          final cents = await askAmount(context, title: 'Neuer Betrag', maxCents: 5000000);
+          final cents = await askAmount(context, title: tr('Neuer Betrag'), maxCents: 5000000);
           if (cents == null) return;
           await repo.update(entry.id, {'amountCents': cents});
         case 'pause':
@@ -190,12 +190,11 @@ class _EntryTile extends ConsumerWidget {
           final ok = await showDialog<bool>(
             context: context,
             builder: (ctx) => AlertDialog(
-              title: const Text('Eintrag löschen?'),
-              content: Text('„${entry.title}“ wird nicht mehr gebucht. '
-                  'Bereits gebuchte Beträge bleiben in deinen Umsätzen.'),
+              title: Text(tr('Eintrag löschen?')),
+              content: Text(tr('„{0}“ wird nicht mehr gebucht. Bereits gebuchte Beträge bleiben in deinen Umsätzen.', [entry.title])),
               actions: [
-                TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Abbrechen')),
-                FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Löschen')),
+                TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr('Abbrechen'))),
+                FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(tr('Löschen'))),
               ],
             ),
           );

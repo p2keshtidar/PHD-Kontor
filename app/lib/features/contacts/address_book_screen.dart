@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/money.dart';
@@ -40,12 +41,12 @@ class _AddressBookScreenState extends ConsumerState<AddressBookScreen> {
     try {
       final phones = await DeviceContacts.loadPhoneNumbers();
       if (phones == null) {
-        _snack('Zugriff auf Kontakte wurde nicht erlaubt.');
+        _snack(tr('Zugriff auf Kontakte wurde nicht erlaubt.'));
         return;
       }
       final matches = await ref.read(contactsRepositoryProvider).match(phones);
       if (mounted) setState(() => _matches = matches);
-      if (matches.isEmpty) _snack('Keine deiner Kontakte nutzen diese App.');
+      if (matches.isEmpty) _snack(tr('Keine deiner Kontakte nutzen diese App.'));
     } catch (e) {
       if (mounted) _snack(apiErrorMessage(e));
     } finally {
@@ -58,7 +59,7 @@ class _AddressBookScreenState extends ConsumerState<AddressBookScreen> {
       await ref.read(contactsRepositoryProvider).add(m.iban);
       ref.invalidate(contactsProvider);
       setState(() => _matches = _matches?.where((x) => x.userId != m.userId).toList());
-      _snack('${m.fullName} gespeichert');
+      _snack(tr('{0} gespeichert', [m.fullName]));
     } catch (e) {
       _snack(apiErrorMessage(e));
     }
@@ -80,11 +81,11 @@ class _AddressBookScreenState extends ConsumerState<AddressBookScreen> {
   Widget build(BuildContext context) {
     final contacts = ref.watch(contactsProvider);
     return Scaffold(
-      appBar: AppBar(title: Text(widget.selectMode ? 'Empfänger wählen' : 'Adressbuch')),
+      appBar: AppBar(title: Text(widget.selectMode ? tr('Empfänger wählen') : tr('Adressbuch'))),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _addManually,
         icon: const Icon(Icons.person_add),
-        label: const Text('Hinzufügen'),
+        label: Text(tr('Hinzufügen')),
       ),
       body: RefreshIndicator(
         onRefresh: () => ref.refresh(contactsProvider.future),
@@ -101,11 +102,11 @@ class _AddressBookScreenState extends ConsumerState<AddressBookScreen> {
                       ? const SizedBox(
                           width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                       : const Icon(Icons.contacts),
-                  label: const Text('Kontakte vom Handy durchsuchen'),
+                  label: Text(tr('Kontakte vom Handy durchsuchen')),
                 ),
               ),
             if (_matches != null && _matches!.isNotEmpty) ...[
-              const _Header('Gefunden in deinen Kontakten'),
+              _Header(tr('Gefunden in deinen Kontakten')),
               for (final m in _matches!)
                 ListTile(
                   leading: const CircleAvatar(child: Icon(Icons.person_search)),
@@ -114,14 +115,14 @@ class _AddressBookScreenState extends ConsumerState<AddressBookScreen> {
                   trailing: m.alreadyContact
                       ? const Icon(Icons.check)
                       : IconButton(
-                          tooltip: 'Speichern',
+                          tooltip: tr('Speichern'),
                           icon: const Icon(Icons.add_circle_outline),
                           onPressed: () => _addMatch(m),
                         ),
                 ),
               const Divider(),
             ],
-            const _Header('Gespeicherte Empfänger'),
+            _Header(tr('Gespeicherte Empfänger')),
             contacts.when(
               loading: () => const Padding(
                 padding: EdgeInsets.all(24),
@@ -131,9 +132,9 @@ class _AddressBookScreenState extends ConsumerState<AddressBookScreen> {
               data: (all) {
                 final list = all.where((c) => !_removed.contains(c.id)).toList();
                 return list.isEmpty
-                  ? const Padding(
+                  ? Padding(
                       padding: EdgeInsets.all(16),
-                      child: Text('Noch keine Empfänger gespeichert.'),
+                      child: Text(tr('Noch keine Empfänger gespeichert.')),
                     )
                   : Column(children: [
                       for (final c in list)
@@ -161,9 +162,9 @@ class _AddressBookScreenState extends ConsumerState<AddressBookScreen> {
                     ]);
               },
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(16),
-              child: Text('Zum Löschen nach links wischen.', style: TextStyle(fontSize: 12)),
+              child: Text(tr('Zum Löschen nach links wischen.'), style: TextStyle(fontSize: 12)),
             ),
           ],
         ),
@@ -206,7 +207,7 @@ class _AddContactDialogState extends ConsumerState<_AddContactDialog> {
 
   Future<void> _save() async {
     if (_recipient.text.trim().isEmpty) {
-      setState(() => _error = 'Bitte IBAN, E-Mail oder Telefonnummer eingeben');
+      setState(() => _error = tr('Bitte IBAN, E-Mail oder Telefonnummer eingeben'));
       return;
     }
     setState(() {
@@ -229,16 +230,16 @@ class _AddContactDialogState extends ConsumerState<_AddContactDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Empfänger hinzufügen'),
+      title: Text(tr('Empfänger hinzufügen')),
       content: SingleChildScrollView(child: Column(mainAxisSize: MainAxisSize.min, children: [
         TextField(
           controller: _recipient,
-          decoration: const InputDecoration(labelText: 'IBAN, E-Mail oder Telefonnummer'),
+          decoration: InputDecoration(labelText: tr('IBAN, E-Mail oder Telefonnummer')),
         ),
         const SizedBox(height: 12),
         TextField(
           controller: _nickname,
-          decoration: const InputDecoration(labelText: 'Spitzname (optional)'),
+          decoration: InputDecoration(labelText: tr('Spitzname (optional)')),
         ),
         if (_error != null)
           Padding(
@@ -247,8 +248,8 @@ class _AddContactDialogState extends ConsumerState<_AddContactDialog> {
           ),
       ])),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text('Abbrechen')),
-        FilledButton(onPressed: _saving ? null : _save, child: const Text('Speichern')),
+        TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(tr('Abbrechen'))),
+        FilledButton(onPressed: _saving ? null : _save, child: Text(tr('Speichern'))),
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import '../l10n/l10n.dart';
 
 /// Wandelt einen Fehler in eine verständliche deutsche Meldung um.
 String apiErrorMessage(Object error) {
@@ -15,16 +16,16 @@ String apiErrorMessage(Object error) {
     switch (error.type) {
       case DioExceptionType.connectionError:
       case DioExceptionType.connectionTimeout:
-        return 'Server nicht erreichbar. Läuft das Backend?';
+        return tr('Server nicht erreichbar. Läuft das Backend?');
       // Verbindung steht, aber die Antwort dauert (langsames Netz, alter Server-PC)
       case DioExceptionType.receiveTimeout:
       case DioExceptionType.sendTimeout:
-        return 'Der Server antwortet gerade nicht. Bitte noch einmal versuchen.';
+        return tr('Der Server antwortet gerade nicht. Bitte noch einmal versuchen.');
       default:
         break;
     }
   }
-  return 'Unerwarteter Fehler. Bitte erneut versuchen.';
+  return tr('Unerwarteter Fehler. Bitte erneut versuchen.');
 }
 
 /// Fehlercode des Backends (z. B. "TOTP_REQUIRED") oder null.

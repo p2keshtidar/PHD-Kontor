@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../auth/auth_controller.dart';
@@ -58,7 +59,7 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
         await ref.read(authControllerProvider.notifier).reload();
         if (!mounted) return;
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Zwei-Faktor-Anmeldung ist jetzt aktiv')));
+            .showSnackBar(SnackBar(content: Text(tr('Zwei-Faktor-Anmeldung ist jetzt aktiv'))));
         Navigator.of(context).pop();
       });
 
@@ -67,7 +68,7 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
         await ref.read(authControllerProvider.notifier).reload();
         if (!mounted) return;
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Zwei-Faktor-Anmeldung ausgeschaltet')));
+            .showSnackBar(SnackBar(content: Text(tr('Zwei-Faktor-Anmeldung ausgeschaltet'))));
         Navigator.of(context).pop();
       });
 
@@ -81,8 +82,8 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
       keyboardType: TextInputType.number,
       // Authenticator-Apps zeigen "123 456": Leerzeichen beim Einfügen ignorieren, dann auf 6 Ziffern kürzen
       inputFormatters: [FilteringTextInputFormatter.digitsOnly, LengthLimitingTextInputFormatter(6)],
-      decoration: const InputDecoration(
-        labelText: '6-stelliger Code aus der App',
+      decoration: InputDecoration(
+        labelText: tr('6-stelliger Code aus der App'),
         prefixIcon: Icon(Icons.pin),
         counterText: '',
       ),
@@ -95,22 +96,22 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
           );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Zwei-Faktor-Anmeldung')),
+      appBar: AppBar(title: Text(tr('Zwei-Faktor-Anmeldung'))),
       body: ListView(padding: safeListPadding(context), children: [
         if (enabled) ...[
-          const ListTile(
+          ListTile(
             contentPadding: EdgeInsets.zero,
             leading: Icon(Icons.verified_user, color: Colors.green, size: 36),
-            title: Text('Aktiv'),
-            subtitle: Text('Bei jeder Anmeldung brauchst du zusätzlich den Code aus deiner Authenticator-App.'),
+            title: Text(tr('Aktiv')),
+            subtitle: Text(tr('Bei jeder Anmeldung brauchst du zusätzlich den Code aus deiner Authenticator-App.')),
           ),
           const SizedBox(height: 16),
-          Text('Ausschalten', style: theme.textTheme.titleMedium),
+          Text(tr('Ausschalten'), style: theme.textTheme.titleMedium),
           const SizedBox(height: 8),
           TextField(
             controller: _password,
             obscureText: true,
-            decoration: const InputDecoration(labelText: 'Passwort', prefixIcon: Icon(Icons.lock)),
+            decoration: InputDecoration(labelText: tr('Passwort'), prefixIcon: Icon(Icons.lock)),
           ),
           const SizedBox(height: 8),
           codeField,
@@ -119,17 +120,15 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
           OutlinedButton.icon(
             onPressed: _busy ? null : _disable,
             icon: const Icon(Icons.no_encryption_outlined),
-            label: const Text('Zwei-Faktor-Anmeldung ausschalten'),
+            label: Text(tr('Zwei-Faktor-Anmeldung ausschalten')),
           ),
         ] else if (_secret == null) ...[
           const Icon(Icons.security, size: 64),
           const SizedBox(height: 12),
-          Text('Mehr Sicherheit für dein Konto', style: theme.textTheme.titleLarge, textAlign: TextAlign.center),
+          Text(tr('Mehr Sicherheit für dein Konto'), style: theme.textTheme.titleLarge, textAlign: TextAlign.center),
           const SizedBox(height: 8),
-          const Text(
-            'Zusätzlich zum Passwort fragt die App bei der Anmeldung nach einem Code, den eine '
-            'Authenticator-App alle 30 Sekunden neu erzeugt (z. B. Google Authenticator, Microsoft '
-            'Authenticator, Authy oder 2FAS). Wer nur dein Passwort kennt, kommt so nicht in dein Konto.',
+          Text(
+            tr('Zusätzlich zum Passwort fragt die App bei der Anmeldung nach einem Code, den eine Authenticator-App alle 30 Sekunden neu erzeugt (z. B. Google Authenticator, Microsoft Authenticator, Authy oder 2FAS). Wer nur dein Passwort kennt, kommt so nicht in dein Konto.'),
             textAlign: TextAlign.center,
           ),
           error,
@@ -138,10 +137,10 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
             key: const Key('totp_start'),
             onPressed: _busy ? null : _start,
             icon: const Icon(Icons.qr_code),
-            label: const Text('Einrichten'),
+            label: Text(tr('Einrichten')),
           ),
         ] else ...[
-          Text('1. QR-Code mit der Authenticator-App scannen', style: theme.textTheme.titleMedium),
+          Text(tr('1. QR-Code mit der Authenticator-App scannen'), style: theme.textTheme.titleMedium),
           const SizedBox(height: 12),
           Center(
             child: Container(
@@ -151,7 +150,7 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
             ),
           ),
           const SizedBox(height: 12),
-          const Text('Oder den Schlüssel von Hand eingeben (Typ: zeitbasiert):'),
+          Text(tr('Oder den Schlüssel von Hand eingeben (Typ: zeitbasiert):')),
           const SizedBox(height: 4),
           Row(children: [
             Expanded(
@@ -160,18 +159,18 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
                   style: const TextStyle(fontFamily: 'monospace', fontSize: 16, fontWeight: FontWeight.bold)),
             ),
             IconButton(
-              tooltip: 'Kopieren',
+              tooltip: tr('Kopieren'),
               icon: const Icon(Icons.copy),
               onPressed: () async {
                 await Clipboard.setData(ClipboardData(text: _secret!));
                 if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Schlüssel kopiert')));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(tr('Schlüssel kopiert'))));
                 }
               },
             ),
           ]),
           const SizedBox(height: 20),
-          Text('2. Angezeigten Code eingeben', style: theme.textTheme.titleMedium),
+          Text(tr('2. Angezeigten Code eingeben'), style: theme.textTheme.titleMedium),
           const SizedBox(height: 8),
           codeField,
           error,
@@ -180,7 +179,7 @@ class _TwoFactorScreenState extends ConsumerState<TwoFactorScreen> {
             key: const Key('totp_confirm'),
             onPressed: _busy ? null : _confirm,
             icon: const Icon(Icons.check),
-            label: const Text('Bestätigen und einschalten'),
+            label: Text(tr('Bestätigen und einschalten')),
           ),
         ],
       ]),

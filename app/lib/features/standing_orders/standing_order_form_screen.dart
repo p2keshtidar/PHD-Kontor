@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
@@ -70,7 +71,7 @@ class _StandingOrderFormScreenState extends ConsumerState<StandingOrderFormScree
             endDate: _endDate,
           );
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Dauerauftrag eingerichtet')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(tr('Dauerauftrag eingerichtet'))));
       Navigator.of(context).pop(true);
     } catch (e) {
       if (mounted) setState(() => _error = apiErrorMessage(e));
@@ -83,30 +84,30 @@ class _StandingOrderFormScreenState extends ConsumerState<StandingOrderFormScree
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Neuer Dauerauftrag')),
+      appBar: AppBar(title: Text(tr('Neuer Dauerauftrag'))),
       body: Form(
         key: _formKey,
         child: ListView(padding: safeListPadding(context), children: [
           TextFormField(
             key: const Key('so_recipient'),
             controller: _recipient,
-            decoration: const InputDecoration(
-              labelText: 'Empfänger',
-              hintText: 'IBAN, E-Mail oder Telefonnummer',
+            decoration: InputDecoration(
+              labelText: tr('Empfänger'),
+              hintText: tr('IBAN, E-Mail oder Telefonnummer'),
               prefixIcon: Icon(Icons.person),
             ),
-            validator: (v) => (v == null || v.trim().isEmpty) ? 'Bitte Empfänger eingeben' : null,
+            validator: (v) => (v == null || v.trim().isEmpty) ? tr('Bitte Empfänger eingeben') : null,
           ),
           const SizedBox(height: 12),
           TextFormField(
             key: const Key('so_amount'),
             controller: _amount,
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            decoration: const InputDecoration(labelText: 'Betrag', suffixText: '€', prefixIcon: Icon(Icons.euro)),
+            decoration: InputDecoration(labelText: tr('Betrag'), suffixText: '€', prefixIcon: Icon(Icons.euro)),
             validator: (v) {
               final c = parseEuroToCents(v ?? '');
-              if (c == null || c <= 0) return 'Bitte gültigen Betrag eingeben';
-              if (c > 500000) return 'Höchstens 5.000,00 €';
+              if (c == null || c <= 0) return tr('Bitte gültigen Betrag eingeben');
+              if (c > 500000) return tr('Höchstens 5.000,00 €');
               return null;
             },
           ),
@@ -115,19 +116,19 @@ class _StandingOrderFormScreenState extends ConsumerState<StandingOrderFormScree
             key: const Key('so_reference'),
             controller: _reference,
             maxLength: 140,
-            decoration: const InputDecoration(
-              labelText: 'Verwendungszweck (optional)',
-              hintText: 'z. B. Miete, Taschengeld',
+            decoration: InputDecoration(
+              labelText: tr('Verwendungszweck (optional)'),
+              hintText: tr('z. B. Miete, Taschengeld'),
               prefixIcon: Icon(Icons.notes),
             ),
           ),
           const SizedBox(height: 4),
-          Text('Wie oft?', style: theme.textTheme.titleSmall),
+          Text(tr('Wie oft?'), style: theme.textTheme.titleSmall),
           const SizedBox(height: 6),
           Wrap(spacing: 8, runSpacing: 4, children: [
             for (final e in intervalLabels.entries)
               ChoiceChip(
-                label: Text(e.value),
+                label: Text(tr(e.value)),
                 selected: _interval == e.key,
                 onSelected: (_) => setState(() => _interval = e.key),
               ),
@@ -137,16 +138,16 @@ class _StandingOrderFormScreenState extends ConsumerState<StandingOrderFormScree
             key: const Key('so_day'),
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.today),
-            title: const Text('Ausführungstag'),
-            subtitle: Text('Am $_day. des Monats'),
+            title: Text(tr('Ausführungstag')),
+            subtitle: Text(tr('Am {0}. des Monats', [_day])),
             trailing: const Icon(Icons.chevron_right),
             onTap: _pickDay,
           ),
           ListTile(
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.event_busy),
-            title: const Text('Enddatum (optional)'),
-            subtitle: Text(_endDate == null ? 'Unbegrenzt' : 'Bis ${formatDate(_endDate!)}'),
+            title: Text(tr('Enddatum (optional)')),
+            subtitle: Text(_endDate == null ? tr('Unbegrenzt') : tr('Bis {0}', [formatDate(_endDate!)])),
             trailing: _endDate == null
                 ? const Icon(Icons.chevron_right)
                 : IconButton(icon: const Icon(Icons.clear), onPressed: () => setState(() => _endDate = null)),
@@ -164,11 +165,10 @@ class _StandingOrderFormScreenState extends ConsumerState<StandingOrderFormScree
             icon: _busy
                 ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2))
                 : const Icon(Icons.check),
-            label: const Text('Dauerauftrag einrichten'),
+            label: Text(tr('Dauerauftrag einrichten')),
           ),
           const SizedBox(height: 8),
-          Text('Die erste Ausführung ist am nächsten passenden Tag. Es gelten dieselben Regeln wie bei einer '
-              'Überweisung (Deckung, Tageslimit). Reicht das Geld nicht, bekommst du eine Benachrichtigung.',
+          Text(tr('Die erste Ausführung ist am nächsten passenden Tag. Es gelten dieselben Regeln wie bei einer Überweisung (Deckung, Tageslimit). Reicht das Geld nicht, bekommst du eine Benachrichtigung.'),
               style: theme.textTheme.bodySmall),
         ]),
       ),

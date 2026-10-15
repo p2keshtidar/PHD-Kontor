@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
 import '../../core/charts.dart';
@@ -49,17 +50,17 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
   }
 
   Future<void> _changeRate(PlanSummary p) async {
-    final cents = await askAmount(context, title: 'Neue Monatsrate', maxCents: 1000000);
+    final cents = await askAmount(context, title: tr('Neue Monatsrate'), maxCents: 1000000);
     if (cents == null) return;
     await _run(() => ref.read(plansRepositoryProvider).update(p.id, {'monthlyRateCents': cents}),
-        'Rate auf ${formatCents(cents)} geändert');
+        tr('Rate auf {0} geändert', [formatCents(cents)]));
   }
 
   Future<void> _changeRisk(PlanSummary p) async {
     final risk = await showDialog<String>(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: const Text('Risikostufe ändern'),
+        title: Text(tr('Risikostufe ändern')),
         children: [
           for (final e in riskLevels.entries)
             SimpleDialogOption(
@@ -75,7 +76,7 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
     );
     if (risk == null || risk == p.riskLevel) return;
     await _run(() => ref.read(plansRepositoryProvider).update(p.id, {'riskLevel': risk}),
-        'Gilt ab der nächsten Rate');
+        tr('Gilt ab der nächsten Rate'));
   }
 
   /// /K010/: Erinnerung vor der Abbuchung einstellen
@@ -83,7 +84,7 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
     final days = await showDialog<int>(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: const Text('Erinnerung an die Rate'),
+        title: Text(tr('Erinnerung an die Rate')),
         children: [
           for (final d in reminderOptions.entries)
             SimpleDialogOption(
@@ -98,30 +99,28 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
     );
     if (days == null || days == p.reminderDays) return;
     await _run(() => ref.read(plansRepositoryProvider).update(p.id, {'reminderDays': days}),
-        days == 0 ? 'Erinnerung ausgeschaltet' : 'Erinnerung: ${reminderOptions[days]}');
+        days == 0 ? tr('Erinnerung ausgeschaltet') : tr('Erinnerung: {0}', [reminderOptions[days]]));
   }
 
   Future<void> _togglePause(PlanSummary p) =>
       _run(() => ref.read(plansRepositoryProvider).update(p.id, {'paused': !p.isPaused}),
-          p.isPaused ? 'Plan fortgesetzt' : 'Plan pausiert');
+          p.isPaused ? tr('Plan fortgesetzt') : tr('Plan pausiert'));
 
   Future<void> _payoutOrClose(PlanSummary p, int value, {required bool payout}) async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(payout ? 'Auszahlen?' : 'Plan auflösen?'),
-        content: Text('${formatCents(value)} werden aufs Girokonto gebucht. '
-            '${p.isInvest || value > 0 ? 'Die Fondsanteile werden zum aktuellen Preis verkauft. ' : ''}'
-            'Der Plan wird beendet.'),
+        title: Text(payout ? tr('Auszahlen?') : tr('Plan auflösen?')),
+        content: Text(tr('{0} werden aufs Girokonto gebucht. {1}Der Plan wird beendet.', [formatCents(value), p.isInvest || value > 0 ? tr('Die Fondsanteile werden zum aktuellen Preis verkauft. ') : ''])),
         actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: const Text('Abbrechen')),
-          FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: Text(payout ? 'Auszahlen' : 'Auflösen')),
+          TextButton(onPressed: () => Navigator.of(ctx).pop(false), child: Text(tr('Abbrechen'))),
+          FilledButton(onPressed: () => Navigator.of(ctx).pop(true), child: Text(payout ? tr('Auszahlen') : tr('Auflösen'))),
         ],
       ),
     );
     if (ok != true) return;
     final repo = ref.read(plansRepositoryProvider);
-    await _run(() => payout ? repo.payout(p.id) : repo.close(p.id), 'Auf das Girokonto gebucht');
+    await _run(() => payout ? repo.payout(p.id) : repo.close(p.id), tr('Auf das Girokonto gebucht'));
     if (!payout && mounted) context.pop();
   }
 
@@ -129,7 +128,7 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
   Widget build(BuildContext context) {
     final detail = ref.watch(planDetailProvider(widget.planId));
     return Scaffold(
-      appBar: AppBar(title: const Text('Plan')),
+      appBar: AppBar(title: Text(tr('Plan'))),
       body: detail.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text(apiErrorMessage(e))),
@@ -163,8 +162,7 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
       const SizedBox(height: 16),
       Text(formatCents(p.currentValueCents),
           style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)),
-      Text('${d.gainCents >= 0 ? '+' : ''}${formatCents(d.gainCents)} (${d.gainPercent.toStringAsFixed(1).replaceAll('.', ',')} %) '
-          'gegenüber ${formatCents(p.depositedCents)} eingezahlt',
+      Text(tr('{0}{1} ({2} %) gegenüber {3} eingezahlt', [d.gainCents >= 0 ? '+' : '', formatCents(d.gainCents), d.gainPercent.toStringAsFixed(1).localDecimal, formatCents(p.depositedCents)]),
           style: TextStyle(color: gainColor)),
       if (p.progressPercent != null && p.isOpen) ...[
         const SizedBox(height: 16),
@@ -175,22 +173,21 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
         ),
         const SizedBox(height: 6),
         Row(children: [
-          Expanded(child: Text('${p.progressPercent!.toStringAsFixed(0)} % von ${formatCents(p.targetCents!)}')),
+          Expanded(child: Text(tr('{0} % von {1}', [p.progressPercent!.toStringAsFixed(0), formatCents(p.targetCents!)]))),
           if (p.onTrack != null)
             Chip(
-              label: Text(p.onTrack! ? 'Im Plan' : 'Hinter Plan'),
+              label: Text(p.onTrack! ? tr('Im Plan') : tr('Hinter Plan')),
               avatar: Icon(p.onTrack! ? Icons.check : Icons.schedule, size: 16),
               visualDensity: VisualDensity.compact,
             ),
         ]),
         Text(p.projectedDate == null
-            ? 'Mit der aktuellen Rate ist das Ziel nicht erreichbar.'
-            : 'Voraussichtlich erreicht: ${formatDate(p.projectedDate!)}'
-                '${p.targetDate != null ? ' (Wunsch: ${formatDate(p.targetDate!)})' : ''}'),
+            ? tr('Mit der aktuellen Rate ist das Ziel nicht erreichbar.')
+            : tr('Voraussichtlich erreicht: {0}{1}', [formatDate(p.projectedDate!), p.targetDate != null ? tr(' (Wunsch: {0})', [formatDate(p.targetDate!)]) : ''])),
         if (p.onTrack == false && d.requiredRateCents != null)
           Padding(
             padding: const EdgeInsets.only(top: 6),
-            child: Text('Für dein Wunschdatum bräuchtest du ${formatCents(d.requiredRateCents!)} pro Monat.',
+            child: Text(tr('Für dein Wunschdatum bräuchtest du {0} pro Monat.', [formatCents(d.requiredRateCents!)]),
                 style: TextStyle(color: scheme.error)),
           ),
       ],
@@ -200,11 +197,11 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
           margin: const EdgeInsets.only(top: 12),
           child: ListTile(
             leading: const Icon(Icons.celebration),
-            title: const Text('Ziel erreicht!'),
-            subtitle: const Text('Du kannst jetzt auszahlen oder weitersparen.'),
+            title: Text(tr('Ziel erreicht!')),
+            subtitle: Text(tr('Du kannst jetzt auszahlen oder weitersparen.')),
             trailing: FilledButton(
               onPressed: _busy ? null : () => _payoutOrClose(p, p.currentValueCents, payout: true),
-              child: const Text('Auszahlen'),
+              child: Text(tr('Auszahlen')),
             ),
           ),
         ),
@@ -213,7 +210,7 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('Verlauf', style: theme.textTheme.titleSmall),
+            Text(tr('Verlauf'), style: theme.textTheme.titleSmall),
             const SizedBox(height: 12),
             ValueLineChart(points: [for (final h in d.history) ValuePoint(h.$1, h.$2, h.$3)]),
           ]),
@@ -221,27 +218,26 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
       ),
       Card(
         child: Column(children: [
-          if (!p.isInvest) _row('Sparkonto-Anteil', formatCents(d.cashCents)),
-          _row('Depotwert', formatCents(d.depotValueCents)),
-          _row('Monatsrate', '${formatCents(p.monthlyRateCents)} am ${p.executionDay}.'),
-          if (p.nextExecutionDate != null) _row('Nächste Rate', formatDate(p.nextExecutionDate!)),
-          _row('Erwartete Rendite', '${(d.expectedReturnPa * 100).toStringAsFixed(1).replaceAll('.', ',')} % p. a.'),
-          _row('Nur Sparkonto (Vergleich)', formatCents(p.depositedCents)),
+          if (!p.isInvest) _row(tr('Sparkonto-Anteil'), formatCents(d.cashCents)),
+          _row(tr('Depotwert'), formatCents(d.depotValueCents)),
+          _row(tr('Monatsrate'), tr('{0} am {1}.', [formatCents(p.monthlyRateCents), p.executionDay])),
+          if (p.nextExecutionDate != null) _row(tr('Nächste Rate'), formatDate(p.nextExecutionDate!)),
+          _row(tr('Erwartete Rendite'), '${(d.expectedReturnPa * 100).toStringAsFixed(1).localDecimal} % p. a.'),
+          _row(tr('Nur Sparkonto (Vergleich)'), formatCents(p.depositedCents)),
         ]),
       ),
       if (d.positions.isNotEmpty) ...[
         const SizedBox(height: 8),
-        Text('Musterdepot', style: theme.textTheme.titleSmall),
+        Text(tr('Musterdepot'), style: theme.textTheme.titleSmall),
         Card(
           child: Column(children: [
             for (final pos in d.positions)
               ListTile(
                 title: Text(pos.label),
-                subtitle: Text('${pos.units.toStringAsFixed(4).replaceAll('.', ',')} Anteile à '
-                    '${pos.price.toStringAsFixed(2).replaceAll('.', ',')} € · ${pos.weightPercent.toStringAsFixed(0)} %'),
+                subtitle: Text(tr('{0} Anteile à {1} € · {2} %', [pos.units.toStringAsFixed(4).localDecimal, pos.price.toStringAsFixed(2).localDecimal, pos.weightPercent.toStringAsFixed(0)])),
                 trailing: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.end, children: [
                   Text(formatCents(pos.valueCents), style: const TextStyle(fontWeight: FontWeight.bold)),
-                  Text('investiert ${formatCents(pos.investedCents)}', style: theme.textTheme.bodySmall),
+                  Text(tr('investiert {0}', [formatCents(pos.investedCents)]), style: theme.textTheme.bodySmall),
                 ]),
               ),
           ]),
@@ -249,7 +245,7 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
       ],
       if (d.tips.isNotEmpty) ...[
         const SizedBox(height: 8),
-        Text('Spartipps', style: theme.textTheme.titleSmall),
+        Text(tr('Spartipps'), style: theme.textTheme.titleSmall),
         for (final t in d.tips)
           Card(
             color: scheme.secondaryContainer,
@@ -259,17 +255,17 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
       Text(d.riskExplanation, style: theme.textTheme.bodySmall),
       if (p.isOpen) ...[
         const SizedBox(height: 16),
-        Text('Einstellungen', style: theme.textTheme.titleSmall),
+        Text(tr('Einstellungen'), style: theme.textTheme.titleSmall),
         Card(
           child: Column(children: [
             ListTile(
               leading: const Icon(Icons.edit),
-              title: const Text('Monatsrate ändern'),
+              title: Text(tr('Monatsrate ändern')),
               onTap: _busy ? null : () => _changeRate(p),
             ),
             ListTile(
               leading: const Icon(Icons.tune),
-              title: const Text('Risikostufe ändern'),
+              title: Text(tr('Risikostufe ändern')),
               onTap: _busy ? null : () => _changeRisk(p),
             ),
             ListTile(
@@ -277,18 +273,18 @@ class _PlanDetailScreenState extends ConsumerState<PlanDetailScreen> {
               leading: Icon(p.reminderDays > 0
                   ? Icons.notifications_active_outlined
                   : Icons.notifications_off_outlined),
-              title: const Text('Erinnerung vor der Abbuchung'),
-              subtitle: Text(reminderOptions[p.reminderDays] ?? '${p.reminderDays} Tage vorher'),
+              title: Text(tr('Erinnerung vor der Abbuchung')),
+              subtitle: Text(reminderOptions[p.reminderDays] ?? tr('{0} Tage vorher', [p.reminderDays])),
               onTap: _busy ? null : () => _changeReminder(p),
             ),
             ListTile(
               leading: Icon(p.isPaused ? Icons.play_arrow : Icons.pause),
-              title: Text(p.isPaused ? 'Fortsetzen' : 'Pausieren'),
+              title: Text(p.isPaused ? tr('Fortsetzen') : tr('Pausieren')),
               onTap: _busy ? null : () => _togglePause(p),
             ),
             ListTile(
               leading: Icon(Icons.delete_outline, color: scheme.error),
-              title: Text('Plan auflösen und auszahlen', style: TextStyle(color: scheme.error)),
+              title: Text(tr('Plan auflösen und auszahlen'), style: TextStyle(color: scheme.error)),
               onTap: _busy ? null : () => _payoutOrClose(p, p.currentValueCents, payout: false),
             ),
           ]),
