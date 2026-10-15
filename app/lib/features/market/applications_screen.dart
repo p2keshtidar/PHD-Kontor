@@ -56,8 +56,8 @@ class ApplicationsScreen extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Row(children: [
-                    Expanded(child: Text(a.productName, style: const TextStyle(fontWeight: FontWeight.bold))),
+                  Wrap(spacing: 8, runSpacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: [
+                    Text(a.productName, style: const TextStyle(fontWeight: FontWeight.bold)),
                     Chip(label: Text(a.statusLabel), visualDensity: VisualDensity.compact),
                   ]),
                   Text('${a.provider} · ${formatDate(a.createdAt)}', style: theme.textTheme.bodySmall),

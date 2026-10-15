@@ -73,6 +73,7 @@ flowchart LR
 | `market` | Finanz-Marktplatz: Anbieter-Schnittstelle `MarketProvider`, fiktive Anbieter (`SimulatedMarketProvider`), Vergleich mit Beispielrechnung, Favoriten, Vergleichsliste, simulierte Anträge mit Unterlagen (Tageslauf Nr. 55) |
 | `creditcard` | Kreditkarte (Simulation): Verfügungsrahmen, Sperre, Demo-Zahlung mit Auslandseinsatz, Monatsabrechnung vom Girokonto über `BookingService` (Tageslauf Nr. 60, ohne Dispo – offene Abrechnung wird täglich erneut versucht) |
 | `health` | Finanz-Check: interner Punktwert 0–100 aus Sparquote, Notgroschen, Kreditraten und Budgets – keine Bonitätsbewertung |
+| `group` | Gemeinsame Ausgaben: Gruppen, Ausgaben mit Aufteilung (gleichmäßig oder feste Anteile), Salden, Ausgleichsvorschläge (wenige Zahlungen), Ausgleich per Überweisung über `TransferService` oder bar (nur vom Empfänger bestätigt) |
 | `planning` | Budgets mit Warnungen (Tageslauf Nr. 50), ungewöhnliche Ausgaben, Prognose des Girokontos |
 | `multibank` | Weitere Konten der Projektbank (`CURRENT` = weiteres Girokonto, `CALL` = Tagesgeld), Zinsen (`InterestService`, Tageslauf Nr. 45, `InterestMath`), Umbuchen zwischen eigenen Konten, alle Umsätze (`ConsolidatedService`) |
 | `allocation` | Sparregeln für digitale Konten: Rhythmen, Quellen (Girokonto = Umbuchung, verbundenes Bankkonto = Vormerkung), Vorgänge mit Status und Wiederholung, Tageslauf Nr. 35 |
@@ -166,6 +167,7 @@ nur ansehen – geprüft bei jeder Umbuchung. Das Gesamtvermögen enthält die E
 | `features/insights/` | Finanzüberblick (Diagramme, Kategorien, Durchschnitt), Beispielmonate |
 | `features/market/` | Marktplatz (Kategorien, Beispielbetrag, Favoriten, Vergleichsliste), Antrag mit Simulations-Bestätigung, „Meine Anträge“ |
 | `features/creditcard/`, `features/health/` | Kreditkarte (Simulation) auf dem Karten-Tab, Finanz-Check auf dem Dashboard |
+| `features/groups/` | Gemeinsame Ausgaben: Gruppenliste, Gruppe mit Salden, Ausgleich und Ausgaben |
 | `features/planning/` | Budgets & Prognose: Verlauf mit drei Fällen, Monatsende, bekannte Buchungen, Budgets festlegen, ungewöhnliche Ausgaben |
 | `features/multibank/` | Konto eröffnen (weiteres Girokonto, Tagesgeld), Umbuchen-Dialog, Verwaltungsmenü (umbenennen, auflösen), „Alle Umsätze“ mit CSV-Export, mögliche Duplikate |
 | `features/dashboard/` | Finanz-Dashboard (Startseite → Karte „Gesamtvermögen“): Vermögen nach Bestandteilen, verfügbar/zurückgelegt, Vermögensverlauf, Cashflow, größte Ausgaben, Schulden, Sparziele, Konten und Karten, Hinweise |

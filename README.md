@@ -93,6 +93,7 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 🛒 **Finanz-Marktplatz** | Girokonten, Kreditkarten, Tagesgeld, Festgeld, Depots **fiktiver Anbieter** vergleichen · Beispielrechnung · Vor-/Nachteile · Favoriten · Vergleichsliste · **simulierte Anträge** mit Unterlagen und Status (kein Vertrag, keine Karte) |
 | 💳 **Kreditkarte (Simulation)** | virtuelle Spielgeld-Kreditkarte: Verfügungsrahmen, Sperre, Demo-Zahlung, Auslandseinsatz, Monatsabrechnung vom Girokonto – keine echte Karte, keine Kreditprüfung |
 | 🩺 **Finanz-Check** | interner Punktwert 0–100 aus Sparquote, Notgroschen, Kreditraten und Budgets – keine SCHUFA-Auskunft, keine Bonitätsbewertung |
+| 👥 **Gemeinsame Ausgaben** | WG, Reise oder Paar: Ausgaben eintragen, aufteilen, Salden, wenige Ausgleichszahlungen · Ausgleich per Überweisung (Spielgeld) oder bar (vom Empfänger bestätigt) |
 | ⏩ **Demo-Modus** | Beispielmonate erzeugen · Admin spult die Zeit vor (Raten werden gebucht) |
 
 Demo-Admin: `admin@projektbank.de` / `admin12345`

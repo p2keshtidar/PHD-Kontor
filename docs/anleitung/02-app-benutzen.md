@@ -145,6 +145,22 @@ umgebucht, sie sind aber **keine eigenen Bankkonten** und haben keine eigene Ein
    - **⋮** an der Regel: pausieren, fortsetzen, Betrag oder Rhythmus ändern, beenden. Mit Zielbetrag zeigt die App, wann
      das Ziel voraussichtlich erreicht ist.
 
+### 6a. Gemeinsame Ausgaben (WG, Reise, Paar)
+
+**„Sparen“ → „Gemeinsame Ausgaben“** → **„+ Gruppe“** → Name (z. B. „WG Berger“). Oben rechts **Person hinzufügen**
+(E-Mail, Telefon oder IBAN eines anderen App-Nutzers).
+
+| Aktion | Ergebnis |
+|---|---|
+| **„+ Ausgabe“**: Wofür, Betrag, bezahlt von, aufteilen auf | gleichmäßig auf die Beteiligten verteilt (Rest-Cent an die Ersten); alle Beteiligten bekommen eine Benachrichtigung mit ihrem Anteil |
+| **Salden** | grün: bekommt Geld, rot: schuldet; die Summe ist immer 0 |
+| **So wird ausgeglichen** | möglichst wenige Zahlungen, z. B. „Cem → Anna: 68,33 €“ |
+| **Überweisen** (wer schuldet) | normale Überweisung der Projektbank (Spielgeld) mit allen Prüfungen und Tageslimit; doppelt tippen bucht nicht doppelt |
+| **Bar erhalten** (wer Geld bekommt) | Barzahlung wird festgehalten – bestätigen kann das nur der Empfänger |
+| Gruppe verlassen / löschen | nur mit ausgeglichenem Saldo |
+
+Über die Schnittstelle sind auch feste Anteile möglich (`shares`, müssen genau aufgehen).
+
 ## 7. Finanzassistent ⭐ (Kernidee des Projekts)
 
 | Schritt | Was tun | Was passiert |

@@ -17,6 +17,8 @@ import '../features/banking/connect_bank_screen.dart';
 import '../features/card/card_screen.dart';
 import '../features/contacts/address_book_screen.dart';
 import '../features/dashboard/dashboard_screen.dart';
+import '../features/groups/group_screen.dart';
+import '../features/groups/groups_screen.dart';
 import '../features/multibank/all_transactions_screen.dart';
 import '../features/planning/planning_screen.dart';
 import '../features/market/applications_screen.dart';
@@ -132,6 +134,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/planung', builder: (_, __) => const PlanningScreen()),
       // Zentrales Finanz-Dashboard
       GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
+      // Gemeinsame Ausgaben (WG, Reise, Paar)
+      GoRoute(path: '/gruppen', builder: (_, __) => const GroupsScreen()),
+      GoRoute(
+        path: '/gruppen/:id',
+        builder: (_, state) => GroupScreen(groupId: int.parse(state.pathParameters['id']!)),
+      ),
       GoRoute(
         path: '/plan/neu',
         builder: (_, state) => PlanWizardScreen(type: state.uri.queryParameters['type'] == 'INVEST' ? 'INVEST' : 'GOAL'),

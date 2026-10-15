@@ -21,7 +21,7 @@ Legende: ✅ vorhanden · 🟡 teilweise vorhanden · 🆕 neu geplant
 | 6 | Kreditvergleich und Finanzierungsrechner | effektiver Jahreszins, Rate, Gesamtkosten, Tilgungsplan, Sondertilgung/vollständige Rückzahlung, Auto/Konsum/Immobilie, getrennte Schritte (Sprint 5) | ✅ | – |
 | 7 | Sparziele | digitale Konten mit Ziel, nötiger Rate, Fortschritt, Prognose; Sparpläne; Sparregeln (Sprint 5) | ✅ | – |
 | 8 | Virtuelle Unterkonten | digitale Konten, Umbuchungen auch zwischen Töpfen | ✅ | 🆕 [#66](https://github.com/p2keshtidar/girokonto/issues/66) verfügbar und reserviert getrennt; weitere Zwecke (Miete, Lebensmittel, Rücklagen) |
-| 9 | Gemeinsame Finanzen und WG | geteilte digitale Konten mit Rechten | 🟡 | 🆕 [#71](https://github.com/p2keshtidar/girokonto/issues/71) gemeinsame Ausgaben, Aufteilung, Forderungen, Ausgleich |
+| 9 | Gemeinsame Finanzen und WG | geteilte digitale Konten mit Rechten | ✅ | 🆕 [#71](https://github.com/p2keshtidar/girokonto/issues/71) gemeinsame Ausgaben, Aufteilung, Forderungen, Ausgleich |
 | 10 | Kreditkartenverwaltung | virtuelle Debitkarte: Limit, sperren, Daten nur mit Passwort, Demo-Zahlung | ✅ | 🆕 [#60](https://github.com/p2keshtidar/girokonto/issues/60) Kreditkarte (Simulation) mit Abrechnung und Gebühren; Kartenangebote im Marktplatz [#69](https://github.com/p2keshtidar/girokonto/issues/69) |
 | 11 | Finanzielle Gesundheit | – | ✅ | [#60](https://github.com/p2keshtidar/girokonto/issues/60) interner Finanzscore (kein SCHUFA), Verschuldungsquote, Notgroschen |
 | 12 | Persönlicher Finanzassistent | Spartipps, Machbarkeits-Ampel | 🟡 | 🆕 [#72](https://github.com/p2keshtidar/girokonto/issues/72) Fragen zu Ausgaben, Monatsbericht, Szenarien – nur mit echten Daten der App |

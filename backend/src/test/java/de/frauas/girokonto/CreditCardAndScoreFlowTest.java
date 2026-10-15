@@ -120,7 +120,7 @@ class CreditCardAndScoreFlowTest extends FlowTestSupport {
         assertThat(d.get("level").asText()).isIn("GUT", "MITTEL", "KRITISCH");
         // ein Kredit verschlechtert die Verschuldung
         postJson(demo, "/api/loans", """
-                {"bank":"NORDLICHT","purpose":"AUTO","principalCents":2000000,"equityCents":0,"termMonths":24}
+                {"bank":"NORDLICHT","purpose":"AUTO","principalCents":1000000,"equityCents":0,"termMonths":24}
                 """, 201);
         JsonNode after = getJson(demo, "/api/health-score");
         int debtBefore = 0;

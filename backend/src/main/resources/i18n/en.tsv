@@ -738,3 +738,33 @@ Ausbaufähig	Room for improvement
 Achtung	Attention
 Noch zu wenige Daten	Not enough data yet
 {0} pro Monat	{0} per month
+Erst alle Schulden ausgleichen, dann kann die Gruppe gelöscht werden.	Settle all debts first, then the group can be deleted.
+Nur der Ersteller kann Mitglieder entfernen.	Only the creator can remove members.
+Der Ersteller kann nicht austreten – lösche stattdessen die Gruppe.	The creator cannot leave – delete the group instead.
+Austritt erst möglich, wenn der Saldo ausgeglichen ist.	Leaving is only possible once the balance is settled.
+Bitte eine Beschreibung (bis 100 Zeichen) angeben.	Please enter a description (up to 100 characters).
+Der Betrag muss zwischen 0,01 € und 100.000 € liegen.	The amount must be between €0.01 and €100,000.
+Wer bezahlt hat, muss Mitglied der Gruppe sein.	The person who paid must be a member of the group.
+Das Datum muss im letzten Jahr liegen, nicht in der Zukunft.	The date must be within the last year, not in the future.
+Alle Beteiligten müssen Mitglied der Gruppe sein.	All participants must be members of the group.
+Die Anteile sind ungültig.	The shares are invalid.
+Ausgabe nicht gefunden.	Expense not found.
+Nur wer die Ausgabe eingetragen oder bezahlt hat, kann sie löschen.	Only the person who entered or paid the expense can delete it.
+Ausgleich nur zwischen zwei verschiedenen Mitgliedern.	Settlements only between two different members.
+Gruppe nicht gefunden.	Group not found.
+Nur der Ersteller kann das ändern.	Only the creator can change this.
+Bitte einen Namen (bis 60 Zeichen) angeben.	Please enter a name (up to 60 characters).
+Gemeinsame Ausgaben	Shared expenses
+Neue gemeinsame Ausgabe	New shared expense
+Höchstens {0} Gruppen.	At most {0} groups.
+Höchstens {0} Personen pro Gruppe.	At most {0} people per group.
+{0} hat dich zur Gruppe „{1}“ hinzugefügt.	{0} added you to the group “{1}”.
+{0} hat „{1}“ über {2} eingetragen – dein Anteil: {3}.	{0} added “{1}” for {2} – your share: {3}.
+Die Anteile ergeben {0}, die Ausgabe beträgt {1}.	The shares add up to {0}, the expense is {1}.
+Hier ist nichts offen.	Nothing is outstanding here.
+Höchstens {0} sind offen.	At most {0} is outstanding.
+Ausgleich „{0}“	Settlement “{0}”
+{0} hat deine Barzahlung über {1} in „{2}“ bestätigt.	{0} confirmed your cash payment of {1} in “{2}”.
+Ausgleich per Überweisung über die Projektbank (Spielgeld). Barzahlungen bestätigt der Empfänger.	Settlement by transfer via the project bank (play money). Cash payments are confirmed by the recipient.
+bar (vom Empfänger bestätigt)	cash (confirmed by the recipient)
+per Überweisung	by transfer

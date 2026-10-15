@@ -268,6 +268,32 @@ class FakeBackend implements HttpClientAdapter {
         'simulation': true,
       };
 
+  /// Gruppe „WG Berger“: Anna (2, Ersteller) bekommt Geld, Ben (3) und Cem (4) schulden.
+  static Map<String, dynamic> group({int me = 3}) => {
+        'id': 1, 'name': 'WG Berger', 'owner': me == 2, 'myBalanceCents': {2: 10666, 3: -3833, 4: -6833}[me],
+        'totalSpentCents': 18000,
+        'members': [
+          {'userId': 2, 'name': 'Anna Muster', 'owner': true, 'me': me == 2, 'balanceCents': 10666},
+          {'userId': 3, 'name': 'Ben Muster', 'owner': false, 'me': me == 3, 'balanceCents': -3833},
+          {'userId': 4, 'name': 'Cem Muster', 'owner': false, 'me': me == 4, 'balanceCents': -6833},
+        ],
+        'suggestions': [
+          {'fromUserId': 4, 'fromName': 'Cem Muster', 'toUserId': 2, 'toName': 'Anna Muster', 'amountCents': 6833},
+          {'fromUserId': 3, 'fromName': 'Ben Muster', 'toUserId': 2, 'toName': 'Anna Muster', 'amountCents': 3833},
+        ],
+        'expenses': [
+          {'id': 7, 'payerId': 2, 'payerName': 'Anna Muster', 'amountCents': 10000, 'description': 'Einkauf',
+           'date': '2026-10-14', 'deletable': me == 2, 'myShareCents': me == 2 ? 3334 : 3333,
+           'shares': [
+             {'userId': 2, 'name': 'Anna Muster', 'shareCents': 3334},
+             {'userId': 3, 'name': 'Ben Muster', 'shareCents': 3333},
+             {'userId': 4, 'name': 'Cem Muster', 'shareCents': 3333},
+           ]},
+        ],
+        'settlements': [],
+        'note': 'Ausgleich per Überweisung über die Projektbank (Spielgeld). Barzahlungen bestätigt der Empfänger.',
+      };
+
   static Map<String, dynamic> healthScore() => {
         'score': 62, 'level': 'MITTEL', 'levelLabel': 'Ausbaufähig',
         'components': [
@@ -769,6 +795,10 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/budgets': (_) => budgets(),
         'GET /api/credit-card': (_) => creditCard(),
         'GET /api/health-score': (_) => healthScore(),
+        'GET /api/groups': (_) => [
+              {'id': 1, 'name': 'WG Berger', 'memberCount': 3, 'myBalanceCents': -3833, 'totalSpentCents': 18000},
+            ],
+        'GET /api/groups/*': (_) => group(),
         'GET /api/market/products': (_) => marketCatalog(),
         'GET /api/market/applications': (_) => [marketApplication()],
         'PUT /api/market/favorites/*': (_) => const FakeResponse(204),

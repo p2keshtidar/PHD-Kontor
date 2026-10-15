@@ -139,9 +139,11 @@ void main() {
     }));
     expect(_in(const Key('dash_networth'), find.text('1.000,00 €')), findsWidgets);
     expect(find.byKey(const Key('dash_earmarked')), findsNothing);
-    await scrollTo(tester, find.byKey(const Key('dash_no_goals')));
+    await scrollTo(tester, find.textContaining('Noch keine Einnahmen und Ausgaben'));
     expect(find.textContaining('Noch keine Einnahmen und Ausgaben'), findsOneWidget);
+    await scrollTo(tester, find.text('Noch keine Ausgaben.'));
     expect(find.text('Noch keine Ausgaben.'), findsOneWidget);
+    await scrollTo(tester, find.byKey(const Key('dash_no_goals')));
     expect(find.text('Keine Kredite.'), findsOneWidget);
     expect(find.textContaining('Noch keine Sparziele'), findsOneWidget);
     expect(find.textContaining('Hohle Punkte'), findsNothing);

@@ -37,6 +37,7 @@ class HealthScoreCard extends ConsumerWidget {
             return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
                 Semantics(
+                  container: true,
                   label: tr('Finanz-Check: {0} von 100 Punkten', [score]),
                   child: ExcludeSemantics(
                     child: SizedBox(
