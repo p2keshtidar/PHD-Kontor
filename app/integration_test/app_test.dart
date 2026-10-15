@@ -257,8 +257,10 @@ void main() {
 
     // Getrennte Schritte: Angebot öffnen → unverbindlich anfragen → Vertrag abschließen → Auszahlung anfordern
     await tester.tap(find.text('Nordlicht Kredit'));
-    await pumpUntil(tester, find.text('Tilgungsplan'));
+    // oben auf der Angebotsseite stehen die Schritte; der Tilgungsplan liegt weit unten (wird erst beim Scrollen gebaut)
+    await pumpUntil(tester, find.byKey(const Key('loan_steps')));
     await pumpFor(tester, 1500);
+    await scrollTo(tester, find.text('Tilgungsplan'));
     await tapButton(tester, find.byKey(const Key('loan_consent')));
     await pumpFor(tester, 400);
     await tapButton(tester, find.byKey(const Key('loan_request')));
@@ -441,8 +443,8 @@ void main() {
     final subId = sub.data!['id'] as int;
     await goBack(tester);
     await pumpFor(tester, 800);
-    await pumpUntil(tester, find.text('Hallo Anna!'));
-    await scrollToTop(tester);
+    // die Startseite ist noch nach unten gescrollt (zum Knopf "Einnahmen & Ausgaben verwalten")
+    await pumpUntil(tester, find.byKey(const Key('home_entries')));
     await tapButton(tester, find.byKey(Key('digital_tile_$subId')));
     await pumpUntil(tester, find.byKey(const Key('digital_deposit')));
     await pumpFor(tester, 1500);

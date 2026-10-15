@@ -2,14 +2,14 @@
 
 [← Architektur](architektur.md) · [Übersicht](../../README.md)
 
-Stand: 15.10.2026 · alle Tests laufen automatisch bei jedem Push ([Actions](https://github.com/p2keshtidar/girokonto/actions)).
+Stand: 15.10.2026 (Sprint 5) · alle Tests laufen automatisch bei jedem Push ([Actions](https://github.com/p2keshtidar/girokonto/actions)).
 
 ## Zusammenfassung
 
 | Ebene | Anzahl | Ergebnis | Testabdeckung (Zeilen) |
 |---|---|---|---|
-| Backend: Unit- und Integrationstests (echte PostgreSQL) | **199** | ✅ alle grün | **92,5 %** |
-| App: Unit- und Widget-Tests (simulierter Server) | **265** | ✅ alle grün | **68,0 %** |
+| Backend: Unit- und Integrationstests (echte PostgreSQL) | **232** | ✅ alle grün | **92,7 %** |
+| App: Unit- und Widget-Tests (simulierter Server) | **293** | ✅ alle grün | **72,0 %** |
 | Ende-zu-Ende: echte App + echter Server | 2 Abläufe, Stand 15.10.: **Chrome, Android 11, iOS 26** (iOS im zweiten Lauf – im ersten verband sich `flutter test` nicht mit dem Simulator) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10., vor Zweisprachigkeit und Bankkonten | ✅ grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
@@ -24,8 +24,10 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 | **Deutsch/Englisch I01–I05, T46–T48** | `ServerTextsTest`, `I18nFlowTest` | jede feste Meldung im Code hat eine Übersetzung · Beträge/Daten/Prozente englisch · Sprache pro Nutzer · englische Fehler und Benachrichtigungen |
 | **Bankverbindungen B01–B23, T49–T60** | `SandboxBankingProviderTest`, `GoCardlessProviderTest` (nachgebildeter Server), `BankingHelpersTest`, `BankingFlowTest` | gleiche Daten → keine doppelten Umsätze · Vormerkung → Buchung bzw. Storno · Rücklastschrift · eigene Umbuchung · eigene Angaben getrennt von Originaldaten · fremde Daten 404 · Wiederholung bei Störung, Fehlerstatus · Freigabe läuft ab und wird erneuert · Widerruf mit/ohne Löschen · Freigabe und Originaldaten nur verschlüsselt · Ablauf-Erinnerung · Rücksprung-Seite |
 | **Digitale Konten T61–T67** | `DigitalAccountFlowTest` | Zweck, Ziel, Fortschritt, nötige Monatsrate · Kennzeichnung „kein eigenes Bankkonto“ · „Ziel erreicht“ nur einmal · Rollen (einzahlen + auszahlen / nur einzahlen / nur ansehen) · Gesamtvermögen mit verbundenen Banken |
+| **Sparregeln T68–T77, Z01–Z05** | `AllocationFlowTest`, `AllocationScheduleTest` | sofort und wöchentlich · keine Deckung → Wiederholung → fehlgeschlagen → von Hand nachholen (genau eine Buchung) · **vier parallele Tagesläufe und nachträgliche Wiederholung ohne doppelte Abbuchung** · pausieren (ohne Nachholen), ändern, Enddatum, beenden · verbundenes Bankkonto nur als Vormerkung mit Deckungsprüfung und Warnung · gelöschte/veraltete Bankverbindung · Rechte in geteilten Konten bei jeder Ausführung · Eingaben und Höchstzahl · Ziel erreicht mit Vormerkung · Termine am Monatsende, Prognose |
+| **Kreditvergleich T78–T84, K01–K11** | `LoanComparisonFlowTest`, `SimulatedBanksProviderTest`, `MarketRateServiceTest` (nachgebildeter Server) | Kennzeichnung als Rechenbeispiel fiktiver Banken, Anbieterstatus · Bonität und Filter (Monatsrate, Budget, nur erfüllbare) · **Anfrage → Vertrag → Auszahlung getrennt** (Einwilligung, Bestätigung, Vertrag ohne Buchung, Auszahlung genau einmal, keine Raten vor der Auszahlung) · Ablehnung, Rückzug, Ablauf · Widerruf vor der Auszahlung · fremde Anfragen 404 · effektiver Jahreszins · Bundesbank: CSV-Formate, **keine erfundenen Werte ohne Abruf**, veraltete Werte gekennzeichnet, abgeschaltet ohne Aufrufe |
 | Kannkriterien T26–T40 | `Phase5FlowTest`, `StandingOrderFlowTest`, `TwoFactorFlowTest`, `CsvImportFlowTest`, `SharedSubaccountFlowTest` | Sondertilgung, Erinnerung, Dauerauftrag, Zwei-Faktor, CSV-Import, Teilen |
-| **Sicherheit S01–S10** | `SecurityMatrixTest` | *jeder* `/api`-Endpunkt ohne Anmeldung → 401 (automatisch aufgezählt) · gefälschte/abgelaufene Tokens · Abmelden/Refresh-Wiederverwendung · Admin-Bereich → 403 · fremde Konten, Karten, Pläne, Kredite, Daueraufträge, Unterkonten, Importe → 403/404 · keine Passwort-Hashes oder Kartendaten in Antworten · SQL-Injection in der Suche · CORS · Sperre nach Fehlversuchen |
+| **Sicherheit S01–S10** | `SecurityMatrixTest` | *jeder* `/api`-Endpunkt ohne Anmeldung → 401 (automatisch aufgezählt) · gefälschte/abgelaufene Tokens · Abmelden/Refresh-Wiederverwendung · Admin-Bereich → 403 · fremde Konten, Karten, Pläne, Kredite, Kreditanfragen, Daueraufträge, Unterkonten, Sparregeln, Vormerkungen, Importe → 403/404 · keine Passwort-Hashes oder Kartendaten in Antworten · SQL-Injection in der Suche · CORS · Sperre nach Fehlversuchen |
 | **Robustheit R01–R08** | `RobustnessTest` | *Fuzzing*: jeder POST/PUT/GET-Endpunkt mit kaputtem JSON, falschen Typen, riesigen Zahlen, leeren Feldern → nie ein Serverfehler (5xx) · 25 gleichzeitige Überweisungen → genau so viele wie Guthaben · gleicher Idempotenz-Schlüssel parallel → nur einmal gebucht · Grenzwerte (Tageslimit, 10 Unterkonten, Ausführungstag 28/29, Investplan 10 € bis 5.000 €, Alter genau 18) · **160 Zufallsaktionen** mit Zeitvorlauf und Prüfung der Buchhaltung: Summe aller Konten = 0, kein Konto negativ, jede Buchung ausgeglichen · Sonderzeichen, Emojis, sehr lange Texte |
 | Profil, Finanzüberblick | `ProfileAndInsightsTest` | Profil ändern, Passwort ändern, Übersicht, Kategorien |
 | Live-Meldungen | `StompAuthInterceptorTest`, `WebSocketDeliveryTest` | WebSocket nur mit gültigem Token · Meldung kommt beim richtigen Nutzer an, nicht beim falschen |
@@ -35,11 +37,13 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 
 | Datei | Was wird geprüft |
 |---|---|
-| `screens_layout_test.dart` | **30 Bildschirme × 4 Formate** + alle auf Englisch (kleines Handy 320×568, großes Handy, Tablet, Schrift 150 %): kein Überlauf, kein Absturz |
+| `screens_layout_test.dart` | **32 Bildschirme × 4 Formate** + alle auf Englisch (kleines Handy 320×568, großes Handy, Tablet, Schrift 150 %): kein Überlauf, kein Absturz |
 | `flows_widget_test.dart` | Abläufe A01–A15 mit simuliertem Server: Anmeldung inkl. Zwei-Faktor-Code, Server-Adresse, Überweisung mit Idempotenz-Schlüssel, ungültige Beträge, Dauerauftrag anlegen/pausieren, Sondertilgung (Vorschau, Buchung, zu wenig Geld), Zwei-Faktor einrichten (QR-Code), CSV-Import mit Fehler, Unterkonto teilen/austreten, Startseite mit geteilten Konten, Spar-Erinnerung, A16 Überweisung auf 320×480 mit Schrift 130 %, A17–A22 Einnahmen & Ausgaben (Schnellauswahl, einmalig/monatlich, Tag 29–31, Serverfehler, Pausieren, Löschen, Startseite) |
 | `l10n_test.dart` | L01–L07: jeder Text hat eine englische Übersetzung, keine fest codierten Texte, Platzhalter, Beträge/Daten je Sprache |
 | `banking_test.dart` | BK01–BK12: Startseite mit/ohne verbundene Bank · Sandbox-Freigabe bestätigen/ablehnen · echte Bank: Bankseite öffnen, Freigabe abschließen · Status, Berechtigungen, Abruf, Widerruf mit Löschen · abgelaufene Freigabe erneuern · Umsätze mit Status, Filter, Suche · eigene Angaben speichern · Englisch |
 | `digital_accounts_test.dart` | DA01–DA08: zwei getrennte Bereiche, Girokonto als Simulation gekennzeichnet · neues digitales Konto mit Zweck und Ziel · Fortschritt und Hinweis zur Verwahrung · nur ansehen: Ein-/Auszahlen gesperrt · Rechte ändern · teilen mit Rolle · Englisch |
+| `allocations_test.dart` | AL01–AL09: Bereich „Automatisch sparen“ (Regeln, Prognose, ausstehend, Vorgänge mit Status) · Sparregel vom Girokonto und vom verbundenen Bankkonto (nur Vormerkung, gesperrte Quelle mit Grund) · Eingabefehler und Serverfehler · erneut versuchen · pausieren und beenden · Vormerkung aufheben und neu vormerken · Englisch · Modelle |
+| `loan_steps_test.dart` | LV01–LV09: Vergleich mit Bonität und Filtern, Kennzeichnung, Bundesbank-Referenz, Anbieter · Anfrage nur mit Einwilligung · Vertrag nur nach Bestätigung · Ablehnung · Rückzug · Auszahlung anfordern · Widerruf vor der Auszahlung · Englisch · Modelle (auch ältere Antworten) |
 | übrige `*_test.dart` | Geldformat, Eingabeprüfung, JSON-Modelle, CSV-Zeichensätze, Hintergrund-Abfrage |
 
 Simulierter Server: `test/support/fake_backend.dart` (ersetzt die HTTP-Schicht), Testrahmen: `test/support/harness.dart`.
@@ -48,8 +52,8 @@ Simulierter Server: `test/support/fake_backend.dart` (ersetzt die HTTP-Schicht),
 
 Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf **Android-Emulatoren von Android 7.0 bis 16** (Pixel 5 oder sehr kleines Display) und auf **iPhone-Simulatoren mit iOS 16, 17, 18 und 26** – Details: [Unterstützte Versionen](versionen.md):
 
-1. Registrieren → Startseite → Karte → Überweisen → Sparen → Beispielmonate → CSV-Import → Kreditvergleich → Kredit abschließen → Sondertilgung → **Sandbox-Bank verbinden** (Test-Freigabe) → Umsätze des Tagesgeldkontos.
-2. **Zwei Nutzer:** zweiter Nutzer teilt ein digitales Konto (erscheint auf der Startseite) · überweist Geld, während die App offen ist (**Live-Meldung** und Kontostand ohne Neuladen) · Überweisung über die Oberfläche (Kontostände beider Nutzer werden über den Server nachgeprüft) · Dauerauftrag anlegen.
+1. Registrieren → Startseite → Karte → Überweisen → Sparen → Beispielmonate → CSV-Import → Kreditvergleich → **Anfrage → Vertrag → Auszahlung** → Sondertilgung → **Sandbox-Bank verbinden** (Test-Freigabe) → Umsätze des Tagesgeldkontos.
+2. **Zwei Nutzer:** zweiter Nutzer teilt ein digitales Konto (erscheint auf der Startseite) · überweist Geld, während die App offen ist (**Live-Meldung** und Kontostand ohne Neuladen) · Überweisung über die Oberfläche (Kontostände beider Nutzer werden über den Server nachgeprüft) · Dauerauftrag anlegen · Einnahme und Ausgabe eintragen · **Sparregel im geteilten digitalen Konto** (sofort ausgeführt, über den Server nachgeprüft).
 
 ## Durch die Tests gefundene und behobene Fehler
 
@@ -73,6 +77,9 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf
 | Ladeanzeige lief während der Bank-Freigabe weiter | Widget-Test BK03 | Anzeige nur während der Anfrage |
 | Zweite Meldung wurde hinter der ersten angestellt und erschien erst Sekunden später | Widget-Test BK06 | neue Meldung ersetzt die alte |
 | Verbundene Bank füllte den Finanzüberblick, „Beispielmonate erzeugen“ war nicht mehr sichtbar | E2E Browser | Ablauf angepasst; gewollt: echte Umsätze zählen mit |
+| SQL-Abfrage der Sparregel-Quellen kaputt („WHERE“ ohne Leerzeichen am Ende eines Java-Textblocks) | lokaler Rauchtest vor dem Commit | Leerzeichen ausdrücklich (`\s`) |
+| „Vorgemerkt“ wurde für Sparregeln mit „Pending“ übersetzt (gleiches Wort wie bei Bankumsätzen) | Prüfung der Übersetzungstabelle | eigener Begriff „Vormerkung erfasst“ |
+| Test T02 (unter 18) maß das Alter am echten statt am simulierten Datum und schlug fehl, sobald andere Tests die Zeit weit genug vorspulten | CI nach den Sparregel-Tests | Test nutzt das Serverdatum |
 
 ## Selbst ausführen
 

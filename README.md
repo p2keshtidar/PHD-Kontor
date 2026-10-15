@@ -79,7 +79,7 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 🏦 **Girokonto** | Registrierung mit fiktiver IBAN und 1.000 € Startguthaben · Umsätze mit Suche und Filter · Kategorien · **eigene Einnahmen & Ausgaben eintragen** (Gehalt, Miete, Urlaub – einmalig oder regelmäßig) |
 | 💸 **Überweisen** | per IBAN, E-Mail oder Telefonnummer · Adressbuch · Abgleich mit Handy-Kontakten · Tageslimit · **Daueraufträge** (monatlich bis jährlich) |
 | 💳 **Karte** | virtuelle Debitkarte · Daten nur mit Passwort · sperren/entsperren · Limit · Demo-Kartenzahlung |
-| 🗂️ **Digitale Konten** | Töpfe für Urlaub, Auto, Immobilie, WG … mit **Zielbetrag, Fortschritt, Restbetrag und nötiger Monatsrate** · klar getrennt von Bankkonten (kein eigenes Bankkonto, keine eigene Einlagensicherung) · **teilen mit Rechten** (einzahlen + auszahlen / nur einzahlen / nur ansehen) |
+| 🗂️ **Digitale Konten** | Töpfe für Urlaub, Auto, Immobilie, WG … mit **Zielbetrag, Fortschritt, Restbetrag und nötiger Monatsrate** · klar getrennt von Bankkonten (kein eigenes Bankkonto, keine eigene Einlagensicherung) · **teilen mit Rechten** (einzahlen + auszahlen / nur einzahlen / nur ansehen) · **Sparregeln** (wöchentlich bis vierteljährlich, vom Girokonto oder als Vormerkung bei einer verbundenen Bank) mit Status, Wiederholung und Prognose |
 | 🔔 **Benachrichtigungen** | live per WebSocket bei jeder Buchung · Android: auch bei **geschlossener App** (Hintergrund-Abfrage) |
 | 🏦 **Echte Bankkonten** | mehrere Banken verbinden (Open Banking/PSD2, **nur Lesezugriff**) · Sandbox-Banken mit Testdaten · Abruf, Vormerkungen, Stornos, Rückbuchungen · eigene Kategorien, Notizen, Schlagwörter · Widerruf mit Löschen |
 | 🌍 **Deutsch / Englisch** | Sprache umschalten (auch Server-Meldungen), pro Konto gespeichert, beim ersten Start Gerätesprache |
@@ -87,7 +87,7 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 🔐 **Sicherheit** | Passwort-Hash, JWT, Sperre nach Fehlversuchen · **Zwei-Faktor-Anmeldung** mit Authenticator-App |
 | 🐷 **Sparplan** | Ziel + Datum → Ratenvorschlag · Risikostufe · Ampel „machbar?“ · Spartipps · **Erinnerung vor der Abbuchung** |
 | 📈 **Investplan** | z. B. 200 €/Monat in fiktive Fonds · Musterdepot mit Verlauf |
-| 🚗🏠 **Kreditplan** | Auto/Immobilie · Angebote von 4 fiktiven Banken vergleichen · Tilgungsplan · Abschluss simulieren · **Sondertilgung** mit Vorschau (Restschuld, Laufzeit, Zinsersparnis) |
+| 🚗🏠 **Kreditplan** | Auto/Immobilie/Sonstiges · Rechenbeispiele von 4 fiktiven Banken mit **Bonität, Filtern, Sollzins und effektivem Jahreszins** · Bundesbank-Durchschnitt als Referenz · **getrennte Schritte: Anfrage → Vertrag → Auszahlung** · Tilgungsplan · **Sondertilgung** mit Vorschau (Restschuld, Laufzeit, Zinsersparnis) |
 | ⏩ **Demo-Modus** | Beispielmonate erzeugen · Admin spult die Zeit vor (Raten werden gebucht) |
 
 Demo-Admin: `admin@projektbank.de` / `admin12345`
@@ -106,6 +106,7 @@ Demo-Admin: `admin@projektbank.de` / `admin12345`
 | ✅ [Testbericht](docs/technik/testbericht.md) | Was getestet wird, Abdeckung, gefundene Fehler |
 | 📱 [Unterstützte Versionen](docs/technik/versionen.md) | Android 7+ / iOS 15+, was sich zwischen den Versionen unterscheidet, wie getestet wird |
 | 🏦 [Echte Bankkonten (Open Banking)](docs/technik/open-banking.md) | Ablauf, Anbieter, Sicherheit, Status der Umsätze, Voraussetzungen für echte Banken |
+| 🐷 [Sparregeln und Kreditvergleich](docs/technik/sparregeln-und-kredite.md) | Finanzierungsquellen, Status, keine doppelten Abbuchungen; Anbieter, Rechenbeispiele, Bundesbank-Referenz, getrennte Kreditschritte |
 | 🔔 [Push-Benachrichtigungen](docs/technik/push.md) | Hintergrund-Abfrage und Weg zu echtem Push (Firebase/APNs) |
 | 📄 [Pflichtenheft v0.2](docs/pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) | Anforderungen (Muss-/Kannkriterien, Tests) |
 | 🏃 [Scrum](docs/scrum/README.md) | Projektwoche 12.–18.10.2026: Rollen, 7 Tages-Sprints, Aufgabenverteilung, Protokolle |
@@ -134,11 +135,11 @@ girokonto/
 
 Bei jedem Push prüft GitHub automatisch ([Actions](https://github.com/p2keshtidar/girokonto/actions)):
 
-- **Backend:** 199 Tests mit echter PostgreSQL-Datenbank, **92,5 % Zeilenabdeckung** – Testfälle T01–T67, Sicherheitsmatrix über *alle* Endpunkte, Fuzzing, gleichzeitige Überweisungen, 160 Zufallsaktionen mit Prüfung der Buchhaltung, Bankverbindungen gegen Sandbox und nachgebildeten Anbieter
-- **App:** `flutter analyze` + 265 Unit-/Widget-Tests – jeder Bildschirm in 4 Formaten (kleines Handy bis Tablet, Schrift 150 %) und auf Englisch, Abläufe mit simuliertem Server
+- **Backend:** 232 Tests mit echter PostgreSQL-Datenbank, **92,7 % Zeilenabdeckung** – Testfälle T01–T84, Sicherheitsmatrix über *alle* Endpunkte, Fuzzing, gleichzeitige Überweisungen, 160 Zufallsaktionen mit Prüfung der Buchhaltung, Bankverbindungen gegen Sandbox und nachgebildeten Anbieter, parallele Sparregel-Läufe ohne doppelte Abbuchung
+- **App:** `flutter analyze` + 293 Unit-/Widget-Tests – jeder Bildschirm in 4 Formaten (kleines Handy bis Tablet, Schrift 150 %) und auf Englisch, Abläufe mit simuliertem Server
 - **Sicherheit:** gitleaks (Geheimnisse), Trivy (Abhängigkeiten, Docker), CodeQL, Dependabot
 - **Builds:** Web, Android-APK, iOS, Docker-Image
-- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform, Android-Gerät und Systemversionen wählbar): echte App im Browser (Chrome), Android-Emulatoren (**Android 7, 8, 9, 11, 13, 15, 16**; Pixel 5 oder sehr kleines Display) und iPhone-Simulatoren (**iOS 16, 17, 18, 26**) gegen den echten Server, mit Bildschirmfotos je Version – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kreditabschluss, Sondertilgung, **zwei Nutzer** (Live-Meldung, Überweisung, Dauerauftrag, geteiltes Unterkonto)
+- **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform, Android-Gerät und Systemversionen wählbar): echte App im Browser (Chrome), Android-Emulatoren (**Android 7, 8, 9, 11, 13, 15, 16**; Pixel 5 oder sehr kleines Display) und iPhone-Simulatoren (**iOS 16, 17, 18, 26**) gegen den echten Server, mit Bildschirmfotos je Version – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kredit in vier Schritten (Vergleich, Anfrage, Vertrag, Auszahlung), Sondertilgung, Sandbox-Bank, **zwei Nutzer** (Live-Meldung, Überweisung, Dauerauftrag, geteiltes digitales Konto, Sparregel)
 
 📋 Alle Details: **[Testbericht](docs/technik/testbericht.md)**
 
