@@ -308,8 +308,12 @@ void main() {
     expect(find.text('Erika Mustermann (du)'), findsOneWidget);
     await scrollTo(tester, find.text('Digitales Konto auflösen'));
     expect(find.text('Digitales Konto auflösen'), findsOneWidget);
-    await tester.ensureVisible(find.byKey(const Key('share_add')));
+    tester
+        .state<ScrollableState>(find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first)
+        .position
+        .jumpTo(0);
     await tester.pumpAndSettle();
+    await scrollTo(tester, find.byKey(const Key('share_add')));
     await tester.tap(find.byKey(const Key('share_add')));
     await tester.pumpAndSettle();
     await tester.enterText(find.byKey(const Key('share_recipient')), 'mia@example.org');
