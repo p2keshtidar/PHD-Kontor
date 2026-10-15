@@ -28,6 +28,8 @@ dependencies:
   file_selector: ^1.0.3
   # Benachrichtigungen bei geschlossener App: Hintergrund-Abfrage auf Android (/K070/)
   workmanager: ^0.10.10
+  # Seite der Bank für die Freigabe (Open Banking) im Browser öffnen, offizielles Paket des Flutter-Teams
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:

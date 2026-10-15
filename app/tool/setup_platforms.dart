@@ -50,6 +50,14 @@ int _androidManifest() {
       s = s.replaceFirst('<application', '<uses-permission android:name="$p"/>\n    <application');
     }
   }
+  // Seiten der Bank (Open Banking) im Browser öffnen: ab Android 11 muss die App das ankündigen
+  const browserIntent = '<intent>\n            <action android:name="android.intent.action.VIEW"/>\n'
+      '            <data android:scheme="https"/>\n        </intent>';
+  if (!s.contains('android:scheme="https"')) {
+    s = s.contains('<queries>')
+        ? s.replaceFirst('<queries>', '<queries>\n        $browserIntent')
+        : s.replaceFirst('</manifest>', '    <queries>\n        $browserIntent\n    </queries>\n</manifest>');
+  }
   s = s.replaceFirst(RegExp(r'android:label="[^"]*"'), 'android:label="Girokonto"');
   if (!s.contains('usesCleartextTraffic')) {
     s = s.replaceFirst('<application', '<application\n        android:usesCleartextTraffic="true"');

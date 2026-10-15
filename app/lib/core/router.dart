@@ -10,6 +10,10 @@ import '../features/auth/app_user.dart';
 import '../features/auth/auth_controller.dart';
 import '../features/auth/login_screen.dart';
 import '../features/auth/register_screen.dart';
+import '../features/banking/bank_accounts_screen.dart';
+import '../features/banking/bank_transaction_screen.dart';
+import '../features/banking/bank_transactions_screen.dart';
+import '../features/banking/connect_bank_screen.dart';
 import '../features/card/card_screen.dart';
 import '../features/contacts/address_book_screen.dart';
 import '../features/insights/insights_screen.dart';
@@ -97,6 +101,20 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(path: '/benachrichtigungen', builder: (_, __) => const NotificationsScreen()),
+      // Echte Bankkonten (Open Banking/PSD2, nur Lesezugriff)
+      GoRoute(path: '/banken', builder: (_, __) => const BankAccountsScreen()),
+      GoRoute(path: '/banken/verbinden', builder: (_, __) => const ConnectBankScreen()),
+      GoRoute(
+        path: '/banken/umsaetze',
+        builder: (_, state) => BankTransactionsScreen(
+          accountId: int.tryParse(state.uri.queryParameters['konto'] ?? ''),
+          accountName: state.uri.queryParameters['name'],
+        ),
+      ),
+      GoRoute(
+        path: '/banken/umsatz/:id',
+        builder: (_, state) => BankTransactionScreen(id: int.parse(state.pathParameters['id']!)),
+      ),
       // Phase 4: Finanzüberblick, Pläne, Kredite
       GoRoute(path: '/finanzen', builder: (_, __) => const InsightsScreen()),
       GoRoute(

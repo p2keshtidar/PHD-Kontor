@@ -4,6 +4,10 @@ import 'package:girokonto_app/features/accounts/account_home_screen.dart';
 import 'package:girokonto_app/features/accounts/transactions_screen.dart';
 import 'package:girokonto_app/features/auth/login_screen.dart';
 import 'package:girokonto_app/features/auth/register_screen.dart';
+import 'package:girokonto_app/features/banking/bank_accounts_screen.dart';
+import 'package:girokonto_app/features/banking/bank_transaction_screen.dart';
+import 'package:girokonto_app/features/banking/bank_transactions_screen.dart';
+import 'package:girokonto_app/features/banking/connect_bank_screen.dart';
 import 'package:girokonto_app/features/card/card_screen.dart';
 import 'package:girokonto_app/features/contacts/address_book_screen.dart';
 import 'package:girokonto_app/features/insights/csv_import_screen.dart';
@@ -60,6 +64,10 @@ void main() {
     'Einnahmen & Ausgaben': () => const EntriesScreen(),
     'Einnahme eintragen': () => const EntryFormScreen(kind: 'INCOME'),
     'Ausgabe eintragen': () => const EntryFormScreen(kind: 'EXPENSE'),
+    'Echte Bankkonten': () => const BankAccountsScreen(),
+    'Bank verbinden': () => const ConnectBankScreen(),
+    'Umsätze verbundener Konten': () => const BankTransactionsScreen(),
+    'Umsatz eines verbundenen Kontos': () => const BankTransactionScreen(id: 604),
   };
 
   final formats = <String, (Size, double)>{

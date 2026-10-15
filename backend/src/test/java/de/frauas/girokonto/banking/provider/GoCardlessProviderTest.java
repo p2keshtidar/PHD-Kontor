@@ -111,16 +111,16 @@ class GoCardlessProviderTest {
         server.expect(requestTo(BASE + "/agreements/enduser/eua-1/")).andRespond(withSuccess(
                 "{\"id\":\"eua-1\",\"accepted\":\"2026-06-01T10:00:00Z\",\"access_valid_for_days\":90}",
                 MediaType.APPLICATION_JSON));
+        server.expect(requestTo(BASE + "/requisitions/req-2/")).andRespond(withSuccess(
+                "{\"id\":\"req-2\",\"status\":\"RJ\",\"accounts\":[]}", MediaType.APPLICATION_JSON));
+        server.expect(requestTo(BASE + "/requisitions/req-3/")).andRespond(withSuccess(
+                "{\"id\":\"req-3\",\"status\":\"GA\",\"accounts\":[]}", MediaType.APPLICATION_JSON));
+
         var state = provider.consentState("req-1");
         assertThat(state.status()).isEqualTo(ConsentStatus.LINKED);
         assertThat(state.accountIds()).containsExactly("acc-a", "acc-b");
         assertThat(state.expiresAt()).isEqualTo(java.time.Instant.parse("2026-08-30T10:00:00Z"));
-
-        server.expect(requestTo(BASE + "/requisitions/req-2/")).andRespond(withSuccess(
-                "{\"id\":\"req-2\",\"status\":\"RJ\",\"accounts\":[]}", MediaType.APPLICATION_JSON));
         assertThat(provider.consentState("req-2").status()).isEqualTo(ConsentStatus.REJECTED);
-        server.expect(requestTo(BASE + "/requisitions/req-3/")).andRespond(withSuccess(
-                "{\"id\":\"req-3\",\"status\":\"GA\",\"accounts\":[]}", MediaType.APPLICATION_JSON));
         assertThat(provider.consentState("req-3").status()).isEqualTo(ConsentStatus.PENDING);
         server.verify();
     }

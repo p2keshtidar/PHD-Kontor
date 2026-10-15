@@ -213,7 +213,98 @@ class FakeBackend implements HttpClientAdapter {
         {'key': 'FREIZEIT', 'label': 'Freizeit', 'kind': 'EXPENSE'},
       ];
 
+  // ------------------------------------------------------------------ Echte Bankkonten (Sandbox-Daten)
+
+  static Map<String, dynamic> bankAccount(int id, int connectionId, String name, String bank,
+          {bool sandbox = true, int balance = 146771, String status = 'ACTIVE', String sync = 'OK'}) =>
+      {
+        'id': id, 'connectionId': connectionId, 'bankName': bank, 'name': name, 'ibanMasked': 'DE40 •••• 19${id % 100}',
+        'currency': 'EUR', 'balanceCents': balance, 'balanceType': 'closingBooked', 'balanceAt': '2026-10-13T08:00:00Z',
+        'lastSyncAt': '2026-10-13T08:00:00Z', 'lastSyncStatus': sync, 'connectionStatus': status, 'sandbox': sandbox,
+      };
+
+  static List<Map<String, dynamic>> bankConnections() => [
+        {
+          'id': 31, 'provider': 'SANDBOX', 'sandbox': true, 'institutionId': 'SANDBOX_MAINBANK',
+          'bankName': 'Sandbox-Hausbank (Testdaten)', 'status': 'ACTIVE', 'statusLabel': 'Verbunden',
+          'permissions': ['Kontodetails lesen', 'Salden lesen', 'Umsätze lesen'],
+          'consentExpiresAt': '2027-01-10T08:00:00Z', 'daysLeft': 89, 'lastSyncAt': '2026-10-13T08:00:00Z',
+          'lastSyncStatus': 'OK', 'lastErrorMessage': null, 'createdAt': '2026-10-01T08:00:00Z', 'revokedAt': null,
+          'accounts': [
+            bankAccount(501, 31, 'Gehaltskonto bei der Hausbank mit langem Namen', 'Sandbox-Hausbank (Testdaten)'),
+            bankAccount(502, 31, 'Tagesgeld', 'Sandbox-Hausbank (Testdaten)', balance: 2262625),
+          ],
+        },
+        {
+          'id': 32, 'provider': 'GOCARDLESS', 'sandbox': false, 'institutionId': 'SPK_MUSTER',
+          'bankName': 'Sparkasse Musterstadt-Langname Filiale Innenstadt', 'status': 'EXPIRED',
+          'statusLabel': 'Freigabe abgelaufen', 'permissions': [], 'consentExpiresAt': '2026-10-10T08:00:00Z',
+          'daysLeft': null, 'lastSyncAt': '2026-10-09T08:00:00Z', 'lastSyncStatus': 'FAILED',
+          'lastErrorMessage': 'Die Bank war nicht erreichbar. Nächster Versuch später.',
+          'createdAt': '2026-07-01T08:00:00Z', 'revokedAt': null,
+          'accounts': [
+            bankAccount(503, 32, 'Privatkonto', 'Sparkasse Musterstadt-Langname Filiale Innenstadt',
+                sandbox: false, balance: -12050, status: 'EXPIRED', sync: 'FAILED'),
+          ],
+        },
+      ];
+
+  static Map<String, dynamic> bankOverview() => {
+        'accounts': [for (final c in bankConnections()) ...(c['accounts'] as List)],
+        'totalBalanceCents': 3717346, 'monthIncomeCents': 265000, 'monthExpenseCents': 118825,
+        'anySandbox': true, 'anyStale': true,
+      };
+
+  static Map<String, dynamic> bankTx(int id,
+          {String status = 'BOOKED', int amount = -4530, String counterparty = 'REWE Markt Frankfurt-Bockenheim',
+          bool reversal = false, String category = 'LEBENSMITTEL', String label = 'Lebensmittel'}) =>
+      {
+        'id': id, 'accountId': 501, 'accountName': 'Gehaltskonto', 'bankName': 'Sandbox-Hausbank (Testdaten)',
+        'status': status,
+        'statusLabel': const {
+          'PENDING': 'Vorgemerkt', 'BOOKED': 'Gebucht', 'CANCELLED': 'Storniert', 'REVERSED': 'Zurückgebucht',
+        }[status],
+        'bookingDate': '2026-10-${(id % 28 + 1).toString().padLeft(2, '0')}', 'valueDate': '2026-10-12',
+        'amountCents': amount, 'currency': 'EUR', 'counterparty': counterparty,
+        'remittance': 'Kartenzahlung Filiale 12 Einkauf vom Wochenende mit sehr langem Verwendungszweck',
+        'reversal': reversal, 'relatedId': null, 'autoCategory': category, 'category': category,
+        'categoryLabel': label, 'note': null, 'tags': [], 'excluded': false, 'edited': false, 'sandbox': true,
+      };
+
+  static Map<String, dynamic> bankTxPage() => {
+        'items': [
+          bankTx(601, status: 'PENDING', amount: -320, counterparty: 'Bäckerei Huber'),
+          bankTx(602),
+          bankTx(603, status: 'CANCELLED', amount: -12000, counterparty: 'Hotel am Main', category: 'FREIZEIT', label: 'Freizeit'),
+          bankTx(604, status: 'REVERSED', amount: -2990, counterparty: 'FitX Fitnessstudio', category: 'VERTRAEGE',
+              label: 'Verträge & Abos'),
+          bankTx(605, amount: 2990, counterparty: 'FitX Fitnessstudio', reversal: true, category: 'VERTRAEGE',
+              label: 'Verträge & Abos'),
+          bankTx(606, amount: 265000, counterparty: 'Muster GmbH', category: 'GEHALT', label: 'Gehalt'),
+        ],
+        'page': 0, 'size': 30, 'hasMore': false,
+      };
+
+  static List<Map<String, dynamic>> sandboxInstitutions() => [
+        for (final b in [
+          ('SANDBOX_MAINBANK', 'Sandbox-Hausbank (Testdaten)'),
+          ('SANDBOX_ONLINEBANK', 'Sandbox-Onlinebank (Testdaten)'),
+          ('SANDBOX_DOWN', 'Sandbox-Bank nicht erreichbar (Testdaten)'),
+        ])
+          {'id': b.$1, 'name': b.$2, 'bic': 'SANDDEFFXXX', 'historyDays': 730, 'accessDays': 90, 'logo': null,
+           'sandbox': true},
+      ];
+
   static Map<String, Object? Function(RequestOptions)> defaultRoutes() => {
+        'GET /api/banking/accounts': (_) => bankOverview(),
+        'GET /api/banking/connections': (_) => bankConnections(),
+        'GET /api/banking/providers': (_) => [
+              {'id': 'SANDBOX', 'name': 'Sandbox (Testdaten, keine echte Bank)', 'sandbox': true, 'available': true,
+               'description': 'Simulierte Banken mit Testdaten – keine echte Bank, kein echtes Geld.'},
+            ],
+        'GET /api/banking/institutions': (_) => sandboxInstitutions(),
+        'GET /api/banking/transactions': (_) => bankTxPage(),
+        'GET /api/banking/transactions/*': (o) => bankTx(int.parse(o.path.split('/').last)),
         'GET /api/me': (_) => user(),
         'GET /api/accounts': (_) => accounts(),
         'GET /api/accounts/*/bookings': (_) => bookingPage(),

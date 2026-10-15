@@ -7,6 +7,8 @@ import '../../l10n/l10n.dart';
 import '../../core/api_error.dart';
 import '../../core/money.dart';
 import '../auth/auth_controller.dart';
+import '../banking/bank_repository.dart';
+import '../banking/bank_section.dart';
 import 'account.dart';
 import 'accounts_repository.dart';
 import '../insights/insights_models.dart';
@@ -31,6 +33,7 @@ class AccountHomeScreen extends ConsumerWidget {
         ref.invalidate(recentBookingsProvider);
         ref.invalidate(netWorthProvider);
         ref.invalidate(accountsProvider);
+        ref.invalidate(bankOverviewProvider);
         await ref.read(accountsProvider.future);
       },
       child: accounts.when(
@@ -100,11 +103,17 @@ class AccountHomeScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 4),
-              for (final a in visible)
-                _AccountTile(
-                  account: a,
-                  onTap: () => context.push(a.isSub ? '/unterkonto/${a.id}' : '/umsaetze/${a.id}'),
+              for (final a in visible.where((a) => a.isMain))
+                _AccountTile(account: a, onTap: () => context.push('/umsaetze/${a.id}')),
+              // Konten bei anderen (echten) Banken, nur Lesezugriff
+              const BankAccountsSection(),
+              if (visible.any((a) => a.isSub))
+                Padding(
+                  padding: const EdgeInsets.only(top: 12, bottom: 4),
+                  child: Text(tr('Unterkonten'), style: Theme.of(context).textTheme.titleMedium),
                 ),
+              for (final a in visible.where((a) => a.isSub))
+                _AccountTile(account: a, onTap: () => context.push('/unterkonto/${a.id}')),
               Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton.icon(

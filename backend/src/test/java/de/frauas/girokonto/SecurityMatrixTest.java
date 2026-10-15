@@ -34,7 +34,9 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 class SecurityMatrixTest extends FlowTestSupport {
 
-    private static final Set<String> PUBLIC = Set.of("/api/auth/register", "/api/auth/login", "/api/auth/refresh");
+    // Rücksprung von der Bank: feste Seite ohne Daten, ändert nichts (siehe T60)
+    private static final Set<String> PUBLIC = Set.of("/api/auth/register", "/api/auth/login", "/api/auth/refresh",
+            "/api/banking/callback");
 
     @Autowired
     @Qualifier("requestMappingHandlerMapping")

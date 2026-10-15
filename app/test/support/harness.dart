@@ -48,6 +48,7 @@ Future<FakeBackend> pumpScreen(
   double textScale = 1.0,
   AppUser? user,
   bool settle = true,
+  List<Override> overrides = const [],
 }) async {
   final fake = backend ?? FakeBackend();
   // Plattform-Kanäle (sicherer Speicher) antworten im Widget-Test nie -> alles im Arbeitsspeicher.
@@ -74,6 +75,7 @@ Future<FakeBackend> pumpScreen(
         return api;
       }),
       authControllerProvider.overrideWith(() => FakeAuthController(user)),
+      ...overrides,
     ],
     // wie in main.dart: bei Sprachwechsel neu aufbauen
     child: ValueListenableBuilder<String>(

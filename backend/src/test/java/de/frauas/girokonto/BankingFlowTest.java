@@ -371,6 +371,16 @@ class BankingFlowTest extends FlowTestSupport {
         assertThat(reminders).isEqualTo(1);
     }
 
+    @Test
+    void T60_ruecksprungSeiteOhneAnmeldungOhneDaten() throws Exception {
+        String html = mvc.perform(get("/api/banking/callback?ref=gk-1-abc"))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+        assertThat(html).contains("Girokonto").doesNotContain("gk-1-abc");
+        // nur GET ist offen
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post("/api/banking/callback"))
+                .andExpect(status().isUnauthorized());
+    }
+
     private void getJsonStatus(TestUser u, String path, int expected) throws Exception {
         mvc.perform(get(path).header("Authorization", u.bearer())).andExpect(status().is(expected));
     }

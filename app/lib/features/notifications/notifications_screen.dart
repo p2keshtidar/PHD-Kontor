@@ -20,6 +20,7 @@ class NotificationsScreen extends ConsumerWidget {
         'SAVING_RATE' => Icons.savings,
         'GOAL' => Icons.flag,
         'WELCOME' => Icons.celebration,
+        'BANK' => Icons.account_balance,
         _ => Icons.notifications,
       };
 

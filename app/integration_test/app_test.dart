@@ -185,6 +185,24 @@ void main() {
     await pumpUntil(tester, find.text('1.000,00 €'));
     expect(find.text('Girokonto'), findsWidgets);
 
+    // Echte Bankkonten: Sandbox-Bank verbinden (Testdaten, keine echte Bank), Umsätze ansehen
+    await tapButton(tester, find.byKey(const Key('home_bank_connect')));
+    await pumpUntil(tester, find.byKey(const Key('institution_SANDBOX_MAINBANK')));
+    await pumpFor(tester, 1000);
+    await tapButton(tester, find.byKey(const Key('institution_SANDBOX_MAINBANK')));
+    await pumpUntil(tester, find.byKey(const Key('sandbox_approve')));
+    await tester.tap(find.byKey(const Key('sandbox_approve')));
+    await pumpUntil(tester, find.textContaining('Bank verbunden'), timeout: const Duration(seconds: 60));
+    await pumpUntil(tester, find.text('Hallo Erika!'));
+    await scrollTo(tester, find.text('Tagesgeld'));
+    await snap(tester, 'bankkonten');
+    await tapButton(tester, find.text('Tagesgeld'));
+    await pumpUntil(tester, find.byKey(const Key('bank_tx_search')));
+    await pumpUntil(tester, find.textContaining('Umbuchung'));
+    await tester.pageBack();
+    await pumpUntil(tester, find.text('Hallo Erika!'));
+    await scrollToTop(tester);
+
     // Bereich Karte
     await tester.tap(navItem('Karte'));
     await pumpUntil(tester, find.text('Projektbank'));
