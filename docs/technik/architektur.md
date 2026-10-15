@@ -195,3 +195,32 @@ Zustandsverwaltung mit **Riverpod**: Bildschirme lesen Daten über Provider (`re
 | Bedienelemente | mindestens 48 × 48 Punkte | BF01 (`androidTapTargetGuideline`) |
 | Schriftgröße, Formate | 150 % Schrift, 320 px bis Tablet, kein Überlauf | `screens_layout_test.dart` |
 | Sprache | Deutsch und Englisch vollständig (App und Server-Texte) | L-Tests, `I18nFlowTest` |
+
+### API-Versionierung
+
+Alle Endpunkte sind als **Version 1** unter `/api/v1/…` erreichbar (z. B. `GET /api/v1/accounts`). Die Kurzform
+`/api/…` bleibt als Alias für v1 bestehen – die App nutzt sie. Jede API-Antwort trägt den Header `API-Version: 1`.
+Umgesetzt mit einem Filter (`config/ApiVersionFilter`), der vor Sicherheit und Rate-Limit läuft – beide Formen werden
+also gleich geprüft. Regel für später: kompatible Erweiterungen (neue Felder, neue Endpunkte) bleiben in v1;
+inkompatible Änderungen kommen unter `/api/v2/…`, v1 läuft dann parallel weiter. Unbekannte Versionen → 404.
+Getestet in `ApiVersionAndAuditTest` (T134).
+
+### Prüfprotokoll
+
+`GET /api/me/audit-log` zeigt jedem Nutzer, was mit seinem Konto passiert ist (Transparenz, DSGVO Art. 15) – mit
+verständlicher Bezeichnung (`actionLabel`, auch Englisch). Protokolliert werden u. a.: Kontoeröffnung, Anmeldung,
+**fehlgeschlagene Anmeldung**, Abmeldung, Passwort geändert, Zwei-Faktor an/aus, Kartendaten angezeigt, Karte
+gesperrt/entsperrt/Limit, Überweisung gesendet, Bankfreigaben, Kredite, Kreditkarte, Marktplatz-Anträge, Ausgleich
+gemeinsamer Ausgaben, Dokumente hochgeladen/abgerufen/gelöscht, Kündigung vermerkt. **Nie** im Protokoll:
+Passwörter, Codes, vollständige IBAN oder Kartennummer, Dateinamen oder Dokumentinhalte (geprüft in T135, T57).
+
+### Last- und Sicherheitstests
+
+| Test | Was | Wo |
+|---|---|---|
+| Lasttest T137 | 12 Nutzer mit Beispielmonaten, 8 Lese-Endpunkte, 4 Runden, 16 parallele Threads; Median/p95/Maximum je Endpunkt im CI-Protokoll; keine Fehler, p95 < 3 s | `LoadTest` |
+| Gleichzeitige Überweisungen | kein Überziehen, Idempotenz | `RobustnessTest` R03, R04 |
+| Anmeldung, Tokens, Admin | jeder Endpunkt braucht Anmeldung, gefälschte/abgelaufene Tokens, Admin-Rechte | `SecurityMatrixTest` S01–S04 |
+| Fremde Daten (IDOR) | alle Ressourcen mit ID, auch Gruppen, Verträge, Dokumente, Anträge | S05, `SecurityNewFeaturesTest` S11 |
+| Geheimnisse in Antworten | keine Passwort-Hashes, vollständigen Kartennummern, TOTP-Schlüssel | S06, S12 |
+| Uploads | nur PDF/PNG/JPEG am Inhalt erkannt, 5 MB, bereinigte Dateinamen, verschlüsselt | T132, T133, K04 |

@@ -1,5 +1,6 @@
 package de.frauas.girokonto.transfer;
 
+import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.account.Account;
 import de.frauas.girokonto.account.AccountRepository;
 import de.frauas.girokonto.account.AccountService;
@@ -50,10 +51,13 @@ public class TransferService {
     private final AppProperties props;
     private final Clock clock;
 
+    private final AuditLog audit;
+
     public TransferService(AccountService accountService, AccountRepository accounts, BookingService bookingService,
                            BookingRepository bookings, BookingLineRepository bookingLines,
                            RecipientResolver recipientResolver, AppUserRepository users,
-                           NotificationService notifications, AppProperties props, Clock clock) {
+                           NotificationService notifications, AppProperties props, Clock clock, AuditLog audit) {
+        this.audit = audit;
         this.accountService = accountService;
         this.accounts = accounts;
         this.bookingService = bookingService;
@@ -96,6 +100,8 @@ public class TransferService {
         Booking booking = bookingService.post(BookingType.TRANSFER, description(req), fullKey, userId, List.of(
                 new BookingService.Line(sender.getId(), -req.amountCents()),
                 new BookingService.Line(recipient.account().getId(), req.amountCents())));
+
+        audit.record(userId, "TRANSFER_SENT", "booking:" + booking.getId(), Money.format(req.amountCents()));   // ohne IBAN
 
         // Benachrichtigungen (/F510/), werden nach dem Commit live verschickt
         AppUser me = users.findById(userId).orElseThrow();

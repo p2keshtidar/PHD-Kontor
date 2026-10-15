@@ -870,3 +870,30 @@ Beendet am {0}.	Ended on {0}.
 Gekündigt zum {0}.	Cancelled effective {0}.
 Heute ist der letzte Tag zum Kündigen (Vertragsende {0}).	Today is the last day to cancel (contract end {0}).
 Kündigen bis {0} (Vertragsende {1}), sonst Verlängerung um {2}.	Cancel by {0} (contract end {1}), otherwise renewal by {2}.
+Anmeldung	Sign-in
+Fehlgeschlagene Anmeldung	Failed sign-in
+Abmeldung auf allen Geräten	Signed out on all devices
+Passwort geändert	Password changed
+Kartendaten angezeigt	Card details shown
+Karte entsperrt	Card unlocked
+Kartenlimit geändert	Card limit changed
+Umsätze exportiert	Transactions exported
+Bankfreigabe gestartet	Bank consent started
+Bank verbunden	Bank connected
+Bankfreigabe widerrufen	Bank consent revoked
+Kreditanfrage zugesagt	Loan request approved
+Kreditanfrage abgelehnt	Loan request declined
+Kreditvertrag abgeschlossen	Loan contract concluded
+Kredit widerrufen	Loan withdrawn
+Kreditkarte eingerichtet	Credit card set up
+Kreditkarte gesperrt	Credit card locked
+Kreditkarte entsperrt	Credit card unlocked
+Kreditkarte aufgelöst	Credit card closed
+Antrag im Marktplatz (Simulation)	Marketplace application (simulation)
+Gemeinsame Ausgaben ausgeglichen	Shared expenses settled
+Barzahlung bestätigt	Cash payment confirmed
+Dokument hochgeladen	Document uploaded
+Dokument abgerufen	Document retrieved
+Dokument gelöscht	Document deleted
+Kündigung vermerkt	Cancellation recorded
+Bankfreigabe: Status geändert	Bank consent: status changed

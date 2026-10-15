@@ -1,5 +1,6 @@
 package de.frauas.girokonto.user;
 
+import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.common.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,7 +14,10 @@ public class UserService {
     private final AppUserRepository users;
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(AppUserRepository users, PasswordEncoder passwordEncoder) {
+    private final AuditLog audit;
+
+    public UserService(AppUserRepository users, PasswordEncoder passwordEncoder, AuditLog audit) {
+        this.audit = audit;
         this.users = users;
         this.passwordEncoder = passwordEncoder;
     }
@@ -49,6 +53,7 @@ public class UserService {
             throw new ApiException(HttpStatus.BAD_REQUEST, "WRONG_PASSWORD", "Das alte Passwort ist falsch.");
         }
         user.setPasswordHash(passwordEncoder.encode(req.newPassword()));
+        audit.record(userId, "PASSWORD_CHANGED", null, null);
     }
 
     /**

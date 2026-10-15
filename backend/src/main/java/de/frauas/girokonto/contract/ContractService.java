@@ -1,5 +1,6 @@
 package de.frauas.girokonto.contract;
 
+import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.common.ApiException;
 import de.frauas.girokonto.notification.NotificationService;
 import de.frauas.girokonto.notification.NotificationType;
@@ -59,7 +60,10 @@ public class ContractService implements DailyJob {
     private final NotificationService notifications;
     private final Clock clock;
 
-    public ContractService(JdbcTemplate jdbc, NotificationService notifications, Clock clock) {
+    private final AuditLog audit;
+
+    public ContractService(JdbcTemplate jdbc, NotificationService notifications, Clock clock, AuditLog audit) {
+        this.audit = audit;
         this.jdbc = jdbc;
         this.notifications = notifications;
         this.clock = clock;
@@ -262,6 +266,7 @@ public class ContractService implements DailyJob {
             throw new ApiException(HttpStatus.BAD_REQUEST, "INVALID_DATE", "Das Vertragsende darf nicht in der Vergangenheit liegen.");
         }
         jdbc.update("UPDATE contract SET status = 'CANCELLED', ends_on = ? WHERE id = ? AND user_id = ?", end, id, userId);
+        audit.record(userId, "CONTRACT_CANCEL_NOTED", "contract:" + id, null);
         return get(userId, id);
     }
 

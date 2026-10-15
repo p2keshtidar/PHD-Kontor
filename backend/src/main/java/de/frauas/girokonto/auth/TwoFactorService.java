@@ -1,5 +1,6 @@
 package de.frauas.girokonto.auth;
 
+import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.card.CardCrypto;
 import de.frauas.girokonto.common.ApiException;
 import de.frauas.girokonto.config.AppProperties;
@@ -32,8 +33,11 @@ public class TwoFactorService {
     private final SecureRandom random = new SecureRandom();
     private final Clock realClock = Clock.systemUTC();
 
+    private final AuditLog audit;
+
     public TwoFactorService(AppUserRepository users, CardCrypto crypto, PasswordEncoder passwordEncoder,
-                            NotificationService notifications, AppProperties props) {
+                            NotificationService notifications, AppProperties props, AuditLog audit) {
+        this.audit = audit;
         this.users = users;
         this.crypto = crypto;
         this.passwordEncoder = passwordEncoder;
@@ -70,6 +74,7 @@ public class TwoFactorService {
         u.setTotpPendingSecret(null);
         u.setTotpEnabled(true);
         u.setTotpLastStep(step);
+        audit.record(userId, "TWO_FACTOR_ENABLED", null, null);
         notifications.send(userId, NotificationType.INFO, "Zwei-Faktor-Anmeldung aktiviert",
                 "Bei der Anmeldung brauchst du ab jetzt zusätzlich den Code aus deiner Authenticator-App.", null);
     }
@@ -90,6 +95,7 @@ public class TwoFactorService {
         u.setTotpEnabled(false);
         u.setTotpSecret(null);
         u.setTotpLastStep(null);
+        audit.record(userId, "TWO_FACTOR_DISABLED", null, null);
         notifications.send(userId, NotificationType.INFO, "Zwei-Faktor-Anmeldung ausgeschaltet",
                 "Die Anmeldung braucht jetzt nur noch E-Mail und Passwort.", null);
     }

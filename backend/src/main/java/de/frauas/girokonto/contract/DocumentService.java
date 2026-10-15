@@ -1,5 +1,6 @@
 package de.frauas.girokonto.contract;
 
+import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.card.CardCrypto;
 import de.frauas.girokonto.common.ApiException;
 import java.security.MessageDigest;
@@ -36,7 +37,10 @@ public class DocumentService {
     private final ContractService contracts;
     private final Clock clock;
 
-    public DocumentService(JdbcTemplate jdbc, CardCrypto crypto, ContractService contracts, Clock clock) {
+    private final AuditLog audit;
+
+    public DocumentService(JdbcTemplate jdbc, CardCrypto crypto, ContractService contracts, Clock clock, AuditLog audit) {
+        this.audit = audit;
         this.jdbc = jdbc;
         this.crypto = crypto;
         this.contracts = contracts;
@@ -123,6 +127,7 @@ public class DocumentService {
             ps.setTimestamp(9, Timestamp.from(Instant.now(clock)));
             return ps;
         }, kh);
+        audit.record(userId, "DOCUMENT_UPLOADED", "document:" + kh.getKey().longValue(), type);   // ohne Dateiname/Inhalt
         return list(userId, null).stream().filter(d -> d.id() == kh.getKey().longValue()).findFirst().orElseThrow();
     }
 
@@ -148,6 +153,7 @@ public class DocumentService {
         if (l.isEmpty()) {
             throw new ApiException(HttpStatus.NOT_FOUND, "DOCUMENT_NOT_FOUND", "Dokument nicht gefunden.");
         }
+        audit.record(userId, "DOCUMENT_DOWNLOADED", "document:" + id, null);
         return l.get(0);
     }
 
@@ -156,6 +162,7 @@ public class DocumentService {
         if (jdbc.update("DELETE FROM document WHERE id = ? AND user_id = ?", id, userId) == 0) {
             throw new ApiException(HttpStatus.NOT_FOUND, "DOCUMENT_NOT_FOUND", "Dokument nicht gefunden.");
         }
+        audit.record(userId, "DOCUMENT_DELETED", "document:" + id, null);
     }
 
     static String sha256(byte[] b) {

@@ -1,5 +1,6 @@
 package de.frauas.girokonto.card;
 
+import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.account.Account;
 import de.frauas.girokonto.account.AccountRepository;
 import de.frauas.girokonto.account.AccountService;
@@ -41,10 +42,13 @@ public class CardService {
     private final AppProperties props;
     private final Clock clock;
 
+    private final AuditLog audit;
+
     public CardService(CardRepository cards, CardCrypto crypto, AccountService accountService,
                        AccountRepository accounts, BookingService bookingService,
                        BookingLineRepository bookingLines, NotificationService notifications,
-                       AppUserRepository users, PasswordEncoder passwordEncoder, AppProperties props, Clock clock) {
+                       AppUserRepository users, PasswordEncoder passwordEncoder, AppProperties props, Clock clock, AuditLog audit) {
+        this.audit = audit;
         this.cards = cards;
         this.crypto = crypto;
         this.accountService = accountService;
@@ -85,6 +89,7 @@ public class CardService {
             throw new ApiException(HttpStatus.BAD_REQUEST, "WRONG_PASSWORD", "Das Passwort ist falsch.");
         }
         Card card = getOrCreate(userId);
+        audit.record(userId, "CARD_DETAILS_SHOWN", "card:" + card.getId(), null);   // nie die Nummer selbst
         return new CardDetailsDto(crypto.decrypt(card.getPanEncrypted()), crypto.decrypt(card.getCvcEncrypted()),
                 expiry(card));
     }
@@ -93,6 +98,7 @@ public class CardService {
     public CardDto setLocked(Long userId, boolean locked) {
         Card card = getOrCreate(userId);
         card.setStatus(locked ? CardStatus.LOCKED : CardStatus.ACTIVE);
+        audit.record(userId, locked ? "CARD_LOCKED" : "CARD_UNLOCKED", "card:" + card.getId(), null);
         return toDto(card);
     }
 
@@ -105,6 +111,7 @@ public class CardService {
         Card card = getOrCreate(userId);
         card.setDailyLimitCents(req.dailyLimitCents());
         card.setOnlineEnabled(req.onlineEnabled());
+        audit.record(userId, "CARD_LIMIT_CHANGED", "card:" + card.getId(), Money.format(req.dailyLimitCents()));
         return toDto(card);
     }
 

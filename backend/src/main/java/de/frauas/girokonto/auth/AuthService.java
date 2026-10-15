@@ -1,5 +1,6 @@
 package de.frauas.girokonto.auth;
 
+import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.account.AccountService;
 import de.frauas.girokonto.card.CardService;
 import de.frauas.girokonto.common.Money;
@@ -37,9 +38,12 @@ public class AuthService {
     private final Clock clock;
     private final TwoFactorService twoFactor;
 
+    private final AuditLog audit;
+
     public AuthService(AppUserRepository users, PasswordEncoder passwordEncoder, AccountService accountService,
                        TokenService tokenService, CardService cardService, NotificationService notifications,
-                       AppProperties props, Clock clock, TwoFactorService twoFactor) {
+                       AppProperties props, Clock clock, TwoFactorService twoFactor, AuditLog audit) {
+        this.audit = audit;
         this.users = users;
         this.passwordEncoder = passwordEncoder;
         this.accountService = accountService;
@@ -72,6 +76,7 @@ public class AuthService {
         cardService.getOrCreate(user.getId());
         notifications.send(user.getId(), NotificationType.WELCOME, "Willkommen bei der " + props.bank().name(),
                 "Dein Konto ist eröffnet. Startguthaben: " + Money.format(props.startBalanceCents()), null);
+        audit.record(user.getId(), "REGISTERED", "account:" + user.getId(), null);
         return tokenService.issue(user);
     }
 
@@ -106,6 +111,7 @@ public class AuthService {
         }
         user.setFailedLogins(0);
         user.setLockedUntil(null);
+        audit.record(user.getId(), "LOGIN", null, user.isTotpEnabled() ? "mit Zwei-Faktor" : null);
         return tokenService.issue(user);
     }
 
@@ -118,11 +124,13 @@ public class AuthService {
     public void logout(Long userId) {
         users.findById(userId).ifPresent(AppUser::increaseTokenVersion);
         tokenService.revokeAll(userId);
+        audit.record(userId, "LOGOUT", null, null);
     }
 
     /** Fehlversuch zählen; nach zu vielen Versuchen sperren (/F030/). */
     private ApiException failedAttempt(AppUser user, Instant now, ApiException error) {
         int failed = user.getFailedLogins() + 1;
+        audit.record(user.getId(), "LOGIN_FAILED", null, "Fehlversuch " + failed);   // ohne Passwort/Code
         if (failed >= props.login().maxFailedAttempts()) {
             user.setLockedUntil(now.plus(Duration.ofMinutes(props.login().lockMinutes())));
             user.setFailedLogins(0);

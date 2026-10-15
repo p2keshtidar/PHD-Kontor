@@ -1,5 +1,6 @@
 package de.frauas.girokonto.group;
 
+import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.account.AccountService;
 import de.frauas.girokonto.common.ApiException;
 import de.frauas.girokonto.common.Money;
@@ -64,8 +65,11 @@ public class GroupService {
     private final NotificationService notifications;
     private final Clock clock;
 
+    private final AuditLog audit;
+
     public GroupService(JdbcTemplate jdbc, RecipientResolver recipients, AccountService accountService,
-                        TransferService transfers, NotificationService notifications, Clock clock) {
+                        TransferService transfers, NotificationService notifications, Clock clock, AuditLog audit) {
+        this.audit = audit;
         this.jdbc = jdbc;
         this.recipients = recipients;
         this.accountService = accountService;
@@ -330,6 +334,7 @@ public class GroupService {
         TransferResultDto t = transfers.execute(userId, key,
                 new TransferRequest(iban, amountCents, "Ausgleich „" + name(groupId) + "“"));
         insertSettlement(groupId, userId, toUserId, amountCents, "TRANSFER", t.bookingId(), userId);
+        audit.record(userId, "GROUP_SETTLED", "group:" + groupId, Money.format(amountCents));
         return detail(userId, groupId);
     }
 
@@ -339,6 +344,7 @@ public class GroupService {
         requireMember(userId, groupId);
         checkSettlement(groupId, fromUserId, userId, amountCents);
         insertSettlement(groupId, fromUserId, userId, amountCents, "CASH", null, userId);
+        audit.record(userId, "GROUP_CASH_CONFIRMED", "group:" + groupId, Money.format(amountCents));
         notifications.send(fromUserId, NotificationType.INFO, "Gemeinsame Ausgaben",
                 accountService.ownerName(userId) + " hat deine Barzahlung über " + Money.format(amountCents)
                         + " in „" + name(groupId) + "“ bestätigt.", null);
