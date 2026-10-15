@@ -1,0 +1,18 @@
+# Betrieb auf einem Server (z. B. Ubuntu), zusammen mit docker-compose.yml:
+#   cp .env.example .env   # Werte ersetzen!
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+# Unterschiede zur Entwicklung: Geheimnisse aus .env, APP_ENV=production (Start bricht bei Entwicklungs-Schlüsseln ab),
+# Datenbank nicht von außen erreichbar, App nur auf 127.0.0.1 (davor ein HTTPS-Proxy, siehe docs/technik/betrieb.md).
+# Benötigt Docker Compose ab Version 2.24 (für !reset und !override).
+services:
+  db:
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD fehlt in .env}
+    ports: !reset []
+
+  app:
+    env_file: .env
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD fehlt in .env}
+      APP_ENV: production
+    ports: !override ["127.0.0.1:8080:8080"]

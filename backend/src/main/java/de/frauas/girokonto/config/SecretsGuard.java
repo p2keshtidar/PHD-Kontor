@@ -21,17 +21,31 @@ public class SecretsGuard implements ApplicationRunner {
     static final String DEV_CARD_KEY = "q3Jm0QbN8y4k9tXc2Vh7LpZr5Wd1Fs6Ge0Ua3Ti8Ko4=";
     static final String DEV_ADMIN_PASSWORD = "admin12345";
 
+    static final String DEV_DB_PASSWORD = "girokonto";
+
     private final AppProperties props;
     private final String environment;
+    private final String dbPassword;
 
-    public SecretsGuard(AppProperties props, @Value("${app.environment:development}") String environment) {
+    public SecretsGuard(AppProperties props, @Value("${app.environment:development}") String environment,
+                        @Value("${spring.datasource.password:}") String dbPassword) {
         this.props = props;
         this.environment = environment;
+        this.dbPassword = dbPassword;
     }
 
     @Override
     public void run(ApplicationArguments args) {
         check(environment, props);
+        checkDatabase(environment, dbPassword);
+    }
+
+    /** Im Betrieb kein leeres oder das Entwicklungs-Passwort der Datenbank. */
+    static void checkDatabase(String environment, String dbPassword) {
+        if ("production".equalsIgnoreCase(environment)
+                && (dbPassword == null || dbPassword.isBlank() || DEV_DB_PASSWORD.equals(dbPassword))) {
+            throw new IllegalStateException("APP_ENV=production, aber DB_PASSWORD ist leer oder der Entwicklungswert.");
+        }
     }
 
     static List<String> insecure(AppProperties p) {

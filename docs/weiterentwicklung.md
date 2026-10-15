@@ -34,7 +34,7 @@ Legende: ✅ vorhanden · 🟡 teilweise vorhanden · 🆕 neu geplant
 | 19 | Sicherheit | Hash, JWT, Rate-Limit, Sicherheitsmatrix (IDOR), Secrets-Prüfung, gitleaks/Trivy/CodeQL | ✅ | [#62](https://github.com/p2keshtidar/girokonto/issues/62) ✅ Prüfprotokoll erweitert, API-Version v1, Lasttest T137, IDOR-Tests S11/S12 |
 | 20 | Tests und Qualität | 232 Backend- und 293 App-Tests, Ende-zu-Ende auf 12 Systemen, CI | ✅ | je Aufgabe neue Tests ([#70](https://github.com/p2keshtidar/girokonto/issues/70)) |
 | 21 | Performance und Wartbarkeit | Seiten in Umsatzlisten, Indizes | ✅ | 🆕 [#75](https://github.com/p2keshtidar/girokonto/issues/75) langsame Endpunkte messen, Indizes, strukturierte Logs |
-| 22 | Dokumentation | Anleitungen, Architektur, Testbericht, Open Banking, Swagger | 🟡 | 🆕 [#63](https://github.com/p2keshtidar/girokonto/issues/63) Ubuntu/Docker, Umgebungsvariablen, Datenbankschema, Einschränkungen, simulierte Funktionen |
+| 22 | Dokumentation | Anleitungen, Architektur, Testbericht, Open Banking, Swagger | ✅ | 🆕 [#63](https://github.com/p2keshtidar/girokonto/issues/63) Ubuntu/Docker, Umgebungsvariablen, Datenbankschema, Einschränkungen, simulierte Funktionen |
 
 ## Reihenfolge der Umsetzung
 

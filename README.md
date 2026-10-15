@@ -111,6 +111,8 @@ Demo-Admin: `admin@projektbank.de` / `admin12345`
 | 🛠️ [Anleitung: Entwickeln](docs/anleitung/03-entwickeln.md) | Projekt aus dem Code starten, Tests, Git-Arbeitsweise |
 | 🆘 [Häufige Probleme](docs/anleitung/04-probleme.md) | Lösungen für typische Fehler |
 | 🏗️ [Architektur](docs/technik/architektur.md) | Wie Backend und App aufgebaut sind |
+| 🖥️ [Betrieb](docs/technik/betrieb.md) | Ubuntu-Server mit Docker, Umgebungsvariablen, Datenbankschema, Backup, Monitoring, CI/CD |
+| ⚠️ [Grenzen und Simulationen](docs/technik/grenzen-und-simulationen.md) | Was echt ist, was simuliert ist, bekannte Grenzen |
 | ✅ [Testbericht](docs/technik/testbericht.md) | Was getestet wird, Abdeckung, gefundene Fehler |
 | 📱 [Unterstützte Versionen](docs/technik/versionen.md) | Android 7+ / iOS 15+, was sich zwischen den Versionen unterscheidet, wie getestet wird |
 | 🏦 [Echte Bankkonten (Open Banking)](docs/technik/open-banking.md) | Ablauf, Anbieter, Sicherheit, Status der Umsätze, Voraussetzungen für echte Banken |

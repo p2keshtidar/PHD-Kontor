@@ -1,6 +1,7 @@
 package de.frauas.girokonto.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,7 +11,7 @@ import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-/** P01–P03: strukturierte Logzeile je Aufruf ohne sensible Daten; Request-ID; API-Version-Pfade. */
+/** P01–P04: strukturierte Logzeile je Aufruf ohne sensible Daten; Request-ID; API-Version-Pfade. */
 @ExtendWith(OutputCaptureExtension.class)
 class RequestLogFilterTest {
 
@@ -40,5 +41,13 @@ class RequestLogFilterTest {
         assertThat(ApiVersionFilter.unversioned("/api/v1")).isEqualTo("/api");
         assertThat(ApiVersionFilter.unversioned("/api/v10/accounts")).isEqualTo("/api/v10/accounts");
         assertThat(ApiVersionFilter.unversioned("/api/accounts")).isEqualTo("/api/accounts");
+    }
+
+    @Test
+    void P04_imBetriebKeinEntwicklungsPasswortDerDatenbank() {
+        assertThatThrownBy(() -> SecretsGuard.checkDatabase("production", "girokonto")).isInstanceOf(IllegalStateException.class);
+        assertThatThrownBy(() -> SecretsGuard.checkDatabase("production", "")).isInstanceOf(IllegalStateException.class);
+        SecretsGuard.checkDatabase("production", "ein-langes-zufaelliges-passwort");
+        SecretsGuard.checkDatabase("development", "girokonto");
     }
 }
