@@ -31,10 +31,12 @@ public class AccountService {
     private final AccountMemberRepository members;
     private final AppUserRepository users;
     private final EarmarkRepository earmarks;
+    private final org.springframework.jdbc.core.JdbcTemplate jdbc;
 
     public AccountService(AccountRepository accounts, BookingService bookingService, BookingLineRepository bookingLines,
                           IbanGenerator ibanGenerator, AppProperties props, Clock clock,
-                          AccountMemberRepository members, AppUserRepository users, EarmarkRepository earmarks) {
+                          AccountMemberRepository members, AppUserRepository users, EarmarkRepository earmarks,
+                          org.springframework.jdbc.core.JdbcTemplate jdbc) {
         this.accounts = accounts;
         this.bookingService = bookingService;
         this.bookingLines = bookingLines;
@@ -44,6 +46,7 @@ public class AccountService {
         this.members = members;
         this.users = users;
         this.earmarks = earmarks;
+        this.jdbc = jdbc;
     }
 
     /** Legt das Girokonto mit fiktiver IBAN an und bucht das Startguthaben (/F010/). */
@@ -142,6 +145,30 @@ public class AccountService {
                     "Umbuchungen, Sparraten und Kreditauszahlungen haben eine feste Kategorie.");
         }
         line.setCategory(category.name());
+    }
+
+    /**
+     * Eigene Notiz zu einem Umsatz setzen oder löschen (leer). Privat je Nutzer – auch Mitglieder geteilter
+     * digitaler Konten sehen nur ihre eigenen Notizen.
+     *
+     * @return die gespeicherte Notiz oder null, wenn gelöscht
+     */
+    @Transactional
+    public String changeNote(Long userId, Long accountId, Long bookingId, String note) {
+        requireAccess(accountId, userId);
+        bookingLines.findFirstByBookingIdAndAccountId(bookingId, accountId)
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "BOOKING_NOT_FOUND", "Umsatz nicht gefunden."));
+        String text = note == null ? "" : note.strip();
+        if (text.isEmpty()) {
+            jdbc.update("DELETE FROM booking_note WHERE booking_id = ? AND account_id = ? AND user_id = ?",
+                    bookingId, accountId, userId);
+            return null;
+        }
+        jdbc.update("""
+                INSERT INTO booking_note (booking_id, account_id, user_id, note, updated_at) VALUES (?, ?, ?, ?, now())
+                ON CONFLICT (booking_id, account_id, user_id) DO UPDATE SET note = EXCLUDED.note, updated_at = now()
+                """, bookingId, accountId, userId, text);
+        return text;
     }
 
     /** Das Girokonto des Nutzers. */

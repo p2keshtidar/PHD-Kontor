@@ -27,7 +27,7 @@ public class BookingQueryService {
     public static final int MAX_PAGE_SIZE = 50;
 
     private static final String BASE_SQL = """
-            SELECT b.id, b.type, b.description, b.booked_at, l.amount_cents, l.category,
+            SELECT b.id, b.type, b.description, b.booked_at, l.amount_cents, l.category, n.note,
                    cp.owner_id AS cp_owner_id, cp.type AS cp_type, cp.name AS cp_name, cp.iban AS cp_iban,
                    u.first_name AS cp_first_name, u.last_name AS cp_last_name
               FROM booking_line l
@@ -41,6 +41,7 @@ public class BookingQueryService {
                      LIMIT 1
                    ) cp ON TRUE
               LEFT JOIN app_user u ON u.id = cp.owner_id
+              LEFT JOIN booking_note n ON n.booking_id = b.id AND n.account_id = l.account_id AND n.user_id = :userId
              WHERE l.account_id = :accountId
             """;
 
@@ -61,7 +62,8 @@ public class BookingQueryService {
         int safePage = Math.max(page, 0);
 
         StringBuilder sql = new StringBuilder(BASE_SQL);
-        MapSqlParameterSource params = new MapSqlParameterSource("accountId", accountId);
+        MapSqlParameterSource params = new MapSqlParameterSource("accountId", accountId)
+                .addValue("userId", currentUserId == null ? -1L : currentUserId);
 
         if (f.from() != null) {
             sql.append(" AND b.booked_at >= :from");
@@ -92,7 +94,8 @@ public class BookingQueryService {
             sql.append("""
                      AND (b.description ILIKE :q ESCAPE '\\'
                           OR (u.first_name || ' ' || u.last_name) ILIKE :q ESCAPE '\\'
-                          OR cp.name ILIKE :q ESCAPE '\\')
+                          OR cp.name ILIKE :q ESCAPE '\\'
+                          OR n.note ILIKE :q ESCAPE '\\')
                     """);
             params.addValue("q", "%" + escapeLike(f.q().trim()) + "%");
         }
@@ -141,7 +144,8 @@ public class BookingQueryService {
                 name,
                 rs.getString("cp_iban"),
                 category,
-                categoryLabel(category));
+                categoryLabel(category),
+                rs.getString("note"));
     }
 
     private OffsetDateTime startOfDay(java.time.LocalDate date) {

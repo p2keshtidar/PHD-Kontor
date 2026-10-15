@@ -42,6 +42,18 @@ public class AccountController {
         return ResponseEntity.noContent().build();
     }
 
+    /** Eigene Notiz zu einem Umsatz (nur für mich sichtbar). Leerer Text löscht die Notiz. */
+    @PutMapping("/{accountId}/bookings/{bookingId}/note")
+    public NoteResponse changeNote(@AuthenticationPrincipal AuthUser auth, @PathVariable Long accountId,
+                                   @PathVariable Long bookingId, @jakarta.validation.Valid @RequestBody NoteRequest req) {
+        return new NoteResponse(accountService.changeNote(auth.id(), accountId, bookingId, req.note()));
+    }
+
+    public record NoteRequest(@jakarta.validation.constraints.Size(max = 500,
+            message = "Die Notiz darf höchstens 500 Zeichen haben.") String note) {}
+
+    public record NoteResponse(String note) {}
+
     /** Liefert nur die Konten des angemeldeten Nutzers (/NF010/). */
     @GetMapping
     public List<AccountDto> myAccounts(@AuthenticationPrincipal AuthUser auth) {

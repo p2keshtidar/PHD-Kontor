@@ -4,7 +4,7 @@ import java.time.Instant;
 
 /**
  * Ein Umsatz aus Sicht eines Kontos (/F120/, /F140/).
- * amountCents: positiv = Eingang, negativ = Ausgang.
+ * amountCents: positiv = Eingang, negativ = Ausgang. note: eigene Notiz des angemeldeten Nutzers (privat).
  */
 public record BookingItemDto(
         Long bookingId,
@@ -15,5 +15,6 @@ public record BookingItemDto(
         String counterpartyName,
         String counterpartyIban,
         String category,
-        String categoryLabel) {
+        String categoryLabel,
+        String note) {
 }

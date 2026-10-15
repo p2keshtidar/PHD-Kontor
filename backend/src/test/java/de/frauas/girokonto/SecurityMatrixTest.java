@@ -249,6 +249,8 @@ class SecurityMatrixTest extends FlowTestSupport {
         denied(eve, HttpMethod.POST, "/api/allocations/earmarks/release", "{\"targetAccountId\":" + sub
                 + ",\"externalAccountId\":1}", f);
         denied(eve, HttpMethod.GET, "/api/accounts/" + call + "/bookings", "", f);
+        denied(eve, HttpMethod.PUT, "/api/accounts/" + anna.accountId() + "/bookings/" + booking + "/note",
+                "{\"note\":\"meins\"}", f);
         denied(eve, HttpMethod.PUT, "/api/accounts/" + call, "{\"name\":\"Meins\"}", f);
         denied(eve, HttpMethod.DELETE, "/api/accounts/" + call, "", f);
         denied(eve, HttpMethod.POST, "/api/accounts/move", "{\"fromAccountId\":" + call + ",\"toAccountId\":"

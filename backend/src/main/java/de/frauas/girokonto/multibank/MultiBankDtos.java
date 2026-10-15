@@ -41,17 +41,18 @@ public final class MultiBankDtos {
     /**
      * Ein Umsatz in der konsolidierten Übersicht.
      *
-     * @param source    PROJEKTBANK (Simulation) oder EXTERNAL (verbundene Bank, nur lesend)
+     * @param source    PROJEKTBANK (Simulation), EXTERNAL (verbundene Bank, nur lesend) oder IMPORT (CSV-Datei)
      * @param id        Buchung (Projektbank) bzw. Umsatz der verbundenen Bank
      * @param bookedAt  Zeitpunkt (nur Projektbank; Banken liefern nur das Buchungsdatum)
      * @param status    BOOKED oder PENDING (vorgemerkt, nur verbundene Banken)
      * @param internal  Umbuchung zwischen eigenen Konten – zählt nicht als Einnahme oder Ausgabe
      * @param excluded  vom Nutzer aus der Auswertung genommen (nur verbundene Banken)
+     * @param note      eigene Notiz (Projektbank und verbundene Banken)
      */
     public record TxItem(String source, Long id, Long accountId, String accountName, String institution,
                          LocalDate date, Instant bookedAt, long amountCents, String currency, String counterpartyName,
                          String description, String category, String categoryLabel, String status, boolean internal,
-                         boolean excluded) {}
+                         boolean excluded, String note) {}
 
     /**
      * Eine Seite der konsolidierten Umsätze.

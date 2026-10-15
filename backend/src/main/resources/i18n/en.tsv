@@ -549,7 +549,7 @@ Zinsen gutgeschrieben	Interest credited
 „{0}“: {1} für {2} (Simulation, fiktiver Zinssatz)	“{0}”: {1} for {2} (simulation, fictitious interest rate)
 Bitte eine Kontoart wählen.	Please choose an account type.
 Bitte einen Namen eingeben.	Please enter a name.
-Unbekannte Quelle. Möglich: ALL, PROJEKTBANK, EXTERNAL.	Unknown source. Possible: ALL, PROJEKTBANK, EXTERNAL.
+Unbekannte Quelle. Möglich: ALL, PROJEKTBANK, EXTERNAL, IMPORT.	Unknown source. Possible: ALL, PROJEKTBANK, EXTERNAL, IMPORT.
 Unbekannte Richtung. Möglich: IN, OUT.	Unknown direction. Possible: IN, OUT.
 Der Suchbegriff ist zu lang.	The search term is too long.
 Konten der Projektbank sind eine Simulation mit Spielgeld.	Projektbank accounts are a simulation with play money.
@@ -558,3 +558,15 @@ Summen ohne Umbuchungen zwischen eigenen Konten, Sparraten, Kreditauszahlungen u
 Auf ein Tagesgeldkonto zahlt nur der Inhaber selbst über seine eigenen Konten ein.	Only the holder can pay into an instant-access savings account, via their own accounts.
 Umbuchungen sind nur zwischen deinen Konten der Projektbank möglich (Girokonten, Tagesgeld, digitale Konten).	Transfers are only possible between your Projektbank accounts (current accounts, instant-access savings, digital accounts).
 Tagesgeld: fiktiver Zinssatz der Simulation; zählt zu „zurückgelegt“.	Instant-access savings: fictitious simulation interest rate; counts as “set aside”.
+Die Notiz darf höchstens 500 Zeichen haben.	The note may have at most 500 characters.
+CSV-Import: Umsätze aus importierten Dateien – sie ändern keine Kontostände.	CSV import: transactions from imported files – they do not change any balances.
+CSV-Import	CSV import
+Verbundene Bank	Connected bank
+gebucht	booked
+Gleicher Betrag und gleiche Gegenpartei innerhalb weniger Tage auf demselben Konto – vielleicht doppelt abgebucht.	Same amount and same counterparty within a few days on the same account – possibly debited twice.
+Derselbe Umsatz steht vielleicht doppelt da: in „{0}“ und in „{1}“ (z. B. selbst eingetragen und von der Bank geliefert).	The same transaction may appear twice: in “{0}” and in “{1}” (e.g. entered yourself and delivered by the bank).
+Gleicher Betrag, höchstens {0} Tage auseinander und ein gemeinsames Stichwort. Prüfe selbst – oft sind es zwei echte Umsätze.	Same amount, at most {0} days apart and a common keyword. Check yourself – often these are two genuine transactions.
+Unbekanntes Paar.	Unknown pair.
+Zu viele markierte Paare.	Too many marked pairs.
+Paar fehlt.	Pair missing.
+vorgemerkt	pending
