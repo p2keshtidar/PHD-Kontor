@@ -19,7 +19,7 @@ jobs:
     name: Geheimnisse und Abhängigkeiten
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
       - name: Geheimnisse (gitleaks, ganze Git-Historie)
         run: |
@@ -58,7 +58,7 @@ jobs:
     name: Statische Analyse (CodeQL, Java)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: '21', cache: gradle }
       - uses: github/codeql-action/init@v3
