@@ -1,0 +1,276 @@
+Recreating project ....
+  ios/Runner.xcworkspace/contents.xcworkspacedata (created)
+  ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist (created)
+  ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings (created)
+  ios/RunnerTests/RunnerTests.swift (created)
+  ios/Runner/Info.plist (created)
+  ios/Runner/Runner-Bridging-Header.h (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png (created)
+  ios/Runner/Base.lproj/LaunchScreen.storyboard (created)
+  ios/Runner/Base.lproj/Main.storyboard (created)
+  ios/Runner/AppDelegate.swift (created)
+  ios/Runner/SceneDelegate.swift (created)
+  ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata (created)
+  ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist (created)
+  ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings (created)
+  ios/Runner.xcodeproj/project.pbxproj (created)
+  ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme (created)
+  ios/Flutter/Debug.xcconfig (created)
+  ios/Flutter/Release.xcconfig (created)
+  ios/Flutter/AppFrameworkInfo.plist (created)
+  ios/.gitignore (created)
+  girokonto_app.iml (created)
+  .gitignore (created)
+  web/favicon.png (created)
+  web/index.html (created)
+  web/manifest.json (created)
+  web/icons/Icon-maskable-512.png (created)
+  web/icons/Icon-192.png (created)
+  web/icons/Icon-maskable-192.png (created)
+  web/icons/Icon-512.png (created)
+  android/app/src/profile/AndroidManifest.xml (created)
+  android/app/src/main/res/mipmap-mdpi/ic_launcher.png (created)
+  android/app/src/main/res/mipmap-hdpi/ic_launcher.png (created)
+  android/app/src/main/res/drawable/launch_background.xml (created)
+  android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png (created)
+  android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png (created)
+  android/app/src/main/res/values-night/styles.xml (created)
+  android/app/src/main/res/values/styles.xml (created)
+  android/app/src/main/res/drawable-v21/launch_background.xml (created)
+  android/app/src/main/res/mipmap-xhdpi/ic_launcher.png (created)
+  android/app/src/main/AndroidManifest.xml (created)
+  android/app/src/debug/AndroidManifest.xml (created)
+  android/settings.gradle.kts (created)
+  android/gradle/wrapper/gradle-wrapper.properties (created)
+  android/gradle.properties (created)
+  android/.gitignore (created)
+  android/build.gradle.kts (created)
+  android/app/build.gradle.kts (created)
+  android/app/src/main/kotlin/de/frauas/girokonto_app/MainActivity.kt (created)
+  android/girokonto_app_android.iml (created)
+  README.md (created)
+  .idea/runConfigurations/main_dart.xml (created)
+  .idea/libraries/Dart_SDK.xml (created)
+  .idea/libraries/KotlinJavaRuntime.xml (created)
+  .idea/modules.xml (created)
+  .idea/workspace.xml (created)
+Resolving dependencies...
+Downloading packages...
+Got dependencies.
+Upgrading analysis_options.yaml to exclude build and platform directories.
+Wrote 78 files.
+
+All done!
+You can find general documentation for Flutter at: https://docs.flutter.dev/
+Detailed API documentation is available at: https://api.flutter.dev/
+If you prefer video documentation, consider: https://www.youtube.com/c/flutterdev
+
+In order to run your application, type:
+
+  $ flutter run
+
+Your application code is in ./lib/main.dart.
+
+Resolving dependencies...
+Downloading packages...
+  code_assets 1.2.1 (2.1.0 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  flutter_contacts 1.1.9+2 (2.6.0 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 17.2.4 (22.3.2 available)
+  flutter_local_notifications_linux 4.0.1 (8.0.2 available)
+  flutter_local_notifications_platform_interface 7.2.0 (12.2.0 available)
+  flutter_secure_storage 9.2.4 (11.2.0 available)
+  flutter_secure_storage_linux 1.2.3 (3.0.3 available)
+  flutter_secure_storage_macos 3.1.3 (4.0.0 available)
+  flutter_secure_storage_platform_interface 1.1.2 (2.1.1 available)
+  flutter_secure_storage_web 1.2.1 (2.1.1 available)
+  flutter_secure_storage_windows 3.1.2 (4.2.2 available)
+  go_router 14.8.1 (18.1.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  js 0.6.7 (0.7.2 available)
+  lints 4.0.0 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  qr 3.0.2 (4.0.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  stomp_dart_client 2.1.3 (3.0.1 available)
+  test_api 0.7.12 (0.7.15 available)
+  timezone 0.9.4 (0.11.2 available)
+  vector_math 2.4.0 (2.4.3 available)
+  win32 5.15.0 (6.4.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies!
+30 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Running build hooks...Running build hooks...Angepasst: android/app/src/main/AndroidManifest.xml
+Angepasst: android/app/build.gradle.kts
+Angepasst: ios/Runner/Info.plist
+Angepasst: ios/Runner/AppDelegate.swift
+Angepasst: ios/Runner/Info.plist (UIScene entfernt)
+Angepasst: ios/Podfile (iOS 15.0)
+8 Datei(en) angepasst.
+Building de.frauas.girokontoApp for simulator (ios)...
+To ensure your app continues to launch on upcoming iOS versions, UIScene lifecycle support will soon be required. Please see https://flutter.dev/to/uiscene-migration for the migration guide.
+
+The following plugins do not support Swift Package Manager for ios:
+  - flutter_contacts
+  - flutter_local_notifications
+  - flutter_secure_storage
+This will become an error in a future version of Flutter. Please contact the plugin maintainers to request Swift Package Manager adoption.
+Running pod install...                                             944ms
+Running Xcode build...                                          
+Xcode build done.                                           56.0s
+Failed to build iOS app
+Error output from Xcode build:
+↳
+    ** BUILD FAILED **
+
+
+Xcode's output:
+↳
+    Writing result bundle at path:
+    	/var/folders/36/tjdph2t965j8snz9_vkdnw0r0000gn/T/flutter_tools.2GCSyM/flutter_ios_build_temp_dirYN52Kv/temporary_xcresult_bundle
+
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_contacts-1.1.9+2/ios/Classes/SwiftFlutterContactsPlugin.swift:530:34: warning: no calls to throwing functions occur within 'try' expression
+                        let groups = try FlutterContacts.getGroups()
+                                     ^
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_contacts-1.1.9+2/ios/Classes/SwiftFlutterContactsPlugin.swift:532:19: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+                    } catch {
+                      ^
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_contacts-1.1.9+2/ios/Classes/SwiftFlutterContactsPlugin.swift:530:34: warning: no calls to throwing functions occur within 'try' expression
+                        let groups = try FlutterContacts.getGroups()
+                                     ^
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_contacts-1.1.9+2/ios/Classes/SwiftFlutterContactsPlugin.swift:532:19: warning: 'catch' block is unreachable because no errors are thrown in 'do' block
+                    } catch {
+                      ^
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.m:1238:30: warning: 'UNNotificationPresentationOptionAlert' is deprecated: first deprecated in iOS 14.0 [-Wdeprecated-declarations]
+     1238 |       presentationOptions |= UNNotificationPresentationOptionAlert;
+          |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          |                              UNNotificationPresentationOptionList | UNNotificationPresentationOptionBanner
+    In module 'UserNotifications' imported from /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.h:2:
+    /Applications/Xcode_26.6.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNUserNotificationCenter.h:84:5: note: 'UNNotificationPresentationOptionAlert' has been explicitly marked deprecated here
+       84 |     UNNotificationPresentationOptionAlert API_DEPRECATED_WITH_REPLACEMENT("UNNotificationPresentationOptionList | UNNotificationPresentationOptionBanner", macos(10.14, 11.0), ios(10.0, 14.0), watchos(3.0, 7.0), tvos(10.0, 14.0)) = (1 << 2),
+          |     ^
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.m:6:17: warning: method definition for 'setRegisterPlugins:' not found [-Wincomplete-implementation]
+        6 | @implementation FlutterLocalNotificationsPlugin {
+          |                 ^
+    In file included from /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.m:1:
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.h:5:1: note: method 'setRegisterPlugins:' declared here
+        5 | + (void)setRegisterPlugins:(FlutterPluginRegistrantCallback *)callback;
+          | ^
+    2 warnings generated.
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.m:1238:30: warning: 'UNNotificationPresentationOptionAlert' is deprecated: first deprecated in iOS 14.0 [-Wdeprecated-declarations]
+     1238 |       presentationOptions |= UNNotificationPresentationOptionAlert;
+          |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+          |                              UNNotificationPresentationOptionList | UNNotificationPresentationOptionBanner
+    In module 'UserNotifications' imported from /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.h:2:
+    /Applications/Xcode_26.6.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/System/Library/Frameworks/UserNotifications.framework/Headers/UNUserNotificationCenter.h:84:5: note: 'UNNotificationPresentationOptionAlert' has been explicitly marked deprecated here
+       84 |     UNNotificationPresentationOptionAlert API_DEPRECATED_WITH_REPLACEMENT("UNNotificationPresentationOptionList | UNNotificationPresentationOptionBanner", macos(10.14, 11.0), ios(10.0, 14.0), watchos(3.0, 7.0), tvos(10.0, 14.0)) = (1 << 2),
+          |     ^
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.m:6:17: warning: method definition for 'setRegisterPlugins:' not found [-Wincomplete-implementation]
+        6 | @implementation FlutterLocalNotificationsPlugin {
+          |                 ^
+    In file included from /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.m:1:
+    /Users/runner/.pub-cache/hosted/pub.dev/flutter_local_notifications-17.2.4/ios/Classes/FlutterLocalNotificationsPlugin.h:5:1: note: method 'setRegisterPlugins:' declared here
+        5 | + (void)setRegisterPlugins:(FlutterPluginRegistrantCallback *)callback;
+          | ^
+    2 warnings generated.
+    /Users/runner/work/girokonto/girokonto/app/ios/Pods/Pods.xcodeproj: flutter_secure_storage: ld: warning: search path '/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.6.109.0.VkRZHv/Metal.xctoolchain/usr/lib/swift/iphonesimulator' not found
+    /Users/runner/work/girokonto/girokonto/app/ios/Pods/Pods.xcodeproj: flutter_secure_storage: ld: warning: search path '/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.6.109.0.VkRZHv/Metal.xctoolchain/usr/lib/swift/iphonesimulator' not found
+    /Users/runner/work/girokonto/girokonto/app/ios/Pods/Pods.xcodeproj: flutter_contacts: ld: warning: search path '/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.6.109.0.VkRZHv/Metal.xctoolchain/usr/lib/swift/iphonesimulator' not found
+    /Users/runner/work/girokonto/girokonto/app/ios/Pods/Pods.xcodeproj: flutter_contacts: ld: warning: search path '/var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.6.109.0.VkRZHv/Metal.xctoolchain/usr/lib/swift/iphonesimulator' not found
+    lib/core/router.dart:57:29: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<AppUser?>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'AppUser' is from 'package:girokonto_app/features/auth/app_user.dart' ('lib/features/auth/app_user.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+          final loggedIn = auth.valueOrNull != null;
+                                ^^^^^^^^^^^
+    lib/features/accounts/account_home_screen.dart:27:52: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<AppUser?>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'AppUser' is from 'package:girokonto_app/features/auth/app_user.dart' ('lib/features/auth/app_user.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+        final user = ref.watch(authControllerProvider).valueOrNull;
+                                                       ^^^^^^^^^^^
+    lib/features/accounts/account_home_screen.dart:57:56: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<NetWorth>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'NetWorth' is from 'package:girokonto_app/features/insights/insights_models.dart' ('lib/features/insights/insights_models.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+              final netWorth = ref.watch(netWorthProvider).valueOrNull;
+                                                           ^^^^^^^^^^^
+    lib/features/profile/profile_screen.dart:31:52: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<AppUser?>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'AppUser' is from 'package:girokonto_app/features/auth/app_user.dart' ('lib/features/auth/app_user.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+        final user = ref.watch(authControllerProvider).valueOrNull;
+                                                       ^^^^^^^^^^^
+    lib/features/profile/profile_screen.dart:327:22: Error: 'ProviderOrFamily' isn't a type.
+        for (final p in <ProviderOrFamily>[
+                         ^^^^^^^^^^^^^^^^
+    lib/features/profile/profile_screen.dart:363:50: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<FinanceOverview>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'FinanceOverview' is from 'package:girokonto_app/features/insights/insights_models.dart' ('lib/features/insights/insights_models.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+        final overview = ref.watch(overviewProvider).valueOrNull;
+                                                     ^^^^^^^^^^^
+    lib/features/shell/home_shell.dart:23:51: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<int>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+        final unread = ref.watch(unreadCountProvider).valueOrNull ?? 0;
+                                                      ^^^^^^^^^^^
+    lib/features/entries/entry_form_screen.dart:165:59: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<List<EntryCategory>>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'List' is from 'dart:core'.
+     - 'EntryCategory' is from 'package:girokonto_app/features/entries/entry_models.dart' ('lib/features/entries/entry_models.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+        final categories = ref.watch(entryCategoriesProvider).valueOrNull ?? const <EntryCategory>[];
+                                                              ^^^^^^^^^^^
+    lib/features/transfer/transfer_success_screen.dart:46:50: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<List<Contact>>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'List' is from 'dart:core'.
+     - 'Contact' is from 'package:girokonto_app/features/contacts/contact.dart' ('lib/features/contacts/contact.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+        final contacts = ref.watch(contactsProvider).valueOrNull ?? const [];
+                                                     ^^^^^^^^^^^
+    lib/l10n/language_button.dart:19:59: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<AppUser?>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'AppUser' is from 'package:girokonto_app/features/auth/app_user.dart' ('lib/features/auth/app_user.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+            final loggedIn = ref.read(authControllerProvider).valueOrNull != null;
+                                                              ^^^^^^^^^^^
+    lib/features/profile/two_factor_screen.dart:77:55: Error: The getter 'valueOrNull' isn't defined for the type 'AsyncValue<AppUser?>'.
+     - 'AsyncValue' is from 'package:riverpod/src/framework.dart' ('../../../../.pub-cache/hosted/pub.dev/riverpod-3.4.3/lib/src/framework.dart').
+     - 'AppUser' is from 'package:girokonto_app/features/auth/app_user.dart' ('lib/features/auth/app_user.dart').
+    Try correcting the name to the name of an existing getter, or defining a getter or field named 'valueOrNull'.
+        final enabled = ref.watch(authControllerProvider).valueOrNull?.twoFactorEnabled ?? false;
+                                                          ^^^^^^^^^^^
+    Target kernel_snapshot_program failed: Exception
+    Failed to package /Users/runner/work/girokonto/girokonto/app.
+    Command PhaseScriptExecution failed with a nonzero exit code
+    note: Run script build phase 'Thin Binary' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'Runner' from project 'Runner')
+    note: Run script build phase 'Run Script' will be run during every build because the option to run the script phase "Based on dependency analysis" is unchecked. (in target 'Runner' from project 'Runner')
+
+Encountered error while building for simulator.
