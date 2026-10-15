@@ -80,6 +80,18 @@ Future<void> tapButton(WidgetTester tester, Finder button) async {
   await tester.pump();
 }
 
+/// Zurück zur vorigen Seite. (tester.pageBack() sucht den Tooltip "Back" – mit deutscher Oberfläche heißt er
+/// "Zurück", darum direkt über den Zurück-Knopf bzw. den Navigator.)
+Future<void> goBack(WidgetTester tester) async {
+  final back = find.byType(BackButton);
+  if (back.evaluate().isNotEmpty) {
+    await tester.tap(back.last);
+  } else {
+    await tester.state<NavigatorState>(find.byType(Navigator).last).maybePop();
+  }
+  await tester.pump();
+}
+
 /// Springt in der aktuellen Liste ganz nach oben.
 Future<void> scrollToTop(WidgetTester tester) async {
   final scrollable = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
@@ -199,7 +211,7 @@ void main() {
     await tapButton(tester, find.text('Tagesgeld'));
     await pumpUntil(tester, find.byKey(const Key('bank_tx_search')));
     await pumpUntil(tester, find.textContaining('Umbuchung'));
-    await tester.pageBack();
+    await goBack(tester);
     await pumpUntil(tester, find.text('Hallo Erika!'));
     await scrollToTop(tester);
 
@@ -230,9 +242,9 @@ void main() {
     await pumpFor(tester, 1000);
     await tapButton(tester, find.byKey(const Key('csv_sample')));
     await pumpUntil(tester, find.text('33 Umsätze importiert'), timeout: const Duration(seconds: 30));
-    await tester.pageBack();
+    await goBack(tester);
     await pumpFor(tester, 800);
-    await tester.pageBack();
+    await goBack(tester);
     await pumpUntil(tester, find.text('Kredit'));
 
     // Kreditplaner öffnen und Angebote vergleichen
@@ -364,7 +376,7 @@ void main() {
 
     // Eigene Einnahme (monatliches Gehalt) und einmalige Ausgabe (Urlaub) eintragen
     final balanceBefore = await a.mainBalance();
-    await tester.pageBack();
+    await goBack(tester);
     await pumpFor(tester, 800);
     await tester.tap(navItem('Konto'));
     await pumpUntil(tester, find.byKey(const Key('home_add_income')));
