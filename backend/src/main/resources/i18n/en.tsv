@@ -50,7 +50,7 @@ Das Passwort muss mindestens 10 Zeichen haben.	The password must have at least 1
 Das Tageslimit darf höchstens {0} betragen.	The daily limit may be at most {0}.
 Das Wunschdatum muss mindestens einen Monat in der Zukunft liegen.	The target date must be at least one month in the future.
 Das alte Passwort ist falsch.	The old password is incorrect.
-Das ist kein aktives Unterkonto.	This is not an active sub-account.
+Das ist kein aktives digitales Konto.	This is not an active digital account.
 Datum fehlt.	Date is missing.
 Datum nicht lesbar	Date not readable
 Datum „{0}“ nicht lesbar	Date “{0}” not readable
@@ -89,7 +89,7 @@ Diese Telefonnummer wird bereits verwendet.	This phone number is already in use.
 Dieser Kontakt ist bereits gespeichert.	This contact is already saved.
 Dieser Plan ist bereits abgeschlossen.	This plan is already closed.
 Du bist nicht mehr Mitglied von „{0}“.	You are no longer a member of “{0}”.
-Du bist schon Besitzer dieses Unterkontos.	You already own this sub-account.
+Du bist schon Besitzer dieses digitalen Kontos.	You already own this digital account.
 Du kannst dich nicht selbst speichern.	You cannot save yourself.
 E-Mail fehlt.	Email is missing.
 E-Mail ist ungültig.	Email is invalid.
@@ -110,7 +110,7 @@ Geburtsdatum fehlt.	Date of birth is missing.
 Geburtsdatum muss in der Vergangenheit liegen.	Date of birth must be in the past.
 Gehalt	Salary
 Geld erhalten	Money received
-Geteiltes Unterkonto	Shared sub-account
+Geteiltes digitales Konto	Shared digital account
 Girokonto	Current account
 Gut machbar: {0} sind höchstens die Hälfte deines verfügbaren Betrags ({1} pro Monat).	Easily achievable: {0} is at most half of your available amount ({1} per month).
 Halb Aktien, halb Anleihen: mittlere Schwankung, mittlere Chance.	Half stocks, half bonds: medium volatility, medium potential.
@@ -121,8 +121,8 @@ Häufigkeit: einmalig, monatlich, vierteljährlich, halbjährlich oder jährlich
 Höchstens 12 Monate.	At most 12 months.
 Höchstens 400 Tage.	At most 400 days.
 Höchstens die Restschuld von {0}.	At most the remaining debt of {0}.
-Höchstens {0} Personen pro Unterkonto.	At most {0} people per sub-account.
-Höchstens {0} Unterkonten möglich.	At most {0} sub-accounts possible.
+Höchstens {0} Personen pro digitalem Konto.	At most {0} people per digital account.
+Höchstens {0} digitale Konten möglich.	At most {0} digital accounts possible.
 Höchstens {0} je Eintrag.	At most {0} per entry.
 Höchstens {0}.	At most {0}.
 Im letzten Monat hast du für {0} {1} ausgegeben, {2}	Last month you spent {1} on {0}, {2}
@@ -222,7 +222,7 @@ Telefonnummer fehlt.	Phone number is missing.
 Telefonnummer ist ungültig.	Phone number is invalid.
 Umbuchung	Internal transfer
 Umbuchung {0} → {1}	Transfer {0} → {1}
-Umbuchungen sind nur zwischen Girokonto und Unterkonten möglich.	Internal transfers are only possible between the current account and sub-accounts.
+Umbuchungen sind nur zwischen Girokonto und digitalen Konten möglich.	Internal transfers are only possible between the current account and digital accounts.
 Umbuchungen, Sparraten und Kreditauszahlungen haben eine feste Kategorie.	Internal transfers, savings rates and loan payouts have a fixed category.
 Umsatz nicht gefunden.	Transaction not found.
 Umsätze importiert	Transactions imported
@@ -232,8 +232,8 @@ Ungültige Anzahl Monate.	Invalid number of months.
 Ungültige Anzahl Tage.	Invalid number of days.
 Ungültige Werte für den Tilgungsplan.	Invalid values for the repayment schedule.
 Ungültiger Wert für „{0}“.	Invalid value for “{0}”.
-Unterkonto aufgelöst	Sub-account closed
-Unterkonto geteilt	Sub-account shared
+Digitales Konto aufgelöst	Digital account closed
+Digitales Konto geteilt	Digital account shared
 Verkauf Musterdepot „{0}“	Sale of model portfolio “{0}”
 Verträge & Abos	Contracts & subscriptions
 Vorname fehlt.	First name is missing.
@@ -280,7 +280,7 @@ vierteljährlich	quarterly
 {0} von „{1}“ nach „{2}“	{0} from “{1}” to “{2}”
 Überweisung	Transfer
 Überweisung gesendet	Transfer sent
-Überweisungen an dich selbst sind nicht möglich. Nutze dafür die Unterkonten.	You cannot transfer to yourself. Use sub-accounts for that.
+Überweisungen an dich selbst sind nicht möglich. Nutze dafür die digitalen Konten.	You cannot transfer to yourself. Use digital accounts for that.
 Überwiegend Aktienfonds: die größte Chance, aber der Wert kann deutlich schwanken.	Mostly equity funds: the greatest potential, but the value can fluctuate considerably.
 „{0}“ hat {1} erreicht. Du kannst jetzt auszahlen.	“{0}” has reached {1}. You can pay out now.
 „{0}“ wurde von {1} aufgelöst.	“{0}” was closed by {1}.
@@ -349,3 +349,26 @@ Freigabe abgelaufen	Authorisation expired
 Widerrufen	Revoked
 Freigabe abgelehnt	Authorisation declined
 Fehler	Error
+
+# Digitale Konten
+Unbekannter Zweck.	Unknown purpose.
+Das Zieldatum muss in der Zukunft liegen.	The target date must be in the future.
+Das Zieldatum liegt zu weit in der Zukunft.	The target date is too far in the future.
+Du darfst aus „{0}“ nichts auszahlen.	You are not allowed to withdraw from “{0}”.
+Du darfst „{0}“ nur ansehen.	You may only view “{0}”.
+Unbekannte Rolle.	Unknown role.
+{0} hat „{1}“ mit dir geteilt. Du kannst einzahlen und die Umsätze sehen.	{0} shared “{1}” with you. You can deposit and see the transactions.
+{0} hat „{1}“ mit dir geteilt. Du kannst die Umsätze sehen.	{0} shared “{1}” with you. You can see the transactions.
+Deine Rechte für „{0}“ wurden geändert. Du kannst einzahlen, auszahlen und die Umsätze sehen.	Your rights for “{0}” were changed. You can deposit, withdraw and see the transactions.
+Deine Rechte für „{0}“ wurden geändert. Du kannst einzahlen und die Umsätze sehen.	Your rights for “{0}” were changed. You can deposit and see the transactions.
+Deine Rechte für „{0}“ wurden geändert. Du kannst die Umsätze sehen.	Your rights for “{0}” were changed. You can see the transactions.
+Ziel erreicht	Goal reached
+„{0}“ hat das Ziel von {1} erreicht.	“{0}” has reached the goal of {1}.
+Der Zielbetrag muss größer als 0 sein.	The target amount must be greater than 0.
+Zielbetrag höchstens 1.000.000,00 €.	Target amount at most €1,000,000.00.
+Besitzer	Owner
+Einzahlen und auszahlen	Deposit and withdraw
+Nur einzahlen	Deposit only
+Nur ansehen	View only
+Umgebucht innerhalb der Projektbank (Simulation)	Moved within Projektbank (simulation)
+Das Geld wurde von einem Girokonto der Projektbank hierher umgebucht. Ein digitales Konto ist ein Topf in deinem Konto – kein eigenes Bankkonto und ohne eigene Einlagensicherung.	The money was moved here from a Projektbank current account. A digital account is a pot within your account – not a separate bank account and without its own deposit protection.

@@ -38,8 +38,24 @@ public class AccountMemberRepository {
     }
 
     public void add(Long accountId, Long userId, Instant now) {
-        jdbc.update("INSERT INTO account_member (account_id, user_id, added_at) VALUES (?, ?, ?) ON CONFLICT DO NOTHING",
-                accountId, userId, Timestamp.from(now));
+        add(accountId, userId, now, "FULL");
+    }
+
+    /** @param role FULL (einzahlen + auszahlen), DEPOSIT (nur einzahlen) oder VIEW (nur ansehen) */
+    public void add(Long accountId, Long userId, Instant now, String role) {
+        jdbc.update("INSERT INTO account_member (account_id, user_id, added_at, role) VALUES (?, ?, ?, ?) ON CONFLICT DO NOTHING",
+                accountId, userId, Timestamp.from(now), role);
+    }
+
+    /** Rolle des Mitglieds oder null, wenn kein Mitglied. */
+    public String role(Long accountId, Long userId) {
+        List<String> r = jdbc.queryForList("SELECT role FROM account_member WHERE account_id = ? AND user_id = ?",
+                String.class, accountId, userId);
+        return r.isEmpty() ? null : r.get(0);
+    }
+
+    public int setRole(Long accountId, Long userId, String role) {
+        return jdbc.update("UPDATE account_member SET role = ? WHERE account_id = ? AND user_id = ?", role, accountId, userId);
     }
 
     public int remove(Long accountId, Long userId) {

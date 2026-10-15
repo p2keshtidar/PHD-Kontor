@@ -179,12 +179,12 @@ class RobustnessTest extends FlowTestSupport {
         // Betrag 0 und negativ
         assertThat(transfer(other, rich, 0, UUID.randomUUID().toString())).isEqualTo(400);
         assertThat(transfer(other, rich, -100, UUID.randomUUID().toString())).isEqualTo(400);
-        // Unterkonten: höchstens 10
+        // digitale Konten: höchstens so viele wie eingestellt (50)
         TestUser s = registerUser("Sammler");
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 50; i++) {
             postJson(s, "/api/subaccounts", "{\"name\":\"Topf " + i + "\"}", 201);
         }
-        postJson(s, "/api/subaccounts", "{\"name\":\"Topf 11\"}", 400);
+        postJson(s, "/api/subaccounts", "{\"name\":\"Topf 51\"}", 400);
         // Ausführungstag 28 ja, 29 nein; Investplan mindestens 10 €
         postJson(s, "/api/plans", """
                 {"type":"INVEST","name":"T28","monthlyRateCents":1000,"executionDay":28,"riskLevel":"VORSICHTIG"}

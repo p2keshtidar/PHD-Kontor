@@ -40,6 +40,18 @@ public class Account {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
+    /** Digitale Konten: Zweck (siehe {@link DigitalPurpose}), optional Zielbetrag und Zieldatum. */
+    private String purpose;
+
+    @Column(name = "target_cents")
+    private Long targetCents;
+
+    @Column(name = "target_date")
+    private java.time.LocalDate targetDate;
+
+    @Column(name = "goal_reached_at")
+    private Instant goalReachedAt;
+
     protected Account() {
     }
 
@@ -63,4 +75,12 @@ public class Account {
     public AccountStatus getStatus() { return status; }
     public void setStatus(AccountStatus status) { this.status = status; }
     public Instant getCreatedAt() { return createdAt; }
+    public String getPurpose() { return purpose; }
+    public void setPurpose(String purpose) { this.purpose = purpose; }
+    public Long getTargetCents() { return targetCents; }
+    public void setTargetCents(Long targetCents) { this.targetCents = targetCents; }
+    public java.time.LocalDate getTargetDate() { return targetDate; }
+    public void setTargetDate(java.time.LocalDate targetDate) { this.targetDate = targetDate; }
+    public Instant getGoalReachedAt() { return goalReachedAt; }
+    public void setGoalReachedAt(Instant goalReachedAt) { this.goalReachedAt = goalReachedAt; }
 }

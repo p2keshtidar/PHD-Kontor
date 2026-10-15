@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/** Unterkonten. Die Liste aller Konten (inkl. Unterkonten) liefert GET /api/accounts. */
+/** Digitale Konten (Töpfe). Die Liste aller Konten (inkl. digitaler Konten) liefert GET /api/accounts. */
 @RestController
 @RequestMapping("/api/subaccounts")
 public class SubaccountController {
@@ -53,7 +53,13 @@ public class SubaccountController {
 
     // ------------------------------------------------------------------ /K060/ Teilen
 
-    public record AddMemberRequest(String recipient) {}
+    /** @param role FULL (Standard), DEPOSIT oder VIEW */
+    public record AddMemberRequest(String recipient, String role) {}
+
+    public record RoleRequest(
+            @jakarta.validation.constraints.NotBlank
+            @jakarta.validation.constraints.Pattern(regexp = "FULL|DEPOSIT|VIEW", message = "Unbekannte Rolle.")
+            String role) {}
 
     @GetMapping("/{id}/members")
     public java.util.List<SubaccountService.MemberDto> members(@AuthenticationPrincipal AuthUser auth, @PathVariable Long id) {
@@ -68,7 +74,15 @@ public class SubaccountController {
             throw new de.frauas.girokonto.common.ApiException(org.springframework.http.HttpStatus.BAD_REQUEST,
                     "RECIPIENT_MISSING", "Bitte E-Mail, Telefonnummer oder IBAN eingeben.");
         }
-        return service.addMember(auth.id(), id, r.recipient());
+        return service.addMember(auth.id(), id, r.recipient(), r.role());
+    }
+
+    /** Rolle eines Mitglieds ändern (nur Besitzer). */
+    @PutMapping("/{id}/members/{userId}")
+    public java.util.List<SubaccountService.MemberDto> setRole(@AuthenticationPrincipal AuthUser auth,
+                                                              @PathVariable Long id, @PathVariable Long userId,
+                                                              @Valid @RequestBody RoleRequest r) {
+        return service.setRole(auth.id(), id, userId, r.role());
     }
 
     @DeleteMapping("/{id}/members/{userId}")

@@ -65,10 +65,13 @@ public class AccountService {
     @Transactional(readOnly = true)
     public List<AccountDto> listForUser(Long userId) {
         List<AccountDto> result = new ArrayList<>();
+        java.time.LocalDate today = java.time.LocalDate.now(clock);
         for (Account a : accounts.findByOwnerIdAndStatusOrderByIdAsc(userId, AccountStatus.ACTIVE)) {
             int count = a.getType() == AccountType.SUB ? members.count(a.getId()) : 0;
+            long balance = bookingService.balanceOf(a.getId());
             result.add(new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), a.getIban(),
-                    bookingService.balanceOf(a.getId()), count > 0, null, count));
+                    balance, count > 0, null, count,
+                    a.getType() == AccountType.SUB ? DigitalInfo.of(a, balance, "OWNER", today) : null));
         }
         return result;
     }
@@ -79,8 +82,13 @@ public class AccountService {
         List<AccountDto> result = new ArrayList<>();
         for (Long id : members.sharedWith(userId)) {
             accounts.findById(id).filter(a -> a.getStatus() == AccountStatus.ACTIVE && a.getType() == AccountType.SUB)
-                    .ifPresent(a -> result.add(new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), null,
-                            bookingService.balanceOf(a.getId()), true, ownerName(a.getOwnerId()), members.count(a.getId()))));
+                    .ifPresent(a -> {
+                        long balance = bookingService.balanceOf(a.getId());
+                        result.add(new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), null,
+                                balance, true, ownerName(a.getOwnerId()), members.count(a.getId()),
+                                DigitalInfo.of(a, balance, members.role(a.getId(), userId),
+                                        java.time.LocalDate.now(clock))));
+                    });
         }
         return result;
     }

@@ -51,7 +51,7 @@ app:
     default-daily-limit-cents: 100000
     max-daily-limit-cents: 200000
   subaccounts:
-    max-per-user: 10
+    max-per-user: 50       # digitale Konten je Nutzer ("beliebig viele", mit Obergrenze gegen Missbrauch)
   admin:
     # Wird beim ersten Start angelegt; darf die Simulationszeit vorspulen (/F950/)
     email: ${ADMIN_EMAIL:admin@projektbank.de}

@@ -57,7 +57,7 @@ class I18nFlowTest extends FlowTestSupport {
         assertThat(postJson(a, "/api/transfers/check", "{\"recipient\":\"" + a.email() + "\",\"amountCents\":100}", 400)
                 .get("message").asText()).startsWith("Überweisungen an dich selbst");
         assertThat(postEn(a, "/api/transfers/check", "{\"recipient\":\"" + a.email() + "\",\"amountCents\":100}", 400)
-                .get("message").asText()).isEqualTo("You cannot transfer to yourself. Use sub-accounts for that.");
+                .get("message").asText()).isEqualTo("You cannot transfer to yourself. Use digital accounts for that.");
     }
 
     @Test

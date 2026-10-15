@@ -27,13 +27,15 @@ public class InsightsController {
     private final SavingsPlanService savings;
     private final DemoDataService demoData;
     private final AccountService accountService;
+    private final de.frauas.girokonto.banking.BankingService banking;
 
     public InsightsController(InsightsService insights, SavingsPlanService savings, DemoDataService demoData,
-                              AccountService accountService) {
+                              AccountService accountService, de.frauas.girokonto.banking.BankingService banking) {
         this.insights = insights;
         this.savings = savings;
         this.demoData = demoData;
         this.accountService = accountService;
+        this.banking = banking;
     }
 
     /** Monatsübersicht (/F570/) */
@@ -56,7 +58,8 @@ public class InsightsController {
         long loans = accounts.stream().filter(a -> a.type() == AccountType.LOAN).mapToLong(AccountDto::balanceCents).sum();
         long other = accounts.stream().filter(a -> a.type() != AccountType.LOAN).mapToLong(AccountDto::balanceCents).sum();
         long depot = savings.totalDepotValue(auth.id());
-        return new NetWorthDto(other, depot, loans, other + depot + loans);
+        long external = banking.accounts(auth.id()).totalBalanceCents();   // verbundene Banken (nur Euro)
+        return new NetWorthDto(other, depot, loans, other + depot + loans + external, external);
     }
 
     /** Alle Kategorien, die der Nutzer wählen kann (für "Kategorie ändern"). */

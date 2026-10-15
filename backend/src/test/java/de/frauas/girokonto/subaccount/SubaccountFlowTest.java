@@ -59,10 +59,12 @@ class SubaccountFlowTest extends IntegrationTestBase {
                 .andExpect(jsonPath("$.length()").value(1));
     }
 
+    @org.springframework.beans.factory.annotation.Autowired de.frauas.girokonto.config.AppProperties props;
+
     @Test
-    void hoechstensZehnUnterkonten() throws Exception {
+    void hoechstensSoVieleDigitaleKontenWieEingestellt() throws Exception {
         TestUser u = registerUser("Anna");
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= props.subaccounts().maxPerUser(); i++) {
             createSub(u, "Topf " + i);
         }
         mvc.perform(post("/api/subaccounts").header("Authorization", u.bearer())
