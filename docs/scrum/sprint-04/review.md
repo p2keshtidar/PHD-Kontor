@@ -7,7 +7,7 @@
 | **Datum** | Do, 15.10.2026, 18:00–18:30 |
 | **Teilnehmer** | Pouria Keshtidar, David Eslami Amirabadi, Mohamed Hedi Harbaoui |
 | **Sprintziel** | Finanzassistent I (Finanzüberblick, Sparplan, Erinnerung) und Erweiterung Teil 1: Sicherheit, Deutsch/Englisch, mehrere echte Bankkonten, getrennte Bereiche für Bankkonten und digitale Konten |
-| **Erreicht?** | 📝 ja / teilweise / nein |
+| **Erreicht?** | ✅ ja – alle Aufgaben erledigt |
 
 ## Ergebnisse (Demo)
 
@@ -23,7 +23,7 @@
 | 8 | Mehrere echte Bankkonten verbinden (Open Banking/PSD2, nur Lesezugriff, Sandbox) – Backend | Commit 0ec7ade · [Open Banking](../../technik/open-banking.md) | ✅ |
 | 9 | Bereich „Bankkonten“ in der App: verbinden, verwalten, Umsätze, eigene Angaben | Commit 1d6dd60 | ✅ |
 | 10 | Zwei getrennte Kontenbereiche und digitale Konten (Zweck, Ziel, Fortschritt, Rollen) | Commits 58d8658, 8e3a44e | ✅ |
-| 11 | Tests für Bankverbindungen und digitale Konten (Backend, Widget, Ende-zu-Ende) |  | ⬜ |
+| 11 | Tests für Bankverbindungen und digitale Konten (Backend, Widget, Ende-zu-Ende) | Tests B01–B23, T49–T67, BK01–BK12, DA01–DA08 | ✅ |
 
 ## Feedback des Product Owners
 
@@ -31,4 +31,4 @@
 
 ## Übernahme in den nächsten Sprint
 
-- 📝
+- keine – alles erledigt

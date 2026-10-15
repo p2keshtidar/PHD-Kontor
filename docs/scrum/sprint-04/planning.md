@@ -8,7 +8,7 @@
 | **Sprint** | Do, 15.10.2026 (Tag 4 der Projektwoche 12.–18.10.2026) |
 | **Teilnehmer** | Pouria Keshtidar, David Eslami Amirabadi, Mohamed Hedi Harbaoui |
 | **Moderation** | David Eslami Amirabadi (Scrum Master) |
-| **Status** | 🗓️ geplant |
+| **Status** | ✅ abgeschlossen |
 
 ## Sprintziel
 
@@ -28,7 +28,7 @@
 | 8 | Mehrere echte Bankkonten verbinden (Open Banking/PSD2, nur Lesezugriff, Sandbox) – Backend | Pouria Keshtidar | [#52](https://github.com/p2keshtidar/girokonto/issues/52) | ✅ erledigt |
 | 9 | Bereich „Bankkonten“ in der App: verbinden, verwalten, Umsätze, eigene Angaben | David Eslami Amirabadi | [#53](https://github.com/p2keshtidar/girokonto/issues/53) | ✅ erledigt |
 | 10 | Zwei getrennte Kontenbereiche und digitale Konten (Zweck, Ziel, Fortschritt, Rollen) | David Eslami Amirabadi (App), Pouria Keshtidar (Backend) | [#54](https://github.com/p2keshtidar/girokonto/issues/54) | ✅ erledigt |
-| 11 | Tests für Bankverbindungen und digitale Konten (Backend, Widget, Ende-zu-Ende) | Mohamed Hedi Harbaoui | [#55](https://github.com/p2keshtidar/girokonto/issues/55) | ⬜ offen |
+| 11 | Tests für Bankverbindungen und digitale Konten (Backend, Widget, Ende-zu-Ende) | Mohamed Hedi Harbaoui | [#55](https://github.com/p2keshtidar/girokonto/issues/55) | ✅ erledigt |
 
 ## Aufgaben pro Person
 

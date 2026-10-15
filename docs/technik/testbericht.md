@@ -10,7 +10,7 @@ Stand: 15.10.2026 · alle Tests laufen automatisch bei jedem Push ([Actions](htt
 |---|---|---|---|
 | Backend: Unit- und Integrationstests (echte PostgreSQL) | **199** | ✅ alle grün | **92,5 %** |
 | App: Unit- und Widget-Tests (simulierter Server) | **265** | ✅ alle grün | **68,0 %** |
-| Ende-zu-Ende: echte App + echter Server | 2 Abläufe auf 12 Systemen: Chrome, Android 7/8/9/11/13/15/16, iOS 16/17/18/26 (+ sehr kleines Display) | ✅ alle grün | – |
+| Ende-zu-Ende: echte App + echter Server | 2 Abläufe, Stand 15.10.: **Chrome, Android 11, iOS 26** (iOS im zweiten Lauf – im ersten verband sich `flutter test` nicht mit dem Simulator) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10., vor Zweisprachigkeit und Bankkonten | ✅ grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
 
