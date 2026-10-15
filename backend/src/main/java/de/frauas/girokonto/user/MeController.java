@@ -30,6 +30,17 @@ public class MeController {
         return UserDto.from(userService.updateProfile(auth.id(), req));
     }
 
+    /** Sprache der Oberfläche speichern (gilt auf allen Geräten des Nutzers). */
+    public record LanguageRequest(
+            @jakarta.validation.constraints.NotNull(message = "Sprache: de oder en.")
+            @jakarta.validation.constraints.Pattern(regexp = "de|en", message = "Sprache: de oder en.") String language) {}
+
+    @PutMapping("/language")
+    public ResponseEntity<Void> language(@AuthenticationPrincipal AuthUser auth, @Valid @RequestBody LanguageRequest req) {
+        userService.setLanguage(auth.id(), req.language());
+        return ResponseEntity.noContent().build();
+    }
+
     @PutMapping("/password")
     public ResponseEntity<Void> changePassword(@AuthenticationPrincipal AuthUser auth,
                                                @Valid @RequestBody ChangePasswordRequest req) {

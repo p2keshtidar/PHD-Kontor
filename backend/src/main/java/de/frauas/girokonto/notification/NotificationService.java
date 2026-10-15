@@ -29,17 +29,28 @@ public class NotificationService {
     private final SimpMessagingTemplate messaging;
     private final Clock clock;
 
-    public NotificationService(NotificationRepository notifications, SimpMessagingTemplate messaging, Clock clock) {
+    private final de.frauas.girokonto.user.AppUserRepository users;
+    private final de.frauas.girokonto.i18n.ServerTexts texts;
+
+    public NotificationService(NotificationRepository notifications, SimpMessagingTemplate messaging, Clock clock,
+                               de.frauas.girokonto.user.AppUserRepository users,
+                               de.frauas.girokonto.i18n.ServerTexts texts) {
         this.notifications = notifications;
         this.messaging = messaging;
         this.clock = clock;
+        this.users = users;
+        this.texts = texts;
     }
 
     @Transactional
     public Notification send(Long userId, NotificationType type, String title, String body, Long bookingId) {
         Notification n = notifications.save(new Notification(userId, type, truncate(title, 100),
                 truncate(body, 300), bookingId, Instant.now(clock)));
-        NotificationDto dto = NotificationDto.from(n);
+        NotificationDto stored = NotificationDto.from(n);
+        // Live-Meldung in der Sprache des Nutzers (gespeichert wird immer der deutsche Text)
+        boolean english = users.findById(userId).map(u -> "en".equals(u.getLanguage())).orElse(false);
+        NotificationDto dto = english ? new NotificationDto(stored.id(), stored.type(), texts.toEnglish(stored.title()),
+                texts.toEnglish(stored.body()), stored.bookingId(), stored.read(), stored.createdAt()) : stored;
         Runnable send = () -> messaging.convertAndSendToUser(String.valueOf(userId), USER_QUEUE, dto);
         if (TransactionSynchronizationManager.isSynchronizationActive()) {
             TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {

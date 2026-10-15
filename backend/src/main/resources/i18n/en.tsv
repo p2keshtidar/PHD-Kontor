@@ -1,0 +1,288 @@
+# Englische Übersetzung der Server-Texte (Fehlermeldungen, Benachrichtigungen, Bezeichnungen).
+# Format: deutscher Text <TAB> englischer Text. {0}, {1} … sind Platzhalter (werden ebenfalls übersetzt).
+# Neue Meldungen im Code hier ergänzen – der Test ServerTextsTest findet fehlende Einträge.
++{0} von {1}: {2}	+{0} from {1}: {2}
+-{0} an die {1} (Zins {2}, Tilgung {3})	-{0} to {1} (interest {2}, principal {3})
+-{0} an die {1}. Restschuld jetzt {2}, Zinsersparnis {3}.	-{0} to {1}. Remaining debt now {2}, interest saved {3}.
+-{0} an die {1}. Restschuld jetzt {2}, {3} Rate weniger, Zinsersparnis {4}.	-{0} to {1}. Remaining debt now {2}, {3} rate fewer, interest saved {4}.
+-{0} an die {1}. Restschuld jetzt {2}, {3} Raten weniger, Zinsersparnis {4}.	-{0} to {1}. Remaining debt now {2}, {3} rates fewer, interest saved {4}.
+-{0} an {1}: {2}	-{0} to {1}: {2}
+-{0} bei {1}	-{0} at {1}
+Altes Passwort fehlt.	Old password is missing.
+Am {0} werden {1} für „{2}“ abgebucht.	On {0}, {1} will be debited for “{2}”.
+Am {0} werden {1} für „{2}“ abgebucht. Achtung: Auf dem Girokonto sind nur {3} – bitte rechtzeitig Geld einzahlen, sonst wird die Rate ausgesetzt.	On {0}, {1} will be debited for “{2}”. Warning: the current account only has {3} – please deposit money in time, otherwise the rate will be skipped.
+Anfrage nicht möglich.	Request not possible.
+Auflösung {0}	Closing {0}
+Ausführungstag 1 bis 28.	Execution day 1 to 28.
+Ausführungstag fehlt.	Execution day is missing.
+Ausgabe gebucht	Expense booked
+Ausgabe nicht gebucht	Expense not booked
+Ausgewogen	Balanced
+Auszahlung „{0}“	Payout “{0}”
+Auto	Car
+Bank fehlt.	Bank is missing.
+Bei der Anmeldung brauchst du ab jetzt zusätzlich den Code aus deiner Authenticator-App.	From now on you also need the code from your authenticator app to log in.
+Benachrichtigung nicht gefunden.	Notification not found.
+Benutzer nicht gefunden.	User not found.
+Berufseinsteiger	Young professional
+Betrag fehlt	Amount missing
+Betrag fehlt.	Amount is missing.
+Betrag „{0}“ nicht lesbar	Amount “{0}” not readable
+Bitte E-Mail, Telefonnummer oder IBAN eingeben.	Please enter email, phone number or IBAN.
+Bitte Eingaben prüfen.	Please check your input.
+Bitte Einnahme oder Ausgabe wählen.	Please choose income or expense.
+Bitte Tage oder Monate angeben.	Please specify days or months.
+Bitte den 6-stelligen Code aus deiner Authenticator-App eingeben.	Please enter the 6-digit code from your authenticator app.
+Bitte eine Bezeichnung eingeben.	Please enter a title.
+Bitte zuerst die Einrichtung starten.	Please start the setup first.
+CSV (Komma)	CSV (comma)
+CSV (Semikolon)	CSV (semicolon)
+CSV (Tabulator)	CSV (tab)
+Das Datum darf höchstens {0} Monate in der Zukunft liegen.	The date may be at most {0} months in the future.
+Das Datum darf höchstens {0} Monate zurückliegen.	The date may be at most {0} months in the past.
+Das Enddatum darf nicht in der Vergangenheit liegen.	The end date must not be in the past.
+Das Enddatum liegt vor dem ersten Termin am {0}.	The end date is before the first date on {0}.
+Das Enddatum liegt vor der ersten Ausführung am {0}.	The end date is before the first execution on {0}.
+Das Limit darf höchstens 2.000 € betragen.	The limit may be at most €2,000.
+Das Limit darf nicht negativ sein.	The limit must not be negative.
+Das Passwort ist falsch.	The password is incorrect.
+Das Passwort muss mindestens 10 Zeichen haben.	The password must have at least 10 characters.
+Das Tageslimit darf höchstens {0} betragen.	The daily limit may be at most {0}.
+Das Wunschdatum muss mindestens einen Monat in der Zukunft liegen.	The target date must be at least one month in the future.
+Das alte Passwort ist falsch.	The old password is incorrect.
+Das ist kein aktives Unterkonto.	This is not an active sub-account.
+Datum fehlt.	Date is missing.
+Datum nicht lesbar	Date not readable
+Datum „{0}“ nicht lesbar	Date “{0}” not readable
+Dauerauftrag	Standing order
+Dauerauftrag eingerichtet	Standing order set up
+Dauerauftrag nicht ausgeführt	Standing order not executed
+Dauerauftrag nicht gefunden.	Standing order not found.
+Daueraufträge an dich selbst sind nicht möglich. Nutze dafür einen Sparplan.	Standing orders to yourself are not possible. Use a savings plan instead.
+Dein Konto ist eröffnet. Startguthaben: {0}	Your account is open. Starting balance: {0}
+Deine größte variable Ausgabe ist {0} mit {1} im letzten Monat. {2}	Your largest variable expense is {0} with {1} last month. {2}
+Der Betrag ist höher als das Tageslimit.	The amount is higher than the daily limit.
+Der Betrag muss größer als 0 sein.	The amount must be greater than 0.
+Der Code ist falsch oder abgelaufen.	The code is wrong or has expired.
+Der Code stimmt nicht.	The code is not correct.
+Der Code stimmt nicht. Prüfe, ob die Uhrzeit auf dem Handy stimmt.	The code is not correct. Check that the time on your phone is right.
+Der Dauerauftrag ist beendet.	The standing order has ended.
+Der Kredit bei der {0} ist vollständig zurückgezahlt.	The loan with {0} is fully repaid.
+Der Kredit ist bereits zurückgezahlt.	The loan is already repaid.
+Der Name darf höchstens 40 Zeichen haben.	The name may have at most 40 characters.
+Der Spitzname darf höchstens 100 Zeichen haben.	The nickname may have at most 100 characters.
+Der Verwendungszweck darf höchstens 140 Zeichen haben.	The reference may have at most 140 characters.
+Die Aktion passt nicht zum aktuellen Stand. Bitte erneut versuchen.	The action does not match the current state. Please try again.
+Die Anmeldung braucht jetzt nur noch E-Mail und Passwort.	Login now only needs email and password.
+Die Bezeichnung darf höchstens 60 Zeichen haben.	The title may have at most 60 characters.
+Die Datei ist leer.	The file is empty.
+Die Datei ist zu groß (höchstens ca. 2 MB).	The file is too large (at most approx. 2 MB).
+Die Kategorie „{0}“ passt nicht zu einer Ausgabe.	The category “{0}” does not fit an expense.
+Die Kategorie „{0}“ passt nicht zu einer Einnahme.	The category “{0}” does not fit an income.
+Die Sondertilgung muss mindestens 1,00 € betragen.	The extra repayment must be at least €1.00.
+Die Zwei-Faktor-Anmeldung ist schon aktiv.	Two-factor login is already active.
+Die {0} lehnt ab: {1}	{0} declines: {1}
+Diese E-Mail ist bereits registriert.	This email is already registered.
+Diese Kategorie kann nicht gewählt werden.	This category cannot be chosen.
+Diese Person ist kein Mitglied.	This person is not a member.
+Diese Telefonnummer wird bereits verwendet.	This phone number is already in use.
+Dieser Kontakt ist bereits gespeichert.	This contact is already saved.
+Dieser Plan ist bereits abgeschlossen.	This plan is already closed.
+Du bist nicht mehr Mitglied von „{0}“.	You are no longer a member of “{0}”.
+Du bist schon Besitzer dieses Unterkontos.	You already own this sub-account.
+Du kannst dich nicht selbst speichern.	You cannot save yourself.
+E-Mail fehlt.	Email is missing.
+E-Mail ist ungültig.	Email is invalid.
+E-Mail oder Passwort ist falsch.	Email or password is incorrect.
+Eigenkapital darf nicht negativ sein.	Down payment must not be negative.
+Ein Konto ist erst ab 18 Jahren möglich.	You must be at least 18 to open an account.
+Einmalige Einträge haben kein Enddatum.	One-off entries have no end date.
+Einnahme gebucht	Income booked
+Eintrag nicht gefunden.	Entry not found.
+Empfänger fehlt.	Recipient is missing.
+Empfänger nicht gefunden. Überweisungen sind nur an Nutzer dieser App möglich.	Recipient not found. Transfers are only possible to users of this app.
+Erinnerung 0 bis 10 Tage.	Reminder 0 to 10 days.
+Euro-Anleihen	Euro bonds
+Familie	Family
+Freizeit	Leisure
+Für dieses Konto gibt es schon Beispielmonate.	Sample months already exist for this account.
+Geburtsdatum fehlt.	Date of birth is missing.
+Geburtsdatum muss in der Vergangenheit liegen.	Date of birth must be in the past.
+Gehalt	Salary
+Geld erhalten	Money received
+Geteiltes Unterkonto	Shared sub-account
+Girokonto	Current account
+Gut machbar: {0} sind höchstens die Hälfte deines verfügbaren Betrags ({1} pro Monat).	Easily achievable: {0} is at most half of your available amount ({1} per month).
+Halb Aktien, halb Anleihen: mittlere Schwankung, mittlere Chance.	Half stocks, half bonds: medium volatility, medium potential.
+Header Idempotency-Key fehlt oder ist zu lang.	Header Idempotency-Key is missing or too long.
+Händler fehlt.	Merchant is missing.
+Händlername zu lang.	Merchant name too long.
+Häufigkeit: einmalig, monatlich, vierteljährlich, halbjährlich oder jährlich.	Frequency: one-off, monthly, quarterly, half-yearly or yearly.
+Höchstens 12 Monate.	At most 12 months.
+Höchstens 400 Tage.	At most 400 days.
+Höchstens die Restschuld von {0}.	At most the remaining debt of {0}.
+Höchstens {0} Personen pro Unterkonto.	At most {0} people per sub-account.
+Höchstens {0} Unterkonten möglich.	At most {0} sub-accounts possible.
+Höchstens {0} je Eintrag.	At most {0} per entry.
+Höchstens {0}.	At most {0}.
+Im letzten Monat hast du für {0} {1} ausgegeben, {2}	Last month you spent {1} on {0}, {2}
+Import nicht gefunden.	Import not found.
+In der Datei wurden keine Umsätze gefunden.	No transactions were found in the file.
+Interner Fehler. Bitte später erneut versuchen.	Internal error. Please try again later.
+Intervall: monatlich, vierteljährlich, halbjährlich oder jährlich.	Interval: monthly, quarterly, half-yearly or yearly.
+Investrate gebucht	Investment rate booked
+Investrate in {0} Tagen	Investment rate in {0} days
+Investrate morgen	Investment rate tomorrow
+Investrate „{0}“	Investment rate “{0}”
+Karte gesperrt	Card blocked
+Kartenzahlung	Card payment
+Kartenzahlung abgelehnt	Card payment declined
+Kein Girokonto gefunden.	No current account found.
+Kein Zugriff auf dieses Konto.	No access to this account.
+Kein freier Betrag für eine Kreditrate.	No free amount for a loan rate.
+Keine Berechtigung.	Not permitted.
+Keine Einnahmen bekannt. Bitte erst Beispielmonate erzeugen.	No income known. Please create sample months first.
+Keine Kopfzeile mit Datum und Betrag gefunden. Unterstützt werden CSV-Exporte mit Spalten wie „Buchungstag“ und „Betrag“.	No header row with date and amount found. Supported are CSV exports with columns such as “Buchungstag” and “Betrag”.
+Knapp: {0} brauchen mehr als die Hälfte deines verfügbaren Betrags ({1}). Plane etwas Puffer ein.	Tight: {0} needs more than half of your available amount ({1}). Plan some buffer.
+Kontakt nicht gefunden.	Contact not found.
+Kredit	Loan
+Kredit abbezahlt	Loan paid off
+Kredit ausgezahlt	Loan paid out
+Kredit nicht gefunden.	Loan not found.
+Kredit {0} ({1})	Loan {0} ({1})
+Kreditauszahlung	Loan payout
+Kreditauszahlung {0}	Loan payout {0}
+Kreditbetrag fehlt.	Loan amount is missing.
+Kreditbetrag für {0} zwischen {1} und {2}.	Loan amount for {0} between {1} and {2}.
+Kreditrate gebucht	Loan rate booked
+Kreditrate offen	Loan rate outstanding
+Kreditrate {0}/{1} – {2}	Loan rate {0}/{1} – {2}
+Laufzeit fehlt.	Term is missing.
+Laufzeit für {0} zwischen {1} und {2} Monaten.	Term for {0} between {1} and {2} months.
+Lebensmittel	Groceries
+Mehr als {0} Zeilen – der Rest wurde ignoriert.	More than {0} rows – the rest was ignored.
+Mit der Sondertilgung von {0} ist der Kredit bei der {1} vollständig zurückgezahlt.	With the extra repayment of {0}, the loan with {1} is fully repaid.
+Mit {0} mehr Sparrate pro Monat kommst du schneller ans Ziel.	With {0} more savings per month you reach your goal faster.
+Mit {0} weniger pro Monat erreichst du dein Ziel {1} Monat früher.	With {0} less per month you reach your goal {1} month earlier.
+Mit {0} weniger pro Monat erreichst du dein Ziel {1} Monate früher.	With {0} less per month you reach your goal {1} months earlier.
+Mobilität	Mobility
+Monatsbetrag zwischen 10 € und 5.000 € angeben.	Enter a monthly amount between €10 and €5,000.
+Monatsrate fehlt.	Monthly rate is missing.
+Monatsrate zwischen 1 € und 10.000 € angeben.	Enter a monthly rate between €1 and €10,000.
+Mutig	Bold
+Nachname fehlt.	Last name is missing.
+Name fehlt.	Name is missing.
+Name zu lang.	Name too long.
+Nicht genug Guthaben	Insufficient funds
+Nicht genug Guthaben auf dem Girokonto für {0}.	Insufficient funds in the current account for {0}.
+Nicht genug Guthaben auf dem Girokonto für „{0}“ am {1} (verfügbar: {2}).	Insufficient funds in the current account for “{0}” on {1} (available: {2}).
+Nicht genug Guthaben auf „{0}“. Verfügbar: {1}.	Insufficient funds in “{0}”. Available: {1}.
+Nicht genug Guthaben. Verfügbar: {0}.	Insufficient funds. Available: {0}.
+Nicht machbar: Nach deinen Ausgaben bleibt derzeit kein Geld für diesen Plan übrig.	Not achievable: after your expenses there is currently no money left for this plan.
+Nicht machbar: {0} ist mehr, als dir pro Monat übrig bleibt ({1}). Vorschlag: {2} pro Monat, Ziel erreicht im {3}.	Not achievable: {0} is more than you have left per month ({1}). Suggestion: {2} per month, goal reached in {3}.
+Nicht machbar: {0} ist mehr, als dir pro Monat übrig bleibt ({1}). Vorschlag: {2} pro Monat.	Not achievable: {0} is more than you have left per month ({1}). Suggestion: {2} per month.
+Noch keine Einnahmen und Ausgaben bekannt. Erzeuge Beispielmonate oder nutze das Konto einige Wochen, dann kann die App die Machbarkeit prüfen.	No income and expenses known yet. Create sample months or use the account for a few weeks, then the app can check feasibility.
+Nur der Besitzer kann Mitglieder entfernen.	Only the owner can remove members.
+Online-Zahlungen sind ausgeschaltet	Online payments are turned off
+Passwort fehlt.	Password is missing.
+Plan aufgelöst	Plan closed
+Plan ausgezahlt	Plan paid out
+Plan nicht gefunden.	Plan not found.
+Plantyp fehlt.	Plan type is missing.
+Profil fehlt.	Profile is missing.
+Quelle und Ziel sind gleich.	Source and target are the same.
+Quellkonto fehlt.	Source account is missing.
+Rate ausgesetzt	Rate skipped
+Rate zu hoch: höchstens {0} % von {1} möglich.	Rate too high: at most {0}% of {1} possible.
+Rate {0} ({1}) an die {2} konnte nicht abgebucht werden. Neuer Versuch morgen.	Rate {0} ({1}) to {2} could not be debited. Next attempt tomorrow.
+Regelmäßige Einträge: bitte einen Tag zwischen 1. und 28. wählen (nicht jeder Monat hat 29, 30 oder 31 Tage).	Recurring entries: please choose a day between the 1st and 28th (not every month has 29, 30 or 31 days).
+Risikostufe fehlt.	Risk level is missing.
+Shopping	Shopping
+Sicherheit zuerst: Beim Sparplan bleibt alles auf dem Sparkonto, beim Investplan überwiegend Anleihen.	Safety first: in a savings plan everything stays in the savings account, in an investment plan mostly bonds.
+Sitzung abgelaufen. Bitte erneut anmelden.	Session expired. Please log in again.
+Sondertilgung	Extra repayment
+Sondertilgung gebucht	Extra repayment booked
+Sondertilgung – {0}	Extra repayment – {0}
+Sonstige Einnahmen	Other income
+Sonstiges	Other
+Sparen & Investieren	Saving & investing
+Sparplan: {0}	Savings plan: {0}
+Sparrate gebucht	Savings rate booked
+Sparrate in {0} Tagen	Savings rate in {0} days
+Sparrate morgen	Savings rate tomorrow
+Sparrate „{0}“	Savings rate “{0}”
+Sparziel-Konten werden über das Sparziel verwaltet.	Savings goal accounts are managed via the savings goal.
+Sprache: de oder en.	Language: de or en.
+Startguthaben	Starting balance
+Startguthaben {0}	Starting balance {0}
+Studierende	Student
+Tageslimit überschritten (noch {0} verfügbar)	Daily limit exceeded ({0} still available)
+Tageslimit überschritten. Heute noch möglich: {0}.	Daily limit exceeded. Still possible today: {0}.
+Telefonnummer fehlt.	Phone number is missing.
+Telefonnummer ist ungültig.	Phone number is invalid.
+Umbuchung	Internal transfer
+Umbuchung {0} → {1}	Transfer {0} → {1}
+Umbuchungen sind nur zwischen Girokonto und Unterkonten möglich.	Internal transfers are only possible between the current account and sub-accounts.
+Umbuchungen, Sparraten und Kreditauszahlungen haben eine feste Kategorie.	Internal transfers, savings rates and loan payouts have a fixed category.
+Umsatz nicht gefunden.	Transaction not found.
+Umsätze importiert	Transactions imported
+Unbekannte Kategorie.	Unknown category.
+Ungültige Anfrage.	Invalid request.
+Ungültige Anzahl Monate.	Invalid number of months.
+Ungültige Anzahl Tage.	Invalid number of days.
+Ungültige Werte für den Tilgungsplan.	Invalid values for the repayment schedule.
+Ungültiger Wert für „{0}“.	Invalid value for “{0}”.
+Unterkonto aufgelöst	Sub-account closed
+Unterkonto geteilt	Sub-account shared
+Verkauf Musterdepot „{0}“	Sale of model portfolio “{0}”
+Verträge & Abos	Contracts & subscriptions
+Vorname fehlt.	First name is missing.
+Vorsichtig	Cautious
+Welt-Aktien	World stocks
+Wert	value
+Willkommen bei der {0}	Welcome to {0}
+Wohnen	Housing
+Wohnung/Haus	Flat/house
+Zahlung erfolgreich	Payment successful
+Zeile {0}: {1}	Row {0}: {1}
+Ziel erreicht!	Goal reached!
+Zielbetrag ungültig.	Invalid target amount.
+Zielbetrag zwischen 50 € und 100.000 € angeben.	Enter a target amount between €50 and €100,000.
+Zielkonto fehlt.	Target account is missing.
+Zu viele Anfragen. Bitte in {0} Sekunden erneut versuchen.	Too many requests. Please try again in {0} seconds.
+Zu viele Fehlversuche. Bitte in {0} Minute(n) erneut versuchen.	Too many failed attempts. Please try again in {0} minute(s).
+Zu viele Fehlversuche. Die Anmeldung ist für {0} Minuten gesperrt.	Too many failed attempts. Login is blocked for {0} minutes.
+Zu viele Telefonnummern.	Too many phone numbers.
+Zweck fehlt.	Purpose is missing.
+Zwei-Faktor-Anmeldung aktiviert	Two-factor login activated
+Zwei-Faktor-Anmeldung ausgeschaltet	Two-factor login turned off
+alle {0} Monate	every {0} months
+einmalig	one-off
+halbjährlich	half-yearly
+jährlich	yearly
+monatlich	monthly
+nicht erreichbar	not reachable
+vierteljährlich	quarterly
+{0} Umsätze aus „{1}“ ({2} bis {3}) sind jetzt im Finanzüberblick.	{0} transactions from “{1}” ({2} to {3}) are now in the financial overview.
+{0} an {1}, {2} am {3}. – erstmals am {4}.	{0} to {1}, {2} on day {3} – first on {4}.
+{0} an {1}: {2}	{0} to {1}: {2}
+{0} aus „{1}“ aufs Girokonto gebucht	{0} from “{1}” booked to the current account
+{0} bei {1}: {2}	{0} at {1}: {2}
+{0} für „{1}“: {2}	{0} for “{1}”: {2}
+{0} hat {1} ausgezahlt aus „{2}“	{0} withdrew {1} from “{2}”
+{0} hat {1} eingezahlt in „{2}“	{0} deposited {1} into “{2}”
+{0} hat „{1}“ mit dir geteilt. Du kannst einzahlen, auszahlen und die Umsätze sehen.	{0} shared “{1}” with you. You can deposit, withdraw and see the transactions.
+{0} in „{1}“	{0} in “{1}”
+{0} in „{1}“ (davon {2} in Fonds)	{0} in “{1}” (of which {2} in funds)
+{0} ist aus „{1}“ ausgetreten.	{0} left “{1}”.
+{0} ist schon dabei.	{0} is already a member.
+{0} von der {1}. Erste Rate ({2}) am {3}.	{0} from {1}. First rate ({2}) on {3}.
+{0} von „{1}“ nach „{2}“	{0} from “{1}” to “{2}”
+Überweisung	Transfer
+Überweisung gesendet	Transfer sent
+Überweisungen an dich selbst sind nicht möglich. Nutze dafür die Unterkonten.	You cannot transfer to yourself. Use sub-accounts for that.
+Überwiegend Aktienfonds: die größte Chance, aber der Wert kann deutlich schwanken.	Mostly equity funds: the greatest potential, but the value can fluctuate considerably.
+„{0}“ hat {1} erreicht. Du kannst jetzt auszahlen.	“{0}” has reached {1}. You can pay out now.
+„{0}“ wurde von {1} aufgelöst.	“{0}” was closed by {1}.
+„{0}“: nicht genug Guthaben für {1}. Nächster Versuch im nächsten Monat.	“{0}”: insufficient funds for {1}. Next attempt next month.
+„{0}“: {1} aufs Girokonto gebucht	“{0}”: {1} booked to the current account

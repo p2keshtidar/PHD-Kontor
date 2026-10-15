@@ -63,6 +63,10 @@ public class AppUser {
     @Column(name = "totp_enabled", nullable = false)
     private boolean totpEnabled;
 
+    /** Sprache der Oberfläche: "de", "en" oder null (noch nicht gewählt) */
+    @Column(name = "language")
+    private String language;
+
     @Column(name = "totp_last_step")
     private Long totpLastStep;
 
@@ -104,6 +108,8 @@ public class AppUser {
     public void setTotpSecret(String totpSecret) { this.totpSecret = totpSecret; }
     public String getTotpPendingSecret() { return totpPendingSecret; }
     public void setTotpPendingSecret(String totpPendingSecret) { this.totpPendingSecret = totpPendingSecret; }
+    public String getLanguage() { return language; }
+    public void setLanguage(String language) { this.language = language; }
     public boolean isTotpEnabled() { return totpEnabled; }
     public void setTotpEnabled(boolean totpEnabled) { this.totpEnabled = totpEnabled; }
     public Long getTotpLastStep() { return totpLastStep; }

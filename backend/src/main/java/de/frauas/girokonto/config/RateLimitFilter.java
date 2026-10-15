@@ -53,8 +53,11 @@ public class RateLimitFilter extends OncePerRequestFilter {
             response.setStatus(429);
             response.setHeader("Retry-After", Long.toString(retry));
             response.setContentType("application/json;charset=UTF-8");
-            response.getOutputStream().write(("{\"code\":\"RATE_LIMITED\",\"message\":\"Zu viele Anfragen. Bitte in "
-                    + retry + " Sekunden erneut versuchen.\",\"fieldErrors\":{}}").getBytes(StandardCharsets.UTF_8));
+            String msg = de.frauas.girokonto.i18n.ServerTexts.wantsEnglish(request.getHeader("Accept-Language"))
+                    ? "Too many requests. Please try again in " + retry + " seconds."
+                    : "Zu viele Anfragen. Bitte in " + retry + " Sekunden erneut versuchen.";
+            response.getOutputStream().write(("{\"code\":\"RATE_LIMITED\",\"message\":\"" + msg
+                    + "\",\"fieldErrors\":{}}").getBytes(StandardCharsets.UTF_8));
             return;
         }
         chain.doFilter(request, response);

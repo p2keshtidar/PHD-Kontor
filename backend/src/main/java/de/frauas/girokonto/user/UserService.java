@@ -25,6 +25,11 @@ public class UserService {
     }
 
     @Transactional
+    public void setLanguage(Long userId, String language) {
+        get(userId).setLanguage(language);
+    }
+
+    @Transactional
     public AppUser updateProfile(Long userId, UpdateProfileRequest req) {
         AppUser user = get(userId);
         String phone = normalizePhone(req.phone());
