@@ -68,9 +68,13 @@ void main() {
       expect(find.text('Tagesgeld'), findsOneWidget);
       expect(find.text('nicht aktuell'), findsOneWidget);   // abgelaufene Freigabe
       expect(find.textContaining('keine echte Bank'), findsOneWidget);
-      await scrollTo(tester, find.text('Unterkonten'));
-      await tester.ensureVisible(find.byKey(const Key('home_bank_account_502')));
+      await scrollTo(tester, find.text('Unterkonten'));   // Unterkonten als eigener Bereich darunter
+      tester
+          .state<ScrollableState>(find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first)
+          .position
+          .jumpTo(0);
       await tester.pumpAndSettle();
+      await scrollTo(tester, find.byKey(const Key('home_bank_account_502')));
       await tester.tap(find.byKey(const Key('home_bank_account_502')));
       await tester.pumpAndSettle();
       expect(find.text('ROUTE:/banken/umsaetze?konto=502&name=Tagesgeld'), findsOneWidget);
@@ -177,11 +181,14 @@ void main() {
       expect(find.text('Verbunden'), findsOneWidget);
       expect(find.text('Berechtigungen: Kontodetails lesen, Salden lesen, Umsätze lesen'), findsOneWidget);
       expect(find.textContaining('noch 89 Tage'), findsOneWidget);
+      await scrollTo(tester, find.byKey(const Key('bank_sync_31')));
       await tester.tap(find.byKey(const Key('bank_sync_31')));
       await tester.pumpAndSettle();
       expect(fake.calls('POST /api/banking/connections/31/sync'), hasLength(1));
       expect(find.text('3 neue Umsätze.'), findsOneWidget);
 
+      await tester.ensureVisible(find.byKey(const Key('bank_menu_31')));
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('bank_menu_31')));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Zugriff widerrufen'));
@@ -256,12 +263,15 @@ void main() {
       await open(tester);
       expect(find.text('Daten der Bank (unverändert)'), findsOneWidget);
       expect(find.text('REWE Markt Frankfurt-Bockenheim'), findsOneWidget);
+      await scrollTo(tester, find.byKey(const Key('bank_tx_note')));
       await tester.enterText(find.byKey(const Key('bank_tx_note')), 'Wocheneinkauf');
+      await scrollTo(tester, find.byKey(const Key('bank_tx_tags')));
       await tester.enterText(find.byKey(const Key('bank_tx_tags')), 'Essen, Familie,');
       await scrollTo(tester, find.byKey(const Key('bank_tx_counted')));
       await tester.tap(find.byKey(const Key('bank_tx_counted')));
       await tester.pumpAndSettle();
-      await scrollTo(tester, find.byKey(const Key('bank_tx_category')));
+      await tester.ensureVisible(find.byKey(const Key('bank_tx_category')));
+      await tester.pumpAndSettle();
       await tester.tap(find.byKey(const Key('bank_tx_category')));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Freizeit').last);

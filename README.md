@@ -81,6 +81,8 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 💳 **Karte** | virtuelle Debitkarte · Daten nur mit Passwort · sperren/entsperren · Limit · Demo-Kartenzahlung |
 | 🗂️ **Unterkonten** | „Töpfe“ für Urlaub, Auto … · einzahlen, auszahlen, auflösen · **mit anderen teilen** (z. B. WG-Kasse) |
 | 🔔 **Benachrichtigungen** | live per WebSocket bei jeder Buchung · Android: auch bei **geschlossener App** (Hintergrund-Abfrage) |
+| 🏦 **Echte Bankkonten** | mehrere Banken verbinden (Open Banking/PSD2, **nur Lesezugriff**) · Sandbox-Banken mit Testdaten · Abruf, Vormerkungen, Stornos, Rückbuchungen · eigene Kategorien, Notizen, Schlagwörter · Widerruf mit Löschen |
+| 🌍 **Deutsch / Englisch** | Sprache umschalten (auch Server-Meldungen), pro Konto gespeichert, beim ersten Start Gerätesprache |
 | 📊 **Finanzüberblick** | Einnahmen/Ausgaben pro Monat · Kategorien · „Jeden Monat übrig“ · **CSV-Import** von Umsätzen echter Banken |
 | 🔐 **Sicherheit** | Passwort-Hash, JWT, Sperre nach Fehlversuchen · **Zwei-Faktor-Anmeldung** mit Authenticator-App |
 | 🐷 **Sparplan** | Ziel + Datum → Ratenvorschlag · Risikostufe · Ampel „machbar?“ · Spartipps · **Erinnerung vor der Abbuchung** |
@@ -103,6 +105,7 @@ Demo-Admin: `admin@projektbank.de` / `admin12345`
 | 🏗️ [Architektur](docs/technik/architektur.md) | Wie Backend und App aufgebaut sind |
 | ✅ [Testbericht](docs/technik/testbericht.md) | Was getestet wird, Abdeckung, gefundene Fehler |
 | 📱 [Unterstützte Versionen](docs/technik/versionen.md) | Android 7+ / iOS 15+, was sich zwischen den Versionen unterscheidet, wie getestet wird |
+| 🏦 [Echte Bankkonten (Open Banking)](docs/technik/open-banking.md) | Ablauf, Anbieter, Sicherheit, Status der Umsätze, Voraussetzungen für echte Banken |
 | 🔔 [Push-Benachrichtigungen](docs/technik/push.md) | Hintergrund-Abfrage und Weg zu echtem Push (Firebase/APNs) |
 | 📄 [Pflichtenheft v0.2](docs/pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) | Anforderungen (Muss-/Kannkriterien, Tests) |
 | 🏃 [Scrum](docs/scrum/README.md) | Team, Rollen, Sprints, Meeting-Protokolle |

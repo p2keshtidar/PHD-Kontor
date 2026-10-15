@@ -24,17 +24,22 @@ class _ConnectBankScreenState extends ConsumerState<ConnectBankScreen> {
 
   Future<void> _connect(BankProvider provider, Institution inst) async {
     setState(() => _busyId = inst.id);
+    ConnectStart start;
     try {
-      final start = await ref.read(bankRepositoryProvider).connect(provider.id, inst.id);
-      if (!mounted) return;
-      final ok = await runConsentFlow(context, ref, start);
-      refreshBanking(ref);
-      if (ok && mounted) Navigator.of(context).pop(true);
+      start = await ref.read(bankRepositoryProvider).connect(provider.id, inst.id);
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
-    } finally {
-      if (mounted) setState(() => _busyId = null);
+      if (mounted) {
+        setState(() => _busyId = null);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+      }
+      return;
     }
+    if (!mounted) return;
+    // Ladeanzeige nur während der Anfrage – nicht, solange der Nutzer bei der Bank bzw. im Dialog ist
+    setState(() => _busyId = null);
+    final ok = await runConsentFlow(context, ref, start);
+    refreshBanking(ref);
+    if (ok && mounted) Navigator.of(context).pop(true);
   }
 
   @override

@@ -335,6 +335,9 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
     }
     expect(find.text('Hallo Erika!'), findsOneWidget);
+    // Unterkonten stehen unter den verbundenen Bankkonten
+    final list = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
+    await tester.scrollUntilVisible(find.text('Geteilt von Mia Musterfrau-Langname'), 200, scrollable: list);
     expect(find.text('Geteilt mit 2 Personen'), findsOneWidget);
     expect(find.text('Geteilt von Mia Musterfrau-Langname'), findsOneWidget);
   });

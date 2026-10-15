@@ -55,6 +55,29 @@ Die Beträge erscheinen in Kontostand, Umsätzen und im **Finanzüberblick**. Un
 
 Startseite → **„Alle anzeigen“** → suchen (Name, Zweck), filtern (Symbol oben rechts), Umsatz antippen → Details und **Kategorie ändern**.
 
+## 4b. Echte Bankkonten verbinden (Sandbox)
+
+Konten anderer Banken in Girokonto sehen – **nur lesen**, Girokonto kann dort kein Geld bewegen. Im Projekt gibt es
+dafür eine **Sandbox**: simulierte Banken mit Testdaten, überall als **„Testdaten“** gekennzeichnet. Echte Banken
+brauchen einen Vertrag mit einem zugelassenen Anbieter ([Details](../technik/open-banking.md)).
+
+1. Startseite → Bereich **„Echte Bankkonten“** → **„Konten anderer Banken verbinden“**.
+2. **Sandbox-Hausbank** antippen → Dialog **„Test-Freigabe (Sandbox)“** → **„Freigeben (Test)“**.
+   (Bei einer echten Bank öffnet sich hier die Anmeldeseite der Bank.)
+3. Meldung „Bank verbunden: 2 Konto/Konten, … Umsätze importiert“ – auf der Startseite stehen jetzt **Girokonto**
+   und **Tagesgeld** der Sandbox-Bank mit Saldo, getrennt von deinem Projektbank-Konto und den Unterkonten.
+4. Konto antippen → **Umsätze**: suchen, nach Status filtern (vorgemerkt, gebucht, storniert, zurückgebucht) und
+   Kategorie. Umsatz antippen → oben die Daten der Bank (unverändert), unten **deine Angaben**: Kategorie, Notiz,
+   Schlagwörter, „im Finanzüberblick mitzählen“.
+5. **„Verwalten“** → je Bank: Status, Berechtigungen, letzter Abruf, Ablauf der Freigabe · **„Jetzt abrufen“** ·
+   Menü **⋮ → „Zugriff widerrufen“** (wahlweise mit Löschen aller Umsätze dieser Bank).
+
+| Ausprobieren | Was passiert |
+|---|---|
+| Zeit 5 Tage vorspulen, dann „Jetzt abrufen“ | Vormerkungen werden gebucht; die Hotel-Reservierung wird **storniert** |
+| „Sandbox-Bank nicht erreichbar“ verbinden | Bank verbunden, aber Abruf **gestört** – mit Hinweis |
+| „Sandbox-Bank mit 1-Tag-Freigabe“ verbinden, 2 Tage vorspulen | Freigabe **abgelaufen** (Benachrichtigung) → **„Freigabe erneuern“** |
+
 ## 5. Karte
 
 1. Unten **„Karte“**.
