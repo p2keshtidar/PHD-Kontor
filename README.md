@@ -90,6 +90,7 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 🐷 **Sparplan** | Ziel + Datum → Ratenvorschlag · Risikostufe · Ampel „machbar?“ · Spartipps · **Erinnerung vor der Abbuchung** |
 | 📈 **Investplan** | z. B. 200 €/Monat in fiktive Fonds · Musterdepot mit Verlauf |
 | 🚗🏠 **Kreditplan** | Auto/Immobilie/Sonstiges · Rechenbeispiele von 4 fiktiven Banken mit **Bonität, Filtern, Sollzins und effektivem Jahreszins** · Bundesbank-Durchschnitt als Referenz · **getrennte Schritte: Anfrage → Vertrag → Auszahlung** · Tilgungsplan · **Sondertilgung** mit Vorschau (Restschuld, Laufzeit, Zinsersparnis) |
+| 🛒 **Finanz-Marktplatz** | Girokonten, Kreditkarten, Tagesgeld, Festgeld, Depots **fiktiver Anbieter** vergleichen · Beispielrechnung · Vor-/Nachteile · Favoriten · Vergleichsliste · **simulierte Anträge** mit Unterlagen und Status (kein Vertrag, keine Karte) |
 | ⏩ **Demo-Modus** | Beispielmonate erzeugen · Admin spult die Zeit vor (Raten werden gebucht) |
 
 Demo-Admin: `admin@projektbank.de` / `admin12345`

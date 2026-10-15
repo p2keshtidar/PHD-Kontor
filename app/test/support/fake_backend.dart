@@ -222,6 +222,36 @@ class FakeBackend implements HttpClientAdapter {
     };
   }
 
+  static Map<String, dynamic> marketProduct(String id, {String category = 'CALL', double? rate = 2.75,
+          int example = 27500, bool favorite = false, bool eligible = true, List<String> docs = const ['Ausweis (Kopie)']}) =>
+      {
+        'id': id, 'category': category, 'categoryLabel': 'Tagesgeld', 'provider': 'Kranich Direktbank (fiktiv)',
+        'name': 'Tagesgeld $id', 'monthlyFeeCents': 0, 'annualFeeCents': 0, 'interestPercent': rate, 'termMonths': null,
+        'minAmountCents': eligible ? null : 100000, 'orderFeeCents': null, 'requirements': <String>[],
+        'pros': ['Täglich verfügbar'], 'cons': ['Zinssatz kann sich ändern'], 'documents': docs,
+        'exampleCents': example, 'exampleText': 'Zinsen in 12 Monaten für 10.000,00 €: ${example ~/ 100},00 €',
+        'eligible': eligible, 'favorite': favorite, 'simulation': true,
+      };
+
+  static Map<String, dynamic> marketCatalog() => {
+        'category': 'CALL', 'amountCents': 1000000,
+        'products': [marketProduct('a', rate: 3.1, example: 31000), marketProduct('b', favorite: true),
+          marketProduct('c', rate: 2.2, example: 22000)],
+        'categories': {'GIRO': 'Girokonten', 'CALL': 'Tagesgeld'},
+        'disclaimer': 'Simulation: fiktive Anbieter mit Beispielkonditionen – keine echten Angebote, keine Anlageberatung.',
+        'sortExplanation': 'Sortiert nach Zinsertrag für 10.000,00 €.',
+      };
+
+  static Map<String, dynamic> marketApplication({String status = 'DOCUMENTS_MISSING', String? reason, String? note}) => {
+        'id': 41, 'productId': 'cc-polarstern', 'productName': 'Reise Card', 'provider': 'Polarstern Karten (fiktiv)',
+        'category': 'CREDIT_CARD', 'status': status,
+        'statusLabel': status == 'APPROVED' ? 'Simulierte Zusage' : 'Unterlagen fehlen', 'statusReason': reason,
+        'note': note,
+        'documents': [{'key': 'doc1', 'label': 'Ausweis (Kopie)', 'provided': true},
+          {'key': 'doc2', 'label': 'Gehaltsnachweis der letzten 3 Monate', 'provided': false}],
+        'createdAt': '2026-10-13T09:00:00Z', 'decidedAt': null, 'simulation': true,
+      };
+
   /// Angaben eines digitalen Kontos wie vom Server
   static Map<String, dynamic> digital(String purpose,
           {int? target, double? progress, int? remaining, int? monthly, String role = 'OWNER'}) =>
@@ -707,6 +737,10 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/transactions': (_) => transactionsPage(),
         'GET /api/transactions/duplicates': (_) => duplicates(),
         'GET /api/budgets': (_) => budgets(),
+        'GET /api/market/products': (_) => marketCatalog(),
+        'GET /api/market/applications': (_) => [marketApplication()],
+        'PUT /api/market/favorites/*': (_) => const FakeResponse(204),
+        'DELETE /api/market/favorites/*': (_) => const FakeResponse(204),
         'GET /api/forecast': (_) => forecast(),
         'POST /api/transactions/duplicates/dismiss': (_) => const FakeResponse(204),
         'GET /api/transactions/export': (_) =>

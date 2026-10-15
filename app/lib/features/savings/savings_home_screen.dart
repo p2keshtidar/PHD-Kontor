@@ -78,6 +78,14 @@ class SavingsHomeScreen extends ConsumerWidget {
           ]),
           const SizedBox(height: 8),
           _ActionCard(
+            key: const Key('savings_market'),
+            icon: Icons.storefront_outlined,
+            title: tr('Finanz-Marktplatz'),
+            subtitle: tr('Girokonten, Kreditkarten, Tagesgeld, Festgeld, Depots vergleichen (fiktive Anbieter)'),
+            onTap: () => context.push('/marktplatz'),
+          ),
+          const SizedBox(height: 8),
+          _ActionCard(
             key: const Key('savings_entries'),
             icon: Icons.swap_vert,
             title: tr('Einnahmen & Ausgaben'),

@@ -14,6 +14,8 @@ import 'package:girokonto_app/features/dashboard/dashboard_screen.dart';
 import 'package:girokonto_app/features/multibank/all_transactions_screen.dart';
 import 'package:girokonto_app/features/multibank/duplicates_screen.dart';
 import 'package:girokonto_app/features/planning/planning_screen.dart';
+import 'package:girokonto_app/features/market/applications_screen.dart';
+import 'package:girokonto_app/features/market/market_screen.dart';
 import 'package:girokonto_app/features/insights/csv_import_screen.dart';
 import 'package:girokonto_app/features/insights/insights_screen.dart';
 import 'package:girokonto_app/features/loans/extra_payment_screen.dart';
@@ -59,6 +61,8 @@ void main() {
     'Alle Umsätze': () => const AllTransactionsScreen(),
     'Mögliche Duplikate': () => const DuplicatesScreen(),
     'Budgets & Prognose': () => const PlanningScreen(),
+    'Finanz-Marktplatz': () => const MarketScreen(),
+    'Meine Anträge': () => const ApplicationsScreen(),
     'CSV-Import': () => const CsvImportScreen(),
     'Sparen': () => const SavingsHomeScreen(),
     'Plan-Detail': () => const PlanDetailScreen(planId: 5),

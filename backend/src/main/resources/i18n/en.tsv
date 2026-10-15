@@ -595,3 +595,103 @@ Investrate {0}	Investment rate {0}
 Sparrate {0}	Savings rate {0}
 Kreditrate {0} ({1})	Loan rate {0} ({1})
 Sparregel → {0}	Savings rule → {0}
+{0} (fiktiv)	{0} (fictitious)
+Girokonten	Current accounts
+Kreditkarten	Credit cards
+Festgeld	Fixed deposit
+Depots	Depots
+Simulation: fiktive Anbieter mit Beispielkonditionen – keine echten Angebote, keine Anlageberatung. Echte Anbieter werden erst mit Vertrag und Freigabe angebunden.	Simulation: fictitious providers with example conditions – no real offers, no investment advice. Real providers are only connected with a contract and approval.
+Unbekannte Kategorie. Möglich: Girokonten, Kreditkarten, Tagesgeld, Festgeld, Depots.	Unknown category. Possible: current accounts, credit cards, instant-access savings, fixed deposits, depots.
+Sortiert nach Zinsertrag für {0} (Mindestanlage erfüllt zuerst).	Sorted by interest for {0} (minimum deposit met first).
+Sortiert nach Kosten pro Jahr bei 12 Käufen.	Sorted by cost per year with 12 purchases.
+Sortiert nach Kosten pro Jahr.	Sorted by cost per year.
+Zinsen in 12 Monaten für {0}: {1}	Interest in 12 months for {0}: {1}
+Zinsen in {0} Monaten für {1}: {2}	Interest in {0} months for {1}: {2}
+Kosten pro Jahr bei 12 Käufen: {0}	Cost per year with 12 purchases: {0}
+Kosten pro Jahr: {0}	Cost per year: {0}
+{0} (Mindestanlage {1})	{0} (minimum deposit {1})
+Angebot nicht gefunden.	Offer not found.
+Bitte 2 bis 4 Angebote vergleichen.	Please compare 2 to 4 offers.
+Anbieter	Provider
+Art	Type
+Gebühr pro Monat	Fee per month
+Jahresgebühr	Annual fee
+Zinssatz	Interest rate
+Laufzeit	Term
+Mindestbetrag	Minimum amount
+Beispiel	Example
+Voraussetzungen	Requirements
+keine	none
+{0} Monate	{0} months
+Unterlagen fehlen	Documents missing
+Eingereicht – wird geprüft	Submitted – being reviewed
+Simulierte Zusage	Simulated approval
+Simulierte Ablehnung	Simulated rejection
+Bitte bestätigen, dass es sich um eine Simulation handelt.	Please confirm that this is a simulation.
+Für dieses Angebot läuft schon ein Antrag.	There is already an application for this offer.
+Antrag nicht gefunden.	Application not found.
+Der Antrag braucht keine Unterlagen mehr.	The application no longer needs documents.
+Unterlage nicht gefunden.	Document not found.
+Der Antrag ist schon abgeschlossen.	The application is already closed.
+Simulierte Ablehnung: Voraussetzung „Einnahmen ab {0} pro Monat“ laut deinem Finanzüberblick nicht erfüllt ({1}).	Simulated rejection: requirement “income from {0} per month” not met according to your finance overview ({1}).
+Simulierte Zusage – es entsteht kein echter Vertrag. Es wird keine Karte bestellt oder ausgestellt.	Simulated approval – no real contract is created. No card is ordered or issued.
+Simulierte Zusage – es entsteht kein echter Vertrag. Es wird kein echtes Konto eröffnet.	Simulated approval – no real contract is created. No real account is opened.
+„{0}“: {1}	“{0}”: {1}
+Angebot fehlt.	Offer missing.
+Ausweis (Kopie)	ID card (copy)
+Gehaltsnachweis der letzten 3 Monate	Proof of salary for the last 3 months
+Girokonto Online	Online current account
+Girokonto Plus	Current account Plus
+Konto Basis	Basic account
+Tagesgeld Flex	Instant-access savings Flex
+Tagesgeld Classic	Instant-access savings Classic
+Festgeld 12 Monate	Fixed deposit 12 months
+Festgeld 24 Monate	Fixed deposit 24 months
+Festgeld 6 Monate	Fixed deposit 6 months
+App-Depot	App depot
+Depot Komfort	Depot Comfort
+Monatlicher Geldeingang ab 700 €	Monthly incoming payments from €700
+Keine Kontoführungsgebühr bei Geldeingang	No account fee with incoming payments
+Debitkarte inklusive	Debit card included
+Keine Filialen	No branches
+Bargeld nur 4-mal im Monat kostenlos	Cash free only 4 times a month
+Filialen und persönliche Beratung	Branches and personal advice
+Kostenlos Bargeld am eigenen Automaten	Free cash at own ATMs
+4,90 € Kontoführung pro Monat	€4.90 account fee per month
+Ohne Bedingungen	No conditions
+Günstige Grundgebühr	Low basic fee
+2,50 € pro Monat	€2.50 per month
+Echtzeitüberweisung kostet extra	Instant transfer costs extra
+Monatliche Einnahmen ab 1.200 €	Monthly income from €1,200
+Keine Jahresgebühr	No annual fee
+Keine Gebühr für Zahlungen in Fremdwährung	No fee for foreign currency payments
+Teilzahlung teuer: 18,90 % Sollzins	Instalments expensive: 18.90 % borrowing rate
+Monatliche Einnahmen ab 2.000 €	Monthly income from €2,000
+Reiserücktritts- und Auslandskrankenversicherung	Travel cancellation and international health insurance
+Niedrigerer Sollzins	Lower borrowing rate
+89 € Jahresgebühr	€89 annual fee
+Täglich verfügbar	Available daily
+Zinsen monatlich	Interest monthly
+Zinssatz kann sich ändern	Interest rate may change
+Mindestanlage 1.000 €	Minimum deposit €1,000
+Höchster Zins im Vergleich	Highest rate in comparison
+Nur per App	App only
+Ohne Mindestanlage	No minimum deposit
+Filialen	Branches
+Niedrigster Zins im Vergleich	Lowest rate in comparison
+Mindestanlage 5.000 €	Minimum deposit €5,000
+Fester Zins für 12 Monate	Fixed rate for 12 months
+Geld 12 Monate gebunden	Money tied up for 12 months
+Zins für 2 Jahre gesichert	Rate secured for 2 years
+Geld 24 Monate gebunden	Money tied up for 24 months
+Mindestanlage 2.500 €	Minimum deposit €2,500
+Kurze Bindung	Short commitment
+Niedrigerer Zins	Lower rate
+Keine Depotgebühr	No depot fee
+Kauf ab 1 € Gebühr	Purchase fee from €1
+ETF-Sparpläne	ETF savings plans
+Kleine Auswahl an Fonds	Small selection of funds
+Beratung in der Filiale	Advice in the branch
+Große Auswahl	Large selection
+3 € Depotgebühr pro Monat	€3 depot fee per month
+9,90 € je Kauf	€9.90 per purchase

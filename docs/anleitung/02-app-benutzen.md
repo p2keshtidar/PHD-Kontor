@@ -145,6 +145,10 @@ umgebucht, sie sind aber **keine eigenen Bankkonten** und haben keine eigene Ein
 | 7.8 | Kredit öffnen → **Sondertilgung** → z. B. 1.000 € → **Auswirkung berechnen** | Vorschau: Restschuld, offene Raten und Zinsersparnis vorher → nachher. **Jetzt sondertilgen** bucht den Betrag; die Rate bleibt gleich, der Kredit endet früher |
 | 7.9 | Sparplan öffnen → **Erinnerung vor der Abbuchung** | Aus / 1 / 3 / 7 Tage vorher. Standard: 3 Tage. Reicht das Guthaben nicht, warnt die Erinnerung |
 
+### 7c. Finanz-Marktplatz und Anträge (Simulation)
+
+**Sparen → „Finanz-Marktplatz“**: Girokonten, Kreditkarten, Tagesgeld, Festgeld und Depots **fiktiver Anbieter** vergleichen. Jede Karte zeigt die Konditionen und eine **Beispielrechnung** (Kosten pro Jahr bzw. Zinsertrag für einen frei wählbaren Betrag); „Vor- und Nachteile“ klappt Details auf. ☆ merkt ein Angebot, **„Vergleichen“** legt 2–4 Angebote nebeneinander. **„Antrag (Simulation)“** legt einen simulierten Antrag an (Bestätigung nötig): Unterlagen als *bereitgestellt* markieren → am nächsten Tag simulierte Zusage oder Ablehnung (geprüft wird z. B. „Einnahmen ab …“ mit deinem Finanzüberblick). Es entsteht **kein Vertrag, kein Konto und keine Karte**. Unter **„Meine Anträge“** kannst du eine Entscheidung/Notiz festhalten oder zurückziehen.
+
 ### 7b. Budgets & Prognose
 
 Finanzüberblick → Symbol 🎯 oben rechts (oder im Dashboard **„Budgets & Prognose“**).
