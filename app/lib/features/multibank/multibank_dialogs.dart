@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/api_error.dart';
 import '../../core/money.dart';
+import '../../core/text_dialog.dart';
 import '../../l10n/l10n.dart';
 import '../accounts/account.dart';
 import '../accounts/accounts_repository.dart';
@@ -282,29 +283,12 @@ class ExtraAccountMenu extends ConsumerWidget {
   final VoidCallback? onClosed;
 
   Future<void> _rename(BuildContext context, WidgetRef ref) async {
-    final controller = TextEditingController(text: account.name);
-    final name = await showDialog<String>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text(tr('Konto umbenennen')),
-        content: TextField(
-          key: const Key('extra_name'),
-          controller: controller,
-          maxLength: 40,
-          autofocus: true,
-          decoration: InputDecoration(labelText: tr('Name')),
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(tr('Abbrechen'))),
-          FilledButton(
-            key: const Key('extra_name_save'),
-            onPressed: () => Navigator.of(ctx).pop(controller.text),
-            child: Text(tr('Speichern')),
-          ),
-        ],
-      ),
-    );
-    controller.dispose();
+    final name = await askText(context,
+        title: tr('Konto umbenennen'),
+        initial: account.name,
+        label: tr('Name'),
+        fieldKey: const Key('extra_name'),
+        saveKey: const Key('extra_name_save'));
     if (name == null || name.trim().isEmpty || !context.mounted) return;
     try {
       await ref.read(multiBankRepositoryProvider).rename(account.id, name);

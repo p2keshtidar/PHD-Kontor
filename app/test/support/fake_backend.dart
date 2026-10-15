@@ -56,7 +56,7 @@ class FakeBackend implements HttpClientAdapter {
         final result = routes[k]!(options);
         final status = result is FakeResponse ? result.status : (options.method == 'POST' ? 201 : 200);
         final body = result is FakeResponse ? result.body : result;
-        if (body is String && options.path.endsWith('/sample')) {
+        if (body is String && (options.path.endsWith('/sample') || options.path.endsWith('/export'))) {
           return ResponseBody.fromString(body, status, headers: {
             Headers.contentTypeHeader: ['text/csv; charset=utf-8'],
           });
@@ -150,6 +150,26 @@ class FakeBackend implements HttpClientAdapter {
         'notes': ['Konten der Projektbank sind eine Simulation mit Spielgeld.',
           'Summen ohne Umbuchungen zwischen eigenen Konten, Sparraten, Kreditauszahlungen und vorgemerkte Umsätze.'],
       };
+
+  /// Mögliche Duplikate: Einkauf bei der verbundenen Bank und derselbe Betrag im CSV-Import
+  static Map<String, dynamic> duplicates({bool empty = false}) {
+    final items = (transactionsPage()['items'] as List).cast<Map<String, dynamic>>();
+    final imported = {...items.first, 'source': 'IMPORT', 'id': 801, 'accountId': 5, 'accountName': 'konto.csv',
+      'institution': 'CSV-Import', 'status': 'BOOKED', 'date': '2026-10-12'};
+    return {
+      'pairs': empty
+          ? []
+          : [
+              {'key': 'EXTERNAL:701:601|IMPORT:801:5', 'kind': 'CROSS_SOURCE',
+               'reason': 'Derselbe Umsatz steht vielleicht doppelt da: in „konto.csv“ und in „Girokonto“ '
+                   '(z. B. selbst eingetragen und von der Bank geliefert).',
+               'first': imported, 'second': {...items.first, 'status': 'BOOKED'}},
+            ],
+      'days': 90,
+      'explanation': 'Gleicher Betrag, höchstens 3 Tage auseinander und ein gemeinsames Stichwort. '
+          'Prüfe selbst – oft sind es zwei echte Umsätze.',
+    };
+  }
 
   /// Angaben eines digitalen Kontos wie vom Server
   static Map<String, dynamic> digital(String purpose,
@@ -634,6 +654,11 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/accounts/products': (_) => bankProducts(),
         'POST /api/accounts/move': (_) => const FakeResponse(204),
         'GET /api/transactions': (_) => transactionsPage(),
+        'GET /api/transactions/duplicates': (_) => duplicates(),
+        'POST /api/transactions/duplicates/dismiss': (_) => const FakeResponse(204),
+        'GET /api/transactions/export': (_) =>
+            '\uFEFFDatum;Quelle;Konto;Bank;Gegenpartei;Verwendungszweck;Kategorie;Betrag;Währung;Status;Notiz\r\n'
+            '13.10.2026;Verbundene Bank;Girokonto;Sandbox Hauptbank;Supermarkt Nord;Einkauf;Lebensmittel;-45,99;EUR;vorgemerkt;\r\n',
         'GET /api/contacts': (_) => [
               {'id': 1, 'userId': 2, 'displayName': 'Ben', 'fullName': 'Ben Beispiel', 'iban': 'DE12000100010000000042'},
             ],

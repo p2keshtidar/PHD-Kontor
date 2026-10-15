@@ -10,7 +10,7 @@ Stand: 15.10.2026 (Sprint 5) · alle Tests laufen automatisch bei jedem Push ([A
 |---|---|---|---|
 | Backend: Unit- und Integrationstests (echte PostgreSQL) | **232** | ✅ alle grün | **92,7 %** |
 | App: Unit- und Widget-Tests (simulierter Server) | **293** | ✅ alle grün | **72,0 %** |
-| Ende-zu-Ende: echte App + echter Server | 2 Abläufe, Stand 15.10.: **Chrome, Android 11, iOS 26** (iOS im zweiten Lauf – im ersten verband sich `flutter test` nicht mit dem Simulator) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10., vor Zweisprachigkeit und Bankkonten | ✅ grün | – |
+| Ende-zu-Ende: echte App + echter Server | 2 Abläufe, Stand 15.10. (Sprint 5: Kreditvergleich in vier Schritten, Sparregel): **Chrome, Android 11, iOS 26** grün (iOS im zweiten Lauf – im ersten brauchte die erste Registrierung nach Leerlauf auf dem macOS-Runner 30 s; seitdem hält der Workflow den Server warm) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10. | ✅ grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
 

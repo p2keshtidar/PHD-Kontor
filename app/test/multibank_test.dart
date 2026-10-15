@@ -38,6 +38,8 @@ void main() {
     expect(find.text('2.500,00 €'), findsOneWidget);
     expect(find.byKey(const Key('home_open_account')), findsOneWidget);
     expect(find.byKey(const Key('home_move')), findsOneWidget);
+    await tester.ensureVisible(find.byKey(const Key('home_account_20')));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('home_account_20')));
     await tester.pumpAndSettle();
     expect(find.text('ROUTE:/umsaetze/20'), findsOneWidget);
@@ -148,7 +150,8 @@ void main() {
     await tester.pumpAndSettle();
     expect(fake.calls('GET /api/transactions').last.queryParameters['page'], 1);
 
-    await tester.ensureVisible(find.byKey(const Key('tx_source_EXTERNAL')));
+    // Filter stehen oben – zurückscrollen (die Liste baut nur sichtbare Einträge)
+    await tester.drag(find.byType(ListView), const Offset(0, 3000));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('tx_source_EXTERNAL')));
     await tester.pumpAndSettle();

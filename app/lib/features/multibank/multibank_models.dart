@@ -64,6 +64,7 @@ class TxItem {
     this.bookedAt,
     this.counterpartyName,
     this.excluded = false,
+    this.note,
   });
 
   /// PROJEKTBANK (Simulation) oder EXTERNAL (verbundene Bank, nur lesend)
@@ -86,7 +87,11 @@ class TxItem {
   final bool internal;
   final bool excluded;
 
+  /// eigene Notiz
+  final String? note;
+
   bool get isExternal => source == 'EXTERNAL';
+  bool get isImport => source == 'IMPORT';
   bool get isPending => status == 'PENDING';
 
   /// Was in der Liste groß steht: Gegenpartei, sonst Verwendungszweck
@@ -114,6 +119,40 @@ class TxItem {
         status: j['status'] as String? ?? 'BOOKED',
         internal: j['internal'] as bool? ?? false,
         excluded: j['excluded'] as bool? ?? false,
+        note: j['note'] as String?,
+      );
+}
+
+/// Zwei Umsätze, die vielleicht dasselbe sind.
+class DuplicatePair {
+  const DuplicatePair(this.key, this.kind, this.reason, this.first, this.second);
+
+  final String key;
+
+  /// SAME_ACCOUNT (zweimal auf demselben Konto) oder CROSS_SOURCE (an zwei Stellen erfasst)
+  final String kind;
+  final String reason;
+  final TxItem first;
+  final TxItem second;
+
+  factory DuplicatePair.fromJson(Map<String, dynamic> j) => DuplicatePair(
+        j['key'] as String,
+        j['kind'] as String,
+        j['reason'] as String? ?? '',
+        TxItem.fromJson(j['first'] as Map<String, dynamic>),
+        TxItem.fromJson(j['second'] as Map<String, dynamic>),
+      );
+}
+
+class Duplicates {
+  const Duplicates(this.pairs, this.explanation);
+
+  final List<DuplicatePair> pairs;
+  final String explanation;
+
+  factory Duplicates.fromJson(Map<String, dynamic> j) => Duplicates(
+        [for (final p in j['pairs'] as List<dynamic>) DuplicatePair.fromJson(p as Map<String, dynamic>)],
+        j['explanation'] as String? ?? '',
       );
 }
 

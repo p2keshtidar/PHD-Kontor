@@ -68,6 +68,15 @@ Startseite → **„Alle anzeigen“** → suchen (Name, Zweck), filtern (Symbol
 
 Höchstens 3 weitere Konten. Alle Konten der Projektbank sind eine **Simulation mit Spielgeld** – keine echten Bankkonten, keine Einlagensicherung.
 
+**Umsätze verwalten:**
+
+| Was | Wo | Hinweis |
+|---|---|---|
+| Notiz zu einem Umsatz | Umsatz antippen → **Notiz → Hinzufügen** | nur für dich sichtbar (auch in geteilten digitalen Konten); die Suche findet auch Notizen |
+| CSV-Export | **Alle Umsätze** → Symbol ⬇ oben rechts | exportiert die aktuelle Auswahl (Quelle, Suche). Im Browser als Datei, in der Handy-App in die Zwischenablage (zum Einfügen in eine Tabelle) |
+| CSV-Importe | **Alle Umsätze** → Quelle **„CSV-Import“** | importierte Umsätze anderer Banken stehen mit in der Liste (ändern keine Kontostände) |
+| Doppelte Umsätze | **Alle Umsätze** → Hinweis „mögliche doppelte Umsätze“ oder Symbol ⇄ | gleicher Betrag, höchstens 3 Tage auseinander, gemeinsames Stichwort – z. B. selbst eingetragen *und* von der Bank geliefert. **„Kein Duplikat“** blendet das Paar aus; bei einer verbundenen Bank kann ein Umsatz **nicht mitgezählt** werden |
+
 ## 4b. Echte Bankkonten verbinden (Sandbox)
 
 Konten anderer Banken in Girokonto sehen – **nur lesen**, Girokonto kann dort kein Geld bewegen. Im Projekt gibt es

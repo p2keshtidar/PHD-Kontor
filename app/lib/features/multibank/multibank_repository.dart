@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/api_client.dart';
@@ -52,7 +53,34 @@ class MultiBankRepository {
     });
     return TxPage.fromJson(res.data!);
   }
+
+  /// Umsätze im Filter als CSV-Text (UTF-8 mit BOM, höchstens 10.000 Zeilen).
+  Future<String> exportCsv({String source = 'ALL', String? query, bool internal = true}) async {
+    final res = await _api.dio.get<String>('/api/transactions/export',
+        queryParameters: {
+          'source': source,
+          if (query != null && query.trim().isNotEmpty) 'q': query.trim(),
+          'internal': internal,
+        },
+        options: Options(responseType: ResponseType.plain));
+    return res.data ?? '';
+  }
+
+  Future<Duplicates> duplicates() async {
+    final res = await _api.dio.get<Map<String, dynamic>>('/api/transactions/duplicates');
+    return Duplicates.fromJson(res.data!);
+  }
+
+  Future<void> dismissDuplicate(String key) =>
+      _api.dio.post<void>('/api/transactions/duplicates/dismiss', data: {'key': key});
+
+  /// Umsatz einer verbundenen Bank nicht mehr mitzählen (bleibt sichtbar).
+  Future<void> excludeExternal(int transactionId) =>
+      _api.dio.put<void>('/api/banking/transactions/$transactionId', data: {'excluded': true});
 }
+
+final duplicatesProvider =
+    FutureProvider.autoDispose<Duplicates>((ref) => ref.watch(multiBankRepositoryProvider).duplicates());
 
 final multiBankRepositoryProvider =
     Provider<MultiBankRepository>((ref) => MultiBankRepository(ref.watch(apiClientProvider)));

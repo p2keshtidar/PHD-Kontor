@@ -13,6 +13,7 @@ class BookingItem {
     this.category,
     this.categoryLabel,
     this.accountId,
+    this.note,
   });
 
   final int bookingId;
@@ -30,6 +31,9 @@ class BookingItem {
   /// Konto, aus dessen Sicht der Umsatz geladen wurde (nötig zum Ändern der Kategorie)
   final int? accountId;
 
+  /// eigene Notiz (nur für mich sichtbar)
+  final String? note;
+
   bool get isIncoming => amountCents > 0;
 
   factory BookingItem.fromJson(Map<String, dynamic> json, {int? accountId}) => BookingItem(
@@ -43,6 +47,7 @@ class BookingItem {
         category: json['category'] as String?,
         categoryLabel: json['categoryLabel'] as String?,
         accountId: accountId,
+        note: json['note'] as String?,
       );
 }
 

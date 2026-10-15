@@ -6,6 +6,7 @@ import '../../l10n/l10n.dart';
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
 import '../../core/money.dart';
+import '../../core/text_dialog.dart';
 import '../insights/insights_models.dart';
 import '../insights/insights_repository.dart';
 import 'booking_item.dart';
@@ -26,6 +27,7 @@ class BookingDetailScreen extends ConsumerStatefulWidget {
 class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
   String? _category;
   String? _categoryLabel;
+  String? _note;
 
   /// Diese Kategorien sind fest (Umbuchung, Sparen, Startguthaben, Kreditauszahlung).
   bool get _editable => _category != null && selectableCategories.containsKey(_category);
@@ -35,6 +37,26 @@ class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
     super.initState();
     _category = widget.item?.category;
     _categoryLabel = widget.item?.categoryLabel;
+    _note = widget.item?.note;
+  }
+
+  Future<void> _editNote(BookingItem b) async {
+    final text = await askText(context,
+        title: tr('Notiz'),
+        initial: _note ?? '',
+        hint: tr('Nur für dich sichtbar'),
+        maxLength: 500,
+        maxLines: 4,
+        fieldKey: const Key('booking_note_field'),
+        saveKey: const Key('booking_note_save'));
+    if (text == null || b.accountId == null) return;
+    try {
+      final saved = await ref.read(bookingsRepositoryProvider).saveNote(b.accountId!, b.bookingId, text);
+      setState(() => _note = saved);
+      ref.invalidate(recentBookingsProvider);
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+    }
   }
 
   Future<void> _changeCategory(BookingItem b) async {
@@ -109,6 +131,19 @@ class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
                 trailing: _editable && b.accountId != null
                     ? TextButton(onPressed: () => _changeCategory(b), child: Text(tr('Ändern')))
                     : null,
+              ),
+              ListTile(
+                key: const Key('booking_note'),
+                leading: const Icon(Icons.sticky_note_2_outlined),
+                title: Text(tr('Notiz')),
+                subtitle: Text(_note ?? tr('Keine Notiz – nur für dich sichtbar')),
+                trailing: b.accountId == null
+                    ? null
+                    : TextButton(
+                        key: const Key('booking_note_edit'),
+                        onPressed: () => _editNote(b),
+                        child: Text(_note == null ? tr('Hinzufügen') : tr('Ändern')),
+                      ),
               ),
               _row(Icons.schedule, tr('Datum'), formatDateTime(b.bookedAt)),
               _row(Icons.tag, tr('Buchungsnummer'), '${b.bookingId}'),

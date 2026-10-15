@@ -103,6 +103,8 @@ void main() {
     expect(_in(urlaub, find.text('16,7 % erreicht · Ziel bis 30.06.2027 · Digitales Konto')), findsOneWidget);
     expect(_in(const Key('dash_goal_PLAN_5'), find.byIcon(Icons.check_circle)), findsOneWidget);
     expect(_in(const Key('dash_goal_PLAN_5'), find.text('100,0 % erreicht · Sparplan')), findsOneWidget);
+    await tester.ensureVisible(find.byKey(urlaub));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(urlaub));
     await tester.pumpAndSettle();
     expect(find.text('ROUTE:/unterkonto/11'), findsOneWidget);

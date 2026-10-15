@@ -36,6 +36,13 @@ class BookingsRepository {
         .toList();
     return BookingPage(items, data['hasMore'] as bool);
   }
+
+  /// Eigene Notiz speichern (leer = löschen). Gibt die gespeicherte Notiz zurück.
+  Future<String?> saveNote(int accountId, int bookingId, String note) async {
+    final res = await _api.dio.put<Map<String, dynamic>>('/api/accounts/$accountId/bookings/$bookingId/note',
+        data: {'note': note});
+    return res.data?['note'] as String?;
+  }
 }
 
 final bookingsRepositoryProvider =
