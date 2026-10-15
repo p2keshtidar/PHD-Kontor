@@ -117,6 +117,7 @@ Alle Beträge sind ganze Cent (`BIGINT`), Zinssätze `NUMERIC`, Zeitpunkte `TIME
 | V22 | `contract`, `document` | Verträge, Dokumente (Inhalt verschlüsselt) |
 | V23 | – | zusätzliche Indizes |
 | V24 | – | Einwilligung zum Finanz-Check an `app_user` |
+| V25 | `subaccount_card` | Demo-Karten für digitale Konten |
 
 Grafisch ansehen: `docker compose exec db psql -U girokonto -d girokonto -c '\dt'` oder ein Werkzeug wie DBeaver.
 

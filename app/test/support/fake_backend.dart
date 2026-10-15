@@ -846,6 +846,11 @@ class FakeBackend implements HttpClientAdapter {
               {'id': 1, 'name': 'WG Berger', 'memberCount': 3, 'myBalanceCents': -3833, 'totalSpentCents': 18000},
             ],
         'GET /api/groups/*': (_) => group(),
+        'GET /api/subaccounts/*/card': (_) => {
+              'exists': true, 'last4': '4711', 'status': 'ACTIVE', 'dailyLimitCents': 20000, 'spentTodayCents': 2500,
+              'canPay': true,
+              'note': 'Demo: virtuelle Karte für dieses digitale Konto – keine echte Karte, Zahlungen nur mit Spielgeld bei Demo-Händlern.',
+            },
         'GET /api/contracts': (_) => contractsOverview(),
         'GET /api/contracts/*': (_) => contract(),
         'GET /api/documents': (_) => [

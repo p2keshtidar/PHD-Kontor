@@ -918,3 +918,10 @@ Reise	Trip
 Immobilie	Property
 Nicht aktiviert	Not activated
 Der Finanz-Check wertet deine Umsätze, Konten, Kredite und Budgets in der App aus und berechnet daraus eine Punktzahl nur für dich. Er wird nicht weitergegeben und ist jederzeit abschaltbar.	The finance check analyses your transactions, accounts, loans and budgets in the app and calculates a score just for you. It is not shared and can be switched off at any time.
+Für dieses digitale Konto gibt es schon eine Karte.	There is already a card for this digital account.
+Der Betrag muss zwischen 0,01 € und 2.000 € liegen.	The amount must be between €0.01 and €2,000.
+Für dieses digitale Konto gibt es keine Karte.	There is no card for this digital account.
+Das Tageslimit muss zwischen 1 € und 2.000 € liegen.	The daily limit must be between €1 and €2,000.
+Demo: virtuelle Karte für dieses digitale Konto – keine echte Karte, Zahlungen nur mit Spielgeld bei Demo-Händlern.	Demo: virtual card for this digital account – no real card, payments only with play money at demo merchants.
+-{0} bei {1} ({2})	-{0} at {1} ({2})
+Demo-Händler	Demo merchant

@@ -77,6 +77,7 @@ flowchart LR
 | `assistant` | Finanzassistent: regelbasierte Fragen (Kategorien, Monate, Sparpotenzial, Monatsende, Budgets) aus `InsightsService`, `BudgetService` und `ForecastService`; Monatsbericht; Szenarien aus den Durchschnittswerten – keine externe KI |
 | `contract` | Verträge: Kosten je Monat/Jahr, Laufzeit- und Fristberechnung, Erinnerung im Tageslauf (Nr. 65); Dokumente: nur PDF/PNG/JPEG bis 5 MB (Prüfung am Inhalt), AES-256-GCM-verschlüsselt in der Datenbank (Schlüssel aus `CARD_KEY` abgeleitet), SHA-256-Prüfsumme, Abruf nur durch den Besitzer als Anhang mit `nosniff` |
 | `planner` | Zentraler Planer: Ansparen, Finanzieren, Anzahlung + Kredit für Reise/Auto/Immobilie aus Finanzüberblick und Kreditvergleich (nichts wird angelegt) |
+| `subaccount` (Karten) | Demo-Karte je digitalem Konto (V25, ohne Kartennummer): Zahlung bucht vom digitalen Konto, Tageslimit, Sperre, nur Besitzer/volle Rechte |
 | `planning` | Budgets mit Warnungen (Tageslauf Nr. 50), ungewöhnliche Ausgaben, Prognose des Girokontos |
 | `multibank` | Weitere Konten der Projektbank (`CURRENT` = weiteres Girokonto, `CALL` = Tagesgeld), Zinsen (`InterestService`, Tageslauf Nr. 45, `InterestMath`), Umbuchen zwischen eigenen Konten, alle Umsätze (`ConsolidatedService`) |
 | `allocation` | Sparregeln für digitale Konten: Rhythmen, Quellen (Girokonto = Umbuchung, verbundenes Bankkonto = Vormerkung), Vorgänge mit Status und Wiederholung, Tageslauf Nr. 35 |

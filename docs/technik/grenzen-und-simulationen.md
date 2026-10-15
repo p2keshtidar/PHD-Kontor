@@ -15,6 +15,7 @@ Simulation mit Spielgeld – in der App jeweils gekennzeichnet.
 | Weitere Konten (Tagesgeld, zweites Girokonto) | 🎮 Simulation | fiktiver Zinssatz (`CALL_INTEREST_PERCENT`) |
 | Digitale Konten („Töpfe“), Sparregeln | 🎮 Simulation | Unterteilung des Projektbank-Kontos – **keine eigenen Bankkonten, keine eigene Einlagensicherung**; bei verbundenen echten Banken nur Vormerkung, keine Zahlung |
 | Debitkarte | 🎮 Simulation | virtuelle Karte mit generierter Nummer, Demo-Zahlungen bei erfundenen Händlern; es wird keine Karte bestellt oder ausgegeben |
+| Karten für digitale Konten | 🎮 Simulation | virtuelle Demo-Karte ohne Kartennummer, zahlt Spielgeld vom digitalen Konto |
 | Kreditkarte | 🎮 Simulation | virtuelle Spielgeld-Kreditkarte mit Abrechnung; keine Kreditprüfung, keine Bestellung |
 | Spar- und Investpläne, Depot | 🎮 Simulation | fiktive Fonds mit simulierter Wertentwicklung |
 | Kreditvergleich, Kreditanfrage, Kredit | 🎮 Simulation | vier fiktive Banken, Zusage nach festen Regeln; als Referenz echte öffentliche Durchschnittszinsen der Deutschen Bundesbank (wenn erreichbar) |

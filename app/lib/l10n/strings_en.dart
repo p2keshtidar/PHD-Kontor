@@ -1165,4 +1165,12 @@ const stringsEn = <String, String>{
   // Finanz-Check Einwilligung
   'Finanz-Check aktivieren': 'Activate finance check',
   'Finanz-Check ausschalten': 'Turn off finance check',
+  // Karten für digitale Konten
+  'Karte für dieses Konto (Demo)': 'Card for this account (demo)',
+  'Karte eingerichtet (Demo)': 'Card set up (demo)',
+  'Karte einrichten': 'Set up card',
+  'Heute bezahlt: {0} von {1}': 'Paid today: {0} of {1}',
+  'Entsperren': 'Unlock',
+  'Sperren': 'Lock',
+  'Demo-Zahlung mit der Karte': 'Demo payment with the card',
 };

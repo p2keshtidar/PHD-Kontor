@@ -12,6 +12,7 @@ import '../accounts/accounts_repository.dart';
 import '../accounts/booking_tile.dart';
 import '../accounts/bookings_repository.dart';
 import '../allocations/allocation_section.dart';
+import 'subaccount_card_section.dart';
 import 'subaccount_dialogs.dart';
 import 'subaccount_icons.dart';
 import 'subaccounts_repository.dart';
@@ -281,6 +282,8 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
               if (sub.digital != null) ...[
                 const SizedBox(height: 16),
                 AllocationSection(account: sub, onChanged: _refresh),
+                const SizedBox(height: 8),
+                SubaccountCardSection(accountId: sub.id, onChanged: _refresh),
               ],
               const SizedBox(height: 16),
               _sharing(sub, theme),

@@ -161,6 +161,11 @@ umgebucht, sie sind aber **keine eigenen Bankkonten** und haben keine eigene Ein
 
 Über die Schnittstelle sind auch feste Anteile möglich (`shares`, müssen genau aufgehen).
 
+**Karte für ein digitales Konto (Demo):** im digitalen Konto unter „Karte für dieses Konto (Demo)“ → **„Karte
+einrichten“** (Tageslimit 200 €). **„Demo-Zahlung“** bucht direkt vom digitalen Konto (z. B. „Lebensmittel“ oder
+WG-Kasse), nicht vom Girokonto. Sperren/Entsperren jederzeit. Bezahlen darf der Besitzer und wer volle Rechte hat.
+Virtuelle Spielgeld-Karte ohne Kartennummer – es wird keine Karte bestellt.
+
 ## 7. Finanzassistent ⭐ (Kernidee des Projekts)
 
 | Schritt | Was tun | Was passiert |
