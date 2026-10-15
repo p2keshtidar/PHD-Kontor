@@ -85,7 +85,7 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 🔔 **Benachrichtigungen** | live per WebSocket bei jeder Buchung · Android: auch bei **geschlossener App** (Hintergrund-Abfrage) |
 | 🏦 **Echte Bankkonten** | mehrere Banken verbinden (Open Banking/PSD2, **nur Lesezugriff**) · Sandbox-Banken mit Testdaten · Abruf, Vormerkungen, Stornos, Rückbuchungen · eigene Kategorien, Notizen, Schlagwörter · Widerruf mit Löschen |
 | 🌍 **Deutsch / Englisch** | Sprache umschalten (auch Server-Meldungen), pro Konto gespeichert, beim ersten Start Gerätesprache |
-| 📊 **Finanzüberblick** | Einnahmen/Ausgaben pro Monat · Kategorien · „Jeden Monat übrig“ · **CSV-Import** von Umsätzen echter Banken |
+| 📊 **Finanzüberblick** | Einnahmen/Ausgaben pro Monat · Kategorien · „Jeden Monat übrig“ · **CSV-Import** von Umsätzen echter Banken · **Budgets** mit Warnungen · **ungewöhnliche Ausgaben** · **Prognose** des Kontostands (erwartet/günstig/ungünstig, Liquiditätswarnung) |
 | 🔐 **Sicherheit** | Passwort-Hash, JWT, Sperre nach Fehlversuchen · **Zwei-Faktor-Anmeldung** mit Authenticator-App |
 | 🐷 **Sparplan** | Ziel + Datum → Ratenvorschlag · Risikostufe · Ampel „machbar?“ · Spartipps · **Erinnerung vor der Abbuchung** |
 | 📈 **Investplan** | z. B. 200 €/Monat in fiktive Fonds · Musterdepot mit Verlauf |

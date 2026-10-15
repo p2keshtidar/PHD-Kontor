@@ -67,6 +67,15 @@ class DashboardScreen extends ConsumerWidget {
                 subtitle: tr('Einnahmen und Ausgaben, letzte 6 Monate'),
                 child: _CashflowView(c: d.cashflow),
               ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton.icon(
+                  key: const Key('dash_planning'),
+                  onPressed: () => context.push('/planung'),
+                  icon: const Icon(Icons.track_changes),
+                  label: Text(tr('Budgets & Prognose')),
+                ),
+              ),
               _Section(
                 key: const Key('dash_top_expenses'),
                 title: tr('Größte Ausgaben'),

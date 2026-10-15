@@ -171,6 +171,57 @@ class FakeBackend implements HttpClientAdapter {
     };
   }
 
+  /// Budgets: Lebensmittel überschritten, Freizeit fast aufgebraucht; Wohnen ohne Budget; eine ungewöhnliche Ausgabe
+  static Map<String, dynamic> budgets({bool empty = false}) => {
+        'month': '2026-10', 'daysLeft': 18,
+        'items': empty
+            ? []
+            : [
+                {'category': 'LEBENSMITTEL', 'label': 'Lebensmittel', 'limitCents': 20000, 'spentCents': 24871,
+                 'remainingCents': -4871, 'percent': 124.4, 'status': 'OVER', 'projectedCents': 59300,
+                 'projectionText': 'Bei gleichem Tempo voraussichtlich 593,00 € – 393,00 € über dem Budget.'},
+                {'category': 'FREIZEIT', 'label': 'Freizeit', 'limitCents': 10000, 'spentCents': 8500,
+                 'remainingCents': 1500, 'percent': 85.0, 'status': 'WARN', 'projectedCents': null, 'projectionText': null},
+              ],
+        'totalLimitCents': empty ? 0 : 30000, 'totalSpentCents': empty ? 0 : 33371,
+        'unbudgeted': [{'category': 'WOHNEN', 'label': 'Wohnen', 'spentCents': 90500}],
+        'unusual': empty
+            ? []
+            : [
+                {'kind': 'SINGLE', 'category': 'SHOPPING', 'label': 'Shopping', 'date': '2026-10-12',
+                 'text': 'Neuer Fernseher', 'amountCents': 89900, 'usualCents': 6624,
+                 'reason': 'Etwa 14-mal so viel wie sonst bei „Shopping“ (üblich: 66,24 €).'},
+              ],
+        'notes': ['Ausgaben wie im Finanzüberblick: Girokonto, verbundene Banken und CSV-Importe.'],
+      };
+
+  /// Prognose über 30 Tage: Miete am 20., Sparrate am 1.; am Monatsende knapp
+  static Map<String, dynamic> forecast({bool warning = true}) {
+    final points = <Map<String, dynamic>>[];
+    var balance = 120000;
+    for (var i = 1; i <= 30; i++) {
+      final d = DateTime(2026, 10, 13).add(Duration(days: i));
+      if (d.day == 20) balance -= 95000;
+      if (d.day == 1) balance -= 10000;
+      final date = '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
+      points.add({'date': date, 'expectedCents': balance - i * 1000, 'bestCents': balance - i * 800,
+        'worstCents': balance - i * 1200});
+    }
+    return {
+      'date': '2026-10-13', 'startBalanceCents': 120000, 'days': 30, 'points': points,
+      'events': [
+        {'date': '2026-10-20', 'label': 'Miete', 'amountCents': -95000, 'source': 'ENTRY'},
+        {'date': '2026-11-01', 'label': 'Sparrate Urlaub', 'amountCents': -10000, 'source': 'PLAN'},
+      ],
+      'monthEnds': [{'month': '2026-10', 'expectedCents': 7000, 'bestCents': 11400, 'worstCents': 2600}],
+      'lowest': points[17],
+      'warnings': warning ? ['Am 31.10.2026 voraussichtlich nur noch 70,00 € auf dem Girokonto.'] : [],
+      'assumptions': ['Bekannte Buchungen: Einnahmen & Ausgaben, Daueraufträge, Spar- und Investraten, Kreditraten und Sparregeln vom Girokonto.',
+        'Günstig: 20 % weniger, ungünstig: 20 % mehr übrige Ausgaben. Eine Schätzung, keine Zusage.'],
+      'historyMonths': 3,
+    };
+  }
+
   /// Angaben eines digitalen Kontos wie vom Server
   static Map<String, dynamic> digital(String purpose,
           {int? target, double? progress, int? remaining, int? monthly, String role = 'OWNER'}) =>
@@ -655,6 +706,8 @@ class FakeBackend implements HttpClientAdapter {
         'POST /api/accounts/move': (_) => const FakeResponse(204),
         'GET /api/transactions': (_) => transactionsPage(),
         'GET /api/transactions/duplicates': (_) => duplicates(),
+        'GET /api/budgets': (_) => budgets(),
+        'GET /api/forecast': (_) => forecast(),
         'POST /api/transactions/duplicates/dismiss': (_) => const FakeResponse(204),
         'GET /api/transactions/export': (_) =>
             '\uFEFFDatum;Quelle;Konto;Bank;Gegenpartei;Verwendungszweck;Kategorie;Betrag;Währung;Status;Notiz\r\n'

@@ -12,6 +12,7 @@ import '../card/card_repository.dart';
 import '../dashboard/dashboard_repository.dart';
 import '../insights/insights_repository.dart';
 import '../loans/loans_repository.dart';
+import '../planning/planning_repository.dart';
 import '../savings/plans_repository.dart';
 import 'background_check.dart';
 import 'local_notifications.dart';
@@ -36,6 +37,8 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
       ref.invalidate(overviewProvider);
       ref.invalidate(netWorthProvider);
       ref.invalidate(dashboardProvider);
+      ref.invalidate(budgetsProvider);
+      ref.invalidate(forecastProvider);
       ref.invalidate(monthsProvider);
 
       BackgroundCheck.markShown(n.id); // /K070/: im Hintergrund nicht noch einmal melden

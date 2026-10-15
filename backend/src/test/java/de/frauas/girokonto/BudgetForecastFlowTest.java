@@ -108,7 +108,7 @@ class BudgetForecastFlowTest extends FlowTestSupport {
     @Test
     void T104_ungewoehnlicheAusgabeErkannt() throws Exception {
         TestUser u = userWithDemo("Ulla");
-        expense(u, "Neuer Fernseher", "SHOPPING", 189_900, today(u));
+        expense(u, "Neuer Fernseher", "SHOPPING", 89_900, today(u));
         JsonNode unusual = getJson(u, "/api/budgets").get("unusual");
         JsonNode single = null;
         for (JsonNode x : unusual) {
@@ -117,12 +117,12 @@ class BudgetForecastFlowTest extends FlowTestSupport {
             }
         }
         assertThat(single).as("einzelne große Ausgabe erkannt: %s", unusual).isNotNull();
-        assertThat(single.get("amountCents").asLong()).isEqualTo(189_900);
-        assertThat(single.get("usualCents").asLong()).isPositive().isLessThan(189_900 / 3);
+        assertThat(single.get("amountCents").asLong()).isEqualTo(89_900);
+        assertThat(single.get("usualCents").asLong()).isPositive().isLessThan(89_900 / 3);
         assertThat(single.get("reason").asText()).contains("so viel wie sonst bei „Shopping“");
         // ein neuer Nutzer ohne Verlauf hat nichts Auffälliges
         TestUser fresh = registerUser("Frisch");
-        expense(fresh, "Fernseher", "SHOPPING", 189_900, today(fresh));
+        expense(fresh, "Fernseher", "SHOPPING", 89_900, today(fresh));
         assertThat(getJson(fresh, "/api/budgets").get("unusual")).isEmpty();
     }
 

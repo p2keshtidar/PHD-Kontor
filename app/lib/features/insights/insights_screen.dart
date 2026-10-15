@@ -36,6 +36,12 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(tr('Finanzüberblick')), actions: [
         IconButton(
+          key: const Key('insights_planning'),
+          tooltip: tr('Budgets & Prognose'),
+          icon: const Icon(Icons.track_changes),
+          onPressed: () => context.push('/planung'),
+        ),
+        IconButton(
           key: const Key('csv_import_open'),
           tooltip: tr('Umsätze anderer Bank importieren (CSV)'),
           icon: const Icon(Icons.upload_file),

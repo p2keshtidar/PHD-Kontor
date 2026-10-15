@@ -145,6 +145,19 @@ umgebucht, sie sind aber **keine eigenen Bankkonten** und haben keine eigene Ein
 | 7.8 | Kredit öffnen → **Sondertilgung** → z. B. 1.000 € → **Auswirkung berechnen** | Vorschau: Restschuld, offene Raten und Zinsersparnis vorher → nachher. **Jetzt sondertilgen** bucht den Betrag; die Rate bleibt gleich, der Kredit endet früher |
 | 7.9 | Sparplan öffnen → **Erinnerung vor der Abbuchung** | Aus / 1 / 3 / 7 Tage vorher. Standard: 3 Tage. Reicht das Guthaben nicht, warnt die Erinnerung |
 
+### 7b. Budgets & Prognose
+
+Finanzüberblick → Symbol 🎯 oben rechts (oder im Dashboard **„Budgets & Prognose“**).
+
+| Bereich | Was du siehst |
+|---|---|
+| Prognose Girokonto | Kontostand für die nächsten 90 Tage: erwartet, günstig (20 % weniger übrige Ausgaben), ungünstig (20 % mehr). Bekannte Buchungen (Einnahmen & Ausgaben, Daueraufträge, Raten, Sparregeln) sind genau eingeplant, übrige Umsätze wie im Schnitt der letzten 3 Monate. **Warnung**, wenn das Guthaben voraussichtlich nicht reicht |
+| Budgets | Betrag pro Monat je Ausgabenkategorie; Status *im Rahmen / fast aufgebraucht (ab 80 %) / überschritten*, Hochrechnung bis Monatsende. Benachrichtigung bei 80 % und 100 % (einmal je Monat) |
+| Ausgaben ohne Budget | Vorschläge: antippen → Budget festlegen |
+| Ungewöhnliche Ausgaben | einzelne Ausgaben weit über dem Üblichen oder Kategorien deutlich über dem Monatsschnitt |
+
+Alles ist eine **Schätzung aus deinen eigenen Daten** – keine Zusage.
+
 ### 7a. Finanz-Dashboard
 
 Auf der Startseite die Karte **„Gesamtvermögen“** antippen.

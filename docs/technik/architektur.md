@@ -70,6 +70,7 @@ flowchart LR
 | `loan` | Kreditzwecke und Zinsregeln (`LoanPurpose`), fiktive Banken (`Bank`) mit Mindest-Bonität, Bonitätsklassen (`CreditClass`), Annuitätenrechnung (`LoanMath`), Vergleich mit Filtern, getrennte Schritte Anfrage → Vertrag → Auszahlung, Raten (`LoanService`) |
 | `loan/provider` | Anbieter-Schnittstelle `LoanOfferProvider`, fiktive Banken (`SimulatedBanksProvider`), Referenzzinsen der Bundesbank (`MarketRateService`) – siehe [Sparregeln und Kredite](sparregeln-und-kredite.md) |
 | `dashboard` | Zentrales Finanz-Dashboard (`GET /api/dashboard`): Gesamtvermögen nach Bestandteilen, verfügbar/zurückgelegt, Konten und Karten, Schulden mit Verhältnis zu den Einnahmen, Cashflow, Sparziele, größte Ausgaben, Vermögensverlauf (12 Monatsenden) |
+| `planning` | Budgets mit Warnungen (Tageslauf Nr. 50), ungewöhnliche Ausgaben, Prognose des Girokontos |
 | `multibank` | Weitere Konten der Projektbank (`CURRENT` = weiteres Girokonto, `CALL` = Tagesgeld), Zinsen (`InterestService`, Tageslauf Nr. 45, `InterestMath`), Umbuchen zwischen eigenen Konten, alle Umsätze (`ConsolidatedService`) |
 | `allocation` | Sparregeln für digitale Konten: Rhythmen, Quellen (Girokonto = Umbuchung, verbundenes Bankkonto = Vormerkung), Vorgänge mit Status und Wiederholung, Tageslauf Nr. 35 |
 | `simulation` | Verschiebbare Uhr (`SimulationClock`), Tagesläufe (`SimulationService`, `DailyJob`), nächtlicher Lauf (`DailyScheduler`), Admin-Endpunkt zum Vorspulen |
@@ -119,6 +120,8 @@ flowchart LR
 
 **Transaktionsmanagement:** Notizen zu Buchungen der Projektbank liegen in `booking_note` (Schlüssel Buchung + Konto + Nutzer, also privat je Nutzer); Notizen zu Umsätzen verbundener Banken weiterhin in `external_transaction_edit`. `GET /api/transactions` hat als dritte Quelle `IMPORT` (Tabelle `imported_transaction`). Export: `GET /api/transactions/export` liefert dieselbe Auswahl als CSV (UTF-8 mit BOM; Deutsch: Semikolon/Dezimalkomma, Englisch: Komma/Dezimalpunkt; höchstens 10.000 Zeilen). Textzellen, die mit `=`, `+`, `-`, `@` oder Steuerzeichen beginnen, bekommen ein Hochkomma vorangestellt (Schutz vor Formeln); das Prüfprotokoll speichert nur die Zeilenzahl. Duplikate: `GET /api/transactions/duplicates` sucht in gebuchten Umsätzen der letzten 90 Tage Paare mit gleichem Betrag, höchstens 3 Tage Abstand und gemeinsamem Stichwort (≥ 4 Buchstaben, ohne Allerweltswörter wie „SEPA“, „Lastschrift“); Umbuchungen zählen nie. „Kein Duplikat“ speichert den Paarschlüssel in `duplicate_dismissal`.
 
+**Finanzplanung (`planning`):** Budgets (`budget`) je Ausgabenkategorie; „ausgegeben“ kommt aus `InsightsService` (gleiche Zahlen wie der Finanzüberblick). Tageslauf Nr. 50 schickt bei 80 % und 100 % je Monat und Kategorie höchstens eine Meldung (`budget_alert`). Ungewöhnlich: einzelne Ausgabe > 3× Median der letzten 6 Monate (≥ 3 Vergleichswerte) oder Kategorie im laufenden Monat > 150 % des Schnitts der letzten 3 Monate, jeweils ≥ 50 € Unterschied. Prognose (`ForecastService`): Startwert = Girokonto heute; bekannte Buchungen aus Einträgen, Daueraufträgen, Plänen, Krediten und Sparregeln; übrige Buchungsarten (Karte, Überweisung ohne Dauerauftrag, Einnahme, Lastschrift) der letzten bis zu 3 vollen Monate werden je Tag im Monat gemittelt fortgeschrieben; günstig/ungünstig = übrige Ausgaben ×0,8 / ×1,2.
+
 **Live-Benachrichtigungen:**
 1. Jede Buchung ruft `NotificationService.send(...)` auf. Die Meldung wird in der Tabelle `notification` gespeichert.
 2. Der Versand per WebSocket passiert erst **nach dem Commit** (`TransactionSynchronization.afterCommit`). Wird die Buchung zurückgerollt, geht keine Meldung raus.
@@ -158,6 +161,7 @@ nur ansehen – geprüft bei jeder Umbuchung. Das Gesamtvermögen enthält die E
 | `l10n/` | Deutsch/Englisch: `tr('Deutscher Text')`, `strings_en.dart`, Sprachwahl |
 | `features/notifications/` | Benachrichtigungsliste, Zähler, Live-Verbindung starten (`realtime_provider.dart`), Systembenachrichtigungen |
 | `features/insights/` | Finanzüberblick (Diagramme, Kategorien, Durchschnitt), Beispielmonate |
+| `features/planning/` | Budgets & Prognose: Verlauf mit drei Fällen, Monatsende, bekannte Buchungen, Budgets festlegen, ungewöhnliche Ausgaben |
 | `features/multibank/` | Konto eröffnen (weiteres Girokonto, Tagesgeld), Umbuchen-Dialog, Verwaltungsmenü (umbenennen, auflösen), „Alle Umsätze“ mit CSV-Export, mögliche Duplikate |
 | `features/dashboard/` | Finanz-Dashboard (Startseite → Karte „Gesamtvermögen“): Vermögen nach Bestandteilen, verfügbar/zurückgelegt, Vermögensverlauf, Cashflow, größte Ausgaben, Schulden, Sparziele, Konten und Karten, Hinweise |
 | `features/savings/` | Bereich „Sparen“, Plan-Assistent, Plan-Detail mit Depot und Spartipps |

@@ -346,6 +346,118 @@ class _WealthPainter extends CustomPainter {
   bool shouldRepaint(covariant _WealthPainter old) => old.points != points;
 }
 
+/// Ein Tag der Prognose: erwartet, günstig, ungünstig (Cent).
+class ForecastValue {
+  const ForecastValue(this.date, this.expected, this.best, this.worst);
+
+  final DateTime date;
+  final int expected;
+  final int best;
+  final int worst;
+}
+
+/// Prognose als Band: erwarteter Verlauf (dick), günstiger und ungünstiger Fall (dünn), Null-Linie.
+class ForecastChart extends StatelessWidget {
+  const ForecastChart({super.key, required this.values, this.height = 170});
+
+  final List<ForecastValue> values;
+  final double height;
+
+  static const bestColor = Color(0xFF2E7D32);
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    if (values.length < 2) return const SizedBox.shrink();
+    final last = values.last;
+    return Semantics(
+      container: true,
+      label: tr('Prognose: am {0} erwartet {1}, günstig {2}, ungünstig {3}', [
+        '${last.date.day.toString().padLeft(2, '0')}.${last.date.month.toString().padLeft(2, '0')}.',
+        formatCents(last.expected),
+        formatCents(last.best),
+        formatCents(last.worst),
+      ]),
+      child: ExcludeSemantics(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          SizedBox(
+            height: height,
+            width: double.infinity,
+            child: CustomPaint(
+              painter: _ForecastPainter(values, scheme.primary, bestColor, scheme.error, scheme.onSurfaceVariant),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Wrap(spacing: 16, runSpacing: 4, children: [
+            _Legend(color: scheme.primary, text: tr('erwartet')),
+            _Legend(color: bestColor, text: tr('günstig')),
+            _Legend(color: scheme.error, text: tr('ungünstig')),
+          ]),
+        ]),
+      ),
+    );
+  }
+}
+
+class _ForecastPainter extends CustomPainter {
+  _ForecastPainter(this.values, this.expectedColor, this.bestColor, this.worstColor, this.textColor);
+
+  final List<ForecastValue> values;
+  final Color expectedColor;
+  final Color bestColor;
+  final Color worstColor;
+  final Color textColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const bottom = 18.0;
+    const top = 6.0;
+    final h = size.height - bottom - top;
+    var maxV = 1;
+    var minV = 0;
+    for (final v in values) {
+      maxV = math.max(maxV, math.max(v.best, math.max(v.expected, v.worst)));
+      minV = math.min(minV, math.min(v.best, math.min(v.expected, v.worst)));
+    }
+    final range = (maxV - minV).toDouble();
+    final n = values.length;
+    double y(int v) => top + h - h * (v - minV) / range;
+    double x(int i) => size.width * i / (n - 1);
+
+    canvas.drawLine(Offset(0, y(0)), Offset(size.width, y(0)), Paint()..color = textColor.withAlpha(90));
+
+    void line(int Function(ForecastValue) pick, Color color, double width) {
+      final p = Path()..moveTo(x(0), y(pick(values[0])));
+      for (var i = 1; i < n; i++) {
+        p.lineTo(x(i), y(pick(values[i])));
+      }
+      canvas.drawPath(
+          p,
+          Paint()
+            ..color = color
+            ..strokeWidth = width
+            ..style = PaintingStyle.stroke);
+    }
+
+    line((v) => v.best, bestColor, 1.5);
+    line((v) => v.worst, worstColor, 1.5);
+    line((v) => v.expected, expectedColor, 3);
+
+    String label(DateTime d) => '${d.day.toString().padLeft(2, '0')}.${d.month.toString().padLeft(2, '0')}.';
+    for (final i in {0, n ~/ 2, n - 1}) {
+      final tp = TextPainter(
+        text: TextSpan(text: label(values[i].date), style: TextStyle(color: textColor, fontSize: 11)),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      final left = (x(i) - tp.width / 2).clamp(0.0, size.width - tp.width);
+      tp.paint(canvas, Offset(left, size.height - bottom + 3));
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _ForecastPainter old) => old.values != values;
+}
+
 /// Ampel für die Machbarkeit (/F620/).
 class FeasibilityBadge extends StatelessWidget {
   const FeasibilityBadge({super.key, required this.level});

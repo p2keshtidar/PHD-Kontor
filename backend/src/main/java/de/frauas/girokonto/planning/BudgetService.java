@@ -92,7 +92,7 @@ public class BudgetService implements DailyJob {
 
     static BudgetItem item(Category c, long limit, long spent, LocalDate today) {
         double percent = Math.round(spent * 1000.0 / limit) / 10.0;
-        String status = spent > limit ? "OVER" : percent >= WARN_PERCENT ? "WARN" : "OK";
+        String status = spent > limit ? "OVER" : spent * 100 >= limit * WARN_PERCENT ? "WARN" : "OK";
         Long projected = null;
         String text = null;
         int day = today.getDayOfMonth();
