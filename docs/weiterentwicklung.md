@@ -2,7 +2,7 @@
 
 [← Übersicht](../README.md) · [Scrum](scrum/README.md)
 
-Am 15.10.2026 hat das Team 22 Vorschläge zur Weiterentwicklung aufgenommen. Arbeitsregel: **erst den vorhandenen Code
+Am 15.10.2026 hat das Team 22 Vorschläge zur Weiterentwicklung aufgenommen – **Stand am Abend: alle 22 umgesetzt** (Details in den Spalten, Grenzen in [Grenzen und Simulationen](technik/grenzen-und-simulationen.md)). Arbeitsregel: **erst den vorhandenen Code
 prüfen**, dann gezielt ergänzen – funktionierende Teile werden nicht neu geschrieben. Die Tabelle zeigt für jeden
 Vorschlag, was es schon gibt und was als Aufgabe (Issue) in Sprint 6 bzw. 7 der Projektwoche eingeplant ist.
 
@@ -32,7 +32,7 @@ Legende: ✅ vorhanden · 🟡 teilweise vorhanden · 🆕 neu geplant
 | 17 | Backend und Datenmodell | Beträge als ganze Cent (`long`), Zinsen `NUMERIC`, Flyway, einheitliche Fehler, Validierung, Swagger | ✅ | [#62](https://github.com/p2keshtidar/girokonto/issues/62) Prüfung des Datenmodells und der API-Validierung |
 | 18 | Architektur für echte Anbieter | Schnittstellen für Banken (Open Banking) und Kreditangebote, Sandbox getrennt | ✅ | [#69](https://github.com/p2keshtidar/girokonto/issues/69) Marktplatz nach demselben Muster; [#63](https://github.com/p2keshtidar/girokonto/issues/63) Übersicht aller Simulationen |
 | 19 | Sicherheit | Hash, JWT, Rate-Limit, Sicherheitsmatrix (IDOR), Secrets-Prüfung, gitleaks/Trivy/CodeQL | ✅ | [#62](https://github.com/p2keshtidar/girokonto/issues/62) ✅ Prüfprotokoll erweitert, API-Version v1, Lasttest T137, IDOR-Tests S11/S12 |
-| 20 | Tests und Qualität | 232 Backend- und 293 App-Tests, Ende-zu-Ende auf 12 Systemen, CI | ✅ | je Aufgabe neue Tests ([#70](https://github.com/p2keshtidar/girokonto/issues/70)) |
+| 20 | Tests und Qualität | 232 Backend- und 293 App-Tests, Ende-zu-Ende auf 12 Systemen, CI | ✅ | ✅ je Aufgabe neue Tests ([#70](https://github.com/p2keshtidar/girokonto/issues/70)): jetzt 313 Backend- und 430 App-Tests |
 | 21 | Performance und Wartbarkeit | Seiten in Umsatzlisten, Indizes | ✅ | 🆕 [#75](https://github.com/p2keshtidar/girokonto/issues/75) langsame Endpunkte messen, Indizes, strukturierte Logs |
 | 22 | Dokumentation | Anleitungen, Architektur, Testbericht, Open Banking, Swagger | ✅ | 🆕 [#63](https://github.com/p2keshtidar/girokonto/issues/63) Ubuntu/Docker, Umgebungsvariablen, Datenbankschema, Einschränkungen, simulierte Funktionen |
 
