@@ -24,6 +24,11 @@ def junit(folder):
 
 def flutter(log):
     text = open(log, encoding='utf-8', errors='replace').read().replace('\r', '\n')
+    # Reporter "github" (Standard in GitHub Actions): "N tests passed, M failed." bzw. "🎉 N tests passed."
+    gh = list(re.finditer(r'(\d+) tests? passed(?:, (\d+) failed)?(?:, (\d+) skipped)?', text))
+    if gh:
+        m = gh[-1]
+        return int(m.group(1)), int(m.group(2) or 0), int(m.group(3) or 0)
     last = None
     for m in re.finditer(r'\+(\d+)(?: ~(\d+))?(?: -(\d+))?: ', text):
         last = m

@@ -30,7 +30,7 @@ class _ConnectBankScreenState extends ConsumerState<ConnectBankScreen> {
     } catch (e) {
       if (mounted) {
         setState(() => _busyId = null);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+        showBankMessage(ScaffoldMessenger.of(context), apiErrorMessage(e));
       }
       return;
     }

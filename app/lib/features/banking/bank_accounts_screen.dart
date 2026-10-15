@@ -207,9 +207,9 @@ class _ConnectionCardState extends ConsumerState<_ConnectionCard> {
     try {
       final r = await ref.read(bankRepositoryProvider).sync(widget.connection.id);
       refreshBanking(ref);
-      messenger.showSnackBar(SnackBar(content: Text(r.message)));
+      showBankMessage(messenger, r.message);
     } catch (e) {
-      messenger.showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+      showBankMessage(messenger, apiErrorMessage(e));
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -221,7 +221,7 @@ class _ConnectionCardState extends ConsumerState<_ConnectionCard> {
       final start = await ref.read(bankRepositoryProvider).renew(widget.connection.id);
       if (mounted) await runConsentFlow(context, ref, start);
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+      if (mounted) showBankMessage(ScaffoldMessenger.of(context), apiErrorMessage(e));
     } finally {
       refreshBanking(ref);
       if (mounted) setState(() => _busy = false);
@@ -324,12 +324,11 @@ class _ConnectionCardState extends ConsumerState<_ConnectionCard> {
                               final (_, msg) =
                                   await ref.read(bankRepositoryProvider).complete(c.id, approve: approve);
                               if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+                                showBankMessage(ScaffoldMessenger.of(context), msg);
                               }
                             } catch (e) {
                               if (context.mounted) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+                                showBankMessage(ScaffoldMessenger.of(context), apiErrorMessage(e));
                               }
                             }
                           }

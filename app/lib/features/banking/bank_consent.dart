@@ -7,6 +7,13 @@ import '../../l10n/l10n.dart';
 import 'bank_models.dart';
 import 'bank_repository.dart';
 
+/// Meldung anzeigen; eine ältere Meldung wird ersetzt statt hinten angestellt.
+void showBankMessage(ScaffoldMessengerState messenger, String text) {
+  messenger
+    ..removeCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text(text)));
+}
+
 /// Ablauf nach dem Anlegen einer Freigabe: bei der Sandbox ein deutlich gekennzeichneter Test-Dialog,
 /// bei echten Banken die Seite der Bank im Browser und danach "Freigabe abschließen".
 /// Rückgabe: true, wenn die Bank jetzt verbunden ist.
@@ -23,10 +30,10 @@ Future<bool> runConsentFlow(BuildContext context, WidgetRef ref, ConnectStart st
     try {
       final (conn, message) = await repo.complete(start.connection.id, approve: approve);
       refreshBanking(ref);
-      messenger.showSnackBar(SnackBar(content: Text(message)));
+      showBankMessage(messenger, message);
       return conn.isActive;
     } catch (e) {
-      messenger.showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+      showBankMessage(messenger, apiErrorMessage(e));
       return false;
     }
   }
@@ -75,10 +82,10 @@ Future<bool> completeRealConsent(BuildContext context, WidgetRef ref, int connec
     try {
       final (conn, message) = await repo.complete(connectionId);
       refreshBanking(ref);
-      messenger.showSnackBar(SnackBar(content: Text(message)));
+      showBankMessage(messenger, message);
       return conn.isActive;
     } catch (e) {
-      messenger.showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+      showBankMessage(messenger, apiErrorMessage(e));
       if (apiErrorCode(e) != 'CONSENT_PENDING') return false;
     }
   }
@@ -158,9 +165,9 @@ Future<void> revokeConnection(BuildContext context, WidgetRef ref, BankConnectio
   try {
     final message = await ref.read(bankRepositoryProvider).revoke(c.id, deleteData: deleteData);
     refreshBanking(ref);
-    messenger.showSnackBar(SnackBar(content: Text(message)));
+    showBankMessage(messenger, message);
   } catch (e) {
-    messenger.showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+    showBankMessage(messenger, apiErrorMessage(e));
   }
 }
 
