@@ -28,5 +28,7 @@ public enum BookingType {
     /** Selbst eingetragene Ausgabe, z. B. Miete oder Urlaub (Einnahmen & Ausgaben) */
     ENTRY_EXPENSE,
     /** Zinsgutschrift auf dem Tagesgeldkonto (Simulation, fiktiver Zinssatz) */
-    INTEREST
+    INTEREST,
+    /** Monatliche Abrechnung der virtuellen Kreditkarte (Simulation) */
+    CARD_STATEMENT
 }

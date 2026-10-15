@@ -108,6 +108,20 @@ brauchen einen Vertrag mit einem zugelassenen Anbieter ([Details](../technik/ope
 4. Karte **sperren** → nochmal bezahlen → wird **abgelehnt** (mit Benachrichtigung).
 5. Tageslimit auf 50 € stellen → Zahlung über 50 € → abgelehnt.
 
+### 5a. Kreditkarte (Simulation)
+
+Unten auf **„Karte“** ganz nach unten scrollen: **„Kreditkarte einrichten (Simulation)“** → Verfügungsrahmen 100 € bis 5.000 €.
+
+| Aktion | Ergebnis |
+|---|---|
+| **Demo-Zahlung** (optional „In Fremdwährung“) | Betrag erscheint unter „Seit der letzten Abrechnung“; bei Fremdwährung + 1,75 % Auslandseinsatz |
+| Zahlung über dem freien Rahmen | abgelehnt |
+| **Kreditkarte sperren** | Zahlungen werden abgelehnt, bis du entsperrst |
+| **Limit ändern** | nicht unter den offenen Betrag |
+| Zeit bis zum Monatsersten vorspulen | Abrechnung wird vom Girokonto eingezogen; reicht das Guthaben nicht, bleibt sie **offen** und wird täglich erneut versucht (kein Dispo) |
+
+Es ist eine **virtuelle Spielgeld-Karte**: keine echte Karte, keine Kreditprüfung, keine Bestellung.
+
 ## 6. Digitale Konten („Töpfe“)
 
 Die Startseite hat zwei getrennte Bereiche: **Bankkonten** (dein Girokonto der Projektbank – eine Simulation – und
@@ -178,6 +192,11 @@ Auf der Startseite die Karte **„Gesamtvermögen“** antippen.
 | Konten und Karten | alle Konten; Kontostände verbundener Banken, die älter als 2 Tage sind, sind als **veraltet** markiert |
 
 Alle Zahlen kommen aus den vorhandenen Daten – geschätzt wird nichts. Girokonto, Pläne, Depot und Kredite sind eine Simulation mit Spielgeld.
+
+**Finanz-Check:** Auf dem Dashboard zeigt der Finanz-Check 0–100 Punkte aus vier Teilen (je 0–25): Sparquote,
+Notgroschen (zurückgelegtes Geld in Monatsausgaben), Kreditraten im Verhältnis zu den Einnahmen und eingehaltene Budgets.
+Ohne Umsätze erscheint „ohne Daten“. Das ist eine **interne Orientierung aus deinen App-Daten** – keine SCHUFA-Auskunft,
+keine Bonitätsbewertung, keine Finanzberatung.
 
 ## 8. Zeit vorspulen (Demo-Modus)
 

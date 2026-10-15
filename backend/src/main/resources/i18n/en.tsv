@@ -695,3 +695,46 @@ Beratung in der Filiale	Advice in the branch
 Große Auswahl	Large selection
 3 € Depotgebühr pro Monat	€3 depot fee per month
 9,90 € je Kauf	€9.90 per purchase
+Simulation: virtuelle Kreditkarte mit Spielgeld – keine echte Karte, keine Kreditprüfung, keine Bestellung.	Simulation: virtual credit card with play money – no real card, no credit check, no order.
+Du hast noch keine Kreditkarte (Simulation).	You do not have a credit card yet (simulation).
+Das Limit muss zwischen {0} und {1} liegen.	The limit must be between {0} and {1}.
+Du hast schon eine Kreditkarte (Simulation).	You already have a credit card (simulation).
+Kreditkarte (Simulation)	Credit card (simulation)
+-{0} bei {1} + {2} Auslandseinsatz	-{0} at {1} + {2} foreign transaction fee
+Zahlung erfolgreich (Simulation)	Payment successful (simulation)
+Kreditkarte abgelehnt (Simulation)	Credit card declined (simulation)
+Verfügungsrahmen reicht nicht (frei: {0})	Credit limit not sufficient (available: {0})
+Die offene Abrechnung konnte nicht eingezogen werden – bitte Girokonto aufladen.	The open statement could not be collected – please top up the current account.
+Kreditkartenabrechnung offen	Credit card statement open
+Abrechnung {0} über {1} konnte nicht eingezogen werden – nicht genug Guthaben auf dem Girokonto.	Statement {0} of {1} could not be collected – not enough balance on the current account.
+Kreditkartenabrechnung {0} (Simulation)	Credit card statement {0} (simulation)
+Kreditkartenabrechnung	Credit card statement
+Abrechnung {0}: {1} vom Girokonto eingezogen (Simulation).	Statement {0}: {1} collected from the current account (simulation).
+Der Händlername darf höchstens 100 Zeichen haben.	The merchant name may have at most 100 characters.
+Höchstens 5.000 € pro Zahlung.	At most €5,000 per payment.
+Interner Finanz-Check der App aus deinen eigenen Daten – keine SCHUFA-Auskunft, keine Bonitätsbewertung, keine Finanzberatung.	Internal finance check of the app based on your own data – no credit bureau report, no credit rating, no financial advice.
+Sparquote	Savings rate
+Noch keine vollständigen Monate mit Einnahmen – trag Einnahmen und Ausgaben ein.	No complete months with income yet – enter income and expenses.
+Trag dein Gehalt und feste Ausgaben unter „Einnahmen & Ausgaben“ ein.	Enter your salary and fixed expenses under “Income & expenses”.
+Von deinen Einnahmen bleiben im Schnitt {0} % übrig (Ziel: 20 %).	On average {0} % of your income is left (goal: 20 %).
+Prüfe die größten Ausgaben im Finanzüberblick und lege Budgets fest.	Check the largest expenses in the finance overview and set budgets.
+Notgroschen	Emergency fund
+Ohne Ausgaben aus Vormonaten lässt sich der Notgroschen nicht einschätzen.	Without expenses from previous months the emergency fund cannot be assessed.
+Dein verfügbares Geld reicht für etwa {0} Ausgaben (Ziel: 3 bis 6 Monate).	Your available money covers about {0} of expenses (goal: 3 to 6 months).
+Baue einen Notgroschen von drei Monatsausgaben auf, z. B. mit einem digitalen Konto und einer Sparregel.	Build an emergency fund of three months of expenses, e.g. with a digital account and a savings rule.
+Verschuldung	Debt
+Keine laufenden Kredite.	No running loans.
+Kreditraten ohne bekannte Einnahmen.	Loan instalments without known income.
+Trag deine Einnahmen ein, damit die Kreditraten eingeordnet werden können.	Enter your income so that the loan instalments can be assessed.
+Kreditraten sind {0} % deiner Einnahmen (unter 20 % gilt als gut tragbar).	Loan instalments are {0} % of your income (below 20 % is considered affordable).
+Prüfe eine Sondertilgung oder eine längere Laufzeit, um die Raten zu senken.	Consider an extra repayment or a longer term to lower the instalments.
+Budgets	Budgets
+Noch keine Budgets festgelegt.	No budgets set yet.
+Lege Budgets für Kategorien wie Lebensmittel oder Freizeit fest.	Set budgets for categories like groceries or leisure.
+Alle Budgets eingehalten.	All budgets kept.
+{0} Budget(s) in diesem Monat überschritten.	{0} budget(s) exceeded this month.
+Gut aufgestellt	Well positioned
+Ausbaufähig	Room for improvement
+Achtung	Attention
+Noch zu wenige Daten	Not enough data yet
+{0} pro Monat	{0} per month

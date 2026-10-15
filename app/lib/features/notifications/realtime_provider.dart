@@ -9,7 +9,9 @@ import '../accounts/accounts_repository.dart';
 import '../accounts/bookings_repository.dart';
 import '../allocations/allocations_repository.dart';
 import '../card/card_repository.dart';
+import '../creditcard/credit_card_section.dart';
 import '../dashboard/dashboard_repository.dart';
+import '../health/health_score_card.dart';
 import '../insights/insights_repository.dart';
 import '../loans/loans_repository.dart';
 import '../planning/planning_repository.dart';
@@ -38,6 +40,8 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
       ref.invalidate(netWorthProvider);
       ref.invalidate(dashboardProvider);
       ref.invalidate(budgetsProvider);
+      ref.invalidate(creditCardProvider);
+      ref.invalidate(healthScoreProvider);
       ref.invalidate(forecastProvider);
       ref.invalidate(monthsProvider);
 

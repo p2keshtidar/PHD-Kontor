@@ -2,6 +2,7 @@ import 'dart:async';
 import '../../l10n/l10n.dart';
 
 import 'package:flutter/material.dart';
+import '../creditcard/credit_card_section.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -223,6 +224,8 @@ class _CardScreenState extends ConsumerState<CardScreen> {
               onTap: _busy ? null : _simulatePayment,
             ),
           ),
+          const SizedBox(height: 16),
+          const CreditCardSection(),
         ],
       ),
     );

@@ -252,6 +252,36 @@ class FakeBackend implements HttpClientAdapter {
         'createdAt': '2026-10-13T09:00:00Z', 'decidedAt': null, 'simulation': true,
       };
 
+  static Map<String, dynamic> creditCard({bool exists = true, String status = 'ACTIVE'}) => {
+        'exists': exists, 'id': exists ? 9 : null, 'maskedNumber': exists ? '•••• 0470' : null,
+        'status': exists ? status : null, 'limitCents': exists ? 100000 : 0, 'openCents': exists ? 40700 : 0,
+        'availableCents': exists ? 59300 : 0, 'foreignFeePercent': 1.75,
+        'transactions': exists
+            ? [{'id': 1, 'bookedAt': '2026-10-12T10:00:00Z', 'merchant': 'Hotel Roma', 'amountCents': 40000,
+                'feeCents': 700, 'foreign': true}]
+            : [],
+        'statements': exists
+            ? [{'id': 3, 'period': '2026-09', 'totalCents': 8500, 'feeCents': 0, 'status': 'PAID',
+                'paidAt': '2026-10-01T06:00:00Z'}]
+            : [],
+        'note': 'Simulation: virtuelle Kreditkarte mit Spielgeld – keine echte Karte, keine Kreditprüfung, keine Bestellung.',
+        'simulation': true,
+      };
+
+  static Map<String, dynamic> healthScore() => {
+        'score': 62, 'level': 'MITTEL', 'levelLabel': 'Ausbaufähig',
+        'components': [
+          {'key': 'SAVINGS_RATE', 'label': 'Sparquote', 'points': 18, 'max': 25, 'value': '14 %',
+           'text': 'Von deinen Einnahmen bleiben im Schnitt 14 % übrig (Ziel: 20 %).'},
+          {'key': 'EMERGENCY_FUND', 'label': 'Notgroschen', 'points': 15, 'max': 25, 'value': '1,8 Monate',
+           'text': 'Dein verfügbares Geld reicht für etwa 1,8 Monate Ausgaben (Ziel: 3 bis 6 Monate).'},
+          {'key': 'DEBT_RATIO', 'label': 'Verschuldung', 'points': 18, 'max': 25, 'value': '8 %', 'text': 'Kreditraten sind 8 % deiner Einnahmen.'},
+          {'key': 'BUDGETS', 'label': 'Budgets', 'points': 11, 'max': 25, 'value': '1/2', 'text': '1 Budget(s) in diesem Monat überschritten.'},
+        ],
+        'tips': ['Baue einen Notgroschen von drei Monatsausgaben auf, z. B. mit einem digitalen Konto und einer Sparregel.'],
+        'disclaimer': 'Interner Finanz-Check der App aus deinen eigenen Daten – keine SCHUFA-Auskunft, keine Bonitätsbewertung, keine Finanzberatung.',
+      };
+
   /// Angaben eines digitalen Kontos wie vom Server
   static Map<String, dynamic> digital(String purpose,
           {int? target, double? progress, int? remaining, int? monthly, String role = 'OWNER'}) =>
@@ -737,6 +767,8 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/transactions': (_) => transactionsPage(),
         'GET /api/transactions/duplicates': (_) => duplicates(),
         'GET /api/budgets': (_) => budgets(),
+        'GET /api/credit-card': (_) => creditCard(),
+        'GET /api/health-score': (_) => healthScore(),
         'GET /api/market/products': (_) => marketCatalog(),
         'GET /api/market/applications': (_) => [marketApplication()],
         'PUT /api/market/favorites/*': (_) => const FakeResponse(204),

@@ -10,6 +10,7 @@ import '../../core/dates.dart';
 import '../../core/layout.dart';
 import '../../core/money.dart';
 import '../../l10n/l10n.dart';
+import '../health/health_score_card.dart';
 import 'dashboard_models.dart';
 import 'dashboard_repository.dart';
 
@@ -82,6 +83,7 @@ class DashboardScreen extends ConsumerWidget {
                 subtitle: d.topExpensesMonth == null ? null : _monthLabel(d.topExpensesMonth!),
                 child: _TopExpenses(items: d.topExpenses),
               ),
+              const Padding(padding: EdgeInsets.only(top: 20), child: HealthScoreCard()),
               _Section(
                 key: const Key('dash_debts'),
                 title: tr('Schulden'),
