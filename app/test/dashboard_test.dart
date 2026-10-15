@@ -25,7 +25,7 @@ void main() {
     const card = Key('dash_networth');
     expect(_in(card, find.text('5.327,05 €')), findsOneWidget);
     expect(_in(card, find.text('Stand 13.10.2026')), findsOneWidget);
-    expect(_in(card, find.text('Girokonto (Projektbank)')), findsOneWidget);
+    expect(_in(card, find.text('Bankkonten (Projektbank)')), findsOneWidget);
     expect(_in(card, find.text('6.479,50 €')), findsOneWidget);
     expect(_in(card, find.text('Digitale Konten')), findsOneWidget);
     expect(_in(card, find.text('Depot')), findsOneWidget);

@@ -55,6 +55,19 @@ Die Beträge erscheinen in Kontostand, Umsätzen und im **Finanzüberblick**. Un
 
 Startseite → **„Alle anzeigen“** → suchen (Name, Zweck), filtern (Symbol oben rechts), Umsatz antippen → Details und **Kategorie ändern**.
 
+## 4a+. Weitere Konten, Umbuchen, alle Umsätze
+
+| Schritt | Was tun | Was passiert |
+|---|---|---|
+| 1 | Startseite → unter den Bankkonten **„Konto eröffnen“** → **Tagesgeld** | neues Konto mit IBAN; Zinssatz der Simulation (fiktiv, Standard 2 % p. a.) |
+| 2 | **„Umbuchen“** → von „Girokonto“ nach „Tagesgeld“, z. B. 500 € | sofort gebucht; Umbuchungen gehen zwischen Girokonten, Tagesgeld und digitalen Konten |
+| 3 | Admin spult die Zeit bis zum Monatsersten vor | **Zinsen** für den Vormonat werden gutgeschrieben (tagesgenau auf den Stand am Ende jedes Tages) |
+| 4 | **„Konto eröffnen“** → **Weiteres Girokonto** | eigene IBAN: andere Nutzer können per IBAN dorthin überweisen. Überweisungen an andere gehen nur vom Girokonto |
+| 5 | Konto öffnen → Menü oben rechts → **Umbenennen** / **Auflösen** | beim Auflösen: Zinsen bis gestern, Restguthaben aufs Girokonto |
+| 6 | **„Alle Umsätze“** | Projektbank und verbundene Banken zusammen, neueste zuerst; Filter nach Quelle, Suche, Umbuchungen ein-/ausblenden; Summe der Einnahmen und Ausgaben |
+
+Höchstens 3 weitere Konten. Alle Konten der Projektbank sind eine **Simulation mit Spielgeld** – keine echten Bankkonten, keine Einlagensicherung.
+
 ## 4b. Echte Bankkonten verbinden (Sandbox)
 
 Konten anderer Banken in Girokonto sehen – **nur lesen**, Girokonto kann dort kein Geld bewegen. Im Projekt gibt es

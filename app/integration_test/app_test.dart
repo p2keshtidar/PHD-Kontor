@@ -334,6 +334,21 @@ void main() {
     await snap(tester, 'dashboard');
     await goBack(tester);
     await pumpUntil(tester, find.text('Bankkonten'));
+
+    // Multi-Banking: Tagesgeld der Projektbank eröffnen (Simulation, fiktiver Zinssatz), alle Umsätze an einem Ort
+    await scrollToTop(tester);
+    await tapButton(tester, find.byKey(const Key('home_open_account')));
+    await pumpUntil(tester, find.byKey(const Key('open_type_CALL')));
+    await pumpFor(tester, 800);
+    await tester.tap(find.byKey(const Key('open_submit')));
+    await pumpUntil(tester, find.textContaining('eröffnet (Simulation)'));
+    await pumpFor(tester, 800);
+    await scrollTo(tester, find.textContaining('Tagesgeld · 2,00 % p. a.'));
+    await tapButton(tester, find.byKey(const Key('home_all_transactions')));
+    await pumpUntil(tester, find.byKey(const Key('tx_sums')));
+    await pumpUntil(tester, find.textContaining('Sandbox-Hausbank'), timeout: const Duration(seconds: 30));
+    await goBack(tester);
+    await pumpUntil(tester, find.text('Bankkonten'));
   });
 
   testWidgets('Zwei Nutzer: Überweisung, Live-Meldung, Dauerauftrag, geteiltes Unterkonto', (tester) async {

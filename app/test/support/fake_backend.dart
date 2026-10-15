@@ -95,6 +95,62 @@ class FakeBackend implements HttpClientAdapter {
          'digital': digital('WG', role: 'VIEW')},
       ];
 
+  /// Konten mit weiterem Girokonto (21) und Tagesgeld (20), beides Simulation
+  static List<Map<String, dynamic>> accountsWithExtra() => [
+        ...accounts(),
+        {'id': 20, 'type': 'CALL', 'name': 'Tagesgeld', 'icon': null, 'iban': 'DE89000100010000000020',
+         'balanceCents': 250000, 'shared': false, 'ownerName': null, 'memberCount': 0,
+         'product': {'product': 'CALL', 'productLabel': 'Tagesgeld', 'interestPercent': 2.0, 'receivesTransfers': false,
+           'sendsTransfers': false, 'closable': true,
+           'note': 'Fiktiver Zinssatz der Simulation, Zinsen am Monatsende. Ein- und Auszahlungen nur über deine eigenen Konten.'}},
+        {'id': 21, 'type': 'CURRENT', 'name': 'Haushalt', 'icon': null, 'iban': 'DE89000100010000000021',
+         'balanceCents': 12345, 'shared': false, 'ownerName': null, 'memberCount': 0,
+         'product': {'product': 'CURRENT', 'productLabel': 'Weiteres Girokonto', 'interestPercent': null,
+           'receivesTransfers': true, 'sendsTransfers': false, 'closable': true,
+           'note': 'Eigene IBAN für Eingänge. Überweisungen an andere nur vom Girokonto.'}},
+      ];
+
+  static Map<String, dynamic> bankProducts({bool canOpen = true}) => {
+        'products': [
+          {'type': 'CURRENT', 'label': 'Weiteres Girokonto', 'interestPercent': null, 'simulation': true,
+           'description': 'Eigene IBAN für Eingänge, z. B. als Haushaltskonto. Geld bewegst du per Umbuchung zwischen '
+               'deinen Konten; Überweisungen an andere gehen nur vom Girokonto.'},
+          {'type': 'CALL', 'label': 'Tagesgeld', 'interestPercent': 2.0, 'simulation': true,
+           'description': 'Zinsen jeden Monat, täglich verfügbar. Ein- und Auszahlungen nur über deine eigenen Konten.'},
+        ],
+        'openCount': canOpen ? 1 : 3, 'maxCount': 3, 'canOpen': canOpen,
+        'disclaimer': 'Konten der Projektbank sind eine Simulation mit Spielgeld – keine echten Bankkonten, '
+            'keine Einlagensicherung. Der Zinssatz des Tagesgelds ist fiktiv.',
+      };
+
+  /// Alle Umsätze: Projektbank (Umbuchung, Zinsen) und verbundene Bank (gebucht, vorgemerkt)
+  static Map<String, dynamic> transactionsPage({bool hasMore = false, bool empty = false}) => {
+        'items': [
+          if (!empty) ...[
+          {'source': 'EXTERNAL', 'id': 701, 'accountId': 601, 'accountName': 'Girokonto', 'institution': 'Sandbox Hauptbank',
+           'date': '2026-10-13', 'bookedAt': null, 'amountCents': -4599, 'currency': 'EUR', 'counterpartyName': 'Supermarkt Nord',
+           'description': 'Einkauf', 'category': 'LEBENSMITTEL', 'categoryLabel': 'Lebensmittel', 'status': 'PENDING',
+           'internal': false, 'excluded': false},
+          {'source': 'PROJEKTBANK', 'id': 300, 'accountId': 20, 'accountName': 'Tagesgeld', 'institution': 'Projektbank',
+           'date': '2026-10-12', 'bookedAt': '2026-10-12T09:00:00Z', 'amountCents': 50000, 'currency': 'EUR',
+           'counterpartyName': 'Girokonto', 'description': 'Umbuchung Girokonto → Tagesgeld', 'category': 'UMBUCHUNG',
+           'categoryLabel': 'Umbuchung', 'status': 'BOOKED', 'internal': true, 'excluded': false},
+          {'source': 'PROJEKTBANK', 'id': 300, 'accountId': 10, 'accountName': 'Girokonto', 'institution': 'Projektbank',
+           'date': '2026-10-12', 'bookedAt': '2026-10-12T09:00:00Z', 'amountCents': -50000, 'currency': 'EUR',
+           'counterpartyName': 'Tagesgeld', 'description': 'Umbuchung Girokonto → Tagesgeld', 'category': 'UMBUCHUNG',
+           'categoryLabel': 'Umbuchung', 'status': 'BOOKED', 'internal': true, 'excluded': false},
+          {'source': 'PROJEKTBANK', 'id': 299, 'accountId': 20, 'accountName': 'Tagesgeld', 'institution': 'Projektbank',
+           'date': '2026-10-01', 'bookedAt': '2026-10-01T06:00:00Z', 'amountCents': 47, 'currency': 'EUR',
+           'counterpartyName': 'Projektbank', 'description': 'Zinsen Tagesgeld 09/2026 (Simulation)',
+           'category': 'SONSTIGE_EINNAHMEN', 'categoryLabel': 'Sonstige Einnahmen', 'status': 'BOOKED', 'internal': false,
+           'excluded': false},
+          ],
+        ],
+        'page': 0, 'size': 30, 'hasMore': hasMore, 'incomeCents': 47, 'expenseCents': 0,
+        'notes': ['Konten der Projektbank sind eine Simulation mit Spielgeld.',
+          'Summen ohne Umbuchungen zwischen eigenen Konten, Sparraten, Kreditauszahlungen und vorgemerkte Umsätze.'],
+      };
+
   /// Angaben eines digitalen Kontos wie vom Server
   static Map<String, dynamic> digital(String purpose,
           {int? target, double? progress, int? remaining, int? monthly, String role = 'OWNER'}) =>
@@ -575,6 +631,9 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/me': (_) => user(),
         'GET /api/accounts': (_) => accounts(),
         'GET /api/accounts/*/bookings': (_) => bookingPage(),
+        'GET /api/accounts/products': (_) => bankProducts(),
+        'POST /api/accounts/move': (_) => const FakeResponse(204),
+        'GET /api/transactions': (_) => transactionsPage(),
         'GET /api/contacts': (_) => [
               {'id': 1, 'userId': 2, 'displayName': 'Ben', 'fullName': 'Ben Beispiel', 'iban': 'DE12000100010000000042'},
             ],

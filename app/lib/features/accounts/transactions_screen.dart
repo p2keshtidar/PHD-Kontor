@@ -8,6 +8,8 @@ import 'package:go_router/go_router.dart';
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
 import '../../core/money.dart';
+import '../multibank/multibank_dialogs.dart';
+import 'accounts_repository.dart';
 import 'booking_filter.dart';
 import 'booking_item.dart';
 import 'booking_tile.dart';
@@ -123,10 +125,23 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
   @override
   Widget build(BuildContext context) {
     final activeFilters = _filter.activeCount;
+    final extra = ref
+        .watch(accountsProvider)
+        .valueOrNull
+        ?.where((a) => a.id == widget.accountId && (a.isCurrent || a.isCall))
+        .toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(tr('Umsätze')),
         actions: [
+          // weiteres Girokonto / Tagesgeld: umbuchen, umbenennen, auflösen
+          if (extra != null && extra.isNotEmpty)
+            ExtraAccountMenu(
+              account: extra.first,
+              onClosed: () {
+                if (mounted && context.canPop()) context.pop();
+              },
+            ),
           IconButton(
             tooltip: tr('Filter'),
             onPressed: _openFilter,

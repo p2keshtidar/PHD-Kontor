@@ -77,6 +77,8 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | Bereich | Funktionen |
 |---|---|
 | 🏦 **Girokonto** | Registrierung mit fiktiver IBAN und 1.000 € Startguthaben · Umsätze mit Suche und Filter · Kategorien · **eigene Einnahmen & Ausgaben eintragen** (Gehalt, Miete, Urlaub – einmalig oder regelmäßig) |
+| 🧾 **Finanz-Dashboard** | Gesamtvermögen nach Bestandteilen · verfügbar und zurückgelegt getrennt · **Vermögensverlauf** (12 Monate) · Cashflow · größte Ausgaben · Schulden mit Raten-Quote · Sparziele · Konten und Karten mit veraltet-Hinweis |
+| 🏛️ **Weitere Konten** | **weiteres Girokonto** mit eigener IBAN und **Tagesgeld** mit fiktivem Zinssatz (Simulation, Zinsen tagesgenau, Gutschrift monatlich) · **Umbuchen** zwischen eigenen Konten · **alle Umsätze** (Projektbank + verbundene Banken) an einem Ort |
 | 💸 **Überweisen** | per IBAN, E-Mail oder Telefonnummer · Adressbuch · Abgleich mit Handy-Kontakten · Tageslimit · **Daueraufträge** (monatlich bis jährlich) |
 | 💳 **Karte** | virtuelle Debitkarte · Daten nur mit Passwort · sperren/entsperren · Limit · Demo-Kartenzahlung |
 | 🗂️ **Digitale Konten** | Töpfe für Urlaub, Auto, Immobilie, WG … mit **Zielbetrag, Fortschritt, Restbetrag und nötiger Monatsrate** · klar getrennt von Bankkonten (kein eigenes Bankkonto, keine eigene Einlagensicherung) · **teilen mit Rechten** (einzahlen + auszahlen / nur einzahlen / nur ansehen) · **Sparregeln** (wöchentlich bis vierteljährlich, vom Girokonto oder als Vormerkung bei einer verbundenen Bank) mit Status, Wiederholung und Prognose |

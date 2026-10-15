@@ -13,6 +13,7 @@ import 'account.dart';
 import 'accounts_repository.dart';
 import '../insights/insights_models.dart';
 import '../insights/insights_repository.dart';
+import '../multibank/multibank_dialogs.dart';
 import '../subaccounts/subaccount_dialogs.dart';
 import '../subaccounts/subaccount_icons.dart';
 import '../subaccounts/subaccount_screen.dart' show digitalAccountsExplanation;
@@ -61,7 +62,7 @@ class AccountHomeScreen extends ConsumerWidget {
           final total = list.fold<int>(0, (sum, a) => sum + a.balanceCents);
           final netWorth = ref.watch(netWorthProvider).valueOrNull;
           // Sparplan- und Kreditkonten erscheinen im Bereich "Sparen"
-          final visible = list.where((a) => a.isMain || a.isSub).toList();
+          final visible = list.where((a) => a.isBankAccount || a.isSub).toList();
           final mains = list.where((a) => a.isMain);
           final main = mains.isEmpty ? null : mains.first;
           return ListView(
@@ -107,8 +108,9 @@ class AccountHomeScreen extends ConsumerWidget {
               const SizedBox(height: 4),
               // Bereich A: Bankkonten – Girokonto der Projektbank (Simulation) und verbundene echte Banken
               BankAccountsSection(leading: [
-                for (final a in visible.where((a) => a.isMain))
+                for (final a in visible.where((a) => a.isBankAccount))
                   _AccountTile(account: a, onTap: () => context.push('/umsaetze/${a.id}')),
+                const _ProjektbankActions(),
               ]),
               // Bereich B: Digitale Konten – Töpfe im Projektbank-Konto, keine eigenen Bankkonten
               const _DigitalHeader(),
@@ -261,10 +263,21 @@ class _AccountTile extends StatelessWidget {
     final iban = account.iban;
     return Card(
       child: ListTile(
-        leading: Icon(account.isMain ? Icons.account_balance : subaccountIcon(account.icon)),
+        key: Key('home_account_${account.id}'),
+        leading: Icon(account.isMain
+            ? Icons.account_balance
+            : account.isCall
+                ? Icons.percent
+                : account.isCurrent
+                    ? Icons.account_balance_wallet_outlined
+                    : subaccountIcon(account.icon)),
         title: Text(account.name),
-        subtitle: iban != null
-            ? Text(tr('Projektbank (Simulation) · {0}', [formatIban(iban)]))
+        subtitle: account.isCall
+            ? Text(productLine(account))
+            : iban != null
+            ? Text(account.isCurrent
+                ? tr('Weiteres Girokonto (Simulation) · {0}', [formatIban(iban)])
+                : tr('Projektbank (Simulation) · {0}', [formatIban(iban)]))
             : account.shared
                 ? Row(children: [
                     const Icon(Icons.group, size: 14),
@@ -294,6 +307,45 @@ class _AccountTile extends StatelessWidget {
               },
       ),
     );
+  }
+}
+
+/// Konto eröffnen (weiteres Girokonto, Tagesgeld), Umbuchen zwischen eigenen Konten, alle Umsätze.
+class _ProjektbankActions extends StatelessWidget {
+  const _ProjektbankActions();
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(alignment: WrapAlignment.end, spacing: 4, children: [
+      TextButton.icon(
+        key: const Key('home_open_account'),
+        onPressed: () async {
+          final account = await showOpenAccountDialog(context);
+          if (account != null && context.mounted) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(tr('„{0}“ eröffnet (Simulation)', [account.name]))));
+          }
+        },
+        icon: const Icon(Icons.add),
+        label: Text(tr('Konto eröffnen')),
+      ),
+      TextButton.icon(
+        key: const Key('home_move'),
+        onPressed: () async {
+          if (await showMoveMoneyDialog(context) && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(tr('Umgebucht'))));
+          }
+        },
+        icon: const Icon(Icons.swap_horiz),
+        label: Text(tr('Umbuchen')),
+      ),
+      TextButton.icon(
+        key: const Key('home_all_transactions'),
+        onPressed: () => context.push('/alle-umsaetze'),
+        icon: const Icon(Icons.list_alt),
+        label: Text(tr('Alle Umsätze')),
+      ),
+    ]);
   }
 }
 

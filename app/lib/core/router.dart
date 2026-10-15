@@ -17,6 +17,7 @@ import '../features/banking/connect_bank_screen.dart';
 import '../features/card/card_screen.dart';
 import '../features/contacts/address_book_screen.dart';
 import '../features/dashboard/dashboard_screen.dart';
+import '../features/multibank/all_transactions_screen.dart';
 import '../features/insights/insights_screen.dart';
 import '../features/loans/loan_application_screen.dart';
 import '../features/loans/loan_detail_screen.dart';
@@ -119,6 +120,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       // Phase 4: Finanzüberblick, Pläne, Kredite
       GoRoute(path: '/finanzen', builder: (_, __) => const InsightsScreen()),
+      // Alle Umsätze (Projektbank und verbundene Banken)
+      GoRoute(path: '/alle-umsaetze', builder: (_, __) => const AllTransactionsScreen()),
       // Zentrales Finanz-Dashboard
       GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
       GoRoute(

@@ -70,6 +70,7 @@ flowchart LR
 | `loan` | Kreditzwecke und Zinsregeln (`LoanPurpose`), fiktive Banken (`Bank`) mit Mindest-Bonität, Bonitätsklassen (`CreditClass`), Annuitätenrechnung (`LoanMath`), Vergleich mit Filtern, getrennte Schritte Anfrage → Vertrag → Auszahlung, Raten (`LoanService`) |
 | `loan/provider` | Anbieter-Schnittstelle `LoanOfferProvider`, fiktive Banken (`SimulatedBanksProvider`), Referenzzinsen der Bundesbank (`MarketRateService`) – siehe [Sparregeln und Kredite](sparregeln-und-kredite.md) |
 | `dashboard` | Zentrales Finanz-Dashboard (`GET /api/dashboard`): Gesamtvermögen nach Bestandteilen, verfügbar/zurückgelegt, Konten und Karten, Schulden mit Verhältnis zu den Einnahmen, Cashflow, Sparziele, größte Ausgaben, Vermögensverlauf (12 Monatsenden) |
+| `multibank` | Weitere Konten der Projektbank (`CURRENT` = weiteres Girokonto, `CALL` = Tagesgeld), Zinsen (`InterestService`, Tageslauf Nr. 45, `InterestMath`), Umbuchen zwischen eigenen Konten, alle Umsätze (`ConsolidatedService`) |
 | `allocation` | Sparregeln für digitale Konten: Rhythmen, Quellen (Girokonto = Umbuchung, verbundenes Bankkonto = Vormerkung), Vorgänge mit Status und Wiederholung, Tageslauf Nr. 35 |
 | `simulation` | Verschiebbare Uhr (`SimulationClock`), Tagesläufe (`SimulationService`, `DailyJob`), nächtlicher Lauf (`DailyScheduler`), Admin-Endpunkt zum Vorspulen |
 | `common` | IBAN-Generator, einheitliche Fehlermeldungen |
@@ -114,6 +115,8 @@ flowchart LR
 
 **Dashboard (`DashboardService`):** setzt nur vorhandene Daten zusammen, nichts wird geschätzt. Gesamtvermögen = Girokonto + digitale Konten + Sparkonten der Pläne + Depot (aktueller Kurs) + verbundene Banken (letzter abgerufener Kontostand, nur Euro) − Restschulden; die Summe ist identisch mit `GET /api/insights/net-worth`. Vermögensverlauf: Konten der Projektbank aus der Summe aller Buchungszeilen bis Monatsende; Depot aus den gekauften Anteilen (Sparraten mit Schlüssel `plan:<Plan>:<Monat>`, gleiche Rechnung wie beim Kauf in `DepotMath`) bis zum Verkauf (`plan-payout:<Plan>`), bewertet zum Kurs des Monats; verbundene Banken = heutiger Stand minus spätere Umsätze – vor dem ersten importierten Umsatz ist der Stand **unbekannt** und der Monat wird ohne verbundene Banken gezeigt (`externalIncluded = false`). Kontostände verbundener Banken, die älter als 2 Tage sind, werden als veraltet gekennzeichnet.
 
+**Multi-Banking (`multibank`):** Ein Nutzer hat ein Haupt-Girokonto (`MAIN`) und bis zu 3 weitere Konten: `CURRENT` (eigene IBAN, nimmt Überweisungen per IBAN an, sendet nicht an andere) und `CALL` (Tagesgeld, nur Umbuchungen von/zu eigenen Konten; Überweisungen anderer auf die IBAN werden mit `RECIPIENT_CALL_ACCOUNT` abgelehnt). Zinsen: Zinssatz der Simulation wird beim Eröffnen festgehalten (`account.interest_rate`, Einstellung `CALL_INTEREST_PERCENT`). Am Monatsersten (Tageslauf Nr. 45) wird je Konto der Vormonat berechnet: Stand am Ende jedes Tages × Satz / Tage des Jahres (act/act), Summe auf Cent gerundet (HALF_EVEN), Buchung `INTEREST` mit Schlüssel `interest:<Konto>:<Monat>` – genau einmal, auch bei Wiederholungen. Beim Auflösen: Zinsen bis gestern, Restguthaben aufs Girokonto (`account-close:<Konto>`). `GET /api/transactions` führt Buchungszeilen der Bankkonten der Projektbank und Umsätze verbundener Banken (gebucht/vorgemerkt) in einer Abfrage zusammen (`UNION ALL`, Seiten, Suche); Summen zählen nur gebuchte Euro-Umsätze ohne Umbuchungen, Sparraten, Kreditauszahlungen und vom Nutzer ausgenommene Umsätze.
+
 **Live-Benachrichtigungen:**
 1. Jede Buchung ruft `NotificationService.send(...)` auf. Die Meldung wird in der Tabelle `notification` gespeichert.
 2. Der Versand per WebSocket passiert erst **nach dem Commit** (`TransactionSynchronization.afterCommit`). Wird die Buchung zurückgerollt, geht keine Meldung raus.
@@ -153,6 +156,7 @@ nur ansehen – geprüft bei jeder Umbuchung. Das Gesamtvermögen enthält die E
 | `l10n/` | Deutsch/Englisch: `tr('Deutscher Text')`, `strings_en.dart`, Sprachwahl |
 | `features/notifications/` | Benachrichtigungsliste, Zähler, Live-Verbindung starten (`realtime_provider.dart`), Systembenachrichtigungen |
 | `features/insights/` | Finanzüberblick (Diagramme, Kategorien, Durchschnitt), Beispielmonate |
+| `features/multibank/` | Konto eröffnen (weiteres Girokonto, Tagesgeld), Umbuchen-Dialog, Verwaltungsmenü (umbenennen, auflösen), „Alle Umsätze“ |
 | `features/dashboard/` | Finanz-Dashboard (Startseite → Karte „Gesamtvermögen“): Vermögen nach Bestandteilen, verfügbar/zurückgelegt, Vermögensverlauf, Cashflow, größte Ausgaben, Schulden, Sparziele, Konten und Karten, Hinweise |
 | `features/savings/` | Bereich „Sparen“, Plan-Assistent, Plan-Detail mit Depot und Spartipps |
 | `features/loans/` | Kreditplaner mit Bonität und Filtern, Angebotsvergleich (Rechenbeispiele, Bundesbank-Referenz, Anbieterstatus), Angebot → Anfrage → Vertrag → Auszahlung, Tilgungsplan, Kreditdetail |

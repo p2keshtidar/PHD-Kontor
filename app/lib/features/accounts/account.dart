@@ -84,6 +84,40 @@ class DigitalInfo {
       );
 }
 
+/// Art eines Bankkontos der Projektbank (Simulation): Girokonto, weiteres Girokonto, Tagesgeld.
+class ProductInfo {
+  const ProductInfo({
+    required this.product,
+    required this.productLabel,
+    this.interestPercent,
+    this.receivesTransfers = true,
+    this.sendsTransfers = false,
+    this.closable = false,
+    this.note,
+  });
+
+  /// GIRO, CURRENT, CALL
+  final String product;
+  final String productLabel;
+
+  /// nur Tagesgeld: fiktiver Zinssatz der Simulation (% pro Jahr)
+  final double? interestPercent;
+  final bool receivesTransfers;
+  final bool sendsTransfers;
+  final bool closable;
+  final String? note;
+
+  factory ProductInfo.fromJson(Map<String, dynamic> j) => ProductInfo(
+        product: j['product'] as String,
+        productLabel: j['productLabel'] as String? ?? '',
+        interestPercent: (j['interestPercent'] as num?)?.toDouble(),
+        receivesTransfers: j['receivesTransfers'] as bool? ?? true,
+        sendsTransfers: j['sendsTransfers'] as bool? ?? false,
+        closable: j['closable'] as bool? ?? false,
+        note: j['note'] as String?,
+      );
+}
+
 class Account {
   const Account({
     required this.id,
@@ -96,11 +130,12 @@ class Account {
     this.ownerName,
     this.memberCount = 0,
     this.digital,
+    this.product,
   });
 
   final int id;
 
-  /// MAIN, SUB, SAVINGS
+  /// MAIN, CURRENT (weiteres Girokonto), CALL (Tagesgeld), SUB, SAVINGS, LOAN
   final String type;
   final String name;
   final String? icon;
@@ -117,12 +152,20 @@ class Account {
   /// nur bei digitalen Konten (Typ SUB)
   final DigitalInfo? digital;
 
+  /// nur bei Bankkonten der Projektbank (MAIN, CURRENT, CALL)
+  final ProductInfo? product;
+
   /// Gehört jemand anderem und ist mit mir geteilt
   bool get isForeign => ownerName != null;
 
   bool get isMain => type == 'MAIN';
   bool get isSub => type == 'SUB';
   bool get isSavings => type == 'SAVINGS';
+  bool get isCurrent => type == 'CURRENT';
+  bool get isCall => type == 'CALL';
+
+  /// Bankkonto der Projektbank (Girokonto, weiteres Girokonto, Tagesgeld)
+  bool get isBankAccount => isMain || isCurrent || isCall;
 
   factory Account.fromJson(Map<String, dynamic> json) => Account(
         id: (json['id'] as num).toInt(),
@@ -136,6 +179,9 @@ class Account {
         memberCount: (json['memberCount'] as num?)?.toInt() ?? 0,
         digital: json['digital'] is Map<String, dynamic>
             ? DigitalInfo.fromJson(json['digital'] as Map<String, dynamic>)
+            : null,
+        product: json['product'] is Map<String, dynamic>
+            ? ProductInfo.fromJson(json['product'] as Map<String, dynamic>)
             : null,
       );
 }
