@@ -26,6 +26,8 @@ server:
   port: ${PORT:8080}
 
 app:
+  logging:
+    slow-request-ms: ${SLOW_REQUEST_MS:1000}   # ab hier WARN event=slow_request
   # "production" verhindert den Start mit den Entwicklungs-Schlüsseln unten (SecretsGuard)
   environment: ${APP_ENV:development}
   rate-limit:
@@ -99,6 +101,11 @@ app:
       - "http://localhost:*"
       - "http://127.0.0.1:*"
 
+logging:
+  # Request-ID (MDC) in jeder Logzeile; Zeilen je Aufruf siehe RequestLogFilter
+  pattern:
+    level: "%5p [%X{requestId:-}]"
+
 management:
   endpoints:
     web:
@@ -112,6 +119,10 @@ management:
   metrics:
     tags:
       application: girokonto
+    distribution:
+      # Antwortzeiten als Histogramm für p95/p99 in Prometheus (http_server_requests_seconds_bucket)
+      percentiles-histogram:
+        http.server.requests: true
 
 springdoc:
   swagger-ui:

@@ -224,3 +224,29 @@ Passwörter, Codes, vollständige IBAN oder Kartennummer, Dateinamen oder Dokume
 | Fremde Daten (IDOR) | alle Ressourcen mit ID, auch Gruppen, Verträge, Dokumente, Anträge | S05, `SecurityNewFeaturesTest` S11 |
 | Geheimnisse in Antworten | keine Passwort-Hashes, vollständigen Kartennummern, TOTP-Schlüssel | S06, S12 |
 | Uploads | nur PDF/PNG/JPEG am Inhalt erkannt, 5 MB, bereinigte Dateinamen, verschlüsselt | T132, T133, K04 |
+
+### Performance und Logs
+
+**Gemessen** (lokal, ein Nutzer mit Beispielmonaten „Familie“, je 20 Aufrufe nacheinander, 15.10.2026):
+
+| Endpunkt | Median | p95 |
+|---|---|---|
+| `/api/dashboard` | 46 ms | 71 ms |
+| `/api/health-score` | 21 ms | 28 ms |
+| `/api/transactions?size=50` | 17 ms | 28 ms |
+| `/api/insights/months?count=6` | 15 ms | 21 ms |
+| `/api/accounts`, `/api/forecast`, `/api/budgets`, `/api/assistant/report` | 12–15 ms | 15–23 ms |
+| `/api/notifications`, `/api/contracts`, `/api/groups` | 6–8 ms | 8–12 ms |
+
+Langsamster Endpunkt ist das Dashboard (rechnet 12 Monatsenden); unter Last misst der Lasttest T137 Median, p95 und
+Maximum je Endpunkt im CI-Protokoll.
+
+**Indizes:** alle häufigen Abfragen laufen über Indizes (Fremdschlüssel je Nutzer/Konto, Datum). Ergänzt in V23:
+Dokumente je Vertrag, offene Kreditkartenabrechnungen, laufende Verträge mit Erinnerung, ungelesene Benachrichtigungen.
+
+**Strukturierte Logs:** eine Zeile je API-Aufruf im Format `schlüssel=wert`
+(`event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=14 requestId=…`), langsame Aufrufe ab
+`SLOW_REQUEST_MS` (Standard 1000) als `WARN event=slow_request`. Zahlen im Pfad werden zu `{id}`; Query-Parameter,
+Header, Inhalte und Nutzerdaten werden **nicht** protokolliert. Die Request-ID steht im Antwort-Header `X-Request-Id`
+und in jeder Logzeile der Anfrage. Kennzahlen: `/actuator/prometheus` mit Antwortzeit-Histogramm
+(`http_server_requests_seconds_bucket`) für p95/p99 je Endpunkt.

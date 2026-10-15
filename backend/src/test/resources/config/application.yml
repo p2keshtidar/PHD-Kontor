@@ -9,3 +9,6 @@ app:
   banking:
     auto-sync: false
     retry-backoff-ms: 0
+logging:
+  level:
+    girokonto.request: WARN   # keine Zeile je Testaufruf, langsame Aufrufe weiter sichtbar
