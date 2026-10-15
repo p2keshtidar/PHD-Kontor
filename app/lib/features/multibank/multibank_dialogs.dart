@@ -6,7 +6,6 @@ import '../../core/money.dart';
 import '../../l10n/l10n.dart';
 import '../accounts/account.dart';
 import '../accounts/accounts_repository.dart';
-import 'multibank_models.dart';
 import 'multibank_repository.dart';
 
 /// Zinssatz im Format der Sprache: "2,00 %" / "2.00 %"
