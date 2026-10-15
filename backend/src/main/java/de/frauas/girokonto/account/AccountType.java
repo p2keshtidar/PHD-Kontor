@@ -9,6 +9,10 @@ public enum AccountType {
     SAVINGS,
     /** Kreditkonto, Saldo negativ = Restschuld (Phase 4) */
     LOAN,
+    /** Weiteres Girokonto der Projektbank mit eigener IBAN (Multi-Banking, Simulation) */
+    CURRENT,
+    /** Tagesgeldkonto der Projektbank: Zinsen monatlich, Geld nur über eigene Konten (Multi-Banking, Simulation) */
+    CALL,
     /** Interne Konten der simulierten Bank, z. B. BANK oder HAENDLER */
     SYSTEM
 }

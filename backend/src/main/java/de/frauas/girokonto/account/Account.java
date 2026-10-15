@@ -52,6 +52,10 @@ public class Account {
     @Column(name = "goal_reached_at")
     private Instant goalReachedAt;
 
+    /** Tagesgeld: Zinssatz der Simulation in Prozent pro Jahr (fiktiv, beim Eröffnen festgelegt). */
+    @Column(name = "interest_rate")
+    private java.math.BigDecimal interestRate;
+
     protected Account() {
     }
 
@@ -75,6 +79,8 @@ public class Account {
     public AccountStatus getStatus() { return status; }
     public void setStatus(AccountStatus status) { this.status = status; }
     public Instant getCreatedAt() { return createdAt; }
+    public java.math.BigDecimal getInterestRate() { return interestRate; }
+    public void setInterestRate(java.math.BigDecimal interestRate) { this.interestRate = interestRate; }
     public String getPurpose() { return purpose; }
     public void setPurpose(String purpose) { this.purpose = purpose; }
     public Long getTargetCents() { return targetCents; }

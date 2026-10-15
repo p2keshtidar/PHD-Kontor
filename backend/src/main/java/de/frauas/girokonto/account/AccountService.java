@@ -78,7 +78,8 @@ public class AccountService {
                     balance, count > 0, null, count,
                     a.getType() == AccountType.SUB
                             ? DigitalInfo.of(a, balance, earmarked.getOrDefault(a.getId(), 0L), "OWNER", today)
-                            : null));
+                            : null,
+                    ProductInfo.of(a)));
         }
         return result;
     }

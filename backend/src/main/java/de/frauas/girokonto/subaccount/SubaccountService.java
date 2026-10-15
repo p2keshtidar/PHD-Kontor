@@ -328,9 +328,13 @@ public class SubaccountService {
 
     private Account requireMovable(Long userId, Long accountId) {
         Account a = accountService.requireAccess(accountId, userId);   // /K060/: auch geteilte Unterkonten
-        if (a.getStatus() != AccountStatus.ACTIVE || (a.getType() != AccountType.MAIN && a.getType() != AccountType.SUB)) {
+        boolean movable = switch (a.getType()) {
+            case MAIN, CURRENT, CALL, SUB -> true;   // Bankkonten der Projektbank und digitale Konten
+            default -> false;
+        };
+        if (a.getStatus() != AccountStatus.ACTIVE || !movable) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "NOT_MOVABLE",
-                    "Umbuchungen sind nur zwischen Girokonto und digitalen Konten möglich.");
+                    "Umbuchungen sind nur zwischen deinen Konten der Projektbank möglich (Girokonten, Tagesgeld, digitale Konten).");
         }
         return a;
     }

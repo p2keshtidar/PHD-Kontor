@@ -119,7 +119,7 @@ public class TransferService {
         }
         if (recipient.user().getId().equals(userId)) {
             throw new ApiException(HttpStatus.BAD_REQUEST, "SELF_TRANSFER",
-                    "Überweisungen an dich selbst sind nicht möglich. Nutze dafür die digitalen Konten.");
+                    "Überweisungen an dich selbst sind nicht möglich. Nutze dafür „Umbuchen“ zwischen deinen Konten.");
         }
         long balance = bookingService.balanceOf(sender.getId());
         if (balance < amountCents) {

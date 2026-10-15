@@ -13,7 +13,7 @@ public final class DashboardDtos {
     /**
      * Gesamtvermögen nach Bestandteilen (Cent).
      *
-     * @param accountsCents Girokonto und weitere Konten der Projektbank (ohne digitale Konten und Sparpläne)
+     * @param accountsCents Bankkonten der Projektbank: Girokonto, weitere Girokonten, Tagesgeld (ohne digitale Konten und Sparpläne)
      * @param digitalCents  eigene digitale Konten (Töpfe)
      * @param plansCents    Sparkonten der Spar-/Investpläne (ohne Depot)
      * @param depotCents    Musterdepot zum aktuellen Kurs
@@ -26,8 +26,8 @@ public final class DashboardDtos {
     /**
      * Was frei verfügbar ist und was für Ziele zurückgelegt wurde.
      *
-     * @param availableCents  Girokonto-Guthaben der Projektbank (frei verfügbar)
-     * @param reservedCents   in digitalen Konten und Sparplänen zurückgelegt
+     * @param availableCents  Guthaben der Girokonten der Projektbank (frei verfügbar)
+     * @param reservedCents   auf Tagesgeld, in digitalen Konten, Sparplänen und Depot zurückgelegt
      * @param earmarkedCents  bei verbundenen Banken für Ziele vorgemerkt (bleibt dort)
      */
     public record Liquidity(long availableCents, long reservedCents, long earmarkedCents, long externalCents) {}

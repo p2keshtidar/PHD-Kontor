@@ -199,6 +199,9 @@ class SecurityMatrixTest extends FlowTestSupport {
         long application = postJson(anna, "/api/loans/applications", """
                 {"bank":"NORDLICHT","purpose":"AUTO","principalCents":300000,"termMonths":24,"consent":true}
                 """, 201).get("id").asLong();
+        long call = postJson(anna, "/api/accounts", "{\"type\":\"CALL\"}", 201).get("id").asLong();
+        postJson(anna, "/api/accounts/move", "{\"fromAccountId\":" + anna.accountId() + ",\"toAccountId\":" + call
+                + ",\"amountCents\":1000}", 204);
 
         Set<String> f = new TreeSet<>();
         denied(eve, HttpMethod.GET, "/api/accounts/" + anna.accountId() + "/bookings", "", f);
@@ -245,6 +248,11 @@ class SecurityMatrixTest extends FlowTestSupport {
                 + ",\"externalAccountId\":1,\"amountCents\":100}", f);
         denied(eve, HttpMethod.POST, "/api/allocations/earmarks/release", "{\"targetAccountId\":" + sub
                 + ",\"externalAccountId\":1}", f);
+        denied(eve, HttpMethod.GET, "/api/accounts/" + call + "/bookings", "", f);
+        denied(eve, HttpMethod.PUT, "/api/accounts/" + call, "{\"name\":\"Meins\"}", f);
+        denied(eve, HttpMethod.DELETE, "/api/accounts/" + call, "", f);
+        denied(eve, HttpMethod.POST, "/api/accounts/move", "{\"fromAccountId\":" + call + ",\"toAccountId\":"
+                + eve.accountId() + ",\"amountCents\":500}", f);
         assertThat(f).as("Zugriffe auf fremde Daten, die nicht abgelehnt wurden").isEmpty();
 
         // Annas Daten sind unverändert
@@ -255,6 +263,14 @@ class SecurityMatrixTest extends FlowTestSupport {
         assertThat(getJson(anna, "/api/subaccounts/" + sub + "/members")).hasSize(1);
         // Eve sieht in ihren Listen nichts von Anna
         assertThat(getJson(eve, "/api/accounts")).hasSize(1);
+        assertThat(getJson(eve, "/api/transactions").toString()).doesNotContain("Tagesgeld");
+        long callBalance = -1;
+        for (JsonNode a : getJson(anna, "/api/accounts")) {
+            if (a.get("id").asLong() == call) {
+                callBalance = a.get("balanceCents").asLong();
+            }
+        }
+        assertThat(callBalance).as("Tagesgeld von Anna unverändert").isEqualTo(1000);
         assertThat(getJson(eve, "/api/plans")).isEmpty();
         assertThat(getJson(eve, "/api/loans")).isEmpty();
         assertThat(getJson(eve, "/api/standing-orders")).isEmpty();

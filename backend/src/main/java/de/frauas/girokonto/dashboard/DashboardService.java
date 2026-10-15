@@ -97,20 +97,25 @@ public class DashboardService {
         long depot = plans.totalDepotValue(userId);
 
         long main = sum(own, AccountType.MAIN);
+        long otherCurrent = sum(own, AccountType.CURRENT);
+        long call = sum(own, AccountType.CALL);
         long digital = sum(own, AccountType.SUB);
         long planCash = sum(own, AccountType.SAVINGS);
         long loanBalance = sum(own, AccountType.LOAN);   // negativ
         long external = ext.totalBalanceCents();
         long earmarked = earmarks.forAccounts(own.stream().filter(a -> a.type() == AccountType.SUB)
                 .map(AccountDto::id).toList()).values().stream().mapToLong(Long::longValue).sum();
-        NetWorth netWorth = new NetWorth(main, digital, planCash, depot, external, loanBalance,
-                main + digital + planCash + depot + external + loanBalance);
-        Liquidity liquidity = new Liquidity(main, digital + planCash + depot, earmarked, external);
+        long bankAccounts = main + otherCurrent + call;
+        NetWorth netWorth = new NetWorth(bankAccounts, digital, planCash, depot, external, loanBalance,
+                bankAccounts + digital + planCash + depot + external + loanBalance);
+        // verfügbar: Girokonten; zurückgelegt: Tagesgeld, digitale Konten, Sparpläne, Depot
+        Liquidity liquidity = new Liquidity(main + otherCurrent, call + digital + planCash + depot, earmarked, external);
 
         List<AccountLine> lines = new ArrayList<>();
         for (AccountDto a : own) {
-            if (a.type() == AccountType.MAIN) {
-                lines.add(new AccountLine("PROJEKTBANK", a.id(), a.name(), PROJEKTBANK, a.balanceCents(), true, false, null));
+            if (a.type() == AccountType.MAIN || a.type() == AccountType.CURRENT || a.type() == AccountType.CALL) {
+                lines.add(new AccountLine("PROJEKTBANK", a.id(), a.name(), PROJEKTBANK, a.balanceCents(), true, false,
+                        a.product() == null || a.type() == AccountType.MAIN ? null : a.product().productLabel()));
             } else if (a.type() == AccountType.SUB) {
                 lines.add(new AccountLine("DIGITAL", a.id(), a.name(), PROJEKTBANK, a.balanceCents(), true, false, null));
             }
@@ -196,6 +201,9 @@ public class DashboardService {
         List<HistoryPoint> history = history(userId, YearMonth.from(today), ext);
         List<String> notes = new ArrayList<>();
         notes.add("Girokonto, digitale Konten, Pläne, Depot und Kredite der Projektbank sind eine Simulation mit Spielgeld.");
+        if (own.stream().anyMatch(a -> a.type() == AccountType.CALL)) {
+            notes.add("Tagesgeld: fiktiver Zinssatz der Simulation; zählt zu „zurückgelegt“.");
+        }
         if (!ext.accounts().isEmpty()) {
             notes.add("Verbundene Banken: letzter abgerufener Kontostand, nur Konten in Euro.");
             if (lines.stream().anyMatch(l -> l.kind().equals("EXTERNAL") && l.stale())) {

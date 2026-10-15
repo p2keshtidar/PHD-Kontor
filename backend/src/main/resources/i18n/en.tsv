@@ -222,7 +222,6 @@ Telefonnummer fehlt.	Phone number is missing.
 Telefonnummer ist ungültig.	Phone number is invalid.
 Umbuchung	Internal transfer
 Umbuchung {0} → {1}	Transfer {0} → {1}
-Umbuchungen sind nur zwischen Girokonto und digitalen Konten möglich.	Internal transfers are only possible between the current account and digital accounts.
 Umbuchungen, Sparraten und Kreditauszahlungen haben eine feste Kategorie.	Internal transfers, savings rates and loan payouts have a fixed category.
 Umsatz nicht gefunden.	Transaction not found.
 Umsätze importiert	Transactions imported
@@ -280,7 +279,7 @@ vierteljährlich	quarterly
 {0} von „{1}“ nach „{2}“	{0} from “{1}” to “{2}”
 Überweisung	Transfer
 Überweisung gesendet	Transfer sent
-Überweisungen an dich selbst sind nicht möglich. Nutze dafür die digitalen Konten.	You cannot transfer to yourself. Use digital accounts for that.
+Überweisungen an dich selbst sind nicht möglich. Nutze dafür „Umbuchen“ zwischen deinen Konten.	You cannot transfer to yourself. Use “Move money” between your accounts.
 Überwiegend Aktienfonds: die größte Chance, aber der Wert kann deutlich schwanken.	Mostly equity funds: the greatest potential, but the value can fluctuate considerably.
 „{0}“ hat {1} erreicht. Du kannst jetzt auszahlen.	“{0}” has reached {1}. You can pay out now.
 „{0}“ wurde von {1} aufgelöst.	“{0}” was closed by {1}.
@@ -529,3 +528,33 @@ Girokonto, digitale Konten, Pläne, Depot und Kredite der Projektbank sind eine 
 Verbundene Banken: letzter abgerufener Kontostand, nur Konten in Euro.	Connected banks: last retrieved balance, euro accounts only.
 Mindestens ein Kontostand einer verbundenen Bank ist älter als 2 Tage oder die Verbindung ist gestört.	At least one balance of a connected bank is older than 2 days or the connection is disrupted.
 Verlauf mit verbundenen Banken erst ab {0}, weil vorher keine Umsätze vorliegen.	History including connected banks only from {0}, because there are no transactions before that.
+Weiteres Girokonto	Additional current account
+Girokonto 2	Current account 2
+Fiktiver Zinssatz der Simulation, Zinsen am Monatsende. Ein- und Auszahlungen nur über deine eigenen Konten.	Fictitious simulation interest rate, interest at month end. Deposits and withdrawals only via your own accounts.
+Eigene IBAN für Eingänge. Überweisungen an andere nur vom Girokonto.	Own IBAN for incoming payments. Transfers to others only from the current account.
+Konten der Projektbank sind eine Simulation mit Spielgeld – keine echten Bankkonten, keine Einlagensicherung. Der Zinssatz des Tagesgelds ist fiktiv.	Projektbank accounts are a simulation with play money – no real bank accounts, no deposit protection. The interest rate of the instant-access savings is fictitious.
+Eigene IBAN für Eingänge, z. B. als Haushaltskonto. Geld bewegst du per Umbuchung zwischen deinen Konten; Überweisungen an andere gehen nur vom Girokonto.	Own IBAN for incoming payments, e.g. as a household account. You move money between your accounts; transfers to others only from the current account.
+Zinsen jeden Monat, täglich verfügbar. Ein- und Auszahlungen nur über deine eigenen Konten.	Interest every month, available daily. Deposits and withdrawals only via your own accounts.
+Du hast schon {0} weitere Konten. Löse zuerst eines auf.	You already have {0} additional accounts. Close one first.
+Das Girokonto bleibt bestehen – es kann nicht aufgelöst oder umbenannt werden.	The current account stays – it cannot be closed or renamed.
+Das ist kein aktives weiteres Konto der Projektbank.	This is not an active additional Projektbank account.
+Diese Kontoart gibt es nicht. Möglich: weiteres Girokonto oder Tagesgeld.	This account type does not exist. Possible: additional current account or instant-access savings.
+Konto eröffnet	Account opened
+„{0}“ ({1}, Simulation) ist bereit.	“{0}” ({1}, simulation) is ready.
+Konto aufgelöst	Account closed
+„{0}“ aufgelöst: {1} aufs Girokonto gebucht.	“{0}” closed: {1} booked to the current account.
+„{0}“ aufgelöst.	“{0}” closed.
+Zinsen {0} {1} (Simulation)	Interest {0} {1} (simulation)
+Zinsen gutgeschrieben	Interest credited
+„{0}“: {1} für {2} (Simulation, fiktiver Zinssatz)	“{0}”: {1} for {2} (simulation, fictitious interest rate)
+Bitte eine Kontoart wählen.	Please choose an account type.
+Bitte einen Namen eingeben.	Please enter a name.
+Unbekannte Quelle. Möglich: ALL, PROJEKTBANK, EXTERNAL.	Unknown source. Possible: ALL, PROJEKTBANK, EXTERNAL.
+Unbekannte Richtung. Möglich: IN, OUT.	Unknown direction. Possible: IN, OUT.
+Der Suchbegriff ist zu lang.	The search term is too long.
+Konten der Projektbank sind eine Simulation mit Spielgeld.	Projektbank accounts are a simulation with play money.
+Verbundene Banken: Umsätze wie von der Bank geliefert, nur lesend; vorgemerkte Umsätze können sich noch ändern.	Connected banks: transactions as delivered by the bank, read-only; pending transactions may still change.
+Summen ohne Umbuchungen zwischen eigenen Konten, Sparraten, Kreditauszahlungen und vorgemerkte Umsätze.	Totals without transfers between your own accounts, savings rates, loan payouts and pending transactions.
+Auf ein Tagesgeldkonto zahlt nur der Inhaber selbst über seine eigenen Konten ein.	Only the holder can pay into an instant-access savings account, via their own accounts.
+Umbuchungen sind nur zwischen deinen Konten der Projektbank möglich (Girokonten, Tagesgeld, digitale Konten).	Transfers are only possible between your Projektbank accounts (current accounts, instant-access savings, digital accounts).
+Tagesgeld: fiktiver Zinssatz der Simulation; zählt zu „zurückgelegt“.	Instant-access savings: fictitious simulation interest rate; counts as “set aside”.

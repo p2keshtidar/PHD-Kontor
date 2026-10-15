@@ -26,5 +26,7 @@ public enum BookingType {
     /** Selbst eingetragene Einnahme, z. B. Gehalt (Einnahmen & Ausgaben) */
     ENTRY_INCOME,
     /** Selbst eingetragene Ausgabe, z. B. Miete oder Urlaub (Einnahmen & Ausgaben) */
-    ENTRY_EXPENSE
+    ENTRY_EXPENSE,
+    /** Zinsgutschrift auf dem Tagesgeldkonto (Simulation, fiktiver Zinssatz) */
+    INTEREST
 }

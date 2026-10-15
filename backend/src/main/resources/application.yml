@@ -65,6 +65,10 @@ app:
       base-url: ${LOAN_MARKET_RATES_URL:https://api.statistiken.bundesbank.de/rest/data}
       refresh-hours: 24
       stale-days: 7
+  accounts:
+    # Weitere Konten der Projektbank (Simulation): weiteres Girokonto, Tagesgeld
+    max-extra-per-user: 3
+    call-interest-percent: ${CALL_INTEREST_PERCENT:2.00}   # fiktiver Zinssatz der Simulation (% p. a.)
   allocations:
     # Sparregeln für digitale Konten (Umbuchung vom Girokonto oder Vormerkung bei verbundenen Bankkonten)
     max-rules-per-user: 20

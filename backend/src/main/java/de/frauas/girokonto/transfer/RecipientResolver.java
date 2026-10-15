@@ -34,8 +34,13 @@ public class RecipientResolver {
 
         Optional<Recipient> found;
         if (compact.matches("[A-Z]{2}\\d{2}[A-Z0-9]{10,30}")) {
-            found = accounts.findByIban(compact)
-                    .filter(a -> a.getType() == AccountType.MAIN && a.getStatus() == AccountStatus.ACTIVE)
+            Optional<Account> byIban = accounts.findByIban(compact).filter(a -> a.getStatus() == AccountStatus.ACTIVE);
+            if (byIban.isPresent() && byIban.get().getType() == AccountType.CALL) {
+                throw new ApiException(HttpStatus.BAD_REQUEST, "RECIPIENT_CALL_ACCOUNT",
+                        "Auf ein Tagesgeldkonto zahlt nur der Inhaber selbst über seine eigenen Konten ein.");
+            }
+            // Haupt-Girokonto und weitere Girokonten nehmen Überweisungen per IBAN an
+            found = byIban.filter(a -> a.getType() == AccountType.MAIN || a.getType() == AccountType.CURRENT)
                     .flatMap(a -> users.findById(a.getOwnerId()).map(u -> new Recipient(u, a)));
         } else if (value.contains("@")) {
             found = users.findByEmail(value.toLowerCase(Locale.ROOT)).flatMap(this::withMainAccount);
