@@ -440,3 +440,84 @@ Die Sparregel für „{0}“ wurde pausiert: {1}	The savings rule for “{0}” 
 {0} hat {1} für „{2}“ vorgemerkt	{0} earmarked {1} for “{2}”
 Sparregel: {0} → {1}	Savings rule: {0} → {1}
 Vormerkung erfasst	Earmark recorded
+
+# Kreditvergleich mit mehreren Anbietern, getrennte Schritte
+Bonität: sehr gut, gut, mittel oder schwach.	Credit rating: very good, good, medium or weak.
+Bitte stimme zu, dass deine Angaben für diese Anfrage verwendet werden.	Please agree that your details may be used for this request.
+Unbekannter Anbieter.	Unknown provider.
+Bei diesem Anbieter sind keine Anfragen möglich.	Requests are not possible with this provider.
+Höchstens {0} offene Zusagen. Bitte erst welche zurückziehen.	At most {0} open approvals. Please withdraw some first.
+Diese Bank ist nicht im Vergleich.	This bank is not part of the comparison.
+Kreditanfrage nicht gefunden.	Loan request not found.
+Diese Anfrage ist schon abgeschlossen.	This request is already closed.
+Bitte bestätige den Vertragsschluss.	Please confirm the conclusion of the contract.
+Das Angebot ist abgelaufen. Bitte neu anfragen.	The offer has expired. Please request again.
+Für diese Zusage gibt es schon einen Vertrag.	There is already a contract for this approval.
+Diese Anfrage hat keine gültige Zusage.	This request has no valid approval.
+Das Angebot ist am {0} abgelaufen. Bitte neu anfragen.	The offer expired on {0}. Please request again.
+Der Kreditvertrag wurde widerrufen.	The loan contract was withdrawn.
+Der Kredit ist bereits ausgezahlt.	The loan has already been paid out.
+Nach der Auszahlung ist ein Widerruf in dieser Simulation nicht möglich. Nutze die Sondertilgung.	After the payout, withdrawal is not possible in this simulation. Use an extra repayment.
+Dieser Kreditvertrag ist nicht mehr offen.	This loan contract is no longer open.
+Der Kredit ist noch nicht ausgezahlt.	The loan has not been paid out yet.
+Kreditanfrage beantwortet	Loan request answered
+Die {0} sagt {1} zu (Simulation). Das Angebot gilt bis {2}.	{0} approves {1} (simulation). The offer is valid until {2}.
+Kreditvertrag geschlossen (Simulation)	Loan contract concluded (simulation)
+{0} bei der {1}: Das Geld wird erst ausgezahlt, wenn du die Auszahlung anforderst. Widerruf bis dahin jederzeit möglich.	{0} with {1}: the money is only paid out when you request the payout. Until then you can withdraw at any time.
+Kreditvertrag widerrufen	Loan contract withdrawn
+Der Vertrag mit der {0} ist widerrufen. Es wurde kein Geld ausgezahlt.	The contract with {0} has been withdrawn. No money was paid out.
+Kreditzusage abgelaufen	Loan approval expired
+Das Angebot der {0} über {1} ist abgelaufen.	The offer from {0} for {1} has expired.
+Zusage (Simulation) – gültig bis {0}. Noch kein Vertrag.	Approval (simulation) – valid until {0}. No contract yet.
+Die {0} bietet erst ab Bonität „{1}“ an.	{0} only lends from credit rating “{1}”.
+sehr gut	very good
+gut	good
+mittel	medium
+schwach	weak
+Bonität mindestens „{0}“ (Selbsteinschätzung)	Credit rating at least “{0}” (self-assessment)
+Regelmäßige Einnahmen im Girokonto	Regular income in the current account
+Rate höchstens {0} % des frei verfügbaren Betrags	Instalment at most {0}% of the freely available amount
+Volljährig, Wohnsitz in Deutschland	Of legal age, resident in Germany
+Keine Bearbeitungsgebühr	No processing fee
+Sondertilgungen jederzeit kostenlos	Extra repayments free of charge at any time
+Zins fest für die ganze Laufzeit	Interest rate fixed for the entire term
+Widerruf innerhalb von 14 Tagen nach Vertragsschluss	Right of withdrawal within 14 days after conclusion of the contract
+Unverbindliches Rechenbeispiel (Simulation, fiktive Bank): Nettodarlehensbetrag {0}, Laufzeit {1} Monate, gebundener Sollzins {2} p. a., effektiver Jahreszins {3}, monatliche Rate {4}, Gesamtbetrag {5}.	Non-binding example calculation (simulation, fictitious bank): net loan amount {0}, term {1} months, fixed borrowing rate {2} p.a., annual percentage rate {3}, monthly instalment {4}, total amount {5}.
+Alle Angebote stammen von fiktiven Banken (Simulation der Projektbank). Es sind unverbindliche Rechenbeispiele – keine echten Kreditangebote, keine Abfrage bei einer Auskunftei, keine Auszahlung echten Geldes.	All offers come from fictitious banks (Projektbank simulation). They are non-binding example calculations – no real loan offers, no credit bureau query, no payout of real money.
+Fiktive Banken (Simulation)	Fictitious banks (simulation)
+Rechenbeispiele fiktiver Banken – keine echten Angebote.	Example calculations from fictitious banks – no real offers.
+Deutsche Bundesbank – Durchschnittszinsen	Deutsche Bundesbank – average interest rates
+Echte Kreditangebote	Real loan offers
+Nicht angebunden: Dafür sind ein Vertrag mit einer Bank oder einem Kreditvermittler und die nötigen Erlaubnisse erforderlich.	Not connected: this requires a contract with a bank or a credit broker and the necessary licences.
+Verfügbar	Available
+Daten veraltet	Data outdated
+Abgeschaltet	Switched off
+Nicht angebunden	Not connected
+Gestört	Disrupted
+Abruf der Bundesbank-Zinsen ist abgeschaltet.	Retrieval of Bundesbank rates is switched off.
+Noch nicht abgerufen.	Not retrieved yet.
+Bundesbank nicht erreichbar – keine Referenzzinsen.	Bundesbank not reachable – no reference rates.
+Daten möglicherweise veraltet (Stand {0}).	Data possibly outdated (as of {0}).
+Stand {0}.	As of {0}.
+Konsumentenkredite: effektiver Jahreszins inkl. Kosten	Consumer loans: annual percentage rate incl. costs
+Konsumentenkredite, Zinsbindung bis 1 Jahr	Consumer loans, rate fixed for up to 1 year
+Konsumentenkredite, Zinsbindung über 1 bis 5 Jahre	Consumer loans, rate fixed for over 1 to 5 years
+Konsumentenkredite, Zinsbindung über 5 Jahre	Consumer loans, rate fixed for over 5 years
+Wohnungsbaukredite: effektiver Jahreszins inkl. Kosten	Housing loans: annual percentage rate incl. costs
+Wohnungsbaukredite, Zinsbindung bis 1 Jahr	Housing loans, rate fixed for up to 1 year
+Wohnungsbaukredite, Zinsbindung über 1 bis 5 Jahre	Housing loans, rate fixed for over 1 to 5 years
+Wohnungsbaukredite, Zinsbindung über 5 bis 10 Jahre	Housing loans, rate fixed for over 5 to 10 years
+Wohnungsbaukredite, Zinsbindung über 10 Jahre	Housing loans, rate fixed for over 10 years
+Durchschnitt neu abgeschlossener Kredite in Deutschland – kein Angebot.	Average of newly concluded loans in Germany – not an offer.
+Zusage	Approved
+Abgelehnt	Declined
+Vertrag geschlossen	Contract concluded
+Zurückgezogen	Withdrawn
+Abgelaufen	Expired
+Nächster Schritt: Vertrag abschließen. Bis dahin ist nichts verbindlich.	Next step: conclude the contract. Until then nothing is binding.
+Nächster Schritt: Auszahlung anfordern.	Next step: request the payout.
+Andere Bank, kleineren Betrag oder längere Laufzeit wählen.	Choose another bank, a smaller amount or a longer term.
+Bei Bedarf neu anfragen.	Request again if needed.
+Ausgezahlt – Raten laufen	Paid out – instalments running
+Vertrag geschlossen – Auszahlung ausstehend	Contract concluded – payout pending
+Zurückgezahlt	Repaid

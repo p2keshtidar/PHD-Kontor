@@ -58,6 +58,13 @@ app:
     password: ${ADMIN_PASSWORD:admin12345}
   simulation:
     zone: Europe/Berlin
+  loans:
+    market-rates:
+      # Durchschnittszinsen der Deutschen Bundesbank als Referenz im Kreditvergleich (öffentlich, ohne Zugangsdaten)
+      enabled: ${LOAN_MARKET_RATES:true}
+      base-url: ${LOAN_MARKET_RATES_URL:https://api.statistiken.bundesbank.de/rest/data}
+      refresh-hours: 24
+      stale-days: 7
   allocations:
     # Sparregeln für digitale Konten (Umbuchung vom Girokonto oder Vormerkung bei verbundenen Bankkonten)
     max-rules-per-user: 20

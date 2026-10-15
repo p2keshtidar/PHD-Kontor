@@ -196,6 +196,9 @@ class SecurityMatrixTest extends FlowTestSupport {
                 + ",\"amountCents\":100,\"interval\":\"MONTHLY\"}", 201);
         long rule = allocRule.get("id").asLong();
         long run = allocRule.get("lastRun").get("id").asLong();
+        long application = postJson(anna, "/api/loans/applications", """
+                {"bank":"NORDLICHT","purpose":"AUTO","principalCents":300000,"termMonths":24,"consent":true}
+                """, 201).get("id").asLong();
 
         Set<String> f = new TreeSet<>();
         denied(eve, HttpMethod.GET, "/api/accounts/" + anna.accountId() + "/bookings", "", f);
@@ -225,6 +228,11 @@ class SecurityMatrixTest extends FlowTestSupport {
         denied(eve, HttpMethod.DELETE, "/api/imports/" + imp, "", f);
         denied(eve, HttpMethod.DELETE, "/api/contacts/" + contact, "", f);
         denied(eve, HttpMethod.PUT, "/api/notifications/" + notification + "/read", "", f);
+        denied(eve, HttpMethod.GET, "/api/loans/applications/" + application, "", f);
+        denied(eve, HttpMethod.POST, "/api/loans/applications/" + application + "/accept", "{\"confirm\":true}", f);
+        denied(eve, HttpMethod.POST, "/api/loans/applications/" + application + "/withdraw", "", f);
+        denied(eve, HttpMethod.POST, "/api/loans/" + loan + "/payout", "", f);
+        denied(eve, HttpMethod.POST, "/api/loans/" + loan + "/cancel", "", f);
         denied(eve, HttpMethod.GET, "/api/allocations/accounts/" + sub, "", f);
         denied(eve, HttpMethod.POST, "/api/allocations/rules", "{\"targetAccountId\":" + sub
                 + ",\"amountCents\":100,\"interval\":\"MONTHLY\"}", f);
@@ -254,6 +262,8 @@ class SecurityMatrixTest extends FlowTestSupport {
         assertThat(getJson(eve, "/api/entries").get("entries")).isEmpty();
         assertThat(getJson(anna, "/api/entries").get("entries").get(0).get("amountCents").asLong()).isEqualTo(1000);
         assertThat(getJson(eve, "/api/allocations/rules")).isEmpty();
+        assertThat(getJson(eve, "/api/loans/applications")).isEmpty();
+        assertThat(getJson(anna, "/api/loans/applications/" + application).get("status").asText()).isEqualTo("APPROVED");
         assertThat(getJson(eve, "/api/allocations/runs")).isEmpty();
         assertThat(getJson(anna, "/api/allocations/rules").get(0).get("amountCents").asLong()).isEqualTo(100);
     }

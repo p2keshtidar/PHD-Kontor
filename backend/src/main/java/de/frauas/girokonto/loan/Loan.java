@@ -17,7 +17,11 @@ import java.time.LocalDate;
 @Table(name = "loan")
 public class Loan {
 
-    public enum Status { ACTIVE, PAID_OFF }
+    /**
+     * CONTRACTED = Vertrag geschlossen, noch kein Geld geflossen; ACTIVE = ausgezahlt, Raten laufen;
+     * PAID_OFF = zurückgezahlt; CANCELLED = Vertrag vor der Auszahlung widerrufen.
+     */
+    public enum Status { ACTIVE, PAID_OFF, CONTRACTED, CANCELLED }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,7 +62,7 @@ public class Loan {
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
-    @Column(name = "next_due_date", nullable = false)
+    @Column(name = "next_due_date")
     private LocalDate nextDueDate;
 
     @Column(name = "paid_installments", nullable = false)
@@ -70,6 +74,18 @@ public class Loan {
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
+
+    @Column(name = "application_id")
+    private Long applicationId;
+
+    @Column(name = "effective_rate", precision = 6, scale = 4)
+    private BigDecimal effectiveRate;
+
+    @Column(name = "contracted_at")
+    private Instant contractedAt;
+
+    @Column(name = "paid_out_at")
+    private Instant paidOutAt;
 
     protected Loan() {
     }
@@ -90,6 +106,38 @@ public class Loan {
         this.nextDueDate = startDate.plusMonths(1);
         this.createdAt = createdAt;
     }
+
+    /** Vertrag geschlossen, aber noch nicht ausgezahlt (Schritt 3 von 4). */
+    public static Loan contracted(Long userId, Long accountId, Bank bank, LoanPurpose purpose, long principalCents,
+                                  long equityCents, BigDecimal interestRate, BigDecimal effectiveRate, int termMonths,
+                                  long monthlyRateCents, LocalDate today, Long applicationId, Instant now) {
+        Loan l = new Loan(userId, accountId, bank, purpose, principalCents, equityCents, interestRate, termMonths,
+                monthlyRateCents, today, now);
+        l.status = Status.CONTRACTED;
+        l.nextDueDate = null;
+        l.effectiveRate = effectiveRate;
+        l.applicationId = applicationId;
+        l.contractedAt = now;
+        return l;
+    }
+
+    /** Auszahlung (Schritt 4): ab jetzt laufen die Raten, die erste einen Monat später. */
+    public void paidOut(LocalDate today, Instant now) {
+        status = Status.ACTIVE;
+        startDate = today;
+        nextDueDate = today.plusMonths(1);
+        paidOutAt = now;
+    }
+
+    public void cancel() {
+        status = Status.CANCELLED;
+        nextDueDate = null;
+    }
+
+    public Long getApplicationId() { return applicationId; }
+    public BigDecimal getEffectiveRate() { return effectiveRate; }
+    public Instant getContractedAt() { return contractedAt; }
+    public Instant getPaidOutAt() { return paidOutAt; }
 
     public Long getId() { return id; }
     public Long getUserId() { return userId; }
