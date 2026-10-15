@@ -139,7 +139,7 @@ void main() {
     expect(find.text('Supermarkt Nord'), findsOneWidget);
     expect(find.text('vorgemerkt'), findsOneWidget);
     expect(find.text('Girokonto · Sandbox Hauptbank'), findsOneWidget);
-    expect(find.text('Umbuchung'), findsNWidgets(2));
+    expect(find.text('Umbuchung', skipOffstage: false), findsNWidgets(2));
     expect(find.text('0,47 €'), findsWidgets);
     final first = fake.calls('GET /api/transactions').first.queryParameters;
     expect(first['source'], 'ALL');
