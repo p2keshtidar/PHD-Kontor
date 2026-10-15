@@ -349,6 +349,8 @@ void main() {
     await tester.scrollUntilVisible(find.text('Geteilt von Mia Musterfrau-Langname'), 200, scrollable: list);
     expect(find.text('Geteilt mit 2 Personen'), findsOneWidget);
     expect(find.text('Geteilt von Mia Musterfrau-Langname'), findsOneWidget);
+    // Ziehen über die antippbare Vermögenskarte startet einen kurzen Timer – auslaufen lassen
+    await tester.pump(const Duration(seconds: 1));
   });
 
   testWidgets('A15 Sparplan: Erinnerung auf 7 Tage stellen', (tester) async {

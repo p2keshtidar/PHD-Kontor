@@ -273,6 +273,7 @@ class WealthChart extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     if (points.length < 2) return const SizedBox.shrink();
     return Semantics(
+      container: true,
       label: tr('Vermögensverlauf: {0} im {1}, {2} im {3}',
           [formatCents(points.first.cents), points.first.label, formatCents(points.last.cents), points.last.label]),
       child: ExcludeSemantics(

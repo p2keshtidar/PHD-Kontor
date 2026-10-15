@@ -396,10 +396,11 @@ class _GoalsView extends StatelessWidget {
                     size: 20, color: g.reached ? IncomeExpenseChart.incomeColor : null),
                 const SizedBox(width: 8),
                 Expanded(child: Text(g.name, style: const TextStyle(fontWeight: FontWeight.w600))),
-                Text(g.targetCents == null
-                    ? formatCents(g.savedCents)
-                    : tr('{0} von {1}', [formatCents(g.savedCents), formatCents(g.targetCents!)])),
               ]),
+              // Beträge in eigener Zeile: bei schmalem Bildschirm oder großer Schrift bleibt der Name lesbar
+              Text(g.targetCents == null
+                  ? formatCents(g.savedCents)
+                  : tr('{0} von {1}', [formatCents(g.savedCents), formatCents(g.targetCents!)])),
               const SizedBox(height: 6),
               ClipRRect(
                 borderRadius: BorderRadius.circular(4),
