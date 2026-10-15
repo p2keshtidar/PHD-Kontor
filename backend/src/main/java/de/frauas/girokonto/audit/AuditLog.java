@@ -53,7 +53,8 @@ public class AuditLog {
             java.util.Map.entry("DOCUMENT_UPLOADED", "Dokument hochgeladen"),
             java.util.Map.entry("DOCUMENT_DOWNLOADED", "Dokument abgerufen"),
             java.util.Map.entry("DOCUMENT_DELETED", "Dokument gelöscht"),
-            java.util.Map.entry("CONTRACT_CANCEL_NOTED", "Kündigung vermerkt"));
+            java.util.Map.entry("CONTRACT_CANCEL_NOTED", "Kündigung vermerkt"),
+            java.util.Map.entry("SUBACCOUNT_CARD_CREATED", "Karte für digitales Konto eingerichtet"));
 
     static String label(String action) {
         String l = LABELS.get(action);
