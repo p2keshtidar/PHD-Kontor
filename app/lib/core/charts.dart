@@ -250,6 +250,101 @@ class _LinePainter extends CustomPainter {
   bool shouldRepaint(covariant _LinePainter old) => old.points != points;
 }
 
+/// Ein Punkt im Vermögensverlauf (Monatsende).
+class WealthPoint {
+  const WealthPoint(this.label, this.cents, {this.complete = true});
+
+  final String label;
+  final int cents;
+
+  /// false: in diesem Monat fehlen Teile (z. B. verbundene Banken ohne Umsätze) – Punkt wird hohl gezeichnet
+  final bool complete;
+}
+
+/// Linie für den Vermögensverlauf; Werte dürfen negativ sein (Kredite), dann wird die Null-Linie gezeigt.
+class WealthChart extends StatelessWidget {
+  const WealthChart({super.key, required this.points, this.height = 170});
+
+  final List<WealthPoint> points;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    if (points.length < 2) return const SizedBox.shrink();
+    return Semantics(
+      label: tr('Vermögensverlauf: {0} im {1}, {2} im {3}',
+          [formatCents(points.first.cents), points.first.label, formatCents(points.last.cents), points.last.label]),
+      child: ExcludeSemantics(
+        child: SizedBox(
+          height: height,
+          width: double.infinity,
+          child: CustomPaint(painter: _WealthPainter(points, scheme.primary, scheme.error, scheme.onSurfaceVariant)),
+        ),
+      ),
+    );
+  }
+}
+
+class _WealthPainter extends CustomPainter {
+  _WealthPainter(this.points, this.color, this.negativeColor, this.textColor);
+
+  final List<WealthPoint> points;
+  final Color color;
+  final Color negativeColor;
+  final Color textColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    const bottom = 18.0;
+    const top = 6.0;
+    final h = size.height - bottom - top;
+    final maxV = points.fold<int>(1, (m, p) => math.max(m, p.cents));
+    final minV = points.fold<int>(0, (m, p) => math.min(m, p.cents));
+    final range = (maxV - minV).toDouble();
+    final n = points.length;
+    double y(int v) => top + h - h * (v - minV) / range;
+    Offset at(int i) => Offset(size.width * i / (n - 1), y(points[i].cents));
+
+    final zero = y(0);
+    canvas.drawLine(Offset(0, zero), Offset(size.width, zero), Paint()..color = textColor.withAlpha(70));
+
+    final line = Path()..moveTo(at(0).dx, at(0).dy);
+    for (var i = 1; i < n; i++) {
+      line.lineTo(at(i).dx, at(i).dy);
+    }
+    final area = Path.from(line)
+      ..lineTo(size.width, zero)
+      ..lineTo(0, zero)
+      ..close();
+    canvas.drawPath(area, Paint()..color = color.withAlpha(35));
+    canvas.drawPath(
+        line,
+        Paint()
+          ..color = color
+          ..strokeWidth = 3
+          ..style = PaintingStyle.stroke);
+    for (var i = 0; i < n; i++) {
+      final p = points[i];
+      final c = p.cents < 0 ? negativeColor : color;
+      canvas.drawCircle(at(i), 3.5, Paint()..color = c);
+      if (!p.complete) canvas.drawCircle(at(i), 2, Paint()..color = Colors.white);
+    }
+
+    for (final i in {0, n ~/ 2, n - 1}) {
+      final tp = TextPainter(
+        text: TextSpan(text: points[i].label, style: TextStyle(color: textColor, fontSize: 11)),
+        textDirection: TextDirection.ltr,
+      )..layout();
+      final x = (size.width * i / (n - 1) - tp.width / 2).clamp(0.0, size.width - tp.width);
+      tp.paint(canvas, Offset(x, size.height - bottom + 3));
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _WealthPainter old) => old.points != points;
+}
+
 /// Ampel für die Machbarkeit (/F620/).
 class FeasibilityBadge extends StatelessWidget {
   const FeasibilityBadge({super.key, required this.level});

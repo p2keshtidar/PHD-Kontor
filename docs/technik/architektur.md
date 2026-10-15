@@ -69,6 +69,7 @@ flowchart LR
 | `savings` | Spar- und Investpläne (`SavingsPlanService`), Risikostufen, fiktive Fonds (`Fund`), Prognoseformeln (`PlanMath`) |
 | `loan` | Kreditzwecke und Zinsregeln (`LoanPurpose`), fiktive Banken (`Bank`) mit Mindest-Bonität, Bonitätsklassen (`CreditClass`), Annuitätenrechnung (`LoanMath`), Vergleich mit Filtern, getrennte Schritte Anfrage → Vertrag → Auszahlung, Raten (`LoanService`) |
 | `loan/provider` | Anbieter-Schnittstelle `LoanOfferProvider`, fiktive Banken (`SimulatedBanksProvider`), Referenzzinsen der Bundesbank (`MarketRateService`) – siehe [Sparregeln und Kredite](sparregeln-und-kredite.md) |
+| `dashboard` | Zentrales Finanz-Dashboard (`GET /api/dashboard`): Gesamtvermögen nach Bestandteilen, verfügbar/zurückgelegt, Konten und Karten, Schulden mit Verhältnis zu den Einnahmen, Cashflow, Sparziele, größte Ausgaben, Vermögensverlauf (12 Monatsenden) |
 | `allocation` | Sparregeln für digitale Konten: Rhythmen, Quellen (Girokonto = Umbuchung, verbundenes Bankkonto = Vormerkung), Vorgänge mit Status und Wiederholung, Tageslauf Nr. 35 |
 | `simulation` | Verschiebbare Uhr (`SimulationClock`), Tagesläufe (`SimulationService`, `DailyJob`), nächtlicher Lauf (`DailyScheduler`), Admin-Endpunkt zum Vorspulen |
 | `common` | IBAN-Generator, einheitliche Fehlermeldungen |
@@ -111,6 +112,8 @@ flowchart LR
 
 **Sparregeln (`AllocationService`):** Tageslauf Nr. 35 (nach Daueraufträgen und Kreditraten). Für jeden fälligen Termin entsteht genau ein Vorgang (`allocation_run`, eindeutig je Regel und Datum); ausgeführt wird unter Zeilensperre. Quelle Girokonto: Umbuchung `INTERNAL` mit Idempotenz-Schlüssel `alloc-<Regel>-<Datum>`. Quelle verbundenes Bankkonto: nur Vormerkung (keine Buchung), vorher Verbindung, Aktualität des Kontostands (≤ 48 h) und freie Deckung geprüft. Fehlschläge werden an den Folgetagen wiederholt (höchstens 3 Versuche). Vormerkungen zählen zum Ziel eines digitalen Kontos (`digital.earmarkedCents`, `digital.savedCents`); „Ziel erreicht“ prüft der gemeinsame `GoalTracker`.
 
+**Dashboard (`DashboardService`):** setzt nur vorhandene Daten zusammen, nichts wird geschätzt. Gesamtvermögen = Girokonto + digitale Konten + Sparkonten der Pläne + Depot (aktueller Kurs) + verbundene Banken (letzter abgerufener Kontostand, nur Euro) − Restschulden; die Summe ist identisch mit `GET /api/insights/net-worth`. Vermögensverlauf: Konten der Projektbank aus der Summe aller Buchungszeilen bis Monatsende; Depot aus den gekauften Anteilen (Sparraten mit Schlüssel `plan:<Plan>:<Monat>`, gleiche Rechnung wie beim Kauf in `DepotMath`) bis zum Verkauf (`plan-payout:<Plan>`), bewertet zum Kurs des Monats; verbundene Banken = heutiger Stand minus spätere Umsätze – vor dem ersten importierten Umsatz ist der Stand **unbekannt** und der Monat wird ohne verbundene Banken gezeigt (`externalIncluded = false`). Kontostände verbundener Banken, die älter als 2 Tage sind, werden als veraltet gekennzeichnet.
+
 **Live-Benachrichtigungen:**
 1. Jede Buchung ruft `NotificationService.send(...)` auf. Die Meldung wird in der Tabelle `notification` gespeichert.
 2. Der Versand per WebSocket passiert erst **nach dem Commit** (`TransactionSynchronization.afterCommit`). Wird die Buchung zurückgerollt, geht keine Meldung raus.
@@ -150,10 +153,11 @@ nur ansehen – geprüft bei jeder Umbuchung. Das Gesamtvermögen enthält die E
 | `l10n/` | Deutsch/Englisch: `tr('Deutscher Text')`, `strings_en.dart`, Sprachwahl |
 | `features/notifications/` | Benachrichtigungsliste, Zähler, Live-Verbindung starten (`realtime_provider.dart`), Systembenachrichtigungen |
 | `features/insights/` | Finanzüberblick (Diagramme, Kategorien, Durchschnitt), Beispielmonate |
+| `features/dashboard/` | Finanz-Dashboard (Startseite → Karte „Gesamtvermögen“): Vermögen nach Bestandteilen, verfügbar/zurückgelegt, Vermögensverlauf, Cashflow, größte Ausgaben, Schulden, Sparziele, Konten und Karten, Hinweise |
 | `features/savings/` | Bereich „Sparen“, Plan-Assistent, Plan-Detail mit Depot und Spartipps |
 | `features/loans/` | Kreditplaner mit Bonität und Filtern, Angebotsvergleich (Rechenbeispiele, Bundesbank-Referenz, Anbieterstatus), Angebot → Anfrage → Vertrag → Auszahlung, Tilgungsplan, Kreditdetail |
 | `features/allocations/` | „Automatisch sparen“ im digitalen Konto: Sparregeln anlegen/ändern/pausieren/beenden, Vorgänge mit Status und „erneut versuchen“, Vormerkungen |
-| `core/charts.dart` | Einfache Diagramme ohne Zusatzpaket (Balken, Linie, Kategorien, Ampel) |
+| `core/charts.dart` | Einfache Diagramme ohne Zusatzpaket (Balken, Linie, Vermögensverlauf mit negativen Werten, Kategorien, Ampel) |
 | `core/realtime_service.dart` | WebSocket/STOMP-Verbindung mit automatischem Neuverbinden |
 | `features/profile/` | Profil, Daten und Passwort ändern, Abmelden |
 | `features/shell/` | Navigationsleiste unten, Platzhalter für spätere Phasen |

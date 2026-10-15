@@ -122,6 +122,95 @@ class FakeBackend implements HttpClientAdapter {
         'page': 0, 'size': 20, 'hasMore': false,
       };
 
+  /// Finanz-Dashboard (GET /api/dashboard): Girokonto, digitales Konto mit Ziel, Depot, verbundene Bank (veraltet),
+  /// ein Kredit. Verlauf: verbundene Bank erst ab Juli enthalten.
+  static Map<String, dynamic> dashboard({bool empty = false}) {
+    final months = ['2025-11', '2025-12', '2026-01', '2026-02', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07',
+      '2026-08', '2026-09', '2026-10'];
+    if (empty) {
+      return {
+        'date': '2026-10-13',
+        'netWorth': {'accountsCents': 100000, 'digitalCents': 0, 'plansCents': 0, 'depotCents': 0, 'externalCents': 0,
+          'loansCents': 0, 'totalCents': 100000},
+        'liquidity': {'availableCents': 100000, 'reservedCents': 0, 'earmarkedCents': 0, 'externalCents': 0},
+        'accounts': [
+          {'kind': 'PROJEKTBANK', 'id': 10, 'name': 'Girokonto', 'institution': 'Projektbank (Simulation)',
+           'balanceCents': 100000, 'simulation': true, 'stale': false, 'note': null},
+        ],
+        'cards': [],
+        'debts': {'totalCents': 0, 'monthlyRatesCents': 0, 'debtRatioPercent': null, 'loans': []},
+        'cashflow': {'incomeCents': 0, 'expenseCents': 0, 'netCents': 0, 'months': [
+          for (final m in months.sublist(6)) {'month': m, 'complete': m != '2026-10', 'incomeCents': 0,
+            'expenseCents': 0, 'netCents': 0},
+        ]},
+        'goals': [],
+        'topExpenses': [],
+        'topExpensesMonth': null,
+        'history': [
+          for (final m in months) {'month': m, 'totalCents': m == '2026-10' ? 100000 : 0,
+            'projektbankCents': m == '2026-10' ? 100000 : 0, 'depotCents': 0, 'externalCents': null,
+            'externalIncluded': true},
+        ],
+        'notes': ['Girokonto, digitale Konten, Pläne, Depot und Kredite der Projektbank sind eine Simulation mit Spielgeld.'],
+        'generatedAt': '2026-10-13T10:00:00Z',
+      };
+    }
+    return {
+      'date': '2026-10-13',
+      'netWorth': {'accountsCents': 647950, 'digitalCents': 50000, 'plansCents': 0, 'depotCents': 22710,
+        'externalCents': 312045, 'loansCents': -500000, 'totalCents': 532705},
+      'liquidity': {'availableCents': 647950, 'reservedCents': 72710, 'earmarkedCents': 15000, 'externalCents': 312045},
+      'accounts': [
+        {'kind': 'PROJEKTBANK', 'id': 10, 'name': 'Girokonto', 'institution': 'Projektbank (Simulation)',
+         'balanceCents': 647950, 'simulation': true, 'stale': false, 'note': null},
+        {'kind': 'DIGITAL', 'id': 11, 'name': 'Urlaub', 'institution': 'Projektbank (Simulation)',
+         'balanceCents': 50000, 'simulation': true, 'stale': false, 'note': null},
+        {'kind': 'PLAN', 'id': 5, 'name': 'Weltportfolio', 'institution': 'Projektbank (Simulation)',
+         'balanceCents': 22710, 'simulation': true, 'stale': false, 'note': null},
+        {'kind': 'EXTERNAL', 'id': 601, 'name': 'Girokonto', 'institution': 'Sandbox Hauptbank',
+         'balanceCents': 312045, 'simulation': true, 'stale': true, 'note': 'Stand 10.10.2026'},
+        {'kind': 'LOAN', 'id': 7, 'name': 'Kredit Auto (Nordlicht Kredit)', 'institution': 'Projektbank (Simulation)',
+         'balanceCents': -500000, 'simulation': true, 'stale': false, 'note': null},
+      ],
+      'cards': [
+        {'id': 3, 'label': 'Debitkarte (Simulation)', 'maskedNumber': '•••• 4242', 'status': 'ACTIVE',
+         'dailyLimitCents': 100000, 'spentTodayCents': 2399, 'simulation': true},
+      ],
+      'debts': {'totalCents': 500000, 'monthlyRatesCents': 22046, 'debtRatioPercent': 7.5, 'loans': [
+        {'id': 7, 'name': 'Auto · Nordlicht Kredit', 'status': 'ACTIVE', 'remainingCents': 500000,
+         'monthlyRateCents': 22046, 'nextDueDate': '2026-11-13'},
+      ]},
+      'cashflow': {'incomeCents': 145000, 'expenseCents': 61230, 'netCents': 83770, 'months': [
+        for (final (i, m) in months.sublist(6).indexed)
+          {'month': m, 'complete': m != '2026-10', 'incomeCents': 290000, 'expenseCents': 140000 + i * 5000,
+           'netCents': 150000 - i * 5000},
+      ]},
+      'goals': [
+        {'kind': 'DIGITAL', 'id': 11, 'name': 'Urlaub', 'savedCents': 50000, 'targetCents': 300000,
+         'progressPercent': 16.7, 'targetDate': '2027-06-30', 'reached': false},
+        {'kind': 'PLAN', 'id': 5, 'name': 'Notgroschen', 'savedCents': 120000, 'targetCents': 100000,
+         'progressPercent': 100.0, 'targetDate': null, 'reached': true},
+      ],
+      'topExpenses': [
+        {'category': 'WOHNEN', 'label': 'Wohnen', 'cents': 90500, 'percent': 62.3},
+        {'category': 'LEBENSMITTEL', 'label': 'Lebensmittel', 'cents': 25811, 'percent': 17.8},
+        {'category': 'FREIZEIT', 'label': 'Freizeit', 'cents': 8000, 'percent': 5.5},
+      ],
+      'topExpensesMonth': '2026-09',
+      'history': [
+        for (final (i, m) in months.indexed)
+          {'month': m, 'totalCents': i < 3 ? 0 : -300000 + i * 80000, 'projektbankCents': i < 3 ? 0 : 100000 + i * 40000,
+           'depotCents': i < 6 ? 0 : (i - 5) * 4000, 'externalCents': i < 8 ? null : 312045, 'externalIncluded': i >= 8},
+      ],
+      'notes': [
+        'Girokonto, digitale Konten, Pläne, Depot und Kredite der Projektbank sind eine Simulation mit Spielgeld.',
+        'Verbundene Banken: letzter abgerufener Kontostand, nur Konten in Euro.',
+        'Mindestens ein Kontostand einer verbundenen Bank ist älter als 2 Tage oder die Verbindung ist gestört.',
+      ],
+      'generatedAt': '2026-10-13T10:00:00Z',
+    };
+  }
+
   static List<Map<String, dynamic>> months() => [
         for (var m = 5; m <= 10; m++)
           {
@@ -507,6 +596,7 @@ class FakeBackend implements HttpClientAdapter {
         'GET /api/insights/net-worth': (_) =>
             {'accountsCents': 647950, 'depotCents': 22710, 'loansCents': -1971031, 'totalCents': -1300371},
         'GET /api/clock': (_) => {'date': '2026-10-13', 'offsetDays': 0},
+        'GET /api/dashboard': (_) => dashboard(),
         'GET /api/plans': (_) => [planSummary()],
         'GET /api/plans/*': (_) => planDetail(),
         'GET /api/loans': (_) => [loan()],

@@ -10,6 +10,7 @@ import 'package:girokonto_app/features/banking/bank_transactions_screen.dart';
 import 'package:girokonto_app/features/banking/connect_bank_screen.dart';
 import 'package:girokonto_app/features/card/card_screen.dart';
 import 'package:girokonto_app/features/contacts/address_book_screen.dart';
+import 'package:girokonto_app/features/dashboard/dashboard_screen.dart';
 import 'package:girokonto_app/features/insights/csv_import_screen.dart';
 import 'package:girokonto_app/features/insights/insights_screen.dart';
 import 'package:girokonto_app/features/loans/extra_payment_screen.dart';
@@ -51,6 +52,7 @@ void main() {
     'Unterkonto (fremdes)': () => const SubaccountScreen(accountId: 12),
     'Benachrichtigungen': () => const NotificationsScreen(),
     'Finanzüberblick': () => const InsightsScreen(),
+    'Finanz-Dashboard': () => const DashboardScreen(),
     'CSV-Import': () => const CsvImportScreen(),
     'Sparen': () => const SavingsHomeScreen(),
     'Plan-Detail': () => const PlanDetailScreen(planId: 5),

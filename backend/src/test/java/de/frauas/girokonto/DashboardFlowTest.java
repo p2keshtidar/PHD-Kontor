@@ -132,6 +132,7 @@ class DashboardFlowTest extends FlowTestSupport {
         assertThat(d.get("netWorth").get("totalCents").asLong()).isEqualTo(100_000);
         String en = mvc.perform(get("/api/dashboard").header("Authorization", u.bearer()).header("Accept-Language", "en"))
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
-        assertThat(en).contains("simulation with play money").contains("Debit card (simulation)");
+        assertThat(en).contains("simulation with play money").contains("Debit card (simulation)")
+                .contains("\"institution\":\"Projektbank (simulation)\"");
     }
 }

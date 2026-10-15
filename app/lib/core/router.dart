@@ -16,6 +16,7 @@ import '../features/banking/bank_transactions_screen.dart';
 import '../features/banking/connect_bank_screen.dart';
 import '../features/card/card_screen.dart';
 import '../features/contacts/address_book_screen.dart';
+import '../features/dashboard/dashboard_screen.dart';
 import '../features/insights/insights_screen.dart';
 import '../features/loans/loan_application_screen.dart';
 import '../features/loans/loan_detail_screen.dart';
@@ -118,6 +119,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       // Phase 4: Finanzüberblick, Pläne, Kredite
       GoRoute(path: '/finanzen', builder: (_, __) => const InsightsScreen()),
+      // Zentrales Finanz-Dashboard
+      GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
       GoRoute(
         path: '/plan/neu',
         builder: (_, state) => PlanWizardScreen(type: state.uri.queryParameters['type'] == 'INVEST' ? 'INVEST' : 'GOAL'),

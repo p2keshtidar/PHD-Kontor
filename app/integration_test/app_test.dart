@@ -320,6 +320,20 @@ void main() {
     await pumpUntil(tester, find.textContaining('Umbuchung'));
     await goBack(tester);
     await pumpUntil(tester, find.text('Bankkonten'));
+
+    // Finanz-Dashboard: alles auf einen Blick (Beispielmonate, Kredit, verbundene Bank)
+    await scrollToTop(tester);
+    await tapButton(tester, find.byKey(const Key('home_dashboard')));
+    await pumpUntil(tester, find.byKey(const Key('dash_networth')), timeout: const Duration(seconds: 30));
+    Finder inNetWorth(String t) => find.descendant(of: find.byKey(const Key('dash_networth')), matching: find.text(t));
+    expect(inNetWorth('Andere Banken'), findsOneWidget);
+    expect(inNetWorth('Kredite'), findsOneWidget);
+    await scrollTo(tester, find.byKey(const Key('dash_debts')));
+    await scrollTo(tester, find.byKey(const Key('dash_notes')));
+    expect(find.textContaining('Simulation mit Spielgeld'), findsOneWidget);
+    await snap(tester, 'dashboard');
+    await goBack(tester);
+    await pumpUntil(tester, find.text('Bankkonten'));
   });
 
   testWidgets('Zwei Nutzer: Überweisung, Live-Meldung, Dauerauftrag, geteiltes Unterkonto', (tester) async {

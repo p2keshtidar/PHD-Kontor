@@ -149,36 +149,51 @@ class _TotalCard extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     return Card(
       color: scheme.primaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(tr('Gesamtvermögen'),
-                style: TextStyle(color: scheme.onPrimaryContainer)),
-            const SizedBox(height: 6),
-            Text(
-              formatCents(totalCents),
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(color: scheme.onPrimaryContainer, fontWeight: FontWeight.bold),
-            ),
-            if (netWorth != null &&
-                (netWorth!.depotCents != 0 || netWorth!.loansCents != 0 || netWorth!.externalCents != 0)) ...[
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        key: const Key('home_dashboard'),
+        onTap: () => context.push('/dashboard'),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(tr('Gesamtvermögen'),
+                  style: TextStyle(color: scheme.onPrimaryContainer)),
               const SizedBox(height: 6),
               Text(
-                tr('Konten {0}{1}{2}', [formatCents(netWorth!.accountsCents), netWorth!.depotCents != 0 ? tr(' · Depots {0}', [formatCents(netWorth!.depotCents)]) : '', netWorth!.loansCents != 0 ? tr(' · Kredite {0}', [formatCents(netWorth!.loansCents)]) : '']),
-                style: TextStyle(color: scheme.onPrimaryContainer),
+                formatCents(totalCents),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(color: scheme.onPrimaryContainer, fontWeight: FontWeight.bold),
               ),
-              if (netWorth!.externalCents != 0)
+              if (netWorth != null &&
+                  (netWorth!.depotCents != 0 || netWorth!.loansCents != 0 || netWorth!.externalCents != 0)) ...[
+                const SizedBox(height: 6),
                 Text(
-                  tr('Andere Banken {0}', [formatCents(netWorth!.externalCents)]),
-                  key: const Key('home_external_total'),
+                  tr('Konten {0}{1}{2}', [formatCents(netWorth!.accountsCents), netWorth!.depotCents != 0 ? tr(' · Depots {0}', [formatCents(netWorth!.depotCents)]) : '', netWorth!.loansCents != 0 ? tr(' · Kredite {0}', [formatCents(netWorth!.loansCents)]) : '']),
                   style: TextStyle(color: scheme.onPrimaryContainer),
                 ),
+                if (netWorth!.externalCents != 0)
+                  Text(
+                    tr('Andere Banken {0}', [formatCents(netWorth!.externalCents)]),
+                    key: const Key('home_external_total'),
+                    style: TextStyle(color: scheme.onPrimaryContainer),
+                  ),
+              ],
+              const SizedBox(height: 8),
+              Row(children: [
+                Icon(Icons.insights, size: 18, color: scheme.onPrimaryContainer),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(tr('Finanz-Dashboard: Verlauf, Cashflow, Schulden, Ziele'),
+                      style: TextStyle(color: scheme.onPrimaryContainer, fontWeight: FontWeight.w600)),
+                ),
+                Icon(Icons.chevron_right, color: scheme.onPrimaryContainer),
+              ]),
             ],
-          ],
+          ),
         ),
       ),
     );
