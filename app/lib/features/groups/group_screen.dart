@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/api_error.dart';
+import '../../core/state_views.dart';
 import '../../core/dates.dart';
 import '../../core/ids.dart';
 import '../../core/layout.dart';
@@ -54,7 +55,8 @@ class GroupScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     return data.when(
       loading: () => Scaffold(appBar: AppBar(), body: const Center(child: CircularProgressIndicator())),
-      error: (e, _) => Scaffold(appBar: AppBar(), body: Center(child: Text(apiErrorMessage(e)))),
+      error: (e, _) => Scaffold(
+          appBar: AppBar(), body: ErrorView(error: e, onRetry: () => ref.invalidate(groupDetailProvider(groupId)))),
       data: (g) => Scaffold(
         appBar: AppBar(
           title: Text(g.name),

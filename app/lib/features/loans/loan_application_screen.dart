@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/api_error.dart';
+import '../../core/state_views.dart';
 import '../../core/dates.dart';
 import '../../core/layout.dart';
 import '../../core/money.dart';
@@ -66,8 +67,8 @@ class _LoanApplicationScreenState extends ConsumerState<LoanApplicationScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(tr('Kreditanfrage'))),
       body: app.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(apiErrorMessage(e))),
+        loading: () => const LoadingView(),
+        error: (e, _) => ErrorView(error: e, onRetry: () => ref.invalidate(loanApplicationProvider(widget.applicationId))),
         data: (a) => _content(context, a),
       ),
     );

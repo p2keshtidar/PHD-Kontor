@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
+import '../../core/state_views.dart';
 import '../../core/dates.dart';
 import '../../core/money.dart';
 import '../accounts/account.dart';
@@ -215,8 +216,8 @@ class _SubaccountScreenState extends ConsumerState<SubaccountScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(tr('Digitales Konto'))),
       body: accounts.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(apiErrorMessage(e))),
+        loading: () => const LoadingView(),
+        error: (e, _) => ErrorView(error: e, onRetry: () => ref.invalidate(accountsProvider)),
         data: (list) {
           final subs = list.where((a) => a.id == widget.accountId);
           final mains = list.where((a) => a.isMain);

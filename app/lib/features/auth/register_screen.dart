@@ -101,6 +101,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
       appBar: AppBar(
         title: Text(tr('Konto eröffnen')),
         leading: IconButton(
+          tooltip: tr('Zurück'),
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/login'),
         ),

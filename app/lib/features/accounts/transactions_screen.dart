@@ -166,6 +166,7 @@ class _TransactionsScreenState extends ConsumerState<TransactionsScreen> {
                 suffixIcon: _search.text.isEmpty
                     ? null
                     : IconButton(
+                        tooltip: tr('Suche leeren'),
                         icon: const Icon(Icons.clear),
                         onPressed: () {
                           _search.clear();

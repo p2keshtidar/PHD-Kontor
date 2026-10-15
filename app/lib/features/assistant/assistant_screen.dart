@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/api_error.dart';
+import '../../core/state_views.dart';
 import '../../core/layout.dart';
 import '../../core/money.dart';
 import '../../l10n/l10n.dart';
@@ -177,8 +178,8 @@ class _ReportTabState extends ConsumerState<_ReportTab> {
     final data = ref.watch(monthReportProvider(_month));
     final theme = Theme.of(context);
     return data.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text(apiErrorMessage(e))),
+      loading: () => const LoadingView(),
+      error: (e, _) => ErrorView(error: e, onRetry: () => ref.invalidate(monthReportProvider(_month))),
       data: (r) {
         _base ??= r.month;
         final canNext = r.month.compareTo(_shift(_base!, 1)) < 0;

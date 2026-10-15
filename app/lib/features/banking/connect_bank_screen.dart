@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/api_error.dart';
+import '../../core/state_views.dart';
 import '../../core/layout.dart';
 import '../../l10n/l10n.dart';
 import 'bank_accounts_screen.dart';
@@ -48,8 +49,8 @@ class _ConnectBankScreenState extends ConsumerState<ConnectBankScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(tr('Bank verbinden'))),
       body: providers.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(apiErrorMessage(e))),
+        loading: () => const LoadingView(),
+        error: (e, _) => ErrorView(error: e, onRetry: () => ref.invalidate(bankProvidersProvider)),
         data: (list) {
           if (list.isEmpty) {
             return Padding(

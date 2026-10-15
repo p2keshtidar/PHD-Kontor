@@ -143,6 +143,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         labelText: tr('Passwort'),
                         prefixIcon: const Icon(Icons.lock),
                         suffixIcon: IconButton(
+                          tooltip: _obscure ? tr('Passwort anzeigen') : tr('Passwort verbergen'),
                           icon: Icon(
                               _obscure ? Icons.visibility : Icons.visibility_off),
                           onPressed: () => setState(() => _obscure = !_obscure),

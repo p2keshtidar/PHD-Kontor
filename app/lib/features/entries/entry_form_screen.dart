@@ -270,7 +270,10 @@ class _EntryFormScreenState extends ConsumerState<EntryFormScreen> {
               subtitle: Text(_endDate == null ? tr('Unbegrenzt') : tr('Bis {0}', [formatDate(_endDate!)])),
               trailing: _endDate == null
                   ? const Icon(Icons.chevron_right)
-                  : IconButton(icon: const Icon(Icons.clear), onPressed: () => setState(() => _endDate = null)),
+                  : IconButton(
+                      tooltip: tr('Enddatum entfernen'),
+                      icon: const Icon(Icons.clear),
+                      onPressed: () => setState(() => _endDate = null)),
               onTap: _pickEnd,
             ),
           if (dateProblem != null)

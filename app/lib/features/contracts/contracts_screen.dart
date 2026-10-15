@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/api_error.dart';
+import '../../core/state_views.dart';
 import '../../core/dates.dart';
 import '../../core/layout.dart';
 import '../../core/money.dart';
@@ -32,8 +33,8 @@ class ContractsScreen extends ConsumerWidget {
         label: Text(tr('Vertrag')),
       ),
       body: data.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(apiErrorMessage(e))),
+        loading: () => const LoadingView(),
+        error: (e, _) => ErrorView(error: e, onRetry: () => ref.invalidate(contractsProvider)),
         data: (o) => RefreshIndicator(
           onRefresh: () async => ref.invalidate(contractsProvider),
           child: ListView(padding: safeListPadding(context), children: [
@@ -171,7 +172,8 @@ class ContractDetailScreen extends ConsumerWidget {
     final theme = Theme.of(context);
     return data.when(
       loading: () => Scaffold(appBar: AppBar(), body: const Center(child: CircularProgressIndicator())),
-      error: (e, _) => Scaffold(appBar: AppBar(), body: Center(child: Text(apiErrorMessage(e)))),
+      error: (e, _) => Scaffold(
+          appBar: AppBar(), body: ErrorView(error: e, onRetry: () => ref.invalidate(contractProvider(contractId)))),
       data: (c) => Scaffold(
         appBar: AppBar(title: Text(c.name), actions: [
           IconButton(

@@ -184,3 +184,14 @@ nur ansehen – geprüft bei jeder Umbuchung. Das Gesamtvermögen enthält die E
 | `features/shell/` | Navigationsleiste unten, Platzhalter für spätere Phasen |
 
 Zustandsverwaltung mit **Riverpod**: Bildschirme lesen Daten über Provider (`ref.watch(accountsProvider)`), die Provider holen sie über Repositories vom Backend.
+
+### Bedienbarkeit und Barrierefreiheit (App)
+
+| Bereich | Umsetzung | Geprüft durch |
+|---|---|---|
+| Bildschirmleser | jedes Symbol-Bedienelement hat einen Tooltip (= Beschriftung für TalkBack/VoiceOver); Diagramme, Finanz-Check und Salden haben Textbeschreibungen; Farbe nie allein (z. B. „Du schuldest …“ statt nur Rot) | `accessibility_test.dart` (BF01, BF02: `labeledTapTargetGuideline`), CS05, A-Tests |
+| Fehlerzustand | `ErrorView`: Meldung als Live-Region (wird sofort vorgelesen) und **„Erneut versuchen“** | BF03, BF04 |
+| Lade- und Leerzustände | `LoadingView` mit Ansage „Wird geladen …“; Leerzustände erklären, was fehlt und wie man startet | BF03, DB10, G05, CT05 |
+| Bedienelemente | mindestens 48 × 48 Punkte | BF01 (`androidTapTargetGuideline`) |
+| Schriftgröße, Formate | 150 % Schrift, 320 px bis Tablet, kein Überlauf | `screens_layout_test.dart` |
+| Sprache | Deutsch und Englisch vollständig (App und Server-Texte) | L-Tests, `I18nFlowTest` |

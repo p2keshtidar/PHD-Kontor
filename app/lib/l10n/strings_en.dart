@@ -1135,4 +1135,11 @@ const stringsEn = <String, String>{
   'Strom & Gas': 'Electricity & gas',
   'Streaming & Abos': 'Streaming & subscriptions',
   'Fitness & Verein': 'Fitness & clubs',
+  // Barrierefreiheit
+  'Passwort anzeigen': 'Show password',
+  'Passwort verbergen': 'Hide password',
+  'Enddatum entfernen': 'Remove end date',
+  'Suche leeren': 'Clear search',
+  'Datum entfernen': 'Remove date',
+  'Wird geladen …': 'Loading …',
 };

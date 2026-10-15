@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../l10n/l10n.dart';
 
 import '../../core/api_error.dart';
+import '../../core/state_views.dart';
 import '../../core/dates.dart';
 import '../../core/money.dart';
 import '../accounts/accounts_repository.dart';
@@ -87,8 +88,8 @@ class _LoanDetailScreenState extends ConsumerState<LoanDetailScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(tr('Kredit'))),
       body: detail.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(apiErrorMessage(e))),
+        loading: () => const LoadingView(),
+        error: (e, _) => ErrorView(error: e, onRetry: () => ref.invalidate(loanDetailProvider(widget.loanId))),
         data: (d) => RefreshIndicator(
           onRefresh: () => ref.refresh(loanDetailProvider(widget.loanId).future),
           child: _content(context, d),

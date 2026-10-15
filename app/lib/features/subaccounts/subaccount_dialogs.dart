@@ -154,7 +154,10 @@ class _SubaccountEditDialogState extends ConsumerState<SubaccountEditDialog> {
               subtitle: Text(_date == null ? tr('Kein Datum') : formatDate(_date!)),
               trailing: _date == null
                   ? const Icon(Icons.chevron_right)
-                  : IconButton(icon: const Icon(Icons.clear), onPressed: () => setState(() => _date = null)),
+                  : IconButton(
+                      tooltip: tr('Datum entfernen'),
+                      icon: const Icon(Icons.clear),
+                      onPressed: () => setState(() => _date = null)),
               onTap: _pickDate,
             ),
           const SizedBox(height: 8),

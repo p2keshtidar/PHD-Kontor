@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/api_error.dart';
+import '../../core/state_views.dart';
 import '../../core/dates.dart';
 import '../../core/layout.dart';
 import '../../l10n/l10n.dart';
@@ -25,8 +26,8 @@ class BankTransactionScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(tr('Umsatz'))),
       body: tx.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (e, _) => Center(child: Text(apiErrorMessage(e))),
+        loading: () => const LoadingView(),
+        error: (e, _) => ErrorView(error: e, onRetry: () => ref.invalidate(_bankTransactionProvider(id))),
         data: (t) => _Body(key: ValueKey(t.id), tx: t),
       ),
     );
