@@ -1,0 +1,71 @@
+# Sicherheitsprüfungen: Geheimnisse im Code, bekannte Schwachstellen in Abhängigkeiten, statische Analyse.
+# Ergebnisse: GitHub → Security → Code scanning; Kurzfassung im Branch ci-logs-security (Datei ci.log).
+name: Security
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  security-events: write
+  actions: read
+
+jobs:
+  scan:
+    name: Geheimnisse und Abhängigkeiten
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with: { fetch-depth: 0 }
+      - name: Geheimnisse (gitleaks, ganze Git-Historie)
+        run: |
+          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.18.4 detect --source /repo -c /repo/.gitleaks.toml \
+            --report-format json --report-path /repo/gitleaks.json --exit-code 0 > /tmp/gitleaks.txt 2>&1 || true
+          echo "== gitleaks: $(python3 -c "import json;print(len(json.load(open('gitleaks.json'))))" 2>/dev/null || echo '?') Funde" | tee -a /tmp/ci.log
+          python3 -c "
+          import json
+          for f in json.load(open('gitleaks.json'))[:30]: print(' -', f['RuleID'], f['File'], f.get('StartLine'))" 2>/dev/null | tee -a /tmp/ci.log || true
+      - name: Abhängigkeiten (Trivy, Gradle + pub + Dockerfile)
+        run: |
+          docker run --rm -v "$PWD:/repo" aquasec/trivy:0.56.2 fs --scanners vuln,misconfig --severity HIGH,CRITICAL \
+            --format json --output /repo/trivy.json /repo > /tmp/trivy.txt 2>&1 || true
+          python3 - <<'PY' | tee -a /tmp/ci.log
+          import json
+          try:
+              d = json.load(open('trivy.json'))
+          except Exception as e:
+              print('== trivy: kein Ergebnis', e); raise SystemExit
+          vulns = [(r['Target'], v['VulnerabilityID'], v['PkgName'], v.get('InstalledVersion'), v.get('FixedVersion'), v['Severity'])
+                   for r in d.get('Results', []) for v in (r.get('Vulnerabilities') or [])]
+          mis = [(r['Target'], m['ID'], m['Title'], m['Severity']) for r in d.get('Results', []) for m in (r.get('Misconfigurations') or [])]
+          print(f'== trivy: {len(vulns)} Schwachstellen (HIGH/CRITICAL), {len(mis)} Konfigurationsprobleme')
+          for v in vulns[:60]: print(' -', *v)
+          for m in mis[:30]: print(' *', *m)
+          PY
+      - name: Protokoll ablegen
+        if: always()
+        run: |
+          cd /tmp && rm -rf l && mkdir l && cd l && git init -q && cp /tmp/ci.log . 2>/dev/null || echo leer > ci.log
+          cp $GITHUB_WORKSPACE/trivy.json $GITHUB_WORKSPACE/gitleaks.json . 2>/dev/null || true
+          git add . && git -c user.name=ci -c user.email=ci@example.org commit -qm "Security"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" HEAD:refs/heads/ci-logs-security
+
+  codeql:
+    name: Statische Analyse (CodeQL, Java)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: '21', cache: gradle }
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: java-kotlin
+          queries: security-extended
+      - name: Bauen
+        run: cd backend && chmod +x gradlew && ./gradlew compileJava --no-daemon -q
+      - uses: github/codeql-action/analyze@v3
+        with: { category: java }

@@ -21,6 +21,12 @@ server:
   port: ${PORT:8080}
 
 app:
+  # "production" verhindert den Start mit den Entwicklungs-Schlüsseln unten (SecretsGuard)
+  environment: ${APP_ENV:development}
+  rate-limit:
+    enabled: ${RATE_LIMIT_ENABLED:true}
+    auth-per-minute: 30     # Anmelden/Registrieren je IP
+    api-per-minute: 600     # übrige Aufrufe je Token
   jwt:
     # Nur für die Entwicklung! Im Betrieb über die Umgebungsvariable JWT_SECRET setzen (Base64, mind. 32 Byte).
     secret: ${JWT_SECRET:1ne2R3UORTd0dfO73zFIRmS24V7dyK6l18u2fM8IyCPSbV4eztOqvRPT69Yo7u9z}

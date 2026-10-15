@@ -1,0 +1,13 @@
+# Geheimnis-Suche (gitleaks). Die Entwicklungs-Schlüssel in application.yml sind absichtlich
+# öffentlich (nur für lokale Tests); im Betrieb verhindert SecretsGuard ihren Einsatz.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Bekannte Entwicklungs-Schlüssel"
+regexes = [
+  '''1ne2R3UORTd0dfO73zFIRmS24V7dyK6l18u2fM8IyCPSbV4eztOqvRPT69Yo7u9z''',
+  '''q3Jm0QbN8y4k9tXc2Vh7LpZr5Wd1Fs6Ge0Ua3Ti8Ko4=''',
+  '''JBSWY3DPEHPK3PXP''',
+]
+paths = ['''docs/pflichtenheft/.*\.pdf''']

@@ -1,0 +1,5 @@
+# Ergänzt application.yml in den Tests: viele Anmeldungen von derselben Adresse sind hier gewollt.
+app:
+  rate-limit:
+    auth-per-minute: 1000000
+    api-per-minute: 1000000
