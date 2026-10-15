@@ -79,7 +79,7 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 🏦 **Girokonto** | Registrierung mit fiktiver IBAN und 1.000 € Startguthaben · Umsätze mit Suche und Filter · Kategorien · **eigene Einnahmen & Ausgaben eintragen** (Gehalt, Miete, Urlaub – einmalig oder regelmäßig) |
 | 💸 **Überweisen** | per IBAN, E-Mail oder Telefonnummer · Adressbuch · Abgleich mit Handy-Kontakten · Tageslimit · **Daueraufträge** (monatlich bis jährlich) |
 | 💳 **Karte** | virtuelle Debitkarte · Daten nur mit Passwort · sperren/entsperren · Limit · Demo-Kartenzahlung |
-| 🗂️ **Unterkonten** | „Töpfe“ für Urlaub, Auto … · einzahlen, auszahlen, auflösen · **mit anderen teilen** (z. B. WG-Kasse) |
+| 🗂️ **Digitale Konten** | Töpfe für Urlaub, Auto, Immobilie, WG … mit **Zielbetrag, Fortschritt, Restbetrag und nötiger Monatsrate** · klar getrennt von Bankkonten (kein eigenes Bankkonto, keine eigene Einlagensicherung) · **teilen mit Rechten** (einzahlen + auszahlen / nur einzahlen / nur ansehen) |
 | 🔔 **Benachrichtigungen** | live per WebSocket bei jeder Buchung · Android: auch bei **geschlossener App** (Hintergrund-Abfrage) |
 | 🏦 **Echte Bankkonten** | mehrere Banken verbinden (Open Banking/PSD2, **nur Lesezugriff**) · Sandbox-Banken mit Testdaten · Abruf, Vormerkungen, Stornos, Rückbuchungen · eigene Kategorien, Notizen, Schlagwörter · Widerruf mit Löschen |
 | 🌍 **Deutsch / Englisch** | Sprache umschalten (auch Server-Meldungen), pro Konto gespeichert, beim ersten Start Gerätesprache |

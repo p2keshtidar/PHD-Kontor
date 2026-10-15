@@ -302,10 +302,14 @@ void main() {
   testWidgets('A12 digitales Konto teilen (Besitzer)', (tester) async {
     final fake = FakeBackend({'POST /api/subaccounts/*/members': (o) => const FakeResponse(200, [])});
     await pumpScreen(tester, const SubaccountScreen(accountId: 11), backend: fake);
+    // Ziel-Karte steht oben, Teilen und Auflösen weiter unten
+    await scrollTo(tester, find.byKey(const Key('share_add')));
     expect(find.text('Ben Beispiel'), findsOneWidget);
     expect(find.text('Erika Mustermann (du)'), findsOneWidget);
+    await scrollTo(tester, find.text('Digitales Konto auflösen'));
     expect(find.text('Digitales Konto auflösen'), findsOneWidget);
-    await scrollTo(tester, find.byKey(const Key('share_add')));
+    await tester.ensureVisible(find.byKey(const Key('share_add')));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('share_add')));
     await tester.pumpAndSettle();
     await tester.enterText(find.byKey(const Key('share_recipient')), 'mia@example.org');

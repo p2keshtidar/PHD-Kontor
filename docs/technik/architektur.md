@@ -60,7 +60,10 @@ flowchart LR
 | `transfer` | Überweisungen: Empfänger finden (`RecipientResolver`), prüfen und buchen (`TransferService`) |
 | `contact` | Adressbuch und Abgleich mit Telefonnummern aus dem Handy |
 | `card` | Virtuelle Karte: Nummer erzeugen (Luhn), verschlüsseln (`CardCrypto`, AES-256-GCM), sperren, Limits, Händler-Simulator |
-| `subaccount` | Unterkonten anlegen, umbenennen, umbuchen, auflösen |
+| `subaccount` | Digitale Konten (früher Unterkonten): anlegen mit Zweck/Ziel, ändern, umbuchen, teilen mit Rollen, auflösen |
+| `banking` | Echte Bankkonten über Open Banking/PSD2 (nur lesen): Anbieter-Schnittstelle, Sandbox, GoCardless, Abgleich, Widerruf – siehe [Open Banking](open-banking.md) |
+| `audit` | Prüfprotokoll sicherheitsrelevanter Aktionen (`GET /api/me/audit-log`) |
+| `i18n` | Englische Server-Texte (`ServerTexts`, `en.tsv`), Übersetzung der Antworten bei `Accept-Language: en` |
 | `notification` | Benachrichtigungen speichern, auflisten, gelesen markieren; WebSocket-Konfiguration (`WebSocketConfig`) |
 | `insights` | Kategorien (`CategoryService`), Monatsübersicht und Durchschnitte (`InsightsService`), Demo-Profile und Beispielmonate (`DemoDataService`) |
 | `savings` | Spar- und Investpläne (`SavingsPlanService`), Risikostufen, fiktive Fonds (`Fund`), Prognoseformeln (`PlanMath`) |
@@ -113,6 +116,15 @@ flowchart LR
 
 **Umsatzliste (`BookingQueryService`):** SQL-Abfrage über `booking_line` des Kontos. Die Gegenpartei („an/von wem“) ist die andere Zeile derselben Buchung. Filter werden nur angehängt, wenn sie gesetzt sind; Werte gehen immer als Parameter in die Abfrage (Schutz vor SQL-Injection). Es wird eine Zeile mehr geladen als angezeigt, um zu wissen, ob es weitere Seiten gibt.
 
+**Zwei Kontenbereiche:** Die Startseite trennt **Bankkonten** (Girokonto der Projektbank – ausdrücklich als
+Simulation gekennzeichnet – und verbundene Konten echter Banken, nur lesend) von **digitalen Konten**. Ein digitales
+Konto ist eine eigene Zeile im Hauptbuch der Projektbank (Typ `SUB`): Ein- und Auszahlungen sind echte Umbuchungen
+innerhalb der Projektbank (Buchungsart `INTERNAL`), es ist aber kein eigenes Bankkonto und hat keine eigene
+Einlagensicherung – das steht in jeder Antwort (`digital.custodyText`) und in der App. Zweck, Zielbetrag und Zieldatum
+ergeben Fortschritt, Restbetrag und die nötige Monatsrate; „Ziel erreicht“ wird einmal gemeldet (erneut erst, wenn der
+Stand zwischendurch unter das Ziel fiel). Geteilte digitale Konten haben Rollen: einzahlen + auszahlen, nur einzahlen,
+nur ansehen – geprüft bei jeder Umbuchung. Das Gesamtvermögen enthält die Euro-Salden verbundener Banken als eigenen Posten.
+
 **Datenbank:** Schema nur über Flyway-Dateien in `src/main/resources/db/migration`. Neue Tabellen in späteren Phasen kommen als `V2__...sql`, `V3__...sql` usw. Bestehende Migrationsdateien niemals ändern.
 
 ### App (`app/lib`)
@@ -129,7 +141,9 @@ flowchart LR
 | `features/transfer/` | Überweisung: Formular, Zusammenfassung (prüft per `/api/transfers/check`), Senden mit Idempotenz-Schlüssel, Erfolgsseite |
 | `features/contacts/` | Adressbuch, Hinzufügen, Löschen (wischen), Gerätekontakte abgleichen |
 | `features/card/` | Kartenbild, Kartendaten mit Passwort, Sperren, Limits, Händler-Simulator |
-| `features/subaccounts/` | Unterkonto anlegen/bearbeiten (Dialog), Detailseite mit Ein-/Auszahlen und Auflösen |
+| `features/subaccounts/` | Digitales Konto anlegen/bearbeiten (Zweck, Ziel, Datum), Detail mit Fortschritt, Ein-/Auszahlen, Teilen mit Rollen, Auflösen |
+| `features/banking/` | Echte Bankkonten: verbinden (Sandbox-Test-Freigabe bzw. Bankseite), Verwalten, Umsätze mit Suche/Filter, eigene Angaben |
+| `l10n/` | Deutsch/Englisch: `tr('Deutscher Text')`, `strings_en.dart`, Sprachwahl |
 | `features/notifications/` | Benachrichtigungsliste, Zähler, Live-Verbindung starten (`realtime_provider.dart`), Systembenachrichtigungen |
 | `features/insights/` | Finanzüberblick (Diagramme, Kategorien, Durchschnitt), Beispielmonate |
 | `features/savings/` | Bereich „Sparen“, Plan-Assistent, Plan-Detail mit Depot und Spartipps |

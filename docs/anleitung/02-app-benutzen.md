@@ -86,9 +86,19 @@ brauchen einen Vertrag mit einem zugelassenen Anbieter ([Details](../technik/ope
 4. Karte **sperren** → nochmal bezahlen → wird **abgelehnt** (mit Benachrichtigung).
 5. Tageslimit auf 50 € stellen → Zahlung über 50 € → abgelehnt.
 
-## 6. Unterkonten („Töpfe“)
+## 6. Digitale Konten („Töpfe“)
 
-Startseite → **„Neues Unterkonto“** → Name + Symbol → antippen → **Einzahlen**. Das Gesamtvermögen bleibt gleich. **Auflösen** bucht alles zurück.
+Die Startseite hat zwei getrennte Bereiche: **Bankkonten** (dein Girokonto der Projektbank – eine Simulation – und
+verbundene Banken) und **Digitale Konten**. Digitale Konten sind Töpfe in deinem Projektbank-Konto: Geld wird dorthin
+umgebucht, sie sind aber **keine eigenen Bankkonten** und haben keine eigene Einlagensicherung (ⓘ neben der Überschrift).
+
+1. **„Neues digitales Konto“** → Name, **Zweck** (Urlaub, Auto, Immobilie, Rückzahlung, WG-Kasse, Notgroschen …),
+   optional **Zielbetrag** und **Zieldatum** → Speichern.
+2. Antippen → **Einzahlen**. Die Karte zeigt **Fortschritt**, **Restbetrag** und – mit Zieldatum – die **nötige Rate pro
+   Monat**. Wird das Ziel erreicht, kommt eine Benachrichtigung.
+3. **Teilen** → E-Mail/Telefon/IBAN + Rechte: *einzahlen und auszahlen*, *nur einzahlen* oder *nur ansehen*. Rechte
+   später über **⋮** beim Mitglied ändern.
+4. **Auflösen** bucht das Guthaben aufs Girokonto zurück. Das Gesamtvermögen bleibt beim Umbuchen gleich.
 
 ## 7. Finanzassistent ⭐ (Kernidee des Projekts)
 
@@ -137,7 +147,7 @@ Startseite → **„Neues Unterkonto“** → Name + Symbol → antippen → **E
 3. Ergebnis: Anzahl, Zeitraum, Einnahmen, Ausgaben. Zurück im Finanzüberblick sind die Monate gefüllt.
 4. Die Kontostände in der App ändern sich **nicht** – es ist Geld bei einer anderen Bank. Ein zweiter Import derselben Datei legt nichts doppelt an. Import löschen: in der Liste „Bisherige Importe“.
 
-### 9.4 Unterkonto teilen (/K060/)
+### 9.4 Digitales Konto teilen (/K060/)
 1. Startseite → Unterkonto öffnen (oder neu anlegen, z. B. „WG-Kasse“).
 2. Im Kasten **„Teilen“** → **Person hinzufügen** → E-Mail des zweiten Nutzers.
 3. Beim zweiten Nutzer erscheint „WG-Kasse – Geteilt von …“ auf der Startseite. Er kann **einzahlen**, **auszahlen** und die Umsätze sehen. Bei jeder Bewegung bekommt der andere eine Meldung.
