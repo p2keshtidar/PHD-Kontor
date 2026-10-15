@@ -1,29 +1,13 @@
-# Sprint 1 – Stand-ups
+# Sprint 1 – Daily Scrum (Mo 12.10.)
 
-[← Scrum-Übersicht](../README.md) · Sprint 1: [Planning](planning.md) · [Stand-ups](standups.md) · [Review](review.md) · [Retro](retro.md)
+[← Scrum-Übersicht](../README.md) · Sprint 1: [Planning](planning.md) · [Daily Scrum](standups.md) · [Review](review.md) · [Retro](retro.md)
 
-15 Minuten, jeder beantwortet drei Fragen. Keine Diskussionen – Probleme danach klären.
+15 Minuten am Mittag, jeder beantwortet drei Fragen. Keine Diskussionen – Probleme danach klären.
 
-## Stand-up Do, 15.10.2026
+## Daily Scrum Mo, 12.10.2026, 13:00
 
-| Wer | Was habe ich seit dem letzten Mal geschafft? | Was mache ich als Nächstes? | Hindernisse? |
-|---|---|---|---|
-| Pouria Keshtidar | | | |
-| David Eslami Amirabadi | | | |
-| Mohamed Hedi Harbaoui | | | |
-
-## Stand-up Mo, 19.10.2026
-
-| Wer | Was habe ich seit dem letzten Mal geschafft? | Was mache ich als Nächstes? | Hindernisse? |
-|---|---|---|---|
-| Pouria Keshtidar | | | |
-| David Eslami Amirabadi | | | |
-| Mohamed Hedi Harbaoui | | | |
-
-## Stand-up Do, 22.10.2026
-
-| Wer | Was habe ich seit dem letzten Mal geschafft? | Was mache ich als Nächstes? | Hindernisse? |
-|---|---|---|---|
-| Pouria Keshtidar | | | |
-| David Eslami Amirabadi | | | |
-| Mohamed Hedi Harbaoui | | | |
+| Wer | Aufgaben laut Planning | Bis jetzt geschafft | Als Nächstes | Hindernisse |
+|---|---|---|---|---|
+| Pouria Keshtidar | Kick-off: Rollen, Regeln, Kommunikationskanal festlegen<br>Pflichtenheft v0.2 gemeinsam durchgehen und abgeben<br>David und Mohamed als Collaborators ins GitHub-Repo einladen<br>Entwicklungsumgebung bei allen einrichten (Anleitung 3)<br>Code-Walkthrough Phase 1: Registrierung, Login, Konto, Buchung | 📝 | 📝 | 📝 |
+| David Eslami Amirabadi | Kick-off: Rollen, Regeln, Kommunikationskanal festlegen<br>Entwicklungsumgebung bei allen einrichten (Anleitung 3)<br>Code-Walkthrough Phase 1: Registrierung, Login, Konto, Buchung | 📝 | 📝 | 📝 |
+| Mohamed Hedi Harbaoui | Kick-off: Rollen, Regeln, Kommunikationskanal festlegen<br>Entwicklungsumgebung bei allen einrichten (Anleitung 3)<br>App auf Browser, Android und iPhone installieren und testen (Anleitung 1)<br>CI/CD: automatische Tests, Builds für Web, Android und iOS, Release-Workflow, Docker | 📝 | 📝 | 📝 |

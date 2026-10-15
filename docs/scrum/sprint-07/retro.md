@@ -1,10 +1,10 @@
-# Sprint 7 – Retrospektive
+# Sprint 7 – Retrospektive (So 18.10.)
 
-[← Scrum-Übersicht](../README.md) · Sprint 7: [Planning](planning.md) · [Stand-ups](standups.md) · [Review](review.md) · [Retro](retro.md)
+[← Scrum-Übersicht](../README.md) · Sprint 7: [Planning](planning.md) · [Daily Scrum](standups.md) · [Review](review.md) · [Retro](retro.md)
 
 | | |
 |---|---|
-| **Datum** | Di, 26.01.2027 (nach dem Review) |
+| **Datum** | So, 18.10.2026, 18:30–18:50 (nach dem Review) |
 | **Teilnehmer** | Pouria Keshtidar, David Eslami Amirabadi, Mohamed Hedi Harbaoui |
 | **Methode** | Start · Stop · Continue |
 
@@ -12,7 +12,7 @@
 |---|---|---|
 | 📝 | 📝 | 📝 |
 
-## Maßnahmen für den nächsten Sprint
+## Maßnahmen bis zur Präsentation
 
 | # | Maßnahme | Verantwortlich |
 |---|---|---|

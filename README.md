@@ -108,7 +108,7 @@ Demo-Admin: `admin@projektbank.de` / `admin12345`
 | 🏦 [Echte Bankkonten (Open Banking)](docs/technik/open-banking.md) | Ablauf, Anbieter, Sicherheit, Status der Umsätze, Voraussetzungen für echte Banken |
 | 🔔 [Push-Benachrichtigungen](docs/technik/push.md) | Hintergrund-Abfrage und Weg zu echtem Push (Firebase/APNs) |
 | 📄 [Pflichtenheft v0.2](docs/pflichtenheft/Pflichtenheft_Girokonto_v0.2.pdf) | Anforderungen (Muss-/Kannkriterien, Tests) |
-| 🏃 [Scrum](docs/scrum/README.md) | Team, Rollen, Sprints, Meeting-Protokolle |
+| 🏃 [Scrum](docs/scrum/README.md) | Projektwoche 12.–18.10.2026: Rollen, 7 Tages-Sprints, Aufgabenverteilung, Protokolle |
 | ✅ [Backlog (Issues)](https://github.com/p2keshtidar/girokonto/issues) · [Sprints (Milestones)](https://github.com/p2keshtidar/girokonto/milestones) | Aufgaben und Stand |
 
 ---

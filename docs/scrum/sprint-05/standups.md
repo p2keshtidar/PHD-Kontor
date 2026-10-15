@@ -1,29 +1,13 @@
-# Sprint 5 – Stand-ups
+# Sprint 5 – Daily Scrum (Fr 16.10.)
 
-[← Scrum-Übersicht](../README.md) · Sprint 5: [Planning](planning.md) · [Stand-ups](standups.md) · [Review](review.md) · [Retro](retro.md)
+[← Scrum-Übersicht](../README.md) · Sprint 5: [Planning](planning.md) · [Daily Scrum](standups.md) · [Review](review.md) · [Retro](retro.md)
 
-15 Minuten, jeder beantwortet drei Fragen. Keine Diskussionen – Probleme danach klären.
+15 Minuten am Mittag, jeder beantwortet drei Fragen. Keine Diskussionen – Probleme danach klären.
 
-## Stand-up Do, 10.12.2026
+## Daily Scrum Fr, 16.10.2026, 13:00
 
-| Wer | Was habe ich seit dem letzten Mal geschafft? | Was mache ich als Nächstes? | Hindernisse? |
-|---|---|---|---|
-| Pouria Keshtidar | | | |
-| David Eslami Amirabadi | | | |
-| Mohamed Hedi Harbaoui | | | |
-
-## Stand-up Mo, 14.12.2026
-
-| Wer | Was habe ich seit dem letzten Mal geschafft? | Was mache ich als Nächstes? | Hindernisse? |
-|---|---|---|---|
-| Pouria Keshtidar | | | |
-| David Eslami Amirabadi | | | |
-| Mohamed Hedi Harbaoui | | | |
-
-## Stand-up Do, 17.12.2026
-
-| Wer | Was habe ich seit dem letzten Mal geschafft? | Was mache ich als Nächstes? | Hindernisse? |
-|---|---|---|---|
-| Pouria Keshtidar | | | |
-| David Eslami Amirabadi | | | |
-| Mohamed Hedi Harbaoui | | | |
+| Wer | Aufgaben laut Planning | Bis jetzt geschafft | Als Nächstes | Hindernisse |
+|---|---|---|---|---|
+| Pouria Keshtidar | Code-Walkthrough Kredit: Angebote, Annuität, Tilgungsplan<br>/K020/ Sondertilgung – Backend<br>Sparpläne und Geldzuweisungen: wöchentlich oder monatlich, Finanzierungsquelle, Status, keine doppelten Abbuchungen<br>Kreditvergleich mit mehreren Anbietern: Anbieter-Schnittstelle, unverbindliche Beispiele, Filter, getrennte Schritte | 📝 | 📝 | 📝 |
+| David Eslami Amirabadi | /K020/ Sondertilgung – App (Kreditdetail)<br>Sparpläne und Geldzuweisungen: wöchentlich oder monatlich, Finanzierungsquelle, Status, keine doppelten Abbuchungen<br>Kreditvergleich mit mehreren Anbietern: Anbieter-Schnittstelle, unverbindliche Beispiele, Filter, getrennte Schritte | 📝 | 📝 | 📝 |
+| Mohamed Hedi Harbaoui | Tests für Sondertilgung + Testfälle T19–T25 prüfen<br>Tests für Sparpläne, Zuweisungen und Kreditvergleich | 📝 | 📝 | 📝 |

@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Datum** | |
-| **Sprint** | TT.MM. – TT.MM.JJJJ |
+| **Sprint** | TT.MM.JJJJ (ein Tag der Projektwoche) |
 | **Teilnehmer** | |
 | **Moderation** | Scrum Master |
 
