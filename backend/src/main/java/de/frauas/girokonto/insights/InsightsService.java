@@ -67,11 +67,29 @@ public class InsightsService {
         }, main.getId(), Timestamp.from(from), Timestamp.from(to));
 
         // /K040/: importierte Umsätze anderer Banken (CSV) zählen mit
+        // CSV-Zeilen, die auch über eine verbundene Bank kamen (gleicher Tag, gleicher Betrag), nicht doppelt zählen
         jdbc.query("""
-                SELECT booked_on, category, amount_cents FROM imported_transaction
-                 WHERE user_id = ? AND booked_on >= ? AND booked_on < ?
+                SELECT i.booked_on, i.category, i.amount_cents FROM imported_transaction i
+                 WHERE i.user_id = ? AND i.booked_on >= ? AND i.booked_on < ?
+                   AND NOT EXISTS (SELECT 1 FROM external_transaction x
+                                    WHERE x.user_id = i.user_id AND x.booking_date = i.booked_on
+                                      AND x.amount_cents = i.amount_cents AND x.status IN ('BOOKED', 'REVERSED'))
                 """, rs -> {
             YearMonth ym = YearMonth.from(rs.getDate("booked_on").toLocalDate());
+            Map<Category, Long> m = sums.get(ym);
+            if (m != null) {
+                m.merge(Category.valueOf(rs.getString("category")), rs.getLong("amount_cents"), Long::sum);
+            }
+        }, userId, java.sql.Date.valueOf(first.atDay(1)), java.sql.Date.valueOf(current.plusMonths(1).atDay(1)));
+
+        // Verbundene echte Bankkonten: gebuchte Umsätze in Euro; Rückbuchungen und ausgeschlossene nicht
+        jdbc.query("""
+                SELECT t.booking_date, COALESCE(e.category, t.auto_category) AS category, t.amount_cents
+                  FROM external_transaction t LEFT JOIN external_transaction_edit e ON e.transaction_id = t.id
+                 WHERE t.user_id = ? AND t.status = 'BOOKED' AND NOT t.is_reversal AND t.currency = 'EUR'
+                   AND COALESCE(e.excluded, FALSE) = FALSE AND t.booking_date >= ? AND t.booking_date < ?
+                """, rs -> {
+            YearMonth ym = YearMonth.from(rs.getDate("booking_date").toLocalDate());
             Map<Category, Long> m = sums.get(ym);
             if (m != null) {
                 m.merge(Category.valueOf(rs.getString("category")), rs.getLong("amount_cents"), Long::sum);

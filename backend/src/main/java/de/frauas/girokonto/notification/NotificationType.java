@@ -9,5 +9,7 @@ public enum NotificationType {
     INTERNAL,
     SAVING_RATE,
     GOAL,
-    INFO
+    INFO,
+    /** verbundene Bankkonten (Freigabe läuft ab, Abruf gestört) */
+    BANK
 }

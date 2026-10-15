@@ -3,3 +3,6 @@ app:
   rate-limit:
     auth-per-minute: 1000000
     api-per-minute: 1000000
+  banking:
+    auto-sync: false
+    retry-backoff-ms: 0

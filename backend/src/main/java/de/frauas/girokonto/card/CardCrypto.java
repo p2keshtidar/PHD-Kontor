@@ -13,7 +13,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.stereotype.Component;
 
 /**
- * Verschlüsselt Kartennummer und Prüfnummer mit AES-256-GCM (/F310/: volle Nummer nie im Klartext gespeichert).
+ * Verschlüsselt Kartennummer und Prüfnummer mit AES-256-GCM (/F310/: volle Nummer nie im Klartext gespeichert),
+ * außerdem Freigabe-Kennungen und Originaldaten verbundener Bankkonten.
  * Format: Base64( 12 Byte IV | Chiffretext mit Prüfsumme ).
  */
 @Component
@@ -24,6 +25,7 @@ public class CardCrypto {
     private static final SecureRandom RANDOM = new SecureRandom();
 
     private final SecretKey key;
+    private final SecretKey macKey;
 
     public CardCrypto(AppProperties props) {
         byte[] raw = Base64.getDecoder().decode(props.card().encryptionKey());
@@ -31,6 +33,27 @@ public class CardCrypto {
             throw new IllegalStateException("app.card.encryption-key muss 32 Byte (Base64) lang sein");
         }
         this.key = new SecretKeySpec(raw, "AES");
+        // eigener Schlüssel für Prüfwerte (abgeleitet, nicht derselbe wie für die Verschlüsselung)
+        try {
+            java.security.MessageDigest sha = java.security.MessageDigest.getInstance("SHA-256");
+            sha.update("girokonto-fingerprint".getBytes(StandardCharsets.UTF_8));
+            this.macKey = new SecretKeySpec(sha.digest(raw), "HmacSHA256");
+        } catch (GeneralSecurityException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    /**
+     * Prüfwert (HMAC-SHA-256, hex) z. B. einer IBAN: erkennt dieselbe IBAN wieder, ohne sie zu speichern.
+     */
+    public String fingerprint(String plain) {
+        try {
+            javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA256");
+            mac.init(macKey);
+            return java.util.HexFormat.of().formatHex(mac.doFinal(plain.getBytes(StandardCharsets.UTF_8)));
+        } catch (GeneralSecurityException e) {
+            throw new IllegalStateException("Prüfwert fehlgeschlagen", e);
+        }
     }
 
     public String encrypt(String plain) {

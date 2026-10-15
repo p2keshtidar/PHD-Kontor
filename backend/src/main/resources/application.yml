@@ -58,6 +58,21 @@ app:
     password: ${ADMIN_PASSWORD:admin12345}
   simulation:
     zone: Europe/Berlin
+  banking:
+    # Sandbox-Banken mit Testdaten (keine echte Bank). Im Betrieb mit echten Konten ggf. abschalten.
+    sandbox-enabled: ${BANKING_SANDBOX:true}
+    auto-sync: ${BANKING_AUTO_SYNC:true}
+    sync-interval-minutes: 360        # alle 6 Stunden (PSD2: Banken erlauben oft nur 4 Abrufe pro Tag)
+    retry-attempts: 3
+    retry-backoff-ms: 500
+    initial-history-days: 90
+    # Rücksprung nach der Freigabe bei der Bank (öffentliche Adresse des Servers)
+    redirect-url: ${BANKING_REDIRECT_URL:http://localhost:8080/api/banking/callback}
+    gocardless:
+      # Echte Bankverbindungen nur mit Vertrag und Zugangsdaten (nie im Code, nur als Umgebungsvariablen)
+      base-url: ${GOCARDLESS_BASE_URL:https://bankaccountdata.gocardless.com/api/v2}
+      secret-id: ${GOCARDLESS_SECRET_ID:}
+      secret-key: ${GOCARDLESS_SECRET_KEY:}
   cors:
     allowed-origin-patterns:
       - "http://localhost:*"

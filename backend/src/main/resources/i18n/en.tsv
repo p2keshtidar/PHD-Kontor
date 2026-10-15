@@ -286,3 +286,66 @@ vierteljährlich	quarterly
 „{0}“ wurde von {1} aufgelöst.	“{0}” was closed by {1}.
 „{0}“: nicht genug Guthaben für {1}. Nächster Versuch im nächsten Monat.	“{0}”: insufficient funds for {1}. Next attempt next month.
 „{0}“: {1} aufs Girokonto gebucht	“{0}”: {1} booked to the current account
+# Verbundene Bankkonten (Open Banking/PSD2)
+Simulierte Banken mit Testdaten – keine echte Bank, kein echtes Geld.	Simulated banks with test data – no real bank, no real money.
+Echte Bank über einen zugelassenen Kontoinformationsdienst (PSD2). Nur Lesezugriff.	Real bank via a licensed account information service (PSD2). Read-only access.
+Sandbox (Testdaten, keine echte Bank)	Sandbox (test data, no real bank)
+Sandbox-Hausbank (Testdaten)	Sandbox main bank (test data)
+Sandbox-Onlinebank (Testdaten)	Sandbox online bank (test data)
+Sandbox-Bank mit Störungen (Testdaten)	Sandbox bank with outages (test data)
+Sandbox-Bank nicht erreichbar (Testdaten)	Sandbox bank unreachable (test data)
+Sandbox-Bank mit 1-Tag-Freigabe (Testdaten)	Sandbox bank with 1-day consent (test data)
+Tagesgeld	Instant-access savings
+Online-Konto	Online account
+Konto	Account
+Dieser Anbieter ist nicht verfügbar.	This provider is not available.
+Diese Bank wird nicht unterstützt.	This bank is not supported.
+Diese Bank ist bereits verbunden.	This bank is already connected.
+Höchstens 10 Bankverbindungen möglich. Bitte zuerst eine entfernen.	At most 10 bank connections are possible. Please remove one first.
+Sandbox: Es öffnet sich keine echte Bank. Bestätige die Test-Freigabe in der App.	Sandbox: no real bank opens. Confirm the test authorisation in the app.
+Melde dich auf der Seite deiner Bank an und bestätige den Lesezugriff. Danach zurück zur App.	Log in on your bank's page and confirm read access. Then return to the app.
+Diese Verbindung wartet nicht auf eine Freigabe.	This connection is not waiting for an authorisation.
+Die Freigabe bei der Bank ist noch nicht abgeschlossen.	The authorisation at the bank has not been completed yet.
+Die Freigabe wurde bei der Bank abgelehnt.	The authorisation was declined at the bank.
+Die Freigabe ist abgelaufen. Bitte erneut verbinden.	The authorisation has expired. Please connect again.
+Bank verbunden: {0} Konto/Konten, {1} Umsätze importiert.	Bank connected: {0} account(s), {1} transactions imported.
+Bank verbunden. Der erste Abruf der Umsätze ist fehlgeschlagen und wird später wiederholt.	Bank connected. The first retrieval of transactions failed and will be retried later.
+Die Freigabe ist abgelaufen. Bitte die Bank neu verbinden.	The authorisation has expired. Please reconnect the bank.
+Diese Verbindung ist nicht aktiv.	This connection is not active.
+Die Bank erlaubt nur wenige Abrufe pro Tag. Bitte später erneut versuchen.	The bank only allows a few retrievals per day. Please try again later.
+Alles aktuell – keine neuen Umsätze.	All up to date – no new transactions.
+1 neuer Umsatz.	1 new transaction.
+{0} neue Umsätze.	{0} new transactions.
+Abruf-Grenze der Bank erreicht. Nächster Versuch später.	The bank's retrieval limit has been reached. Next attempt later.
+Die Bank war nicht erreichbar. Nächster Versuch später.	The bank could not be reached. Next attempt later.
+Abruf fehlgeschlagen. Bitte die Verbindung prüfen.	Retrieval failed. Please check the connection.
+Bankabruf gestört	Bank retrieval disrupted
+{0}: Die Bank war nicht erreichbar. Nächster Versuch später.	{0}: The bank could not be reached. Next attempt later.
+{0}: Abruf-Grenze der Bank erreicht. Nächster Versuch später.	{0}: The bank's retrieval limit has been reached. Next attempt later.
+{0}: Abruf fehlgeschlagen. Bitte die Verbindung prüfen.	{0}: Retrieval failed. Please check the connection.
+Bankfreigabe abgelaufen	Bank authorisation expired
+Die Freigabe für {0} ist abgelaufen. Verbinde die Bank neu, um weiter Umsätze zu sehen.	The authorisation for {0} has expired. Reconnect the bank to keep seeing transactions.
+Bankfreigabe läuft bald ab	Bank authorisation expires soon
+Die Freigabe für {0} endet in {1} Tag. Erneuere sie in der App unter Bankkonten.	The authorisation for {0} ends in {1} day. Renew it in the app under bank accounts.
+Die Freigabe für {0} endet in {1} Tagen. Erneuere sie in der App unter Bankkonten.	The authorisation for {0} ends in {1} days. Renew it in the app under bank accounts.
+Freigabe widerrufen und alle Daten dieser Bank gelöscht.	Authorisation revoked and all data of this bank deleted.
+Freigabe widerrufen. Bisherige Umsätze bleiben gespeichert.	Authorisation revoked. Existing transactions remain stored.
+Freigabe bei uns gelöscht. Der Anbieter war nicht erreichbar – widerrufe den Zugriff zur Sicherheit auch bei deiner Bank.	Authorisation deleted on our side. The provider could not be reached – to be safe, also revoke access at your bank.
+Unbekannter Status.	Unknown status.
+Höchstens 10 Schlagwörter.	At most 10 tags.
+Nicht gefunden.	Not found.
+Die Bank bzw. der Anbieter ist gerade nicht erreichbar. Bitte später erneut versuchen.	The bank or provider cannot be reached right now. Please try again later.
+Kontodetails lesen	Read account details
+Salden lesen	Read balances
+Umsätze lesen	Read transactions
+Vorgemerkt	Pending
+Gebucht	Booked
+Storniert	Cancelled
+Durch Buchung ersetzt	Replaced by booking
+Zurückgebucht	Reversed
+Freigabe ausstehend	Authorisation pending
+Verbunden	Connected
+Freigabe abgelaufen	Authorisation expired
+Widerrufen	Revoked
+Freigabe abgelehnt	Authorisation declined
+Fehler	Error

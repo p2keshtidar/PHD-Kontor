@@ -32,6 +32,7 @@ public class SecurityConfig {
                         // WebSocket-Handshake; angemeldet wird beim STOMP-CONNECT (WebSocketConfig)
                         .requestMatchers("/ws", "/ws/**").permitAll()
                         .requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/banking/callback").permitAll()
                         .requestMatchers("/actuator/**").hasRole("ADMIN")   // Kennzahlen nur für Administratoren
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .requestMatchers("/api/**").authenticated()

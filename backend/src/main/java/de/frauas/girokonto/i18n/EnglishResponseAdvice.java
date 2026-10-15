@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class EnglishResponseAdvice implements ResponseBodyAdvice<Object> {
 
     static final Set<String> FIELDS = Set.of("message", "title", "body", "label", "text", "reason", "description",
-            "counterpartyName", "name", "format", "errors", "tips");
+            "counterpartyName", "name", "format", "errors", "tips", "permissions", "bankName", "accountName");
     private static final String[] SUFFIXES = {"Label", "Reason", "Explanation", "Message", "Text", "Description"};
 
     private final ServerTexts texts;

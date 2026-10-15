@@ -57,6 +57,9 @@ jobs:
           cd /tmp/logs && git init -q && git checkout -q -b logs && git add . \
             && git -c user.name=ci -c user.email=ci@example.org commit -qm "Protokoll ${{ github.run_id }} ${{ github.job }}" \
             && git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}" logs:ci-logs-${{ github.job }}
+      - name: Testanzahl
+        if: always()
+        run: python3 ../tool/test_count.py junit build/test-results/test || true
       - name: Testabdeckung
         if: always()
         run: python3 ../tool/coverage_summary.py jacoco build/reports/jacoco/test/jacocoTestReport.xml || true
@@ -94,6 +97,9 @@ jobs:
         shell: bash
       - run: set -o pipefail; flutter test --coverage 2>&1 | tee -a /tmp/ci.log
         shell: bash
+      - name: Testanzahl
+        if: always()
+        run: python3 ../tool/test_count.py flutter /tmp/ci.log || true
       - name: Testabdeckung
         run: python3 ../tool/coverage_summary.py lcov coverage/lcov.info || true
       - run: set -o pipefail; flutter build web --release --no-web-resources-cdn 2>&1 | tee -a /tmp/ci.log
