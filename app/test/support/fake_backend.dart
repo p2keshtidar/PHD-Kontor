@@ -294,6 +294,31 @@ class FakeBackend implements HttpClientAdapter {
         'note': 'Ausgleich per Überweisung über die Projektbank (Spielgeld). Barzahlungen bestätigt der Empfänger.',
       };
 
+  static Map<String, dynamic> assistantAnswer(String question) => {
+        'intent': 'CATEGORY', 'question': question,
+        'text': 'Für Lebensmittel hast du im September 2026 insgesamt 476,66 € ausgegeben.',
+        'facts': [
+          {'label': 'Lebensmittel', 'amountCents': 47666, 'value': null},
+          {'label': 'Schnitt der letzten 3 vollen Monate', 'amountCents': 44703, 'value': null},
+        ],
+        'notes': [],
+        'note': 'Grundlage: deine Umsätze in der App (Projektbank, verbundene Banken, CSV-Import).',
+        'disclaimer': 'Automatische Auswertung deiner App-Daten – keine Finanzberatung.',
+      };
+
+  static Map<String, dynamic> monthReport({String month = '2026-09'}) => {
+        'month': month, 'monthLabel': month == '2026-09' ? 'September 2026' : 'August 2026', 'complete': true,
+        'hasData': true, 'incomeCents': 265000, 'expenseCents': 187974, 'freeCents': 77026, 'savingsRatePercent': 29,
+        'previousExpenseCents': 186512,
+        'categories': [
+          {'category': 'WOHNEN', 'label': 'Wohnen', 'cents': 90500, 'previousCents': 90500, 'changePercent': 0},
+          {'category': 'LEBENSMITTEL', 'label': 'Lebensmittel', 'cents': 47666, 'previousCents': 43694, 'changePercent': 9},
+        ],
+        'notes': ['Einnahmen 2.650,00 €, Ausgaben 1.879,74 €, übrig 770,26 €.', 'Sparquote 29 %.'],
+        'note': 'Grundlage: deine Umsätze in der App (Projektbank, verbundene Banken, CSV-Import).',
+        'disclaimer': 'Automatische Auswertung deiner App-Daten – keine Finanzberatung.',
+      };
+
   static Map<String, dynamic> healthScore() => {
         'score': 62, 'level': 'MITTEL', 'levelLabel': 'Ausbaufähig',
         'components': [
@@ -799,6 +824,12 @@ class FakeBackend implements HttpClientAdapter {
               {'id': 1, 'name': 'WG Berger', 'memberCount': 3, 'myBalanceCents': -3833, 'totalSpentCents': 18000},
             ],
         'GET /api/groups/*': (_) => group(),
+        'GET /api/assistant/questions': (_) => [
+              {'text': 'Wofür gebe ich am meisten aus?'},
+              {'text': 'Wie viel habe ich diesen Monat für Lebensmittel ausgegeben?'},
+            ],
+        'GET /api/assistant/report': (o) => monthReport(month: o.queryParameters['month'] as String? ?? '2026-09'),
+        'POST /api/assistant/ask': (o) => assistantAnswer((o.data as Map<String, dynamic>)['question'] as String),
         'GET /api/market/products': (_) => marketCatalog(),
         'GET /api/market/applications': (_) => [marketApplication()],
         'PUT /api/market/favorites/*': (_) => const FakeResponse(204),

@@ -68,19 +68,23 @@ class ApplicationsScreen extends ConsumerWidget {
                   if (a.documents.isNotEmpty) ...[
                     const SizedBox(height: 6),
                     Text(tr('Unterlagen'), style: theme.textTheme.titleSmall),
-                    for (final d in a.documents)
+                    for (final d in a.documents) ...[
                       Row(children: [
                         Icon(d.provided ? Icons.check_circle : Icons.radio_button_unchecked, size: 18,
                             color: d.provided ? const Color(0xFF2E7D32) : null),
                         const SizedBox(width: 6),
                         Expanded(child: Text(d.label)),
-                        if (!d.provided && a.status == 'DOCUMENTS_MISSING')
-                          TextButton(
+                      ]),
+                      if (!d.provided && a.status == 'DOCUMENTS_MISSING')
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
                             key: Key('application_doc_${a.id}_${d.key}'),
                             onPressed: () => _run(context, ref, () => repo.provide(a.id, d.key)),
                             child: Text(tr('Bereitgestellt')),
                           ),
-                      ]),
+                        ),
+                    ],
                   ],
                   if (a.note != null) ...[
                     const SizedBox(height: 4),

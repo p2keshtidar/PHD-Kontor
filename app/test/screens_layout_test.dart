@@ -10,6 +10,7 @@ import 'package:girokonto_app/features/banking/bank_transactions_screen.dart';
 import 'package:girokonto_app/features/banking/connect_bank_screen.dart';
 import 'package:girokonto_app/features/card/card_screen.dart';
 import 'package:girokonto_app/features/contacts/address_book_screen.dart';
+import 'package:girokonto_app/features/assistant/assistant_screen.dart';
 import 'package:girokonto_app/features/dashboard/dashboard_screen.dart';
 import 'package:girokonto_app/features/groups/group_screen.dart';
 import 'package:girokonto_app/features/groups/groups_screen.dart';
@@ -66,6 +67,7 @@ void main() {
     'Finanz-Marktplatz': () => const MarketScreen(),
     'Meine Anträge': () => const ApplicationsScreen(),
     'Gemeinsame Ausgaben': () => const GroupsScreen(),
+    'Finanzassistent': () => const AssistantScreen(),
     'Gruppe (WG)': () => const GroupScreen(groupId: 1),
     'CSV-Import': () => const CsvImportScreen(),
     'Sparen': () => const SavingsHomeScreen(),

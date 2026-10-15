@@ -94,6 +94,14 @@ class SavingsHomeScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           _ActionCard(
+            key: const Key('savings_assistant'),
+            icon: Icons.support_agent,
+            title: tr('Finanzassistent'),
+            subtitle: tr('Fragen zu deinen Ausgaben, Monatsbericht, „Was wäre, wenn …“'),
+            onTap: () => context.push('/assistent'),
+          ),
+          const SizedBox(height: 8),
+          _ActionCard(
             key: const Key('savings_groups'),
             icon: Icons.groups_outlined,
             title: tr('Gemeinsame Ausgaben'),

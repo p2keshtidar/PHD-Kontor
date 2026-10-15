@@ -175,6 +175,18 @@ umgebucht, sie sind aber **keine eigenen Bankkonten** und haben keine eigene Ein
 | 7.8 | Kredit öffnen → **Sondertilgung** → z. B. 1.000 € → **Auswirkung berechnen** | Vorschau: Restschuld, offene Raten und Zinsersparnis vorher → nachher. **Jetzt sondertilgen** bucht den Betrag; die Rate bleibt gleich, der Kredit endet früher |
 | 7.9 | Sparplan öffnen → **Erinnerung vor der Abbuchung** | Aus / 1 / 3 / 7 Tage vorher. Standard: 3 Tage. Reicht das Guthaben nicht, warnt die Erinnerung |
 
+### 7d. Fragen an den Finanzassistenten, Monatsbericht, „Was wäre, wenn …“
+
+**„Sparen“ → „Finanzassistent“** (oder im Finanzüberblick oben das Assistenten-Symbol). Der Assistent arbeitet
+**regelbasiert** im Backend und nutzt **nur deine Zahlen aus der App** (Projektbank, verbundene Banken, CSV-Import) –
+keine externe KI, keine erfundenen Werte. Ohne Daten sagt er das.
+
+| Reiter | Beispiele | Ergebnis |
+|---|---|---|
+| **Fragen** | „Wofür gebe ich am meisten aus?“, „Wie viel habe ich letzten Monat für Lebensmittel ausgegeben?“, „Was habe ich im August für Miete bezahlt?“, „Wo kann ich sparen?“, „Reicht mein Geld bis zum Monatsende?“, „Wie stehen meine Budgets?“ | Antwort mit den Zahlen dahinter (z. B. Betrag und Schnitt der letzten 3 vollen Monate) |
+| **Monatsbericht** | ‹ › wechselt den Monat (letzte 12 Monate) | Einnahmen, Ausgaben, übrig, Sparquote, Vergleich zum Vormonat, stark gestiegene Kategorie, größter Posten |
+| **Was wäre, wenn …** | „Weniger ausgeben“ (Kategorie, Betrag), „Einnahmen ändern“ (−50 % bis +50 %), „Für ein Ziel sparen“ (Betrag, Ziel) | freier Betrag und Sparquote vorher → nachher, Monate bis zum Ziel, Warnungen; als **Rechenbeispiel** gekennzeichnet |
+
 ### 7c. Finanz-Marktplatz und Anträge (Simulation)
 
 **Sparen → „Finanz-Marktplatz“**: Girokonten, Kreditkarten, Tagesgeld, Festgeld und Depots **fiktiver Anbieter** vergleichen. Jede Karte zeigt die Konditionen und eine **Beispielrechnung** (Kosten pro Jahr bzw. Zinsertrag für einen frei wählbaren Betrag); „Vor- und Nachteile“ klappt Details auf. ☆ merkt ein Angebot, **„Vergleichen“** legt 2–4 Angebote nebeneinander. **„Antrag (Simulation)“** legt einen simulierten Antrag an (Bestätigung nötig): Unterlagen als *bereitgestellt* markieren → am nächsten Tag simulierte Zusage oder Ablehnung (geprüft wird z. B. „Einnahmen ab …“ mit deinem Finanzüberblick). Es entsteht **kein Vertrag, kein Konto und keine Karte**. Unter **„Meine Anträge“** kannst du eine Entscheidung/Notiz festhalten oder zurückziehen.

@@ -36,6 +36,12 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(tr('Finanzüberblick')), actions: [
         IconButton(
+          key: const Key('insights_assistant'),
+          tooltip: tr('Finanzassistent'),
+          icon: const Icon(Icons.support_agent),
+          onPressed: () => context.push('/assistent'),
+        ),
+        IconButton(
           key: const Key('insights_planning'),
           tooltip: tr('Budgets & Prognose'),
           icon: const Icon(Icons.track_changes),

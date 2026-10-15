@@ -768,3 +768,64 @@ Ausgleich „{0}“	Settlement “{0}”
 Ausgleich per Überweisung über die Projektbank (Spielgeld). Barzahlungen bestätigt der Empfänger.	Settlement by transfer via the project bank (play money). Cash payments are confirmed by the recipient.
 bar (vom Empfänger bestätigt)	cash (confirmed by the recipient)
 per Überweisung	by transfer
+Monat bitte als JJJJ-MM angeben.	Please enter the month as YYYY-MM.
+Bitte eine Frage mit bis zu 300 Zeichen stellen.	Please ask a question with up to 300 characters.
+Monatsberichte gibt es für die letzten 12 Monate.	Monthly reports are available for the last 12 months.
+Für Szenarien brauche ich mindestens einen vollen Monat mit Einnahmen und Ausgaben.	For scenarios I need at least one full month with income and expenses.
+Bitte eine Änderung zwischen −50 % und +50 % angeben.	Please enter a change between −50 % and +50 %.
+Unbekanntes Szenario.	Unknown scenario.
+Grundlage: deine Umsätze in der App (Projektbank, verbundene Banken, CSV-Import).	Basis: your transactions in the app (project bank, connected banks, CSV import).
+Automatische Auswertung deiner App-Daten – keine Finanzberatung.	Automatic analysis of your app data – no financial advice.
+Rechenbeispiel aus deinen Durchschnittswerten – keine Prognose, keine Beratung.	Example calculation from your averages – no forecast, no advice.
+Wofür gebe ich am meisten aus?	What do I spend the most on?
+Wie viel habe ich diesen Monat für {0} ausgegeben?	How much did I spend on {0} this month?
+Wo kann ich sparen?	Where can I save?
+Reicht mein Geld bis zum Monatsende?	Will my money last until the end of the month?
+Zeig mir den Monatsbericht für letzten Monat.	Show me the monthly report for last month.
+Wie stehen meine Budgets?	How are my budgets doing?
+Einnahmen	Income
+Ausgaben	Expenses
+Übrig	Left over
+Fixkosten	Fixed costs
+Schnitt der letzten 3 vollen Monate	Average of the last 3 full months
+Erwartet am Monatsende	Expected at month end
+Ungünstiger Fall	Worst case
+Günstiger Fall	Best case
+Monatsbericht für {0}.	Monthly report for {0}.
+Für {0} liegen keine Umsätze vor.	There are no transactions for {0}.
+Für {0} liegen keine Ausgaben vor.	There are no expenses for {0}.
+in diesem Monat (bisher)	this month (so far)
+im {0}	in {0}
+Die meisten Ausgaben {0}: {1} mit {2} ({3} % aller Ausgaben).	Most spending {0}: {1} with {2} ({3} % of all expenses).
+Für {0} hast du {1} insgesamt {2} ausgegeben.	You spent {2} in total on {0} {1}.
+Durch {0} hast du {1} insgesamt {2} eingenommen.	You received {2} in total from {0} {1}.
+Deine Einnahmen {0}: {1}.	Your income {0}: {1}.
+Deine Ausgaben {0}: {1}, davon fest {2}.	Your expenses {0}: {1}, of which fixed {2}.
+Das kann ich aus deinen Daten nicht beantworten. Frag zum Beispiel nach Ausgaben einer Kategorie, Sparpotenzialen, dem Monatsende, Budgets oder dem Monatsbericht.	I can't answer that from your data. Ask, for example, about spending in a category, savings potential, the end of the month, budgets or the monthly report.
+Für Sparpotenziale brauche ich mindestens einen vollen Monat mit Ausgaben.	For savings potential I need at least one full month with expenses.
+Bei deinen variablen Ausgaben sehe ich gerade kein nennenswertes Sparpotenzial.	I currently see no significant savings potential in your variable expenses.
+Etwa {0} pro Monat ({1} im Jahr) sind drin, wenn du variable Ausgaben um 10 % senkst bzw. auf deinen Schnitt zurückführst. Am meisten bei {2}.	About {0} per month ({1} per year) is possible if you cut variable expenses by 10 % or bring them back to your average. Most in {2}.
+Für eine Prognose fehlen noch Daten.	There is not enough data for a forecast yet.
+Ja, voraussichtlich bleiben am Monatsende {0} (ungünstig: {1}).	Yes, about {0} is expected to be left at month end (worst case: {1}).
+Eher nicht: am Monatsende wären es voraussichtlich {0}.	Probably not: at month end it would be about {0}.
+Achtung: der Kontostand würde zwischendurch unter 0 € fallen.	Caution: the balance would drop below €0 in between.
+Du hast noch keine Budgets. Lege sie unter „Budgets & Prognose“ an.	You have no budgets yet. Create them under “Budgets & forecast”.
+Alle {0} Budgets sind eingehalten. Noch {1} Tage im Monat.	All {0} budgets are on track. {1} days left in the month.
+{0} von {1} Budgets sind überschritten. Noch {2} Tage im Monat.	{0} of {1} budgets are exceeded. {2} days left in the month.
+Einnahmen {0}, Ausgaben {1}, übrig {2}.	Income {0}, expenses {1}, left over {2}.
+Sparquote {0} %.	Savings rate {0} %.
+Du hast {0} mehr ausgegeben als im Vormonat.	You spent {0} more than in the previous month.
+Du hast {0} weniger ausgegeben als im Vormonat.	You spent {0} less than in the previous month.
+Gleich viel ausgegeben wie im Vormonat.	Spent the same as in the previous month.
+{0} ist um {1} % gestiegen ({2} → {3}).	{0} rose by {1} % ({2} → {3}).
+Größter Posten: {0} mit {1}.	Largest item: {0} with {1}.
+Wenn du {0} pro Monat weniger für {1} ausgibst, hast du {2} im Jahr mehr übrig.	If you spend {0} less per month on {1}, you will have {2} more per year.
+Mit {0} % mehr Einnahmen bleiben dir pro Monat {1} statt {2}.	With {0} % more income you have {1} left per month instead of {2}.
+Mit {0} % weniger Einnahmen bleiben dir pro Monat {1} statt {2}.	With {0} % less income you have {1} left per month instead of {2}.
+Mit {0} pro Monat erreichst du {1} in {2} Monaten.	With {0} per month you reach {1} in {2} months.
+Das ist mehr, als dir im Schnitt pro Monat übrig bleibt ({0}).	That is more than you have left on average per month ({0}).
+Damit gibst du mehr aus, als du einnimmst.	You would then spend more than you earn.
+Durchschnitt der letzten {0} vollen Monate: Einnahmen {1}, Ausgaben {2}.	Average of the last {0} full months: income {1}, expenses {2}.
+Ausgaben bleiben gleich.	Expenses stay the same.
+Ohne Zinsen gerechnet.	Calculated without interest.
+Das ist mehr, als du im Schnitt für {0} ausgibst ({1}).	That is more than you spend on {0} on average ({1}).
