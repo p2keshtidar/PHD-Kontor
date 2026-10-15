@@ -14,6 +14,16 @@ final healthScoreProvider = FutureProvider.autoDispose<Map<String, dynamic>>((re
 class HealthScoreCard extends ConsumerWidget {
   const HealthScoreCard({super.key});
 
+  Future<void> _consent(BuildContext context, WidgetRef ref, bool on) async {
+    final dio = ref.read(apiClientProvider).dio;
+    try {
+      on ? await dio.post<void>('/api/health-score/consent') : await dio.delete<void>('/api/health-score/consent');
+      ref.invalidate(healthScoreProvider);
+    } catch (e) {
+      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(healthScoreProvider);
@@ -26,6 +36,23 @@ class HealthScoreCard extends ConsumerWidget {
           loading: () => const Center(child: CircularProgressIndicator()),
           error: (e, _) => Text(apiErrorMessage(e)),
           data: (s) {
+            if (s['consented'] == false) {
+              return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(tr('Finanz-Check'), style: theme.textTheme.titleMedium),
+                const SizedBox(height: 4),
+                Text(s['consentText'] as String? ?? '', key: const Key('health_consent_text')),
+                const SizedBox(height: 4),
+                Text(s['disclaimer'] as String, style: theme.textTheme.bodySmall),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FilledButton.tonal(
+                    key: const Key('health_consent'),
+                    onPressed: () => _consent(context, ref, true),
+                    child: Text(tr('Finanz-Check aktivieren')),
+                  ),
+                ),
+              ]);
+            }
             final score = (s['score'] as num).toInt();
             final level = s['level'] as String;
             final color = switch (level) {
@@ -84,6 +111,14 @@ class HealthScoreCard extends ConsumerWidget {
                 ),
               const SizedBox(height: 6),
               Text(s['disclaimer'] as String, key: const Key('health_disclaimer'), style: theme.textTheme.bodySmall),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  key: const Key('health_revoke'),
+                  onPressed: () => _consent(context, ref, false),
+                  child: Text(tr('Finanz-Check ausschalten')),
+                ),
+              ),
             ]);
           },
         ),

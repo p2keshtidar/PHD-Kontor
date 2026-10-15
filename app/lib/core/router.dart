@@ -19,6 +19,7 @@ import '../features/contacts/address_book_screen.dart';
 import '../features/assistant/assistant_screen.dart';
 import '../features/contracts/contracts_screen.dart';
 import '../features/dashboard/dashboard_screen.dart';
+import '../features/planner/planner_screen.dart';
 import '../features/groups/group_screen.dart';
 import '../features/groups/groups_screen.dart';
 import '../features/multibank/all_transactions_screen.dart';
@@ -136,6 +137,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/planung', builder: (_, __) => const PlanningScreen()),
       // Persönlicher Finanzassistent (regelbasiert, nur App-Daten)
       GoRoute(path: '/assistent', builder: (_, __) => const AssistantScreen()),
+      // Zentraler Planer für Vorhaben (Reise, Auto, Immobilie)
+      GoRoute(path: '/planer', builder: (_, __) => const PlannerScreen()),
       // Verträge & Dokumente
       GoRoute(path: '/vertraege', builder: (_, __) => const ContractsScreen()),
       GoRoute(

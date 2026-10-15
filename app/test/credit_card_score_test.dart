@@ -71,4 +71,27 @@ void main() {
     expect(find.bySemanticsLabel('Finanz-Check: 62 von 100 Punkten'), findsOneWidget);
     semantics.dispose();
   });
+
+  testWidgets('CS06 Finanz-Check erst nach Einwilligung', (tester) async {
+    var consented = false;
+    final fake = await pumpScreen(tester, _scroll(const HealthScoreCard()), backend: FakeBackend({
+      'GET /api/health-score': (_) => consented
+          ? FakeBackend.healthScore()
+          : {
+              ...FakeBackend.healthScore(),
+              'consented': false, 'score': 0, 'level': 'NICHT_AKTIVIERT', 'levelLabel': 'Nicht aktiviert',
+              'components': [], 'tips': [],
+            },
+      'POST /api/health-score/consent': (_) {
+        consented = true;
+        return FakeResponse(200, FakeBackend.healthScore());
+      },
+    }));
+    expect(find.byKey(const Key('health_consent_text')), findsOneWidget);
+    expect(find.byKey(const Key('health_score_value')), findsNothing);
+    await tester.tap(find.byKey(const Key('health_consent')));
+    await tester.pumpAndSettle();
+    expect(fake.calls('POST /api/health-score/consent'), hasLength(1));
+    expect(find.byKey(const Key('health_score_value')), findsOneWidget);
+  });
 }

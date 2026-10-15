@@ -351,6 +351,8 @@ class FakeBackend implements HttpClientAdapter {
         ],
         'tips': ['Baue einen Notgroschen von drei Monatsausgaben auf, z. B. mit einem digitalen Konto und einer Sparregel.'],
         'disclaimer': 'Interner Finanz-Check der App aus deinen eigenen Daten – keine SCHUFA-Auskunft, keine Bonitätsbewertung, keine Finanzberatung.',
+        'consented': true,
+        'consentText': 'Der Finanz-Check wertet deine Umsätze, Konten, Kredite und Budgets in der App aus und berechnet daraus eine Punktzahl nur für dich. Er wird nicht weitergegeben und ist jederzeit abschaltbar.',
       };
 
   /// Angaben eines digitalen Kontos wie vom Server

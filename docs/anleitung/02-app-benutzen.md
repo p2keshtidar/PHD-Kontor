@@ -200,6 +200,20 @@ jährlich), Vertragsbeginn, Mindestlaufzeit, Verlängerung, Kündigungsfrist (Ta
 | **Kündigung vermerken** | nur ein Vermerk in der App – **die Kündigung selbst schickst du an den Anbieter** |
 | **Dokumente → Hochladen** | PDF, PNG oder JPEG bis 5 MB; Typ wird am Inhalt geprüft, Inhalt **verschlüsselt** gespeichert, nur für dich abrufbar. Bilder werden in der App angezeigt; PDFs in der Web-App heruntergeladen |
 
+### 7f. Vorhaben planen (Reise, Auto, Immobilie)
+
+**„Sparen“ → „Vorhaben planen“**: Vorhaben wählen, Preis, vorhandenes Eigenkapital und Zeitpunkt (in 6 bis 120
+Monaten) → **„Vergleichen“**.
+
+| Weg | Was berechnet wird |
+|---|---|
+| Ansparen | Rate pro Monat bis zum Zeitpunkt, ohne Zinsen; passt, wenn die Rate in deinen verfügbaren Betrag passt |
+| Sofort finanzieren | günstigstes Angebot der fiktiven Banken (Reise 24, Auto 48, Immobilie 240 Monate): Rate und Zinsen |
+| Anzahlung ansparen, Rest finanzieren | 20 % des Preises bis zum Zeitpunkt ansparen, danach kleinerer Kredit |
+
+Oben steht eine Empfehlung (günstigster Weg, der in dein Budget passt). Von dort geht es zum Sparplan bzw. zum
+Kreditvergleich – angelegt oder beantragt wird erst dort.
+
 ### 7c. Finanz-Marktplatz und Anträge (Simulation)
 
 **Sparen → „Finanz-Marktplatz“**: Girokonten, Kreditkarten, Tagesgeld, Festgeld und Depots **fiktiver Anbieter** vergleichen. Jede Karte zeigt die Konditionen und eine **Beispielrechnung** (Kosten pro Jahr bzw. Zinsertrag für einen frei wählbaren Betrag); „Vor- und Nachteile“ klappt Details auf. ☆ merkt ein Angebot, **„Vergleichen“** legt 2–4 Angebote nebeneinander. **„Antrag (Simulation)“** legt einen simulierten Antrag an (Bestätigung nötig): Unterlagen als *bereitgestellt* markieren → am nächsten Tag simulierte Zusage oder Ablehnung (geprüft wird z. B. „Einnahmen ab …“ mit deinem Finanzüberblick). Es entsteht **kein Vertrag, kein Konto und keine Karte**. Unter **„Meine Anträge“** kannst du eine Entscheidung/Notiz festhalten oder zurückziehen.
@@ -234,7 +248,7 @@ Auf der Startseite die Karte **„Gesamtvermögen“** antippen.
 
 Alle Zahlen kommen aus den vorhandenen Daten – geschätzt wird nichts. Girokonto, Pläne, Depot und Kredite sind eine Simulation mit Spielgeld.
 
-**Finanz-Check:** Auf dem Dashboard zeigt der Finanz-Check 0–100 Punkte aus vier Teilen (je 0–25): Sparquote,
+**Finanz-Check:** Erst nach **„Finanz-Check aktivieren“** (Einwilligung, jederzeit mit „Finanz-Check ausschalten“ widerrufbar) zeigt der Finanz-Check auf dem Dashboard 0–100 Punkte aus vier Teilen (je 0–25): Sparquote,
 Notgroschen (zurückgelegtes Geld in Monatsausgaben), Kreditraten im Verhältnis zu den Einnahmen und eingehaltene Budgets.
 Ohne Umsätze erscheint „ohne Daten“. Das ist eine **interne Orientierung aus deinen App-Daten** – keine SCHUFA-Auskunft,
 keine Bonitätsbewertung, keine Finanzberatung.

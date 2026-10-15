@@ -1146,4 +1146,23 @@ const stringsEn = <String, String>{
   'Bericht': 'Report',
   'Szenarien': 'Scenarios',
   'PDF oder Bild': 'PDF or image',
+  // Zentraler Planer
+  'Vorhaben planen': 'Plan a goal',
+  'Ansparen, finanzieren oder beides? Vergleiche die Wege für dein Vorhaben.': 'Save up, finance or both? Compare the options for your goal.',
+  'Reise': 'Trip',
+  'Preis in €': 'Price in €',
+  'Schon vorhanden (Eigenkapital) in €, optional': 'Already available (equity) in €, optional',
+  'Wann?': 'When?',
+  'in {0} Monaten': 'in {0} months',
+  'passt': 'fits',
+  'passt nicht': 'does not fit',
+  'Zuerst {0} pro Monat sparen': 'First save {0} per month',
+  'Kreditrate {0} pro Monat': 'Loan instalment {0} per month',
+  'Zusätzliche Kosten (Zinsen): {0}': 'Additional cost (interest): {0}',
+  'Sparplan anlegen': 'Create savings plan',
+  'Kredit vergleichen': 'Compare loans',
+  'Reise, Auto oder Immobilie: ansparen, finanzieren oder beides vergleichen': 'Trip, car or property: compare saving up, financing or both',
+  // Finanz-Check Einwilligung
+  'Finanz-Check aktivieren': 'Activate finance check',
+  'Finanz-Check ausschalten': 'Turn off finance check',
 };

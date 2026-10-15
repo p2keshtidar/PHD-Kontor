@@ -116,6 +116,7 @@ Alle Beträge sind ganze Cent (`BIGINT`), Zinssätze `NUMERIC`, Zeitpunkte `TIME
 | V21 | `expense_group`, `expense_group_member`, `group_expense`, `group_expense_share`, `group_settlement` | gemeinsame Ausgaben |
 | V22 | `contract`, `document` | Verträge, Dokumente (Inhalt verschlüsselt) |
 | V23 | – | zusätzliche Indizes |
+| V24 | – | Einwilligung zum Finanz-Check an `app_user` |
 
 Grafisch ansehen: `docker compose exec db psql -U girokonto -d girokonto -c '\dt'` oder ein Werkzeug wie DBeaver.
 

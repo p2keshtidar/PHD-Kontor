@@ -104,12 +104,14 @@ class CreditCardAndScoreFlowTest extends FlowTestSupport {
     @Test
     void T117_finanzCheckOhneDatenUndMitBeispielmonaten() throws Exception {
         TestUser fresh = registerUser("Neu");
+        postJson(fresh, "/api/health-score/consent", "", 200);
         JsonNode s = getJson(fresh, "/api/health-score");
         assertThat(s.get("level").asText()).isEqualTo("OHNE_DATEN");
         assertThat(s.get("disclaimer").asText()).contains("keine SCHUFA-Auskunft");
         assertThat(s.get("components")).hasSize(4);
 
         TestUser demo = userWithDemo("Demo");
+        postJson(demo, "/api/health-score/consent", "", 200);
         JsonNode d = getJson(demo, "/api/health-score");
         int sum = 0;
         for (JsonNode c : d.get("components")) {
@@ -142,11 +144,28 @@ class CreditCardAndScoreFlowTest extends FlowTestSupport {
     @Test
     void T118_englisch() throws Exception {
         TestUser u = registerUser("Ezra");
+        postJson(u, "/api/health-score/consent", "", 200);
         String s = mvc.perform(get("/api/health-score").header("Authorization", u.bearer()).header("Accept-Language", "en"))
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         assertThat(s).contains("no credit bureau report").contains("Emergency fund");
         String c = mvc.perform(get("/api/credit-card").header("Authorization", u.bearer()).header("Accept-Language", "en"))
                 .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
         assertThat(c).contains("no real card");
+    }
+
+    @Test
+    void T140_finanzCheckNurMitEinwilligung() throws Exception {
+        TestUser u = userWithDemo("Ohne");
+        JsonNode off = getJson(u, "/api/health-score");
+        assertThat(off.get("consented").asBoolean()).isFalse();
+        assertThat(off.get("level").asText()).isEqualTo("NICHT_AKTIVIERT");
+        assertThat(off.get("components")).isEmpty();
+        assertThat(off.get("consentText").asText()).contains("nicht weitergegeben");
+        JsonNode on = postJson(u, "/api/health-score/consent", "", 200);
+        assertThat(on.get("consented").asBoolean()).isTrue();
+        assertThat(on.get("components")).hasSize(4);
+        mvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete("/api/health-score/consent")
+                .header("Authorization", u.bearer())).andReturn();
+        assertThat(getJson(u, "/api/health-score").get("consented").asBoolean()).isFalse();
     }
 }

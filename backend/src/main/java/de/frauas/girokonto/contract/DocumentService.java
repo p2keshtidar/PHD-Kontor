@@ -140,7 +140,8 @@ public class DocumentService {
                 rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getTimestamp(7).toInstant()), args);
     }
 
-    @Transactional(readOnly = true)
+    /** Nicht readOnly: der Abruf wird im Prüfprotokoll vermerkt. */
+    @Transactional
     public Content content(Long userId, Long id) {
         List<Content> l = jdbc.query("SELECT file_name, content_type, content, sha256 FROM document WHERE id = ? AND user_id = ?",
                 (rs, n) -> {

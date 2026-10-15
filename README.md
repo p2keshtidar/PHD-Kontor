@@ -92,10 +92,11 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 🚗🏠 **Kreditplan** | Auto/Immobilie/Sonstiges · Rechenbeispiele von 4 fiktiven Banken mit **Bonität, Filtern, Sollzins und effektivem Jahreszins** · Bundesbank-Durchschnitt als Referenz · **getrennte Schritte: Anfrage → Vertrag → Auszahlung** · Tilgungsplan · **Sondertilgung** mit Vorschau (Restschuld, Laufzeit, Zinsersparnis) |
 | 🛒 **Finanz-Marktplatz** | Girokonten, Kreditkarten, Tagesgeld, Festgeld, Depots **fiktiver Anbieter** vergleichen · Beispielrechnung · Vor-/Nachteile · Favoriten · Vergleichsliste · **simulierte Anträge** mit Unterlagen und Status (kein Vertrag, keine Karte) |
 | 💳 **Kreditkarte (Simulation)** | virtuelle Spielgeld-Kreditkarte: Verfügungsrahmen, Sperre, Demo-Zahlung, Auslandseinsatz, Monatsabrechnung vom Girokonto – keine echte Karte, keine Kreditprüfung |
-| 🩺 **Finanz-Check** | interner Punktwert 0–100 aus Sparquote, Notgroschen, Kreditraten und Budgets – keine SCHUFA-Auskunft, keine Bonitätsbewertung |
+| 🩺 **Finanz-Check** | nur mit Einwilligung: interner Punktwert 0–100 aus Sparquote, Notgroschen, Kreditraten und Budgets – keine SCHUFA-Auskunft, keine Bonitätsbewertung |
 | 👥 **Gemeinsame Ausgaben** | WG, Reise oder Paar: Ausgaben eintragen, aufteilen, Salden, wenige Ausgleichszahlungen · Ausgleich per Überweisung (Spielgeld) oder bar (vom Empfänger bestätigt) |
 | 🤖 **Finanzassistent** | Fragen zu den eigenen Ausgaben, Sparpotenziale, Monatsbericht, „Was wäre, wenn …“ – regelbasiert, nur mit den Zahlen der App |
 | 📄 **Verträge & Dokumente** | Kosten, Mindestlaufzeit, Kündigungsfristen, Erinnerung vor Fristende · Unterlagen (PDF/Bild) verschlüsselt ablegen · Kündigung nur als Vermerk |
+| 🎯 **Vorhaben planen** | Reise, Auto oder Immobilie: ansparen, sofort finanzieren oder Anzahlung + Kredit nebeneinander, mit Empfehlung |
 | ⏩ **Demo-Modus** | Beispielmonate erzeugen · Admin spult die Zeit vor (Raten werden gebucht) |
 
 Demo-Admin: `admin@projektbank.de` / `admin12345`

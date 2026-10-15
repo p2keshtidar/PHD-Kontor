@@ -13,6 +13,7 @@ import 'package:girokonto_app/features/contacts/address_book_screen.dart';
 import 'package:girokonto_app/features/assistant/assistant_screen.dart';
 import 'package:girokonto_app/features/contracts/contracts_screen.dart';
 import 'package:girokonto_app/features/dashboard/dashboard_screen.dart';
+import 'package:girokonto_app/features/planner/planner_screen.dart';
 import 'package:girokonto_app/features/groups/group_screen.dart';
 import 'package:girokonto_app/features/groups/groups_screen.dart';
 import 'package:girokonto_app/features/multibank/all_transactions_screen.dart';
@@ -69,6 +70,7 @@ void main() {
     'Meine Anträge': () => const ApplicationsScreen(),
     'Gemeinsame Ausgaben': () => const GroupsScreen(),
     'Finanzassistent': () => const AssistantScreen(),
+    'Vorhaben planen': () => const PlannerScreen(),
     'Verträge': () => const ContractsScreen(),
     'Vertrag': () => const ContractDetailScreen(contractId: 5),
     'Vertrag anlegen': () => const ContractFormScreen(),

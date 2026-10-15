@@ -78,6 +78,14 @@ class SavingsHomeScreen extends ConsumerWidget {
           ]),
           const SizedBox(height: 8),
           _ActionCard(
+            key: const Key('savings_planner'),
+            icon: Icons.flag_outlined,
+            title: tr('Vorhaben planen'),
+            subtitle: tr('Reise, Auto oder Immobilie: ansparen, finanzieren oder beides vergleichen'),
+            onTap: () => context.push('/planer'),
+          ),
+          const SizedBox(height: 8),
+          _ActionCard(
             key: const Key('savings_market'),
             icon: Icons.storefront_outlined,
             title: tr('Finanz-Marktplatz'),

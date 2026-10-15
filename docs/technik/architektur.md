@@ -72,10 +72,11 @@ flowchart LR
 | `dashboard` | Zentrales Finanz-Dashboard (`GET /api/dashboard`): Gesamtvermögen nach Bestandteilen, verfügbar/zurückgelegt, Konten und Karten, Schulden mit Verhältnis zu den Einnahmen, Cashflow, Sparziele, größte Ausgaben, Vermögensverlauf (12 Monatsenden) |
 | `market` | Finanz-Marktplatz: Anbieter-Schnittstelle `MarketProvider`, fiktive Anbieter (`SimulatedMarketProvider`), Vergleich mit Beispielrechnung, Favoriten, Vergleichsliste, simulierte Anträge mit Unterlagen (Tageslauf Nr. 55) |
 | `creditcard` | Kreditkarte (Simulation): Verfügungsrahmen, Sperre, Demo-Zahlung mit Auslandseinsatz, Monatsabrechnung vom Girokonto über `BookingService` (Tageslauf Nr. 60, ohne Dispo – offene Abrechnung wird täglich erneut versucht) |
-| `health` | Finanz-Check: interner Punktwert 0–100 aus Sparquote, Notgroschen, Kreditraten und Budgets – keine Bonitätsbewertung |
+| `health` | Finanz-Check: interner Punktwert 0–100 aus Sparquote, Notgroschen, Kreditraten und Budgets – nur mit Einwilligung (V24, widerrufbar), keine Bonitätsbewertung |
 | `group` | Gemeinsame Ausgaben: Gruppen, Ausgaben mit Aufteilung (gleichmäßig oder feste Anteile), Salden, Ausgleichsvorschläge (wenige Zahlungen), Ausgleich per Überweisung über `TransferService` oder bar (nur vom Empfänger bestätigt) |
 | `assistant` | Finanzassistent: regelbasierte Fragen (Kategorien, Monate, Sparpotenzial, Monatsende, Budgets) aus `InsightsService`, `BudgetService` und `ForecastService`; Monatsbericht; Szenarien aus den Durchschnittswerten – keine externe KI |
 | `contract` | Verträge: Kosten je Monat/Jahr, Laufzeit- und Fristberechnung, Erinnerung im Tageslauf (Nr. 65); Dokumente: nur PDF/PNG/JPEG bis 5 MB (Prüfung am Inhalt), AES-256-GCM-verschlüsselt in der Datenbank (Schlüssel aus `CARD_KEY` abgeleitet), SHA-256-Prüfsumme, Abruf nur durch den Besitzer als Anhang mit `nosniff` |
+| `planner` | Zentraler Planer: Ansparen, Finanzieren, Anzahlung + Kredit für Reise/Auto/Immobilie aus Finanzüberblick und Kreditvergleich (nichts wird angelegt) |
 | `planning` | Budgets mit Warnungen (Tageslauf Nr. 50), ungewöhnliche Ausgaben, Prognose des Girokontos |
 | `multibank` | Weitere Konten der Projektbank (`CURRENT` = weiteres Girokonto, `CALL` = Tagesgeld), Zinsen (`InterestService`, Tageslauf Nr. 45, `InterestMath`), Umbuchen zwischen eigenen Konten, alle Umsätze (`ConsolidatedService`) |
 | `allocation` | Sparregeln für digitale Konten: Rhythmen, Quellen (Girokonto = Umbuchung, verbundenes Bankkonto = Vormerkung), Vorgänge mit Status und Wiederholung, Tageslauf Nr. 35 |
@@ -172,6 +173,7 @@ nur ansehen – geprüft bei jeder Umbuchung. Das Gesamtvermögen enthält die E
 | `features/groups/` | Gemeinsame Ausgaben: Gruppenliste, Gruppe mit Salden, Ausgleich und Ausgaben |
 | `features/assistant/` | Finanzassistent mit drei Reitern: Fragen, Monatsbericht, „Was wäre, wenn …“ |
 | `features/contracts/` | Verträge (Übersicht, Formular, Detail mit Fristen) und Dokumente (Hochladen über `file_selector`) |
+| `features/planner/` | Vorhaben planen: drei Wege nebeneinander mit Empfehlung |
 | `features/planning/` | Budgets & Prognose: Verlauf mit drei Fällen, Monatsende, bekannte Buchungen, Budgets festlegen, ungewöhnliche Ausgaben |
 | `features/multibank/` | Konto eröffnen (weiteres Girokonto, Tagesgeld), Umbuchen-Dialog, Verwaltungsmenü (umbenennen, auflösen), „Alle Umsätze“ mit CSV-Export, mögliche Duplikate |
 | `features/dashboard/` | Finanz-Dashboard (Startseite → Karte „Gesamtvermögen“): Vermögen nach Bestandteilen, verfügbar/zurückgelegt, Vermögensverlauf, Cashflow, größte Ausgaben, Schulden, Sparziele, Konten und Karten, Hinweise |

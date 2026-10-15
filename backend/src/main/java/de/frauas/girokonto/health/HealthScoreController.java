@@ -2,7 +2,9 @@ package de.frauas.girokonto.health;
 
 import de.frauas.girokonto.auth.AuthUser;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /** Interner Finanz-Check (keine SCHUFA-Auskunft). */
@@ -18,5 +20,17 @@ public class HealthScoreController {
     @GetMapping("/api/health-score")
     public HealthScoreService.Score score(@AuthenticationPrincipal AuthUser auth) {
         return service.score(auth.id());
+    }
+
+    /** Einwilligung zum Finanz-Check erteilen. */
+    @PostMapping("/api/health-score/consent")
+    public HealthScoreService.Score consent(@AuthenticationPrincipal AuthUser auth) {
+        return service.consent(auth.id(), true);
+    }
+
+    /** Einwilligung widerrufen: der Finanz-Check wird nicht mehr berechnet. */
+    @DeleteMapping("/api/health-score/consent")
+    public HealthScoreService.Score revoke(@AuthenticationPrincipal AuthUser auth) {
+        return service.consent(auth.id(), false);
     }
 }

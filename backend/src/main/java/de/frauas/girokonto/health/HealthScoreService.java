@@ -30,23 +30,43 @@ public class HealthScoreService {
 
     /** @param level GUT (ab 70), MITTEL (40–69), KRITISCH (unter 40), OHNE_DATEN */
     public record Score(int score, String level, String levelLabel, List<Component> components, List<String> tips,
-                        String disclaimer) {}
+                        String disclaimer, boolean consented, String consentText) {}
+
+    static final String CONSENT_TEXT = "Der Finanz-Check wertet deine Umsätze, Konten, Kredite und Budgets in der App aus "
+            + "und berechnet daraus eine Punktzahl nur für dich. Er wird nicht weitergegeben und ist jederzeit abschaltbar.";
 
     private final SavingsPlanService plans;
     private final AccountService accounts;
     private final LoanService loans;
     private final BudgetService budgets;
+    private final org.springframework.jdbc.core.JdbcTemplate jdbc;
+    private final java.time.Clock clock;
 
     public HealthScoreService(SavingsPlanService plans, AccountService accounts, LoanService loans,
-                              BudgetService budgets) {
+                              BudgetService budgets, org.springframework.jdbc.core.JdbcTemplate jdbc, java.time.Clock clock) {
         this.plans = plans;
         this.accounts = accounts;
         this.loans = loans;
         this.budgets = budgets;
+        this.jdbc = jdbc;
+        this.clock = clock;
+    }
+
+    /** Einwilligung erteilen (true) oder widerrufen (false). */
+    @Transactional
+    public Score consent(Long userId, boolean on) {
+        jdbc.update("UPDATE app_user SET health_score_consent_at = ? WHERE id = ?",
+                on ? java.sql.Timestamp.from(java.time.Instant.now(clock)) : null, userId);
+        return score(userId);
     }
 
     @Transactional(readOnly = true)
     public Score score(Long userId) {
+        Boolean consented = jdbc.queryForObject("SELECT health_score_consent_at IS NOT NULL FROM app_user WHERE id = ?",
+                Boolean.class, userId);
+        if (!Boolean.TRUE.equals(consented)) {
+            return new Score(0, "NICHT_AKTIVIERT", "Nicht aktiviert", List.of(), List.of(), DISCLAIMER, false, CONSENT_TEXT);
+        }
         OverviewDto o = plans.overview(userId);
         boolean data = o.hasData() && o.avgIncomeCents() > 0;
         long income = data ? o.avgIncomeCents() : 0;
@@ -130,6 +150,6 @@ public class HealthScoreService {
             case "KRITISCH" -> "Achtung";
             default -> "Noch zu wenige Daten";
         };
-        return new Score(score, level, label, c, tips, DISCLAIMER);
+        return new Score(score, level, label, c, tips, DISCLAIMER, true, CONSENT_TEXT);
     }
 }

@@ -897,3 +897,24 @@ Dokument abgerufen	Document retrieved
 Dokument gelöscht	Document deleted
 Kündigung vermerkt	Cancellation recorded
 Bankfreigabe: Status geändert	Bank consent: status changed
+Vorhaben: Reise, Auto oder Immobilie.	Goal: trip, car or property.
+Der Preis muss zwischen 100 € und 2.000.000 € liegen.	The price must be between €100 and €2,000,000.
+Das Eigenkapital muss kleiner als der Preis sein.	The equity must be less than the price.
+Das Zieldatum muss zwischen einem Monat und 30 Jahren in der Zukunft liegen.	The target date must be between one month and 30 years in the future.
+Rechenbeispiele mit fiktiven Banken und deinen Durchschnittswerten – kein Angebot, keine Beratung. Angelegt oder beantragt wird erst in den nächsten Schritten.	Example calculations with fictitious banks and your averages – no offer, no advice. Nothing is created or applied for until the next steps.
+Bis {0} jeden Monat {1} zurücklegen – keine Zinsen.	Put aside {1} every month until {0} – no interest.
+Kredit über {0} für {1} Monate bei {2}: {3} im Monat, Zinsen {4}.	Loan of {0} for {1} months at {2}: {3} per month, interest {4}.
+{0} Anzahlung in {1} Monaten ansparen, danach Kredit über {2} bei {3}: {4} im Monat, Zinsen {5}.	Save a {0} down payment in {1} months, then a loan of {2} at {3}: {4} per month, interest {5}.
+Kredit über {0} für {1} Monate: keine passende Bank (Betrag, Laufzeit oder Tragfähigkeit).	Loan of {0} for {1} months: no suitable bank (amount, term or affordability).
+{0} Anzahlung in {1} Monaten ansparen, danach Kredit über {2}: keine passende Bank (Betrag, Laufzeit oder Tragfähigkeit).	Save a {0} down payment in {1} months, then a loan of {2}: no suitable bank (amount, term or affordability).
+Für eine Empfehlung fehlen Einnahmen und Ausgaben – erzeuge Beispielmonate oder trag sie ein.	A recommendation needs income and expenses – create sample months or enter them.
+Ansparen ist am günstigsten: keine Zinsen und das Ziel passt in dein Budget.	Saving up is cheapest: no interest and the goal fits your budget.
+Ansparen bis zum Termin passt nicht in dein Budget. Günstigste tragbare Variante: {0} (Zinsen {1}).	Saving up by the date does not fit your budget. Cheapest affordable option: {0} (interest {1}).
+Keine Variante passt in dein Budget – später, günstiger oder mit mehr Eigenkapital planen.	No option fits your budget – plan later, cheaper or with more equity.
+Ansparen	Save up
+Sofort finanzieren	Finance now
+Anzahlung ansparen, Rest finanzieren	Save a down payment, finance the rest
+Reise	Trip
+Immobilie	Property
+Nicht aktiviert	Not activated
+Der Finanz-Check wertet deine Umsätze, Konten, Kredite und Budgets in der App aus und berechnet daraus eine Punktzahl nur für dich. Er wird nicht weitergegeben und ist jederzeit abschaltbar.	The finance check analyses your transactions, accounts, loans and budgets in the app and calculates a score just for you. It is not shared and can be switched off at any time.
