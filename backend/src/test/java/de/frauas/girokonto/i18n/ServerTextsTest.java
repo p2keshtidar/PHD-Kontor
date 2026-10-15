@@ -24,7 +24,7 @@ class ServerTextsTest {
         Pattern[] patterns = {
                 Pattern.compile("\\bbad\\(\\s*\"[A-Z_]+\",\\s*\"((?:[^\"\\\\]|\\\\.)*)\"\\s*\\)"),
                 Pattern.compile("new ApiException\\([^,]+,\\s*\"[A-Z_]+\",\\s*\"((?:[^\"\\\\]|\\\\.)*)\"\\s*\\)"),
-                Pattern.compile("message\\s*=\\s*\"((?:[^\"\\\\]|\\\\.)*)\""),
+                Pattern.compile("message\\s*=\\s*\"((?:[^\"\\\\]|\\\\.)*)\"\\s*[),]"),
                 Pattern.compile("notifications\\.send\\([^,]+,[^,]+,\\s*\"((?:[^\"\\\\]|\\\\.)*)\"\\s*,"),
                 Pattern.compile("ApiError\\.of\\(\"[A-Z_]+\",\\s*\"((?:[^\"\\\\]|\\\\.)*)\"\\)"),
         };

@@ -5,8 +5,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
 
 /** M01–M02: Gesundheitsprüfung öffentlich, Kennzahlen nur für Administratoren, ohne sensible Daten. */
+@AutoConfigureObservability   // in Tests sind Kennzahlen-Exporte sonst abgeschaltet
 class MonitoringTest extends FlowTestSupport {
 
     @Test
