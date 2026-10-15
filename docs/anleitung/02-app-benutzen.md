@@ -99,6 +99,15 @@ umgebucht, sie sind aber **keine eigenen Bankkonten** und haben keine eigene Ein
 3. **Teilen** → E-Mail/Telefon/IBAN + Rechte: *einzahlen und auszahlen*, *nur einzahlen* oder *nur ansehen*. Rechte
    später über **⋮** beim Mitglied ändern.
 4. **Auflösen** bucht das Guthaben aufs Girokonto zurück. Das Gesamtvermögen bleibt beim Umbuchen gleich.
+5. **Automatisch sparen** (im digitalen Konto) → **„Sparregel anlegen“** → Quelle, Betrag, Rhythmus (*wöchentlich,
+   alle 2 Wochen, monatlich, vierteljährlich*), Start (heute oder später) und optional Ende → Speichern.
+   - Quelle **Girokonto**: Startet die Regel heute, wird der Betrag sofort umgebucht, danach automatisch zu jedem Termin.
+   - Quelle **verbundenes Bankkonto** (siehe 4b): Das Geld bleibt bei der Bank – es wird nur **vorgemerkt** und dem Ziel
+     zugerechnet (kein Geldtransfer). Vorher wird geprüft, ob genug frei ist.
+   - Unter **Vorgänge** steht jeder Termin mit Status (*umgebucht, vorgemerkt, neuer Versuch am …, fehlgeschlagen*).
+     Fehlt Guthaben, versucht die App es an den nächsten zwei Tagen erneut; danach ↻ **erneut versuchen**.
+   - **⋮** an der Regel: pausieren, fortsetzen, Betrag oder Rhythmus ändern, beenden. Mit Zielbetrag zeigt die App, wann
+     das Ziel voraussichtlich erreicht ist.
 
 ## 7. Finanzassistent ⭐ (Kernidee des Projekts)
 
@@ -109,8 +118,8 @@ umgebucht, sie sind aber **keine eigenen Bankkonten** und haben keine eigene Ein
 | 7.3 | **„Sparplan“** → Ziel „Urlaub“, 3.000 €, in 18 Monaten → Risikostufe | Ratenvorschlag + **Ampel** (grün/gelb/rot), ob es machbar ist |
 | 7.4 | Gleiches mit 50.000 € in 12 Monaten | **Rot** + Alternativvorschlag (längere Laufzeit/kleineres Ziel) |
 | 7.5 | **„Investplan“** → 200 € → „Ausgewogen“ | monatliche Rate in fiktive Fonds, Musterdepot |
-| 7.6 | **„Kredit“** → Auto, 20.000 €, 60 Monate → **„Angebote vergleichen“** | 4 Banken; günstigstes passendes Angebot ist markiert |
-| 7.7 | Angebot öffnen → **Tilgungsplan** → **Abschließen** | 20.000 € sind sofort auf dem Girokonto, Kredit erscheint im Bereich Sparen |
+| 7.6 | **„Kredit“** → Auto, 20.000 €, 60 Monate, **Bonität** (Selbsteinschätzung) und optional **Filter** (höchste Monatsrate, Budget, nur erfüllbare Angebote) → **„Angebote vergleichen“** | Rechenbeispiele von 4 **fiktiven** Banken mit Sollzins, effektivem Jahreszins und Gesamtbetrag; günstigstes passendes Angebot ist markiert; „Anbieter und Datenquellen“ zeigt, was angebunden ist |
+| 7.7 | Angebot öffnen → Voraussetzungen, Konditionen, Tilgungsplan → Einwilligung → **„Unverbindlich anfragen“** → bei Zusage bestätigen → **„Vertrag abschließen“** → **„Auszahlung anfordern“** | Vier getrennte Schritte: Anfrage (Zusage 14 Tage gültig, noch nichts verbindlich), Vertrag (noch kein Geld; Widerruf möglich), Auszahlung (20.000 € auf dem Girokonto, erste Rate in einem Monat) |
 | 7.8 | Kredit öffnen → **Sondertilgung** → z. B. 1.000 € → **Auswirkung berechnen** | Vorschau: Restschuld, offene Raten und Zinsersparnis vorher → nachher. **Jetzt sondertilgen** bucht den Betrag; die Rate bleibt gleich, der Kredit endet früher |
 | 7.9 | Sparplan öffnen → **Erinnerung vor der Abbuchung** | Aus / 1 / 3 / 7 Tage vorher. Standard: 3 Tage. Reicht das Guthaben nicht, warnt die Erinnerung |
 

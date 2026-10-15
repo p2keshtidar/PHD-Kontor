@@ -33,21 +33,24 @@ Future<void> tapInDialog(WidgetTester tester, Finder f) async {
 void main() {
   testWidgets('AL01 Bereich "Automatisch sparen": Regeln, Prognose, ausstehend, Vorgänge mit Status', (tester) async {
     await pumpScreen(tester, const SubaccountScreen(accountId: 11));
+    // skipOffstage: false – Einträge knapp außerhalb des sichtbaren Bereichs zählen mit
+    Finder all(String t) => find.text(t, skipOffstage: false);
+    Finder part(String t) => find.textContaining(t, skipOffstage: false);
     await scrollTo(tester, find.byKey(const Key('alloc_rule_31')));
-    expect(find.text('Automatisch sparen'), findsOneWidget);
-    expect(find.text('50,00 € · wöchentlich'), findsOneWidget);
-    expect(find.textContaining('Nächste Ausführung: 16.10.2026'), findsOneWidget);
-    expect(find.text('150,00 € · monatlich'), findsOneWidget);
-    expect(find.textContaining('Nur Vormerkung – das Geld bleibt bei der Bank'), findsOneWidget);
-    expect(find.text('Weitere Sparregeln anderer Mitglieder: 1'), findsOneWidget);
+    expect(all('Automatisch sparen'), findsOneWidget);
+    expect(all('50,00 € · wöchentlich'), findsOneWidget);
+    expect(part('Nächste Ausführung: 16.10.2026'), findsNWidgets(2));
+    expect(all('150,00 € · monatlich'), findsOneWidget);
+    expect(part('Nur Vormerkung – das Geld bleibt bei der Bank'), findsOneWidget);
     await scrollTo(tester, find.byKey(const Key('alloc_projection')));
-    expect(find.textContaining('Voraussichtlich erreicht am 12.03.2027'), findsOneWidget);
+    expect(all('Weitere Sparregeln anderer Mitglieder: 1'), findsOneWidget);
+    expect(part('Voraussichtlich erreicht am 12.03.2027'), findsOneWidget);
     await scrollTo(tester, find.byKey(const Key('alloc_run_42')));
-    expect(find.textContaining('Fehlgeschlagen'), findsWidgets);
-    expect(find.textContaining('Nicht genug Guthaben auf „Girokonto“'), findsOneWidget);
+    expect(all('Ausstehend'), findsOneWidget);
+    expect(part('Fehlgeschlagen'), findsWidgets);
+    expect(part('Nicht genug Guthaben auf „Girokonto“'), findsOneWidget);
     expect(find.byKey(const Key('alloc_retry_42')), findsOneWidget);
-    expect(find.byKey(const Key('alloc_retry_41')), findsNothing);   // ausgeführt: nichts zu wiederholen
-    expect(find.text('Ausstehend'), findsOneWidget);
+    expect(find.byKey(const Key('alloc_retry_41'), skipOffstage: false), findsNothing);   // ausgeführt
   });
 
   testWidgets('AL02 Sparregel vom Girokonto anlegen (wöchentlich)', (tester) async {

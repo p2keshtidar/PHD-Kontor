@@ -47,16 +47,20 @@ void main() {
     expect(body['onlyEligible'], isTrue);
     expect(body.containsKey('maxTotalCents'), isFalse);
 
+    // skipOffstage: false – Einträge knapp außerhalb des sichtbaren Bereichs zählen mit
+    Finder all(String t) => find.text(t, skipOffstage: false);
+    Finder part(String t) => find.textContaining(t, skipOffstage: false);
+    await scrollTo(tester, find.byKey(const Key('loan_hidden')));
+    expect(all('1 Angebote durch Filter ausgeblendet'), findsOneWidget);
     await scrollTo(tester, find.byKey(const Key('loan_offer_NORDLICHT')));
-    expect(find.text('1 Angebote durch Filter ausgeblendet'), findsOneWidget);
-    expect(find.text('Fiktive Bank – unverbindliches Rechenbeispiel'), findsWidgets);
-    expect(find.text('5,63 %'), findsOneWidget);   // effektiver Jahreszins
-    expect(find.textContaining('3,36 Prozentpunkte unter dem Bundesbank-Durchschnitt'), findsWidgets);
+    expect(all('Fiktive Bank – unverbindliches Rechenbeispiel'), findsWidgets);
+    expect(all('5,63 %'), findsOneWidget);   // effektiver Jahreszins
+    expect(part('3,36 Prozentpunkte unter dem Bundesbank-Durchschnitt'), findsWidgets);
     await scrollTo(tester, find.byKey(const Key('loan_reference')));
-    expect(find.textContaining('8,99 %'), findsOneWidget);
-    expect(find.textContaining('kein Angebot'), findsOneWidget);
+    expect(part('8,99 %'), findsOneWidget);
+    expect(part('kein Angebot'), findsOneWidget);
     await scrollTo(tester, find.byKey(const Key('loan_disclaimer')));
-    expect(find.textContaining('keine echten Kreditangebote'), findsOneWidget);
+    expect(part('keine echten Kreditangebote'), findsOneWidget);
     await scrollTo(tester, find.byKey(const Key('loan_providers')));
     await tester.tap(find.byKey(const Key('loan_providers')));
     await tester.pumpAndSettle();

@@ -67,7 +67,9 @@ flowchart LR
 | `notification` | Benachrichtigungen speichern, auflisten, gelesen markieren; WebSocket-Konfiguration (`WebSocketConfig`) |
 | `insights` | Kategorien (`CategoryService`), Monatsübersicht und Durchschnitte (`InsightsService`), Demo-Profile und Beispielmonate (`DemoDataService`) |
 | `savings` | Spar- und Investpläne (`SavingsPlanService`), Risikostufen, fiktive Fonds (`Fund`), Prognoseformeln (`PlanMath`) |
-| `loan` | Kreditzwecke und Zinsregeln (`LoanPurpose`), fiktive Banken (`Bank`), Annuitätenrechnung (`LoanMath`), Angebote, Abschluss, Raten (`LoanService`) |
+| `loan` | Kreditzwecke und Zinsregeln (`LoanPurpose`), fiktive Banken (`Bank`) mit Mindest-Bonität, Bonitätsklassen (`CreditClass`), Annuitätenrechnung (`LoanMath`), Vergleich mit Filtern, getrennte Schritte Anfrage → Vertrag → Auszahlung, Raten (`LoanService`) |
+| `loan/provider` | Anbieter-Schnittstelle `LoanOfferProvider`, fiktive Banken (`SimulatedBanksProvider`), Referenzzinsen der Bundesbank (`MarketRateService`) – siehe [Sparregeln und Kredite](sparregeln-und-kredite.md) |
+| `allocation` | Sparregeln für digitale Konten: Rhythmen, Quellen (Girokonto = Umbuchung, verbundenes Bankkonto = Vormerkung), Vorgänge mit Status und Wiederholung, Tageslauf Nr. 35 |
 | `simulation` | Verschiebbare Uhr (`SimulationClock`), Tagesläufe (`SimulationService`, `DailyJob`), nächtlicher Lauf (`DailyScheduler`), Admin-Endpunkt zum Vorspulen |
 | `common` | IBAN-Generator, einheitliche Fehlermeldungen |
 | `config` | Einstellungen aus `application.yml`, zentrale Uhr (später für den Demo-Modus) |
@@ -105,7 +107,9 @@ flowchart LR
 
 **Erinnerung (`SavingsPlanService.remind`, /K010/):** Läuft im Tageslauf direkt nach den Sparraten. Ist heute + `reminder_days` der Ausführungstag, gibt es eine Benachrichtigung; `last_reminded_month` verhindert doppelte Erinnerungen.
 
-**Kredit (`LoanService`):** Angebote: Zins = Basiszins des Zwecks + Laufzeitaufschlag − Eigenkapitalrabatt + Aufschlag der Bank; Rate nach Annuitätenformel (`LoanMath`). Eine Bank lehnt ab, wenn die Rate über ihrer Grenze liegt (60–80 % von „verfügbar“). Abschluss: Kreditkonto (Typ LOAN) −Betrag, Girokonto +Betrag. Jede Rate: Girokonto −Rate, Kreditkonto +Tilgung, System-Konto „ZINSEN“ +Zins. Die Restschuld ist der negative Saldo des Kreditkontos.
+**Kredit (`LoanService`):** Angebote: Zins = Basiszins des Zwecks + Laufzeitaufschlag − Eigenkapitalrabatt + Aufschlag der Bank + Aufschlag nach Bonität (Selbsteinschätzung); Rate nach Annuitätenformel (`LoanMath`), effektiver Jahreszins = (1 + Sollzins/12)^12 − 1. Eine Bank lehnt ab, wenn die Bonität unter ihrer Mindestklasse oder die Rate über ihrer Grenze liegt (60–80 % von „verfügbar“). Die Schritte sind getrennt gespeichert: Anfrage (`loan_application`, Zusage 14 Tage gültig) → Vertrag (`loan.status = CONTRACTED`, Kreditkonto ohne Buchung) → Auszahlung (Kreditkonto −Betrag, Girokonto +Betrag, Idempotenz-Schlüssel `loan-payout:<id>`, Status `ACTIVE`). Jede Rate: Girokonto −Rate, Kreditkonto +Tilgung, System-Konto „ZINSEN“ +Zins. Die Restschuld ist der negative Saldo des Kreditkontos. Details: [Sparregeln und Kredite](sparregeln-und-kredite.md).
+
+**Sparregeln (`AllocationService`):** Tageslauf Nr. 35 (nach Daueraufträgen und Kreditraten). Für jeden fälligen Termin entsteht genau ein Vorgang (`allocation_run`, eindeutig je Regel und Datum); ausgeführt wird unter Zeilensperre. Quelle Girokonto: Umbuchung `INTERNAL` mit Idempotenz-Schlüssel `alloc-<Regel>-<Datum>`. Quelle verbundenes Bankkonto: nur Vormerkung (keine Buchung), vorher Verbindung, Aktualität des Kontostands (≤ 48 h) und freie Deckung geprüft. Fehlschläge werden an den Folgetagen wiederholt (höchstens 3 Versuche). Vormerkungen zählen zum Ziel eines digitalen Kontos (`digital.earmarkedCents`, `digital.savedCents`); „Ziel erreicht“ prüft der gemeinsame `GoalTracker`.
 
 **Live-Benachrichtigungen:**
 1. Jede Buchung ruft `NotificationService.send(...)` auf. Die Meldung wird in der Tabelle `notification` gespeichert.
@@ -147,7 +151,8 @@ nur ansehen – geprüft bei jeder Umbuchung. Das Gesamtvermögen enthält die E
 | `features/notifications/` | Benachrichtigungsliste, Zähler, Live-Verbindung starten (`realtime_provider.dart`), Systembenachrichtigungen |
 | `features/insights/` | Finanzüberblick (Diagramme, Kategorien, Durchschnitt), Beispielmonate |
 | `features/savings/` | Bereich „Sparen“, Plan-Assistent, Plan-Detail mit Depot und Spartipps |
-| `features/loans/` | Kreditplaner, Angebotsvergleich, Tilgungsplan, Kreditdetail |
+| `features/loans/` | Kreditplaner mit Bonität und Filtern, Angebotsvergleich (Rechenbeispiele, Bundesbank-Referenz, Anbieterstatus), Angebot → Anfrage → Vertrag → Auszahlung, Tilgungsplan, Kreditdetail |
+| `features/allocations/` | „Automatisch sparen“ im digitalen Konto: Sparregeln anlegen/ändern/pausieren/beenden, Vorgänge mit Status und „erneut versuchen“, Vormerkungen |
 | `core/charts.dart` | Einfache Diagramme ohne Zusatzpaket (Balken, Linie, Kategorien, Ampel) |
 | `core/realtime_service.dart` | WebSocket/STOMP-Verbindung mit automatischem Neuverbinden |
 | `features/profile/` | Profil, Daten und Passwort ändern, Abmelden |
