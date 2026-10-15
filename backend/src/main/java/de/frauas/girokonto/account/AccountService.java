@@ -30,10 +30,11 @@ public class AccountService {
     private final Clock clock;
     private final AccountMemberRepository members;
     private final AppUserRepository users;
+    private final EarmarkRepository earmarks;
 
     public AccountService(AccountRepository accounts, BookingService bookingService, BookingLineRepository bookingLines,
                           IbanGenerator ibanGenerator, AppProperties props, Clock clock,
-                          AccountMemberRepository members, AppUserRepository users) {
+                          AccountMemberRepository members, AppUserRepository users, EarmarkRepository earmarks) {
         this.accounts = accounts;
         this.bookingService = bookingService;
         this.bookingLines = bookingLines;
@@ -42,6 +43,7 @@ public class AccountService {
         this.clock = clock;
         this.members = members;
         this.users = users;
+        this.earmarks = earmarks;
     }
 
     /** Legt das Girokonto mit fiktiver IBAN an und bucht das Startguthaben (/F010/). */
@@ -66,12 +68,17 @@ public class AccountService {
     public List<AccountDto> listForUser(Long userId) {
         List<AccountDto> result = new ArrayList<>();
         java.time.LocalDate today = java.time.LocalDate.now(clock);
-        for (Account a : accounts.findByOwnerIdAndStatusOrderByIdAsc(userId, AccountStatus.ACTIVE)) {
+        List<Account> own = accounts.findByOwnerIdAndStatusOrderByIdAsc(userId, AccountStatus.ACTIVE);
+        java.util.Map<Long, Long> earmarked = earmarks.forAccounts(own.stream()
+                .filter(a -> a.getType() == AccountType.SUB).map(Account::getId).toList());
+        for (Account a : own) {
             int count = a.getType() == AccountType.SUB ? members.count(a.getId()) : 0;
             long balance = bookingService.balanceOf(a.getId());
             result.add(new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), a.getIban(),
                     balance, count > 0, null, count,
-                    a.getType() == AccountType.SUB ? DigitalInfo.of(a, balance, "OWNER", today) : null));
+                    a.getType() == AccountType.SUB
+                            ? DigitalInfo.of(a, balance, earmarked.getOrDefault(a.getId(), 0L), "OWNER", today)
+                            : null));
         }
         return result;
     }
@@ -86,8 +93,8 @@ public class AccountService {
                         long balance = bookingService.balanceOf(a.getId());
                         result.add(new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), null,
                                 balance, true, ownerName(a.getOwnerId()), members.count(a.getId()),
-                                DigitalInfo.of(a, balance, members.role(a.getId(), userId),
-                                        java.time.LocalDate.now(clock))));
+                                DigitalInfo.of(a, balance, earmarks.forAccount(a.getId()),
+                                        members.role(a.getId(), userId), java.time.LocalDate.now(clock))));
                     });
         }
         return result;

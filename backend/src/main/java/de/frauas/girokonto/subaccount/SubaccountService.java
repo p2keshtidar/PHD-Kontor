@@ -9,6 +9,8 @@ import de.frauas.girokonto.account.AccountStatus;
 import de.frauas.girokonto.account.AccountType;
 import de.frauas.girokonto.account.DigitalInfo;
 import de.frauas.girokonto.account.DigitalPurpose;
+import de.frauas.girokonto.account.EarmarkRepository;
+import de.frauas.girokonto.account.GoalTracker;
 import de.frauas.girokonto.booking.BookingService;
 import de.frauas.girokonto.booking.BookingType;
 import de.frauas.girokonto.common.ApiException;
@@ -23,6 +25,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +45,9 @@ public class SubaccountService {
     private final Clock clock;
     private final AccountMemberRepository members;
     private final RecipientResolver recipients;
+    private final GoalTracker goals;
+    private final EarmarkRepository earmarks;
+    private final JdbcTemplate jdbc;
 
     public static final int MAX_MEMBERS = 5;
 
@@ -54,7 +60,8 @@ public class SubaccountService {
 
     public SubaccountService(AccountRepository accounts, AccountService accountService, BookingService bookingService,
                              NotificationService notifications, AppProperties props, Clock clock,
-                             AccountMemberRepository members, RecipientResolver recipients) {
+                             AccountMemberRepository members, RecipientResolver recipients, GoalTracker goals,
+                             EarmarkRepository earmarks, JdbcTemplate jdbc) {
         this.accounts = accounts;
         this.accountService = accountService;
         this.bookingService = bookingService;
@@ -63,6 +70,9 @@ public class SubaccountService {
         this.clock = clock;
         this.members = members;
         this.recipients = recipients;
+        this.goals = goals;
+        this.earmarks = earmarks;
+        this.jdbc = jdbc;
     }
 
     @Transactional
@@ -96,7 +106,8 @@ public class SubaccountService {
         long balance = bookingService.balanceOf(a.getId());
         if (!java.util.Objects.equals(a.getTargetCents(), req.targetCents())) {
             // neues Ziel: schon erreicht? Dann nicht noch einmal melden
-            a.setGoalReachedAt(req.targetCents() != null && balance >= req.targetCents() ? Instant.now(clock) : null);
+            long saved = balance + earmarks.forAccount(a.getId());
+            a.setGoalReachedAt(req.targetCents() != null && saved >= req.targetCents() ? Instant.now(clock) : null);
         }
         a.setTargetCents(req.targetCents());
         a.setTargetDate(req.targetDate());
@@ -108,7 +119,7 @@ public class SubaccountService {
         String role = a.getOwnerId().equals(userId) ? "OWNER" : members.role(a.getId(), userId);
         return new AccountDto(a.getId(), a.getType(), a.getName(), a.getIcon(), null, balance, count > 0,
                 a.getOwnerId().equals(userId) ? null : accountService.ownerName(a.getOwnerId()), count,
-                DigitalInfo.of(a, balance, role, LocalDate.now(clock)));
+                DigitalInfo.of(a, balance, earmarks.forAccount(a.getId()), role, LocalDate.now(clock)));
     }
 
     private static DigitalPurpose purpose(String s) {
@@ -163,7 +174,8 @@ public class SubaccountService {
         notifications.send(userId, NotificationType.INTERNAL, "Umbuchung",
                 Money.format(req.amountCents()) + " von „" + from.getName() + "“ nach „" + to.getName() + "“",
                 booking.getId());
-        goalCheck(to, from);
+        goals.check(to);
+        goals.check(from);
         // /K060/: die anderen Beteiligten eines geteilten Unterkontos informieren
         String actor = accountService.ownerName(userId);
         for (Account shared : List.of(to, from)) {
@@ -256,23 +268,6 @@ public class SubaccountService {
         return r == null ? "VIEW" : r;
     }
 
-    /** "Ziel erreicht" einmal melden; fällt der Stand wieder unter das Ziel, darf es erneut gemeldet werden. */
-    private void goalCheck(Account to, Account from) {
-        Instant now = Instant.now(clock);
-        if (to.getType() == AccountType.SUB && to.getTargetCents() != null && to.getGoalReachedAt() == null
-                && bookingService.balanceOf(to.getId()) >= to.getTargetCents()) {
-            to.setGoalReachedAt(now);
-            for (Long p : participants(to)) {
-                notifications.send(p, NotificationType.GOAL, "Ziel erreicht",
-                        "„" + to.getName() + "“ hat das Ziel von " + Money.format(to.getTargetCents()) + " erreicht.", null);
-            }
-        }
-        if (from.getType() == AccountType.SUB && from.getTargetCents() != null && from.getGoalReachedAt() != null
-                && bookingService.balanceOf(from.getId()) < from.getTargetCents()) {
-            from.setGoalReachedAt(null);
-        }
-    }
-
     /** Besitzer entfernt ein Mitglied – oder ein Mitglied tritt selbst aus. */
     @Transactional
     public void removeMember(Long userId, Long accountId, Long memberId) {
@@ -315,6 +310,9 @@ public class SubaccountService {
                     "„" + sub.getName() + "“ wurde von " + accountService.ownerName(userId) + " aufgelöst.", null);
         }
         sub.setStatus(AccountStatus.CLOSED);
+        // Sparregeln in dieses Konto enden mit dem Konto; Vormerkungen halten danach nichts mehr zurück
+        jdbc.update("UPDATE allocation_rule SET status = 'ENDED', next_date = NULL, status_reason = ?, updated_at = now()"
+                + " WHERE target_account_id = ? AND status <> 'ENDED'", "Digitales Konto aufgelöst", sub.getId());
     }
 
     private Account requireSub(Long userId, Long accountId) {

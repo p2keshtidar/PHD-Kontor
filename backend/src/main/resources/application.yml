@@ -58,6 +58,11 @@ app:
     password: ${ADMIN_PASSWORD:admin12345}
   simulation:
     zone: Europe/Berlin
+  allocations:
+    # Sparregeln für digitale Konten (Umbuchung vom Girokonto oder Vormerkung bei verbundenen Bankkonten)
+    max-rules-per-user: 20
+    max-attempts: 3              # 1. Versuch am Fälligkeitstag + 2 Wiederholungen an den Folgetagen
+    balance-max-age-hours: 48    # so alt darf der Kontostand für eine Vormerkung höchstens sein
   banking:
     # Sandbox-Banken mit Testdaten (keine echte Bank). Im Betrieb mit echten Konten ggf. abschalten.
     sandbox-enabled: ${BANKING_SANDBOX:true}

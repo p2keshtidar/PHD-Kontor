@@ -192,6 +192,10 @@ class SecurityMatrixTest extends FlowTestSupport {
         JsonNode bookings = getJson(anna, "/api/accounts/" + anna.accountId() + "/bookings");
         long booking = bookings.get("items").get(0).get("bookingId").asLong();
         long notification = getJson(anna, "/api/notifications").get("items").get(0).get("id").asLong();
+        JsonNode allocRule = postJson(anna, "/api/allocations/rules", "{\"targetAccountId\":" + sub
+                + ",\"amountCents\":100,\"interval\":\"MONTHLY\"}", 201);
+        long rule = allocRule.get("id").asLong();
+        long run = allocRule.get("lastRun").get("id").asLong();
 
         Set<String> f = new TreeSet<>();
         denied(eve, HttpMethod.GET, "/api/accounts/" + anna.accountId() + "/bookings", "", f);
@@ -221,6 +225,18 @@ class SecurityMatrixTest extends FlowTestSupport {
         denied(eve, HttpMethod.DELETE, "/api/imports/" + imp, "", f);
         denied(eve, HttpMethod.DELETE, "/api/contacts/" + contact, "", f);
         denied(eve, HttpMethod.PUT, "/api/notifications/" + notification + "/read", "", f);
+        denied(eve, HttpMethod.GET, "/api/allocations/accounts/" + sub, "", f);
+        denied(eve, HttpMethod.POST, "/api/allocations/rules", "{\"targetAccountId\":" + sub
+                + ",\"amountCents\":100,\"interval\":\"MONTHLY\"}", f);
+        denied(eve, HttpMethod.PUT, "/api/allocations/rules/" + rule, "{\"amountCents\":99999}", f);
+        denied(eve, HttpMethod.POST, "/api/allocations/rules/" + rule + "/pause", "", f);
+        denied(eve, HttpMethod.POST, "/api/allocations/rules/" + rule + "/resume", "", f);
+        denied(eve, HttpMethod.DELETE, "/api/allocations/rules/" + rule, "", f);
+        denied(eve, HttpMethod.POST, "/api/allocations/runs/" + run + "/retry", "", f);
+        denied(eve, HttpMethod.POST, "/api/allocations/earmarks", "{\"targetAccountId\":" + sub
+                + ",\"externalAccountId\":1,\"amountCents\":100}", f);
+        denied(eve, HttpMethod.POST, "/api/allocations/earmarks/release", "{\"targetAccountId\":" + sub
+                + ",\"externalAccountId\":1}", f);
         assertThat(f).as("Zugriffe auf fremde Daten, die nicht abgelehnt wurden").isEmpty();
 
         // Annas Daten sind unverändert
@@ -237,6 +253,9 @@ class SecurityMatrixTest extends FlowTestSupport {
         assertThat(getJson(eve, "/api/imports")).isEmpty();
         assertThat(getJson(eve, "/api/entries").get("entries")).isEmpty();
         assertThat(getJson(anna, "/api/entries").get("entries").get(0).get("amountCents").asLong()).isEqualTo(1000);
+        assertThat(getJson(eve, "/api/allocations/rules")).isEmpty();
+        assertThat(getJson(eve, "/api/allocations/runs")).isEmpty();
+        assertThat(getJson(anna, "/api/allocations/rules").get(0).get("amountCents").asLong()).isEqualTo(100);
     }
 
     @Test

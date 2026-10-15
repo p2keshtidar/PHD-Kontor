@@ -372,3 +372,71 @@ Nur einzahlen	Deposit only
 Nur ansehen	View only
 Umgebucht innerhalb der Projektbank (Simulation)	Moved within Projektbank (simulation)
 Das Geld wurde von einem Girokonto der Projektbank hierher umgebucht. Ein digitales Konto ist ein Topf in deinem Konto – kein eigenes Bankkonto und ohne eigene Einlagensicherung.	The money was moved here from a Projektbank current account. A digital account is a pot within your account – not a separate bank account and without its own deposit protection.
+
+# Sparregeln und Geldzuweisungen (digitale Konten)
+Finanzierungsquelle nicht gefunden.	Funding source not found.
+Unbekannte Finanzierungsquelle.	Unknown funding source.
+Rhythmus: wöchentlich, alle 2 Wochen, monatlich oder vierteljährlich.	Interval: weekly, every 2 weeks, monthly or quarterly.
+Das Startdatum darf nicht in der Vergangenheit liegen.	The start date must not be in the past.
+Das Startdatum darf höchstens ein Jahr in der Zukunft liegen.	The start date may be at most one year in the future.
+Das Enddatum liegt vor dem Startdatum.	The end date is before the start date.
+Höchstens {0} Sparregeln möglich.	At most {0} savings rules possible.
+Das Enddatum liegt vor der nächsten Ausführung am {0}.	The end date is before the next execution on {0}.
+Vorgang nicht gefunden.	Operation not found.
+Dieser Vorgang kann nicht wiederholt werden.	This operation cannot be retried.
+Von diesem Bankkonto ist für „{0}“ nichts vorgemerkt.	Nothing is earmarked for “{0}” from this bank account.
+Höchstens {0} sind vorgemerkt.	Only {0} is earmarked.
+Sparregel nicht gefunden.	Savings rule not found.
+Die Sparregel ist beendet.	The savings rule has ended.
+Sparregeln gibt es nur für digitale Konten.	Savings rules are only available for digital accounts.
+Das Bankkonto ist nicht mehr verbunden.	The bank account is no longer connected.
+Die Freigabe für {0} ist abgelaufen. Bitte die Bank neu verbinden.	The consent for {0} has expired. Please reconnect the bank.
+Die Verbindung zu {0} ist nicht aktiv.	The connection to {0} is not active.
+Nur Konten in Euro können vorgemerkt werden.	Only accounts in euros can be earmarked.
+Der Kontostand bei {0} ist unbekannt.	The balance at {0} is unknown.
+Der Kontostand bei {0} ist nicht aktuell. Bitte das Bankkonto aktualisieren.	The balance at {0} is not up to date. Please refresh the bank account.
+Nicht genug frei bei {0}: verfügbar {1}.	Not enough available at {0}: {1} available.
+Das Girokonto ist nicht aktiv.	The current account is not active.
+Das digitale Konto ist aufgelöst.	The digital account has been closed.
+Keine Berechtigung mehr für „{0}“.	No longer permitted for “{0}”.
+Technischer Fehler – neuer Versuch folgt.	Technical error – will retry.
+Sparregel pausiert	Savings rule paused
+Sparregel beendet	Savings rule ended
+Enddatum erreicht	End date reached
+Beendet	Ended
+Umbuchung innerhalb der Projektbank (Simulation) – keine echte Überweisung.	Internal transfer within Projektbank (simulation) – not a real bank transfer.
+Vormerkung: Das Geld bleibt auf deinem Konto bei der anderen Bank. Es wird keine Zahlung ausgelöst; der Betrag wird nur deinem Ziel zugerechnet.	Earmark: the money stays in your account at the other bank. No payment is initiated; the amount is only counted towards your goal.
+Nur Vormerkung: Das Geld bleibt bei {0}. Es wird keine Zahlung ausgelöst.	Earmark only: the money stays at {0}. No payment is initiated.
+Deine Vormerkungen ({0}) sind höher als der Kontostand ({1}).	Your earmarks ({0}) exceed the balance ({1}).
+Projektbank (Simulation)	Projektbank (simulation)
+Ziel erreicht.	Goal reached.
+Mit einer Sparregel siehst du, wann du dein Ziel voraussichtlich erreichst.	With a savings rule you can see when you are likely to reach your goal.
+Voraussichtlich erreicht am {0} – nach deinem Zieldatum {1}.	Expected to be reached on {0} – after your target date {1}.
+Voraussichtlich erreicht am {0}, wenn alle Sparregeln wie geplant laufen.	Expected to be reached on {0} if all savings rules run as planned.
+wöchentlich	weekly
+alle 2 Wochen	every 2 weeks
+Aktiv	Active
+Pausiert	Paused
+Vormerkung	Earmark
+Vormerkung aufgehoben	Earmark released
+Umgebucht	Transferred
+Aufgehoben	Released
+Ausstehend	Pending
+Neuer Versuch geplant	Retry scheduled
+Neuer Versuch am {0}	Retry on {0}
+Abgebrochen	Cancelled
+Fehlgeschlagen	Failed
+Sparregel eingerichtet	Savings rule set up
+Für „{0}“ werden {1} ({2}) von {3} zugewiesen – erstmals am {4}.	{1} ({2}) from {3} will be allocated to “{0}” – first on {4}.
+Automatisch gespart	Saved automatically
+Automatisch vorgemerkt	Earmarked automatically
+{0} vom Girokonto in „{1}“ umgebucht.	{0} moved from the current account to “{1}”.
+{0} bei {1} für „{2}“ vorgemerkt – das Geld bleibt dort.	{0} earmarked at {1} for “{2}” – the money stays there.
+Sparregel: neuer Versuch	Savings rule: retrying
+{0} für „{1}“: {2} Neuer Versuch am {3}.	{0} for “{1}”: {2} Retrying on {3}.
+Sparregel fehlgeschlagen	Savings rule failed
+{0} für „{1}“ wurde nicht ausgeführt: {2}	{0} for “{1}” was not executed: {2}
+Die Sparregel für „{0}“ wurde pausiert: {1}	The savings rule for “{0}” was paused: {1}
+{0} hat {1} für „{2}“ vorgemerkt	{0} earmarked {1} for “{2}”
+Sparregel: {0} → {1}	Savings rule: {0} → {1}
+Vormerkung erfasst	Earmark recorded

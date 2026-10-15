@@ -356,6 +356,30 @@ public class BankingService implements DailyJob {
         return done;
     }
 
+    /**
+     * Für Sparregeln mit Vormerkung: Kontostand der Verbindung auffrischen, wenn der letzte erfolgreiche Abruf
+     * älter als {@code maxAge} ist. Hält die Abruf-Grenzen der Bank ein; Fehler werden nur protokolliert.
+     */
+    public void refreshIfOlder(Long connectionId, Duration maxAge) {
+        List<Conn> r = jdbc.query("SELECT * FROM bank_connection WHERE id = ?", this::conn, connectionId);
+        if (r.isEmpty() || !"ACTIVE".equals(r.get(0).status)) {
+            return;
+        }
+        Conn c = r.get(0);
+        BankingProvider p = providers.get(c.provider);
+        Instant now = Instant.now(clock);
+        if (p == null || !p.available()
+                || (c.lastSyncAt != null && "OK".equals(c.lastSyncStatus) && now.isBefore(c.lastSyncAt.plus(maxAge)))
+                || tooSoon(c.lastSyncAt, now, p.minSyncInterval())) {
+            return;
+        }
+        try {
+            doSync(c, true);
+        } catch (RuntimeException e) {
+            log.warn("Abruf für Sparregel, Verbindung {} fehlgeschlagen: {}", c.id, e.getClass().getSimpleName());
+        }
+    }
+
     private record Fetched(Long accountId, AccountData account, List<TransactionData> transactions, LocalDate from) {}
 
     SyncResult doSync(Conn c, boolean background) {
