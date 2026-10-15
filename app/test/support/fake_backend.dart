@@ -319,6 +319,26 @@ class FakeBackend implements HttpClientAdapter {
         'disclaimer': 'Automatische Auswertung deiner App-Daten – keine Finanzberatung.',
       };
 
+  static Map<String, dynamic> contract({int id = 5, String status = 'ACTIVE', int days = 10}) => {
+        'id': id, 'name': 'Handy', 'provider': 'Funk AG', 'kind': 'HANDY_INTERNET', 'kindLabel': 'Handy & Internet',
+        'costCents': 2999, 'billing': 'MONTHLY', 'billingLabel': 'monatlich', 'monthlyCents': 2999,
+        'yearlyCents': 35988, 'startDate': '2024-11-25', 'minTermMonths': 24, 'renewalMonths': 1, 'noticeValue': 1,
+        'noticeUnit': 'MONTHS', 'noticeLabel': '1 Monat', 'reminderDays': 14, 'status': status,
+        'statusLabel': status == 'ACTIVE' ? 'Läuft' : 'Gekündigt',
+        'nextEndDate': '2026-11-24', 'cancelByDate': status == 'ACTIVE' ? '2026-10-24' : null,
+        'daysUntilCancelBy': status == 'ACTIVE' ? days : null, 'endsOn': status == 'ACTIVE' ? null : '2026-11-24',
+        'note': null, 'documentCount': 1,
+        'hintText': status == 'ACTIVE'
+            ? 'Kündigen bis 24.10.2026 (Vertragsende 24.11.2026), sonst Verlängerung um 1 Monat.'
+            : 'Gekündigt zum 24.11.2026.',
+      };
+
+  static Map<String, dynamic> contractsOverview() => {
+        'contracts': [contract()],
+        'monthlyTotalCents': 2999, 'yearlyTotalCents': 35988, 'dueSoon': 1,
+        'note': 'Die App merkt sich Verträge und Fristen nur. Kündigen musst du selbst beim Anbieter.',
+      };
+
   static Map<String, dynamic> healthScore() => {
         'score': 62, 'level': 'MITTEL', 'levelLabel': 'Ausbaufähig',
         'components': [
@@ -824,6 +844,12 @@ class FakeBackend implements HttpClientAdapter {
               {'id': 1, 'name': 'WG Berger', 'memberCount': 3, 'myBalanceCents': -3833, 'totalSpentCents': 18000},
             ],
         'GET /api/groups/*': (_) => group(),
+        'GET /api/contracts': (_) => contractsOverview(),
+        'GET /api/contracts/*': (_) => contract(),
+        'GET /api/documents': (_) => [
+              {'id': 3, 'contractId': 5, 'title': 'Vertrag 2024', 'fileName': 'Vertrag 2024.pdf',
+               'contentType': 'application/pdf', 'sizeBytes': 51200, 'createdAt': '2026-10-01T10:00:00Z'},
+            ],
         'GET /api/assistant/questions': (_) => [
               {'text': 'Wofür gebe ich am meisten aus?'},
               {'text': 'Wie viel habe ich diesen Monat für Lebensmittel ausgegeben?'},

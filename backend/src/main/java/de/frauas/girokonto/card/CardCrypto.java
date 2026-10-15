@@ -26,6 +26,7 @@ public class CardCrypto {
 
     private final SecretKey key;
     private final SecretKey macKey;
+    private final SecretKey documentKey;
 
     public CardCrypto(AppProperties props) {
         byte[] raw = Base64.getDecoder().decode(props.card().encryptionKey());
@@ -38,6 +39,9 @@ public class CardCrypto {
             java.security.MessageDigest sha = java.security.MessageDigest.getInstance("SHA-256");
             sha.update("girokonto-fingerprint".getBytes(StandardCharsets.UTF_8));
             this.macKey = new SecretKeySpec(sha.digest(raw), "HmacSHA256");
+            java.security.MessageDigest sha2 = java.security.MessageDigest.getInstance("SHA-256");
+            sha2.update("girokonto-documents".getBytes(StandardCharsets.UTF_8));
+            this.documentKey = new SecretKeySpec(sha2.digest(raw), "AES");
         } catch (GeneralSecurityException e) {
             throw new IllegalStateException(e);
         }
@@ -67,6 +71,30 @@ public class CardCrypto {
                     ByteBuffer.allocate(iv.length + encrypted.length).put(iv).put(encrypted).array());
         } catch (GeneralSecurityException e) {
             throw new IllegalStateException("Verschlüsselung fehlgeschlagen", e);
+        }
+    }
+
+    /** Dokumente: Bytes mit eigenem, abgeleitetem Schlüssel verschlüsseln. Format: 12 Byte IV | Chiffretext. */
+    public byte[] encryptBytes(byte[] plain) {
+        try {
+            byte[] iv = new byte[IV_LENGTH];
+            RANDOM.nextBytes(iv);
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+            cipher.init(Cipher.ENCRYPT_MODE, documentKey, new GCMParameterSpec(TAG_BITS, iv));
+            byte[] encrypted = cipher.doFinal(plain);
+            return ByteBuffer.allocate(iv.length + encrypted.length).put(iv).put(encrypted).array();
+        } catch (GeneralSecurityException e) {
+            throw new IllegalStateException("Verschlüsselung fehlgeschlagen", e);
+        }
+    }
+
+    public byte[] decryptBytes(byte[] all) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+            cipher.init(Cipher.DECRYPT_MODE, documentKey, new GCMParameterSpec(TAG_BITS, all, 0, IV_LENGTH));
+            return cipher.doFinal(all, IV_LENGTH, all.length - IV_LENGTH);
+        } catch (GeneralSecurityException e) {
+            throw new IllegalStateException("Entschlüsselung fehlgeschlagen", e);
         }
     }
 

@@ -17,6 +17,7 @@ import '../features/banking/connect_bank_screen.dart';
 import '../features/card/card_screen.dart';
 import '../features/contacts/address_book_screen.dart';
 import '../features/assistant/assistant_screen.dart';
+import '../features/contracts/contracts_screen.dart';
 import '../features/dashboard/dashboard_screen.dart';
 import '../features/groups/group_screen.dart';
 import '../features/groups/groups_screen.dart';
@@ -135,6 +136,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/planung', builder: (_, __) => const PlanningScreen()),
       // Persönlicher Finanzassistent (regelbasiert, nur App-Daten)
       GoRoute(path: '/assistent', builder: (_, __) => const AssistantScreen()),
+      // Verträge & Dokumente
+      GoRoute(path: '/vertraege', builder: (_, __) => const ContractsScreen()),
+      GoRoute(
+        path: '/vertraege/:id',
+        builder: (_, state) => ContractDetailScreen(contractId: int.parse(state.pathParameters['id']!)),
+      ),
       // Zentrales Finanz-Dashboard
       GoRoute(path: '/dashboard', builder: (_, __) => const DashboardScreen()),
       // Gemeinsame Ausgaben (WG, Reise, Paar)

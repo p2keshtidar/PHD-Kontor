@@ -829,3 +829,44 @@ Durchschnitt der letzten {0} vollen Monate: Einnahmen {1}, Ausgaben {2}.	Average
 Ausgaben bleiben gleich.	Expenses stay the same.
 Ohne Zinsen gerechnet.	Calculated without interest.
 Das ist mehr, als du im Schnitt für {0} ausgibst ({1}).	That is more than you spend on {0} on average ({1}).
+Die Datei ist größer als 5 MB.	The file is larger than 5 MB.
+Nur PDF, PNG oder JPEG sind erlaubt.	Only PDF, PNG or JPEG are allowed.
+Der Titel darf höchstens 100 Zeichen haben.	The title may have at most 100 characters.
+Dokument nicht gefunden.	Document not found.
+Die Datei konnte nicht gelesen werden.	The file could not be read.
+Bitte einen Namen (bis 80 Zeichen) angeben.	Please enter a name (up to 80 characters).
+Der Anbieter darf höchstens 80 Zeichen haben.	The provider may have at most 80 characters.
+Unbekannte Vertragsart.	Unknown contract type.
+Die Kosten müssen zwischen 0 € und 100.000 € liegen.	The cost must be between €0 and €100,000.
+Unbekannter Zahlungsrhythmus.	Unknown billing interval.
+Der Vertragsbeginn muss in den letzten 30 Jahren oder im nächsten Jahr liegen.	The contract start must be within the last 30 years or the next year.
+Laufzeit: Mindestlaufzeit 0 bis 120 Monate, Verlängerung 1 bis 60 Monate.	Term: minimum term 0 to 120 months, renewal 1 to 60 months.
+Ungültige Kündigungsfrist.	Invalid notice period.
+Die Erinnerung muss 0 bis 90 Tage vorher sein.	The reminder must be 0 to 90 days before.
+Die Notiz darf höchstens 300 Zeichen haben.	The note may have at most 300 characters.
+Vertrag nicht gefunden.	Contract not found.
+Der Vertrag ist schon gekündigt.	The contract has already been cancelled.
+Das Vertragsende darf nicht in der Vergangenheit liegen.	The contract end must not be in the past.
+Kündigungsfrist	Notice period
+Höchstens {0} Verträge.	At most {0} contracts.
+Höchstens {0} Dokumente.	At most {0} documents.
+„{0}“ kann noch bis {1} gekündigt werden (Vertragsende {2}).	“{0}” can still be cancelled until {1} (contract end {2}).
+Die App merkt sich Verträge und Fristen nur. Kündigen musst du selbst beim Anbieter.	The app only keeps track of contracts and deadlines. You have to cancel with the provider yourself.
+Strom & Gas	Electricity & gas
+Handy & Internet	Mobile & internet
+Streaming & Abos	Streaming & subscriptions
+Versicherung	Insurance
+Miete	Rent
+Fitness & Verein	Fitness & clubs
+Gekündigt	Cancelled
+Läuft	Running
+jederzeit	any time
+1 Tag	1 day
+{0} Tage	{0} days
+1 Woche	1 week
+{0} Wochen	{0} weeks
+1 Monat	1 month
+Beendet am {0}.	Ended on {0}.
+Gekündigt zum {0}.	Cancelled effective {0}.
+Heute ist der letzte Tag zum Kündigen (Vertragsende {0}).	Today is the last day to cancel (contract end {0}).
+Kündigen bis {0} (Vertragsende {1}), sonst Verlängerung um {2}.	Cancel by {0} (contract end {1}), otherwise renewal by {2}.

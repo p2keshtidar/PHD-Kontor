@@ -187,6 +187,19 @@ keine externe KI, keine erfundenen Werte. Ohne Daten sagt er das.
 | **Monatsbericht** | ‹ › wechselt den Monat (letzte 12 Monate) | Einnahmen, Ausgaben, übrig, Sparquote, Vergleich zum Vormonat, stark gestiegene Kategorie, größter Posten |
 | **Was wäre, wenn …** | „Weniger ausgeben“ (Kategorie, Betrag), „Einnahmen ändern“ (−50 % bis +50 %), „Für ein Ziel sparen“ (Betrag, Ziel) | freier Betrag und Sparquote vorher → nachher, Monate bis zum Ziel, Warnungen; als **Rechenbeispiel** gekennzeichnet |
 
+### 7e. Verträge & Dokumente
+
+**„Sparen“ → „Verträge & Dokumente“** → **„+ Vertrag“**: Name, Anbieter, Art, Kosten (monatlich, vierteljährlich,
+jährlich), Vertragsbeginn, Mindestlaufzeit, Verlängerung, Kündigungsfrist (Tage/Wochen/Monate) und Erinnerung.
+
+| Was | Ergebnis |
+|---|---|
+| Übersicht | Fixkosten aus Verträgen pro Monat und Jahr; Verträge mit der nächsten Kündigungsfrist zuerst, Fristen in den nächsten 30 Tagen rot |
+| Vertrag öffnen | „Kündigen bis … (Vertragsende …), sonst Verlängerung um …“ – berechnet aus Beginn, Mindestlaufzeit, Verlängerung und Frist |
+| Erinnerung | Benachrichtigung einmal je Vertragsperiode, z. B. 14 Tage vor Fristende (Zeit vorspulen zum Ausprobieren) |
+| **Kündigung vermerken** | nur ein Vermerk in der App – **die Kündigung selbst schickst du an den Anbieter** |
+| **Dokumente → Hochladen** | PDF, PNG oder JPEG bis 5 MB; Typ wird am Inhalt geprüft, Inhalt **verschlüsselt** gespeichert, nur für dich abrufbar. Bilder werden in der App angezeigt; PDFs in der Web-App heruntergeladen |
+
 ### 7c. Finanz-Marktplatz und Anträge (Simulation)
 
 **Sparen → „Finanz-Marktplatz“**: Girokonten, Kreditkarten, Tagesgeld, Festgeld und Depots **fiktiver Anbieter** vergleichen. Jede Karte zeigt die Konditionen und eine **Beispielrechnung** (Kosten pro Jahr bzw. Zinsertrag für einen frei wählbaren Betrag); „Vor- und Nachteile“ klappt Details auf. ☆ merkt ein Angebot, **„Vergleichen“** legt 2–4 Angebote nebeneinander. **„Antrag (Simulation)“** legt einen simulierten Antrag an (Bestätigung nötig): Unterlagen als *bereitgestellt* markieren → am nächsten Tag simulierte Zusage oder Ablehnung (geprüft wird z. B. „Einnahmen ab …“ mit deinem Finanzüberblick). Es entsteht **kein Vertrag, kein Konto und keine Karte**. Unter **„Meine Anträge“** kannst du eine Entscheidung/Notiz festhalten oder zurückziehen.

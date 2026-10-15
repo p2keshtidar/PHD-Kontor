@@ -102,6 +102,14 @@ class SavingsHomeScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           _ActionCard(
+            key: const Key('savings_contracts'),
+            icon: Icons.description_outlined,
+            title: tr('Verträge & Dokumente'),
+            subtitle: tr('Kosten, Kündigungsfristen und Erinnerungen; Unterlagen sicher ablegen'),
+            onTap: () => context.push('/vertraege'),
+          ),
+          const SizedBox(height: 8),
+          _ActionCard(
             key: const Key('savings_groups'),
             icon: Icons.groups_outlined,
             title: tr('Gemeinsame Ausgaben'),

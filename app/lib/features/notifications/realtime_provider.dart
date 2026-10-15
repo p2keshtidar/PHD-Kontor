@@ -10,6 +10,7 @@ import '../accounts/bookings_repository.dart';
 import '../allocations/allocations_repository.dart';
 import '../card/card_repository.dart';
 import '../creditcard/credit_card_section.dart';
+import '../contracts/contracts_repository.dart';
 import '../dashboard/dashboard_repository.dart';
 import '../groups/groups_repository.dart';
 import '../health/health_score_card.dart';
@@ -44,6 +45,7 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
       ref.invalidate(creditCardProvider);
       ref.invalidate(healthScoreProvider);
       ref.invalidate(groupsProvider);
+      ref.invalidate(contractsProvider);
       ref.invalidate(groupDetailProvider);
       ref.invalidate(forecastProvider);
       ref.invalidate(monthsProvider);

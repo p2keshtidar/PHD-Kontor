@@ -16,6 +16,11 @@ spring:
           time_zone: UTC
   flyway:
     enabled: true
+  servlet:
+    multipart:
+      # Dokumente zu Verträgen (PDF/PNG/JPEG); die Prüfung auf 5 MB macht DocumentService
+      max-file-size: 6MB
+      max-request-size: 7MB
 
 server:
   port: ${PORT:8080}

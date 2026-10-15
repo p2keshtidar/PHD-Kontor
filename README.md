@@ -95,6 +95,7 @@ Alle Bilder in voller Größe: [`docs/bilder`](docs/bilder) – auch für Präse
 | 🩺 **Finanz-Check** | interner Punktwert 0–100 aus Sparquote, Notgroschen, Kreditraten und Budgets – keine SCHUFA-Auskunft, keine Bonitätsbewertung |
 | 👥 **Gemeinsame Ausgaben** | WG, Reise oder Paar: Ausgaben eintragen, aufteilen, Salden, wenige Ausgleichszahlungen · Ausgleich per Überweisung (Spielgeld) oder bar (vom Empfänger bestätigt) |
 | 🤖 **Finanzassistent** | Fragen zu den eigenen Ausgaben, Sparpotenziale, Monatsbericht, „Was wäre, wenn …“ – regelbasiert, nur mit den Zahlen der App |
+| 📄 **Verträge & Dokumente** | Kosten, Mindestlaufzeit, Kündigungsfristen, Erinnerung vor Fristende · Unterlagen (PDF/Bild) verschlüsselt ablegen · Kündigung nur als Vermerk |
 | ⏩ **Demo-Modus** | Beispielmonate erzeugen · Admin spult die Zeit vor (Raten werden gebucht) |
 
 Demo-Admin: `admin@projektbank.de` / `admin12345`
