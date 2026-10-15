@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:workmanager/workmanager.dart';
+import '../../l10n/language_controller.dart';
 
 import '../../core/api_client.dart';
 import '../../core/config.dart';
@@ -57,6 +58,7 @@ class BackgroundCheck {
     await AppConfig.load();
     final storage = TokenStorage();
     if (await storage.readRefreshToken() == null) return 0;     // abgemeldet
+    await LanguageController.init(); // Meldungen in der gewählten Sprache abholen
     final api = ApiClient(storage);
     final res = await api.dio.get<Map<String, dynamic>>('/api/notifications', queryParameters: {'size': 20});
     final items = (res.data!['items'] as List<dynamic>).cast<Map<String, dynamic>>();
