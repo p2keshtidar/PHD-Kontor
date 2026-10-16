@@ -495,4 +495,155 @@ void main() {
     expect(rules, hasLength(1));
     expect(((rules.first as Map)['lastRun'] as Map)['status'], 'COMPLETED');
   });
+
+  testWidgets('Weiterentwicklung: WG mit Ausgleich, Vertrag, Assistent, Planer, Kreditkarte, Finanz-Check',
+      (tester) async {
+    final stamp = DateTime.now().millisecondsSinceEpoch;
+    String phone(int n) => '0171${((stamp + n) % 10000000).toString().padLeft(7, '0')}';
+    await TokenStorage().clear();
+    await AppConfig.load();
+    final a = await ApiUser.register('Wanda', 'e2e-w-$stamp@example.org', phone(1));
+    final b = await ApiUser.register('Bruno', 'e2e-x-$stamp@example.org', phone(2));
+    final aId = (await a.dio.get<Map<String, dynamic>>('/api/me')).data!['id'] as int;
+    // Beispielmonate, damit Assistent, Planer und Finanz-Check echte Zahlen haben
+    await a.dio.post<dynamic>('/api/demo/sample-months', data: {'profile': 'EINSTEIGER'});
+
+    await KeyValueStore.instance.write('language', 'de');
+    app.main();
+    await pumpUntil(tester, find.byKey(const Key('login_email')), timeout: const Duration(seconds: 120));
+    await tester.enterText(find.byKey(const Key('login_email')), a.email);
+    await tester.enterText(find.byKey(const Key('login_password')), 'geheim12345');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tapButton(tester, find.byKey(const Key('login_submit')));
+    await pumpUntil(tester, find.text('Hallo Wanda!'));
+    await pumpFor(tester, 1500);
+
+    // Gemeinsame Ausgaben: Gruppe anlegen, Bruno hinzufügen, 30 € Einkauf je zur Hälfte
+    await tester.tap(navItem('Sparen'));
+    await pumpUntil(tester, find.byKey(const Key('savings_groups'), skipOffstage: false));
+    await tapButton(tester, find.byKey(const Key('savings_groups')));
+    await pumpUntil(tester, find.byKey(const Key('groups_create')));
+    await pumpFor(tester, 1000);
+    await tester.tap(find.byKey(const Key('groups_create')));
+    await pumpUntil(tester, find.byKey(const Key('group_name_field')));
+    await enterKey(tester, const Key('group_name_field'), 'WG E2E');
+    await tester.tap(find.byKey(const Key('group_name_save')));
+    await pumpUntil(tester, find.byKey(const Key('group_add_member')), timeout: const Duration(seconds: 30));
+    await pumpFor(tester, 1000);
+    await tester.tap(find.byKey(const Key('group_add_member')));
+    await pumpUntil(tester, find.byKey(const Key('group_member_field')));
+    await enterKey(tester, const Key('group_member_field'), b.email);
+    await tester.tap(find.byKey(const Key('group_member_save')));
+    await pumpUntil(tester, find.text('Bruno Zwei'), timeout: const Duration(seconds: 30));
+    await pumpFor(tester, 800);
+    rootMessengerKey.currentState?.clearSnackBars();
+    await tester.tap(find.byKey(const Key('group_add_expense')));
+    await pumpUntil(tester, find.byKey(const Key('expense_description')));
+    await enterKey(tester, const Key('expense_description'), 'Einkauf E2E');
+    await enterKey(tester, const Key('expense_amount'), '30');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tester.tap(find.byKey(const Key('expense_save')));
+    await pumpUntil(tester, find.text('Du bekommst 15,00 €'), timeout: const Duration(seconds: 30));
+    await snap(tester, '6-gemeinsame-ausgaben');
+
+    // Bruno gleicht per Überweisung aus (Spielgeld); Wandas Gruppe aktualisiert sich über die Live-Meldung
+    final groupId = ((await a.dio.get<List<dynamic>>('/api/groups')).data!.first as Map)['id'] as int;
+    await b.dio.post<dynamic>('/api/groups/$groupId/settlements',
+        data: {'toUserId': aId, 'amountCents': 1500},
+        options: Options(headers: {'Idempotency-Key': 'e2e-wg-$stamp'}));
+    await pumpUntil(tester, find.byKey(const Key('group_settled'), skipOffstage: false),
+        timeout: const Duration(seconds: 30));
+    expect(await b.mainBalance(), 100000 - 1500);
+
+    // Vertrag anlegen: Übersicht zeigt die monatlichen Kosten
+    for (var i = 0; i < 4 && find.byType(NavigationBar).evaluate().isEmpty; i++) {
+      await goBack(tester);
+      await pumpFor(tester, 800);
+    }
+    await tester.tap(navItem('Sparen'));
+    await pumpFor(tester, 800);
+    await tapButton(tester, find.byKey(const Key('savings_contracts')));
+    await pumpUntil(tester, find.byKey(const Key('contracts_add')));
+    await pumpFor(tester, 1000);
+    await tester.tap(find.byKey(const Key('contracts_add')));
+    await pumpUntil(tester, find.byKey(const Key('contract_name')));
+    await pumpFor(tester, 1000);
+    await enterKey(tester, const Key('contract_name'), 'Handy E2E');
+    await enterKey(tester, const Key('contract_cost'), '29,99');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tapButton(tester, find.byKey(const Key('contract_save')));
+    await pumpUntil(tester, find.text('29,99 € pro Monat'), timeout: const Duration(seconds: 30));
+    expect(find.text('Handy E2E'), findsOneWidget);
+    await snap(tester, '7-vertraege');
+    await goBack(tester);
+    await pumpFor(tester, 800);
+
+    // Finanzassistent: Vorschlag antippen, Antwort mit Zahlen; Monatsbericht
+    await tapButton(tester, find.byKey(const Key('savings_assistant')));
+    await pumpUntil(tester, find.byKey(const Key('assistant_suggestion_0')), timeout: const Duration(seconds: 30));
+    await pumpFor(tester, 800);
+    await tester.tap(find.byKey(const Key('assistant_suggestion_0')));
+    await pumpUntil(tester, find.byKey(const Key('assistant_answer_0'), skipOffstage: false),
+        timeout: const Duration(seconds: 30));
+    await scrollTo(tester, find.byKey(const Key('assistant_answer_0')));
+    expect(find.textContaining('keine Finanzberatung'), findsWidgets);
+    await tester.tap(find.byKey(const Key('assistant_tab_report')));
+    await pumpUntil(tester, find.byKey(const Key('report_month')), timeout: const Duration(seconds: 30));
+    await snap(tester, '8-assistent');
+    await goBack(tester);
+    await pumpFor(tester, 800);
+
+    // Vorhaben planen: Auto, drei Wege mit Empfehlung
+    await tapButton(tester, find.byKey(const Key('savings_planner')));
+    await pumpUntil(tester, find.byKey(const Key('planner_goal_AUTO')));
+    await pumpFor(tester, 800);
+    await tester.tap(find.byKey(const Key('planner_goal_AUTO')));
+    await pumpFor(tester, 300);
+    await enterKey(tester, const Key('planner_price'), '20000');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tapButton(tester, find.byKey(const Key('planner_compare')));
+    await pumpUntil(tester, find.byKey(const Key('planner_recommendation'), skipOffstage: false),
+        timeout: const Duration(seconds: 30));
+    await scrollTo(tester, find.byKey(const Key('planner_option_FINANCE')));
+    await snap(tester, '9-planer');
+    await goBack(tester);
+    await pumpFor(tester, 800);
+
+    // Kreditkarte (Simulation): einrichten, Demo-Zahlung
+    await tester.tap(navItem('Karte'));
+    await pumpUntil(tester, find.text('Projektbank'));
+    await pumpFor(tester, 1000);
+    await tapButton(tester, find.byKey(const Key('cc_create')));
+    await pumpUntil(tester, find.byKey(const Key('cc_limit_save')));
+    await tester.tap(find.byKey(const Key('cc_limit_save')));
+    await pumpUntil(tester, find.byKey(const Key('cc_pay'), skipOffstage: false), timeout: const Duration(seconds: 30));
+    await pumpFor(tester, 800);
+    await tapButton(tester, find.byKey(const Key('cc_pay')));
+    await pumpUntil(tester, find.byKey(const Key('cc_pay_merchant')));
+    await enterKey(tester, const Key('cc_pay_merchant'), 'Café E2E');
+    await enterKey(tester, const Key('cc_pay_amount'), '12');
+    FocusManager.instance.primaryFocus?.unfocus();
+    await pumpFor(tester, 500);
+    await tester.tap(find.byKey(const Key('cc_pay_submit')));
+    await pumpUntil(tester, find.text('Café E2E', skipOffstage: false), timeout: const Duration(seconds: 30));
+    final cc = (await a.dio.get<Map<String, dynamic>>('/api/credit-card')).data!;
+    expect(cc['openCents'], 1200);
+
+    // Finanz-Check auf dem Dashboard: erst nach Einwilligung
+    await tester.tap(navItem('Konto'));
+    await pumpUntil(tester, find.text('Hallo Wanda!'));
+    await scrollToTop(tester);
+    await tapButton(tester, find.byKey(const Key('home_dashboard')));
+    await pumpUntil(tester, find.byKey(const Key('dash_networth')), timeout: const Duration(seconds: 30));
+    await scrollTo(tester, find.byKey(const Key('health_consent')));
+    await tester.tap(find.byKey(const Key('health_consent')));
+    await pumpUntil(tester, find.byKey(const Key('health_score_value'), skipOffstage: false),
+        timeout: const Duration(seconds: 30));
+    await scrollTo(tester, find.byKey(const Key('health_score_value')));
+    await snap(tester, '10-finanz-check');
+  });
 }

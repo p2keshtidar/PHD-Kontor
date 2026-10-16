@@ -69,6 +69,7 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf
 
 1. Registrieren → Startseite → Karte → Überweisen → Sparen → Beispielmonate → CSV-Import → Kreditvergleich → **Anfrage → Vertrag → Auszahlung** → Sondertilgung → **Sandbox-Bank verbinden** (Test-Freigabe) → Umsätze des Tagesgeldkontos.
 2. **Zwei Nutzer:** zweiter Nutzer teilt ein digitales Konto (erscheint auf der Startseite) · überweist Geld, während die App offen ist (**Live-Meldung** und Kontostand ohne Neuladen) · Überweisung über die Oberfläche (Kontostände beider Nutzer werden über den Server nachgeprüft) · Dauerauftrag anlegen · Einnahme und Ausgabe eintragen · **Sparregel im geteilten digitalen Konto** (sofort ausgeführt, über den Server nachgeprüft).
+3. **Weiterentwicklung:** gemeinsame Ausgaben (Gruppe anlegen, zweiten Nutzer hinzufügen, Ausgabe teilen; der zweite Nutzer gleicht per Überweisung aus, die Gruppe zeigt das über die Live-Meldung) · Vertrag anlegen (Kosten pro Monat) · Finanzassistent (Frage, Monatsbericht) · Vorhaben planen (Auto) · Kreditkarte (Simulation) einrichten und Demo-Zahlung (offener Betrag über den Server geprüft) · Finanz-Check nach Einwilligung.
 
 ## Durch die Tests gefundene und behobene Fehler
 
