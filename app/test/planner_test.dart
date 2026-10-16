@@ -78,9 +78,14 @@ void main() {
 
   testWidgets('PL04 Kredit vergleichen übernimmt Zweck, Betrag, Eigenkapital und Laufzeit', (tester) async {
     final r = _result();
-    final options = (r['options'] as List).cast<Map<String, dynamic>>();
-    options[1].addAll({'loanAmountCents': 2300000, 'loanEquityCents': 200000});
-    options[2].addAll({'loanAmountCents': 1800000, 'loanEquityCents': 700000});
+    final options = [for (final o in r['options'] as List) Map<String, dynamic>.from(o as Map)];
+    options[1]
+      ..['loanAmountCents'] = 2300000
+      ..['loanEquityCents'] = 200000;
+    options[2]
+      ..['loanAmountCents'] = 1800000
+      ..['loanEquityCents'] = 700000;
+    r['options'] = options;
     await pumpScreen(tester, const PlannerScreen(), size: const Size(400, 1600), backend: FakeBackend({
       'POST /api/planner/compare': (_) => r,
     }));
