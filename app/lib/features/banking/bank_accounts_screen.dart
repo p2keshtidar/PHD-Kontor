@@ -100,7 +100,7 @@ class BankInfoCard extends StatelessWidget {
           const SizedBox(width: 12),
           Expanded(
             child: Text(
-              tr('Nur Lesezugriff über Open Banking (PSD2): Girokonto sieht Kontostand und Umsätze, kann aber kein Geld bewegen. Du meldest dich bei deiner Bank an – dein Bank-Passwort bekommt Girokonto nie.'),
+              tr('Nur Lesezugriff über Open Banking (PSD2): PHD Kontor sieht Kontostand und Umsätze, kann aber kein Geld bewegen. Du meldest dich bei deiner Bank an – dein Bank-Passwort bekommt PHD Kontor nie.'),
               style: theme.textTheme.bodySmall,
             ),
           ),

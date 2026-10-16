@@ -2,7 +2,7 @@
 
 [← Übersicht](../../README.md) · [Betrieb](betrieb.md) · [Architektur](architektur.md)
 
-Girokonto ist ein **Studienprojekt** (Projekt Informatik, Frankfurt UAS). Es ist **keine Bank**, hat keine Erlaubnis
+PHD Kontor ist ein **Studienprojekt** (Projekt Informatik, Frankfurt UAS). Es ist **keine Bank**, hat keine Erlaubnis
 der BaFin, keine Einlagensicherung und bewegt **kein echtes Geld**. Alles, was nach Bank aussieht, ist eine
 Simulation mit Spielgeld – in der App jeweils gekennzeichnet.
 

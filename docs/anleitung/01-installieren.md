@@ -103,7 +103,7 @@ Von einem anderen Gerät im WLAN: `http://<IP-deines-PCs>:8080`.
 2. Auf dem Handy **[girokonto.apk](https://github.com/p2keshtidar/girokonto/releases/latest/download/girokonto.apk)** öffnen (Link z. B. per Mail/WhatsApp an dich schicken).
 3. Datei antippen → Android fragt: *„Apps aus dieser Quelle zulassen?“* → **Einstellungen → Zulassen** → zurück → **Installieren**.
 4. Falls Google Play Protect warnt: **„Trotzdem installieren“** (die App ist nicht im Play Store, darum die Warnung).
-5. App **„Girokonto“** öffnen.
+5. App **„PHD Kontor“** öffnen.
 6. Ganz unten auf der Login-Seite auf **„Server: …“** tippen.
 7. Server-Adresse aus Schritt A5 eintragen, z. B. `http://192.168.178.20:8080` → **Speichern**.
 8. **„Jetzt registrieren“** → fertig ✅
@@ -123,7 +123,7 @@ Apple erlaubt Apps außerhalb des App Stores nur mit Signatur. Es gibt zwei Wege
 1. iPhone und PC im **selben WLAN**.
 2. **Safari** öffnen → `http://<IP-deines-PCs>:8080` eingeben.
 3. Unten auf **Teilen** (Quadrat mit Pfeil) → **„Zum Home-Bildschirm“** → **Hinzufügen**.
-4. Auf dem Home-Bildschirm ist jetzt das Symbol **Girokonto** – startet ohne Safari-Leiste wie eine echte App ✅
+4. Auf dem Home-Bildschirm ist jetzt das Symbol **PHD Kontor** – startet ohne Safari-Leiste wie eine echte App ✅
 
 ### Weg 2: echte iOS-App mit Sideloadly (kostenlose Apple-ID)
 

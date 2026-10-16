@@ -56,7 +56,7 @@ flutter pub get
 dart run tool/setup_platforms.dart
 ```
 
-`flutter create` erzeugt die Plattform-Ordner (sie sind nicht im Git). `setup_platforms.dart` trägt automatisch alles Nötige ein: Internet-, Kontakte- und Benachrichtigungsrechte, http für die Entwicklung, App-Name „Girokonto“, Android-Desugaring, iOS-Texte.
+`flutter create` erzeugt die Plattform-Ordner (sie sind nicht im Git). `setup_platforms.dart` trägt automatisch alles Nötige ein: Internet-, Kontakte- und Benachrichtigungsrechte, http für die Entwicklung, App-Name „PHD Kontor“, Android-Desugaring, iOS-Texte.
 
 ## Schritt 6 – App starten
 

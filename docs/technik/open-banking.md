@@ -2,7 +2,7 @@
 
 [← Architektur](architektur.md) · [Übersicht](../../README.md)
 
-Nutzer können Konten **mehrerer Banken** mit Girokonto verbinden. Girokonto bekommt dabei **nur Lesezugriff**
+Nutzer können Konten **mehrerer Banken** mit PHD Kontor verbinden. PHD Kontor bekommt dabei **nur Lesezugriff**
 (Kontoinformationsdienst nach PSD2): Kontodetails, Salden und Umsätze. **Es werden keine Zahlungen ausgeführt.**
 
 > **Stand der Umsetzung:** Im Projekt ist nur die **Sandbox** aktiv – simulierte Banken mit Testdaten, deutlich als
@@ -57,14 +57,14 @@ umsetzt. Die App zeigt automatisch alle verfügbaren Anbieter.
 
 | Maßnahme | Umsetzung |
 |---|---|
-| Keine Bank-Passwörter | Anmeldung immer bei der Bank (Weiterleitung). Girokonto speichert nur die Kennung der Freigabe. |
+| Keine Bank-Passwörter | Anmeldung immer bei der Bank (Weiterleitung). PHD Kontor speichert nur die Kennung der Freigabe. |
 | Freigabe-Kennung verschlüsselt | AES-256-GCM (`CardCrypto`), Schlüssel aus `CARD_KEY`; beim Widerruf gelöscht (`NULL`) |
 | Originaldaten verschlüsselt | Die Antwort der Bank je Umsatz wird unverändert, aber verschlüsselt gespeichert (`raw_enc`) |
 | IBAN nur gekürzt | Anzeige `DE89 •••• 3000`; zum Wiedererkennen eigener Konten ein HMAC-SHA-256-Prüfwert, keine volle IBAN |
 | Nur eigene Daten | Jede Abfrage prüft den Nutzer; fremde Verbindungen und Umsätze liefern „nicht gefunden“ (404) |
 | Protokolle ohne Daten | Fehlermeldungen des Anbieters werden in kurze, feste Texte übersetzt (keine Antworten, Tokens, IBANs) |
 | Prüfprotokoll | `audit_log`: Freigabe begonnen/erteilt/abgelehnt/abgelaufen, Widerruf (mit/ohne Löschen); einsehbar unter `GET /api/me/audit-log` |
-| Widerruf und Löschen | Widerruf löscht die Freigabe bei Anbieter und Girokonto; optional werden alle Konten, Umsätze und eigenen Angaben dieser Bank gelöscht |
+| Widerruf und Löschen | Widerruf löscht die Freigabe bei Anbieter und PHD Kontor; optional werden alle Konten, Umsätze und eigenen Angaben dieser Bank gelöscht |
 
 ## Umsätze: Status, doppelte Umsätze, Bearbeitungen
 

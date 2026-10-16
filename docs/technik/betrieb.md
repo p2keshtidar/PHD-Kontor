@@ -2,8 +2,8 @@
 
 [← Übersicht](../../README.md) · [Architektur](architektur.md) · [Grenzen und Simulationen](grenzen-und-simulationen.md)
 
-Diese Seite beschreibt, wie man Girokonto auf einem eigenen Server betreibt. Für den Start auf dem eigenen PC reicht
-[Anleitung 1](../anleitung/01-installieren.md). **Hinweis:** Girokonto ist ein Studienprojekt mit Spielgeld – kein
+Diese Seite beschreibt, wie man PHD Kontor auf einem eigenen Server betreibt. Für den Start auf dem eigenen PC reicht
+[Anleitung 1](../anleitung/01-installieren.md). **Hinweis:** PHD Kontor ist ein Studienprojekt mit Spielgeld – kein
 zugelassenes Bankprodukt (siehe [Grenzen](grenzen-und-simulationen.md)).
 
 ## 1. Ubuntu-Server mit Docker

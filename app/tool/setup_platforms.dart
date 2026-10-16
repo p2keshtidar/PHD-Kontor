@@ -11,9 +11,12 @@
 //            Core Library Desugaring für flutter_local_notifications
 //   iOS:     Beschreibung für den Kontakte-Zugriff, lokale http-Verbindungen,
 //            klassischer App-Start ohne UIScene (sonst stürzt flutter_contacts 1.x beim Start ab)
+//   Alle:    App-Name „PHD Kontor“ (lib/core/brand.dart) auf dem Startbildschirm und im Browser-Tab
 //   Beide:   niedrigste Systemversion, die Flutter unterstützt (siehe docs/technik/versionen.md)
 
 import 'dart:io';
+
+import 'package:girokonto_app/core/brand.dart';
 
 /// Android 7.0 (API 24) und iOS 15: die ältesten Versionen, die Flutter 3.47 unterstützt.
 /// Alle verwendeten Plugins kommen mit diesen Versionen aus.
@@ -58,7 +61,7 @@ int _androidManifest() {
         ? s.replaceFirst('<queries>', '<queries>\n        $browserIntent')
         : s.replaceFirst('</manifest>', '    <queries>\n        $browserIntent\n    </queries>\n</manifest>');
   }
-  s = s.replaceFirst(RegExp(r'android:label="[^"]*"'), 'android:label="Girokonto"');
+  s = s.replaceFirst(RegExp(r'android:label="[^"]*"'), 'android:label="$appName"');
   if (!s.contains('usesCleartextTraffic')) {
     s = s.replaceFirst('<application', '<application\n        android:usesCleartextTraffic="true"');
   }
@@ -133,7 +136,7 @@ int _iosInfoPlist() {
   }
   s = s.replaceFirstMapped(
       RegExp(r'(<key>CFBundleDisplayName</key>\s*<string>)[^<]*(</string>)'),
-      (m) => '${m[1]}Girokonto${m[2]}');
+      (m) => '${m[1]}$appName${m[2]}');
   if (additions.isNotEmpty) {
     final idx = s.lastIndexOf('</dict>');
     s = s.substring(0, idx) + additions.toString() + s.substring(idx);
@@ -152,10 +155,10 @@ int _webNames() {
   if (manifest.existsSync()) {
     final s = manifest.readAsStringSync();
     final n = s
-        .replaceFirst(RegExp(r'"name":\s*"[^"]*"'), '"name": "Girokonto"')
-        .replaceFirst(RegExp(r'"short_name":\s*"[^"]*"'), '"short_name": "Girokonto"')
+        .replaceFirst(RegExp(r'"name":\s*"[^"]*"'), '"name": "$appName"')
+        .replaceFirst(RegExp(r'"short_name":\s*"[^"]*"'), '"short_name": "$appName"')
         .replaceFirst(RegExp(r'"description":\s*"[^"]*"'),
-            '"description": "Smartphone-Girokonto mit Finanzassistent (Projekt Informatik, FRA-UAS)"');
+            '"description": "$appName – Smartphone-Konto mit Finanzassistent (Projekt Informatik, FRA-UAS)"');
     if (n != s) {
       manifest.writeAsStringSync(n);
       changed++;
@@ -165,9 +168,9 @@ int _webNames() {
   if (index.existsSync()) {
     final s = index.readAsStringSync();
     final n = s
-        .replaceFirst(RegExp(r'<title>[^<]*</title>'), '<title>Girokonto</title>')
+        .replaceFirst(RegExp(r'<title>[^<]*</title>'), '<title>$appName</title>')
         .replaceFirst(RegExp(r'apple-mobile-web-app-title" content="[^"]*"'),
-            'apple-mobile-web-app-title" content="Girokonto"');
+            'apple-mobile-web-app-title" content="$appName"');
     if (n != s) {
       index.writeAsStringSync(n);
       changed++;

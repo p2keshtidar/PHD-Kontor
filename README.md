@@ -1,9 +1,10 @@
 <div align="center">
 
-# 💶 Girokonto – Smartphone-Konto mit Finanzassistent
+# 💶 PHD Kontor – Smartphone-Konto mit Finanzassistent
 
 **Projekt Informatik · WiSe 2026/27 · Frankfurt University of Applied Sciences**
 Betreuung: Prof. Dr.-Ing. Ruth Schorr
+<sub>Früherer Arbeitstitel „Girokonto“ – Repository, Ordner und Paketnamen heißen technisch weiterhin <code>girokonto</code>.</sub>
 
 [![CI](https://github.com/p2keshtidar/girokonto/actions/workflows/ci.yml/badge.svg)](https://github.com/p2keshtidar/girokonto/actions/workflows/ci.yml)
 [![Release](https://github.com/p2keshtidar/girokonto/actions/workflows/release.yml/badge.svg)](https://github.com/p2keshtidar/girokonto/releases/tag/latest)
@@ -13,7 +14,7 @@ Betreuung: Prof. Dr.-Ing. Ruth Schorr
 ![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot%203-6DB33F?logo=springboot)
 ![PostgreSQL](https://img.shields.io/badge/DB-PostgreSQL%2016-336791?logo=postgresql)
 
-<img src="docs/bilder/titelbild.png" alt="Girokonto – Startseite, Finanzüberblick und Sparen" width="100%">
+<img src="docs/bilder/titelbild.png" alt="PHD Kontor – Startseite, Finanzüberblick und Sparen" width="100%">
 
 </div>
 

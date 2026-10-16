@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/language_controller.dart';
 import 'l10n/l10n.dart';
 
+import 'core/brand.dart';
 import 'core/config.dart';
 import 'core/messenger.dart';
 import 'core/router.dart';
@@ -26,7 +27,7 @@ class GirokontoApp extends ConsumerWidget {
       valueListenable: L10n.language,
       builder: (context, lang, _) => MaterialApp.router(
       key: ValueKey('app_$lang'),
-      title: tr('Girokonto'),
+      title: appName,
       locale: Locale(lang),
       supportedLocales: const [Locale('de'), Locale('en')],
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

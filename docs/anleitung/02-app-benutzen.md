@@ -79,7 +79,7 @@ Höchstens 3 weitere Konten. Alle Konten der Projektbank sind eine **Simulation 
 
 ## 4b. Echte Bankkonten verbinden (Sandbox)
 
-Konten anderer Banken in Girokonto sehen – **nur lesen**, Girokonto kann dort kein Geld bewegen. Im Projekt gibt es
+Konten anderer Banken in PHD Kontor sehen – **nur lesen**, PHD Kontor kann dort kein Geld bewegen. Im Projekt gibt es
 dafür eine **Sandbox**: simulierte Banken mit Testdaten, überall als **„Testdaten“** gekennzeichnet. Echte Banken
 brauchen einen Vertrag mit einem zugelassenen Anbieter ([Details](../technik/open-banking.md)).
 

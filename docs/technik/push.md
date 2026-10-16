@@ -24,7 +24,7 @@ Code: `app/lib/features/notifications/background_check.dart`
 
 **Ausprobieren:** App auf dem Android-Handy öffnen und anmelden → App ganz schließen (aus der Liste der letzten Apps wischen) → von einem zweiten Konto Geld überweisen → nach spätestens ca. 15 Minuten erscheint „Geld erhalten“.
 
-> Manche Hersteller (Xiaomi, Huawei, Samsung im Energiesparmodus) verzögern oder stoppen Hintergrundaufgaben. Dann in den Akku-Einstellungen für „Girokonto“ „Nicht optimieren“ wählen.
+> Manche Hersteller (Xiaomi, Huawei, Samsung im Energiesparmodus) verzögern oder stoppen Hintergrundaufgaben. Dann in den Akku-Einstellungen für „PHD Kontor“ „Nicht optimieren“ wählen.
 
 ---
 

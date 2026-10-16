@@ -190,7 +190,7 @@ class _RevokeDialogState extends State<_RevokeDialog> {
       title: Text(revoked ? tr('Daten entfernen?') : tr('Zugriff widerrufen?')),
       content: SingleChildScrollView(
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(tr('Girokonto ruft danach keine Daten mehr von {0} ab. Die Freigabe wird auch beim Anbieter gelöscht.',
+          Text(tr('PHD Kontor ruft danach keine Daten mehr von {0} ab. Die Freigabe wird auch beim Anbieter gelöscht.',
               [widget.connection.bankName])),
           CheckboxListTile(
             key: const Key('revoke_delete_data'),
