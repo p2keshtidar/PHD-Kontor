@@ -10,6 +10,7 @@ import '../../l10n/l10n.dart';
 import '../insights/insights_models.dart';
 import 'planning_models.dart';
 import 'planning_repository.dart';
+import '../../core/theme.dart';
 
 /// Ausgabenkategorien, für die es Budgets gibt (alle wählbaren außer Einnahmen).
 Map<String, String> get budgetCategories =>
@@ -216,7 +217,7 @@ class _ForecastView extends StatelessWidget {
             trailing: Text(formatCents(e.amountCents),
                 style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: e.amountCents > 0 ? IncomeExpenseChart.incomeColor : theme.colorScheme.error)),
+                    color: e.amountCents > 0 ? positiveColor(context) : theme.colorScheme.error)),
           ),
         if (f.events.length > 8)
           Text(tr('und {0} weitere', [f.events.length - 8]), style: theme.textTheme.bodySmall),
@@ -260,8 +261,8 @@ class _BudgetTile extends StatelessWidget {
     final theme = Theme.of(context);
     final color = switch (item.status) {
       'OVER' => theme.colorScheme.error,
-      'WARN' => const Color(0xFFE0A100),
-      _ => IncomeExpenseChart.incomeColor,
+      'WARN' => warningColor(context),
+      _ => positiveColor(context),
     };
     final statusText = switch (item.status) {
       'OVER' => tr('überschritten'),

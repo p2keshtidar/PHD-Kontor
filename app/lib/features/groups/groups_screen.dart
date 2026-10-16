@@ -9,6 +9,7 @@ import '../../core/money.dart';
 import '../../core/text_dialog.dart';
 import '../../l10n/l10n.dart';
 import 'groups_repository.dart';
+import '../../core/theme.dart';
 
 /// Text zum Saldo aus Sicht des Nutzers.
 String balanceText(int cents) {
@@ -17,8 +18,8 @@ String balanceText(int cents) {
   return tr('Alles ausgeglichen');
 }
 
-Color? balanceColor(int cents) =>
-    cents > 0 ? const Color(0xFF2E7D32) : (cents < 0 ? const Color(0xFFC62828) : null);
+Color? balanceColor(BuildContext context, int cents) =>
+    cents > 0 ? positiveColor(context) : (cents < 0 ? Theme.of(context).colorScheme.error : null);
 
 /// Gemeinsame Ausgaben: Liste der Gruppen (WG, Reise, Paar) mit eigenem Saldo.
 class GroupsScreen extends ConsumerWidget {
@@ -78,7 +79,7 @@ class GroupsScreen extends ConsumerWidget {
                     Text(tr('{0} Personen · zusammen {1}', ['${g.memberCount}', formatCents(g.totalSpentCents)])),
                     Text(balanceText(g.myBalanceCents),
                         key: Key('group_balance_${g.id}'),
-                        style: TextStyle(color: balanceColor(g.myBalanceCents), fontWeight: FontWeight.w600)),
+                        style: TextStyle(color: balanceColor(context, g.myBalanceCents), fontWeight: FontWeight.w600)),
                   ]),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.push('/gruppen/${g.id}'),

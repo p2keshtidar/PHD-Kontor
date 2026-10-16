@@ -11,6 +11,7 @@ import '../accounts/booking_tile.dart';
 import '../insights/insights_models.dart';
 import 'bank_models.dart';
 import 'bank_repository.dart';
+import '../../core/theme.dart';
 
 /// Umsätze verbundener Konten: Suche, Filter nach Status und Kategorie, mehrere Banken gemeinsam.
 class BankTransactionsScreen extends ConsumerStatefulWidget {
@@ -226,7 +227,7 @@ class BankTransactionTile extends StatelessWidget {
           decoration: item.isInactive ? TextDecoration.lineThrough : null,
           color: item.isInactive
               ? scheme.outline
-              : (item.isIncoming ? BookingTile.incomingColor : scheme.error),
+              : (item.isIncoming ? positiveColor(context) : scheme.error),
         ),
       ),
     );

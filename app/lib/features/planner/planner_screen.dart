@@ -7,6 +7,7 @@ import '../../core/api_error.dart';
 import '../../core/layout.dart';
 import '../../core/money.dart';
 import '../../l10n/l10n.dart';
+import '../../core/theme.dart';
 
 int? _n(Object? v) => (v as num?)?.toInt();
 
@@ -149,7 +150,7 @@ class _OptionCard extends StatelessWidget {
     final possible = o['possible'] as bool;
     final feasibility = o['feasibility'] as String;
     final color = feasibility == 'GREEN'
-        ? const Color(0xFF2E7D32)
+        ? positiveColor(context)
         : feasibility == 'RED'
             ? theme.colorScheme.error
             : theme.colorScheme.outline;

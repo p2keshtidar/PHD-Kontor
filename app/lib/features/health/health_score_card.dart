@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/api_client.dart';
 import '../../core/api_error.dart';
 import '../../l10n/l10n.dart';
+import '../../core/theme.dart';
 
 final healthScoreProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final res = await ref.watch(apiClientProvider).dio.get<Map<String, dynamic>>('/api/health-score');
@@ -56,8 +57,8 @@ class HealthScoreCard extends ConsumerWidget {
             final score = (s['score'] as num).toInt();
             final level = s['level'] as String;
             final color = switch (level) {
-              'GUT' => const Color(0xFF2E7D32),
-              'MITTEL' => const Color(0xFFE0A100),
+              'GUT' => positiveColor(context),
+              'MITTEL' => warningColor(context),
               'KRITISCH' => theme.colorScheme.error,
               _ => theme.colorScheme.outline,
             };

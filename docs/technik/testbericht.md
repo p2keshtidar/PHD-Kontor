@@ -58,6 +58,7 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 | `dashboard_test.dart`, `multibank_test.dart`, `transaction_management_test.dart`, `planning_test.dart`, `market_test.dart` | Dashboard, weitere Konten, Umsätze, Budgets/Prognose, Marktplatz (Weiterentwicklung Schritt 3–6) |
 | `credit_card_score_test.dart` | CS01–CS06: Kreditkarte einrichten, Demo-Zahlung, Abrechnungen · Finanz-Check mit Einwilligung, Bildschirmleser |
 | `groups_test.dart`, `assistant_test.dart`, `contracts_test.dart`, `planner_test.dart`, `subaccount_card_test.dart` | G01–G05, AS01–AS05, CT01–CT05, PL01–PL03, SC01–SC02: gemeinsame Ausgaben, Finanzassistent, Verträge, Planer, Karten digitaler Konten |
+| `dark_mode_test.dart` | DM01–DM03: neue Bildschirme im dunklen Modus ohne Fehler und mit genug Textkontrast, Plus-/Warnfarben je Modus ≥ 4,5 : 1 |
 | `accessibility_test.dart` | BF01–BF04: Bedienelemente beschriftet und 48 × 48, Fehlerzustand mit „Erneut versuchen“, Live-Region |
 | übrige `*_test.dart` | Geldformat, Eingabeprüfung, JSON-Modelle, CSV-Zeichensätze, Hintergrund-Abfrage |
 
@@ -101,6 +102,7 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf
 | Dokument abrufen gab 500: Prüfprotokoll schrieb in einer nur-lesenden Transaktion | T132 | Abruf als schreibende Transaktion |
 | Antwortvorlage „Für {0} hast du {1} {2} ausgegeben“ war mehrdeutig – Englisch vertauschte Teile | lokaler Rauchtest Englisch | eindeutige Vorlage („insgesamt“) |
 | Planer: Ansparen einer Immobilie scheiterte an der Sparplan-Obergrenze (100.000 €) | lokaler Rauchtest | Ansparrate direkt berechnet |
+| Grün für Plus-Beträge (#2E7D32) und Gelb für „knapp“ (#E0A100) hatten als Text zu wenig Kontrast – Grün im dunklen, Gelb sogar im hellen Modus | Prüfung Dark Mode (#74) | Farben je Modus (DM03) |
 | Spartipps teilten durch alle abgeschlossenen Monate, auch solche ohne Umsätze (Schnitt zu klein) | Aufräumen #75 | ein gemeinsamer Durchschnitt nur über Monate mit Daten (H02) |
 
 ## Selbst ausführen

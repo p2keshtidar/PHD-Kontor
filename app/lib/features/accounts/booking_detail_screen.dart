@@ -13,6 +13,7 @@ import 'booking_item.dart';
 import 'booking_tile.dart';
 import 'bookings_repository.dart';
 import '../../core/layout.dart';
+import '../../core/theme.dart';
 
 /// Detailansicht eines Umsatzes mit Buchungsnummer (/F140/) und Kategorie (/F560/).
 class BookingDetailScreen extends ConsumerStatefulWidget {
@@ -101,7 +102,7 @@ class _BookingDetailScreenState extends ConsumerState<BookingDetailScreen> {
       );
     }
     final theme = Theme.of(context);
-    final color = b.isIncoming ? BookingTile.incomingColor : theme.colorScheme.error;
+    final color = b.isIncoming ? positiveColor(context) : theme.colorScheme.error;
     return Scaffold(
       appBar: AppBar(title: Text(tr('Umsatz'))),
       body: ListView(

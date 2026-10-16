@@ -10,6 +10,7 @@ import '../../core/charts.dart';
 import '../subaccounts/subaccount_dialogs.dart';
 import 'entry_form_screen.dart';
 import 'entry_models.dart';
+import '../../core/theme.dart';
 
 /// Übersicht der eigenen Einnahmen und Ausgaben: regelmäßige (Gehalt, Miete) und einmalige (Urlaub).
 class EntriesScreen extends ConsumerWidget {
@@ -112,7 +113,7 @@ class _MonthlyCard extends StatelessWidget {
           Text(tr('Regelmäßig pro Monat'), style: theme.textTheme.titleSmall),
           const SizedBox(height: 10),
           Row(children: [
-            cell(tr('Einnahmen'), summary.monthlyIncomeCents, IncomeExpenseChart.incomeColor),
+            cell(tr('Einnahmen'), summary.monthlyIncomeCents, positiveColor(context)),
             cell(tr('Ausgaben'), -summary.monthlyExpenseCents, scheme.error),
             cell(tr('Übrig'), summary.monthlyBalanceCents, scheme.onPrimaryContainer),
           ]),
@@ -212,7 +213,7 @@ class _EntryTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scheme = Theme.of(context).colorScheme;
-    final color = entry.isIncome ? IncomeExpenseChart.incomeColor : scheme.error;
+    final color = entry.isIncome ? positiveColor(context) : scheme.error;
     final dimmed = entry.isPaused || (entry.isDone && entry.bookedCount == 0);
     return Card(
       child: ListTile(

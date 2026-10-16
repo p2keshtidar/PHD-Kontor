@@ -140,7 +140,7 @@ class GroupScreen extends ConsumerWidget {
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Text(balanceText(g.myBalanceCents),
                         key: const Key('group_my_balance'),
-                        style: theme.textTheme.titleLarge?.copyWith(color: balanceColor(g.myBalanceCents))),
+                        style: theme.textTheme.titleLarge?.copyWith(color: balanceColor(context, g.myBalanceCents))),
                     Text(tr('Ausgaben insgesamt: {0}', [formatCents(g.totalSpentCents)]),
                         style: theme.textTheme.bodySmall),
                   ]),
@@ -157,7 +157,7 @@ class GroupScreen extends ConsumerWidget {
                 leading: Icon(m.owner ? Icons.star_outline : Icons.person_outline),
                 title: Text(m.me ? tr('{0} (du)', [m.name]) : m.name),
                 trailing: Text(formatCents(m.balanceCents),
-                    style: TextStyle(color: balanceColor(m.balanceCents), fontWeight: FontWeight.w600)),
+                    style: TextStyle(color: balanceColor(context, m.balanceCents), fontWeight: FontWeight.w600)),
               ),
             const SizedBox(height: 12),
             Text(tr('So wird ausgeglichen'), style: theme.textTheme.titleMedium),

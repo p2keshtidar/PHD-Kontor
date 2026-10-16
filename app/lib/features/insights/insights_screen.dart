@@ -11,6 +11,7 @@ import 'insights_models.dart';
 import 'insights_repository.dart';
 import 'csv_import_screen.dart';
 import '../../core/layout.dart';
+import '../../core/theme.dart';
 
 /// Finanzüberblick (/F560/ bis /F590/): Einnahmen und Ausgaben je Monat, Kategorien, Durchschnitt.
 class InsightsScreen extends ConsumerStatefulWidget {
@@ -144,7 +145,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(selected.longLabel, style: theme.textTheme.titleMedium),
                       const SizedBox(height: 8),
-                      _row(tr('Einnahmen'), selected.incomeCents, color: IncomeExpenseChart.incomeColor),
+                      _row(tr('Einnahmen'), selected.incomeCents, color: positiveColor(context)),
                       _row(tr('Ausgaben'), -selected.expenseCents, color: theme.colorScheme.error),
                       _row(tr('davon Fixkosten'), -selected.fixedCents),
                       const Divider(),

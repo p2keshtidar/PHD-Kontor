@@ -13,6 +13,7 @@ import '../../l10n/l10n.dart';
 import '../health/health_score_card.dart';
 import 'dashboard_models.dart';
 import 'dashboard_repository.dart';
+import '../../core/theme.dart';
 
 /// Zentrales Finanz-Dashboard: Gesamtvermögen, verfügbar und zurückgelegt, Vermögensverlauf, Cashflow,
 /// größte Ausgaben, Schulden, Sparziele, Konten und Karten. Alle Zahlen kommen vom Server.
@@ -283,7 +284,7 @@ class _CashflowView extends StatelessWidget {
       Text(tr('Dieser Monat'), style: theme.textTheme.labelLarge),
       const SizedBox(height: 4),
       Row(children: [
-        cell(tr('Einnahmen'), c.incomeCents, color: IncomeExpenseChart.incomeColor),
+        cell(tr('Einnahmen'), c.incomeCents, color: positiveColor(context)),
         cell(tr('Ausgaben'), -c.expenseCents, color: theme.colorScheme.error),
         cell(tr('Saldo'), c.netCents, key: const Key('dash_net')),
       ]),
@@ -404,7 +405,7 @@ class _GoalsView extends StatelessWidget {
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
                 Icon(g.reached ? Icons.check_circle : (g.kind == 'PLAN' ? Icons.savings : Icons.flag_outlined),
-                    size: 20, color: g.reached ? IncomeExpenseChart.incomeColor : null),
+                    size: 20, color: g.reached ? positiveColor(context) : null),
                 const SizedBox(width: 8),
                 Expanded(child: Text(g.name, style: const TextStyle(fontWeight: FontWeight.w600))),
               ]),

@@ -16,6 +16,7 @@ import '../../l10n/l10n.dart';
 import 'duplicates_screen.dart';
 import 'multibank_models.dart';
 import 'multibank_repository.dart';
+import '../../core/theme.dart';
 
 /// Alle Umsätze an einem Ort: Konten der Projektbank (Simulation) und verbundene Banken (nur lesend).
 class AllTransactionsScreen extends ConsumerStatefulWidget {
@@ -198,7 +199,7 @@ class _AllTransactionsScreenState extends ConsumerState<AllTransactionsScreen> {
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(tr('Einnahmen'), style: theme.textTheme.bodySmall),
                 Text(formatCents(_income),
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: IncomeExpenseChart.incomeColor)),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: positiveColor(context))),
               ]),
             ),
             Expanded(
@@ -317,7 +318,7 @@ class _TxTile extends StatelessWidget {
       trailing: Text(amount,
           style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: item.internal ? null : (positive ? IncomeExpenseChart.incomeColor : theme.colorScheme.error))),
+              color: item.internal ? null : (positive ? positiveColor(context) : theme.colorScheme.error))),
       onTap: item.isImport
           ? null
           : () => context.push(item.isExternal ? '/banken/umsatz/${item.id}' : '/umsaetze/${item.accountId}'),

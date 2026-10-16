@@ -9,6 +9,7 @@ import '../../core/layout.dart';
 import '../../core/text_dialog.dart';
 import '../../l10n/l10n.dart';
 import 'market_repository.dart';
+import '../../core/theme.dart';
 
 /// Meine (simulierten) Anträge aus dem Marktplatz: Status, Unterlagen, eigene Entscheidung/Notiz, zurückziehen.
 class ApplicationsScreen extends ConsumerWidget {
@@ -72,7 +73,7 @@ class ApplicationsScreen extends ConsumerWidget {
                     for (final d in a.documents) ...[
                       Row(children: [
                         Icon(d.provided ? Icons.check_circle : Icons.radio_button_unchecked, size: 18,
-                            color: d.provided ? const Color(0xFF2E7D32) : null),
+                            color: d.provided ? positiveColor(context) : null),
                         const SizedBox(width: 6),
                         Expanded(child: Text(d.label)),
                       ]),

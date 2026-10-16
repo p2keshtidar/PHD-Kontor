@@ -4,6 +4,7 @@ import '../l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 import 'money.dart';
+import 'theme.dart';
 
 /// Schlichte Diagramme ohne zusätzliches Paket (CustomPainter).
 
@@ -23,7 +24,6 @@ class IncomeExpenseChart extends StatelessWidget {
   final List<MonthBar> months;
   final double height;
 
-  static const incomeColor = Color(0xFF2E7D32);
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +35,13 @@ class IncomeExpenseChart extends StatelessWidget {
           height: height,
           width: double.infinity,
           child: CustomPaint(
-            painter: _BarsPainter(months, incomeColor, scheme.error, scheme.onSurfaceVariant),
+            painter: _BarsPainter(months, positiveColor(context), scheme.error, scheme.onSurfaceVariant),
           ),
         ),
         const SizedBox(height: 8),
         // Wrap statt Row: bei großer Schrift in die nächste Zeile umbrechen statt überlaufen
         Wrap(spacing: 16, runSpacing: 4, children: [
-          _Legend(color: incomeColor, text: tr('Einnahmen')),
+          _Legend(color: positiveColor(context), text: tr('Einnahmen')),
           _Legend(color: scheme.error, text: tr('Ausgaben')),
         ]),
       ],
@@ -363,8 +363,6 @@ class ForecastChart extends StatelessWidget {
   final List<ForecastValue> values;
   final double height;
 
-  static const bestColor = Color(0xFF2E7D32);
-
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -384,13 +382,13 @@ class ForecastChart extends StatelessWidget {
             height: height,
             width: double.infinity,
             child: CustomPaint(
-              painter: _ForecastPainter(values, scheme.primary, bestColor, scheme.error, scheme.onSurfaceVariant),
+              painter: _ForecastPainter(values, scheme.primary, positiveColor(context), scheme.error, scheme.onSurfaceVariant),
             ),
           ),
           const SizedBox(height: 8),
           Wrap(spacing: 16, runSpacing: 4, children: [
             _Legend(color: scheme.primary, text: tr('erwartet')),
-            _Legend(color: bestColor, text: tr('günstig')),
+            _Legend(color: positiveColor(context), text: tr('günstig')),
             _Legend(color: scheme.error, text: tr('ungünstig')),
           ]),
         ]),
@@ -468,8 +466,8 @@ class FeasibilityBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (color, text, icon) = switch (level) {
-      'GREEN' => (const Color(0xFF2E7D32), tr('Gut machbar'), Icons.check_circle),
-      'YELLOW' => (const Color(0xFFE0A100), tr('Knapp'), Icons.warning_amber),
+      'GREEN' => (positiveColor(context), tr('Gut machbar'), Icons.check_circle),
+      'YELLOW' => (warningColor(context), tr('Knapp'), Icons.warning_amber),
       'RED' => (Theme.of(context).colorScheme.error, tr('Nicht machbar'), Icons.cancel),
       _ => (Colors.grey, tr('Unbekannt'), Icons.help_outline),
     };

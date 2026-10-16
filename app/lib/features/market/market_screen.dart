@@ -9,6 +9,7 @@ import '../../core/text_dialog.dart';
 import '../../l10n/l10n.dart';
 import 'market_models.dart';
 import 'market_repository.dart';
+import '../../core/theme.dart';
 
 String _pct(double v) => L10n.isEnglish ? v.toStringAsFixed(2) : v.toStringAsFixed(2).replaceAll('.', ',');
 
@@ -202,7 +203,7 @@ class _MarketScreenState extends ConsumerState<MarketScreen> {
               style: TextStyle(fontWeight: FontWeight.w600, color: p.eligible ? null : theme.colorScheme.error)),
           if (open) ...[
             const SizedBox(height: 6),
-            for (final x in p.pros) _line(Icons.add_circle_outline, x, const Color(0xFF2E7D32)),
+            for (final x in p.pros) _line(Icons.add_circle_outline, x, positiveColor(context)),
             for (final x in p.cons) _line(Icons.remove_circle_outline, x, theme.colorScheme.error),
             if (p.requirements.isNotEmpty) _line(Icons.rule, tr('Voraussetzungen: {0}', [p.requirements.join(', ')]), null),
           ],

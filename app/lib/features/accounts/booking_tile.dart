@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/dates.dart';
 import '../../core/money.dart';
 import 'booking_item.dart';
+import '../../core/theme.dart';
 
 /// Eine Zeile in der Umsatzliste: Eingang grün, Ausgang rot (/F120/).
 class BookingTile extends StatelessWidget {
@@ -10,8 +11,6 @@ class BookingTile extends StatelessWidget {
 
   final BookingItem item;
   final VoidCallback? onTap;
-
-  static const incomingColor = Color(0xFF2E7D32);
 
   IconData get _icon => switch (item.type) {
         'TRANSFER' => item.isIncoming ? Icons.call_received : Icons.call_made,
@@ -53,7 +52,7 @@ class BookingTile extends StatelessWidget {
         '${item.isIncoming ? '+' : ''}${formatCents(item.amountCents)}',
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          color: item.isIncoming ? incomingColor : scheme.error,
+          color: item.isIncoming ? positiveColor(context) : scheme.error,
         ),
       ),
     );

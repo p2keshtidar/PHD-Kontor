@@ -198,6 +198,7 @@ Zustandsverwaltung mit **Riverpod**: Bildschirme lesen Daten über Provider (`re
 | Bedienelemente | mindestens 48 × 48 Punkte | BF01 (`androidTapTargetGuideline`) |
 | Schriftgröße, Formate | 150 % Schrift, 320 px bis Tablet, kein Überlauf | `screens_layout_test.dart` |
 | Sprache | Deutsch und Englisch vollständig (App und Server-Texte) | L-Tests, `I18nFlowTest` |
+| Dunkler Modus | Plus-/Warnfarben je Modus (`positiveColor`, `warningColor` in `core/theme.dart`), weil ein festes Grün auf dunklem Grund zu wenig Kontrast hat | `dark_mode_test.dart` (DM01 `textContrastGuideline`, DM03 4,5 : 1) |
 
 ### API-Versionierung
 

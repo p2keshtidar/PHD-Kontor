@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:girokonto_app/core/theme.dart';
 import 'package:girokonto_app/core/api_client.dart';
 import 'package:girokonto_app/core/key_value_store.dart';
 import 'package:girokonto_app/core/token_storage.dart';
@@ -49,6 +50,7 @@ Future<FakeBackend> pumpScreen(
   AppUser? user,
   bool settle = true,
   List<Override> overrides = const [],
+  Brightness? brightness,
 }) async {
   final fake = backend ?? FakeBackend();
   // Plattform-Kanäle (sicherer Speicher) antworten im Widget-Test nie -> alles im Arbeitsspeicher.
@@ -80,7 +82,11 @@ Future<FakeBackend> pumpScreen(
     // wie in main.dart: bei Sprachwechsel neu aufbauen
     child: ValueListenableBuilder<String>(
       valueListenable: L10n.language,
-      builder: (_, lang, __) => MaterialApp.router(key: ValueKey(lang), routerConfig: router),
+      builder: (_, lang, __) => MaterialApp.router(
+          key: ValueKey(lang),
+          routerConfig: router,
+          // nur wenn verlangt das App-Design (z. B. dunkel); sonst Standard wie bisher
+          theme: brightness == null ? null : buildTheme(brightness)),
     ),
   ));
   if (settle) {
