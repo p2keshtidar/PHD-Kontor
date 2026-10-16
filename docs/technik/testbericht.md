@@ -9,7 +9,7 @@ Stand: 16.10.2026 (Sprint 5, Weiterentwicklung und Nacharbeiten aus der Video-Au
 | Ebene | Anzahl | Ergebnis | Testabdeckung (Zeilen) |
 |---|---|---|---|
 | Backend: Unit- und Integrationstests (echte PostgreSQL) | **317** | ✅ alle grün | **92,1 %** |
-| App: Unit- und Widget-Tests (simulierter Server) | **446** | ✅ alle grün | **77,6 %** |
+| App: Unit- und Widget-Tests (simulierter Server) | **448** | ✅ alle grün | **77,6 %** |
 | Ende-zu-Ende: echte App + echter Server | **3 Abläufe**, Stand 16.10.: **Chrome, Android 11, iOS 26** grün (Ablauf 3 = Weiterentwicklung; Android brauchte einen zweiten Anlauf, weil das NDK-Paket auf dem Runner beschädigt ankam; ein einmaliger Aussetzer in Ablauf 2 auf iOS trat im nächsten Lauf nicht wieder auf) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10. mit den Abläufen 1–2 | ✅ grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
@@ -52,6 +52,7 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 | `flows_widget_test.dart` | Abläufe A01–A15 mit simuliertem Server: Anmeldung inkl. Zwei-Faktor-Code, Server-Adresse, Überweisung mit Idempotenz-Schlüssel, ungültige Beträge, Dauerauftrag anlegen/pausieren, Sondertilgung (Vorschau, Buchung, zu wenig Geld), Zwei-Faktor einrichten (QR-Code), CSV-Import mit Fehler, Unterkonto teilen/austreten, Startseite mit geteilten Konten, Spar-Erinnerung, A16 Überweisung auf 320×480 mit Schrift 130 %, A17–A22 Einnahmen & Ausgaben (Schnellauswahl, einmalig/monatlich, Tag 29–31, Serverfehler, Pausieren, Löschen, Startseite) |
 | `l10n_test.dart` | L01–L09: jeder Text hat eine englische Übersetzung, keine fest codierten Texte, Platzhalter, Beträge/Daten je Sprache, Sprachwechsel schließt Hinweise in der alten Sprache und übersetzt auch `const`-Widgets offener Seiten |
 | `font_coverage_test.dart` | FC01–FC03: jedes Zeichen der App- und Server-Texte steckt in einer mitgelieferten Schrift (Roboto oder Symbolschrift) – die Web-App lädt nichts von Google nach |
+| `brand_test.dart` | BR01–BR02: `setup_platforms.dart` trägt den App-Namen „PHD Kontor“ in Android, iOS und Web ein (statt „girokonto_app“), zweiter Lauf ändert nichts · Name ohne „Bank“ (§ 39 KWG) |
 | `banking_test.dart` | BK01–BK12: Startseite mit/ohne verbundene Bank · Sandbox-Freigabe bestätigen/ablehnen · echte Bank: Bankseite öffnen, Freigabe abschließen · Status, Berechtigungen, Abruf, Widerruf mit Löschen · abgelaufene Freigabe erneuern · Umsätze mit Status, Filter, Suche · eigene Angaben speichern · Englisch |
 | `digital_accounts_test.dart` | DA01–DA08: zwei getrennte Bereiche, Girokonto als Simulation gekennzeichnet · neues digitales Konto mit Zweck und Ziel · Fortschritt und Hinweis zur Verwahrung · nur ansehen: Ein-/Auszahlen gesperrt · Rechte ändern · teilen mit Rolle · Englisch |
 | `allocations_test.dart` | AL01–AL09: Bereich „Automatisch sparen“ (Regeln, Prognose, ausstehend, Vorgänge mit Status) · Sparregel vom Girokonto und vom verbundenen Bankkonto (nur Vormerkung, gesperrte Quelle mit Grund) · Eingabefehler und Serverfehler · erneut versuchen · pausieren und beenden · Vormerkung aufheben und neu vormerken · Englisch · Modelle |
