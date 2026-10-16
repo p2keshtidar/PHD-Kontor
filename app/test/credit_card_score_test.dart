@@ -94,4 +94,23 @@ void main() {
     expect(fake.calls('POST /api/health-score/consent'), hasLength(1));
     expect(find.byKey(const Key('health_score_value')), findsOneWidget);
   });
+
+  testWidgets('CS07 Ergebnis der Demo-Zahlung ersetzt eine offene Meldung, statt sich hinten anzustellen', (tester) async {
+    await pumpScreen(tester, _scroll(const CreditCardSection()), backend: FakeBackend({
+      'POST /api/credit-card/payment': (_) =>
+          {'approved': true, 'message': 'Zahlung erfolgreich (Simulation)', 'amountCents': 1280, 'feeCents': 0},
+    }));
+    // z. B. die Live-Meldung desselben Vorgangs, die vor der Antwort eintrifft
+    ScaffoldMessenger.of(tester.element(find.byType(CreditCardSection)))
+        .showSnackBar(const SnackBar(content: Text('Kreditkarte (Simulation): -12,80 € bei Café Central')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('cc_pay')));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('cc_pay_merchant')), 'Café Central');
+    await tester.enterText(find.byKey(const Key('cc_pay_amount')), '12,80');
+    await tester.tap(find.byKey(const Key('cc_pay_submit')));
+    await tester.pumpAndSettle();
+    expect(find.text('Zahlung erfolgreich (Simulation)'), findsOneWidget);
+    expect(find.text('Kreditkarte (Simulation): -12,80 € bei Café Central'), findsNothing);
+  });
 }

@@ -1,16 +1,20 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:girokonto_app/core/dates.dart';
+import 'package:girokonto_app/core/key_value_store.dart';
+import 'package:girokonto_app/core/messenger.dart';
 import 'package:girokonto_app/core/money.dart';
 import 'package:girokonto_app/features/accounts/booking_item.dart';
 import 'package:girokonto_app/features/entries/entry_models.dart';
 import 'package:girokonto_app/features/loans/loan_models.dart';
 import 'package:girokonto_app/features/standing_orders/standing_order_models.dart';
 import 'package:girokonto_app/l10n/l10n.dart';
+import 'package:girokonto_app/l10n/language_controller.dart';
 import 'package:girokonto_app/l10n/strings_en.dart';
 
-/// Zweisprachigkeit: fehlende Übersetzungen und nicht übersetzte Texte finden (L01–L07).
+/// Zweisprachigkeit: fehlende Übersetzungen und nicht übersetzte Texte finden (L01–L08).
 List<File> _sources() => Directory('lib')
     .listSync(recursive: true)
     .whereType<File>()
@@ -111,5 +115,29 @@ void main() {
     expect(L10n.fromDevice('en'), 'en');
     expect(L10n.fromDevice('fr'), 'de');
     expect(L10n.fromDevice(null), 'de');
+  });
+
+  testWidgets('L08 Sprachwechsel schließt offene und wartende Hinweise in der alten Sprache', (tester) async {
+    KeyValueStore.memoryOnly = true;
+    await tester.pumpWidget(MaterialApp(scaffoldMessengerKey: rootMessengerKey, home: const Scaffold(body: SizedBox())));
+    rootMessengerKey.currentState!
+      ..showSnackBar(const SnackBar(content: Text('Zahlung erfolgreich (Simulation)')))
+      ..showSnackBar(const SnackBar(content: Text('Karte entsperrt')));
+    await tester.pumpAndSettle();
+    expect(find.text('Zahlung erfolgreich (Simulation)'), findsOneWidget);
+
+    await LanguageController.set('en');
+    await tester.pumpAndSettle();
+    expect(find.text('Zahlung erfolgreich (Simulation)'), findsNothing);
+    await tester.pump(const Duration(seconds: 6)); // die wartende Meldung käme sonst jetzt
+    await tester.pumpAndSettle();
+    expect(find.text('Karte entsperrt'), findsNothing);
+
+    // gleiche Sprache noch einmal gewählt: Hinweise bleiben stehen
+    rootMessengerKey.currentState!.showSnackBar(const SnackBar(content: Text('Card unlocked')));
+    await tester.pumpAndSettle();
+    await LanguageController.set('en');
+    await tester.pumpAndSettle();
+    expect(find.text('Card unlocked'), findsOneWidget);
   });
 }

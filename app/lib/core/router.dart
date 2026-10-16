@@ -161,7 +161,7 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/plan/:planId',
         builder: (_, state) => PlanDetailScreen(planId: int.parse(state.pathParameters['planId']!)),
       ),
-      GoRoute(path: '/kredit/neu', builder: (_, __) => const LoanPlannerScreen()),
+      GoRoute(path: '/kredit/neu', builder: (_, state) => LoanPlannerScreen.fromQuery(state.uri.queryParameters)),
       GoRoute(
         path: '/kredit/angebot',
         builder: (_, state) => LoanOfferScreen(selected: state.extra as SelectedOffer?),

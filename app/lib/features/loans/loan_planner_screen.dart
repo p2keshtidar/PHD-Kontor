@@ -11,9 +11,33 @@ import 'loan_models.dart';
 import 'loans_repository.dart';
 import '../../core/layout.dart';
 
+/// Betrag in Cent als Eingabetext: ganze Euro ohne Nachkommastellen, sonst mit Komma ("1700000" → "17000").
+String euroInput(int cents) =>
+    cents % 100 == 0 ? '${cents ~/ 100}' : (cents / 100).toStringAsFixed(2).replaceAll('.', ',');
+
+/// Laufzeit auf den Regler des Kreditzwecks bringen: innerhalb der Grenzen, in Jahresschritten ab der kürzesten.
+int snapTerm(LoanPurposeInfo p, int months) {
+  final clamped = months.clamp(p.minTerm, p.maxTerm).toInt();
+  return (p.minTerm + ((clamped - p.minTerm) / 12).round() * 12).clamp(p.minTerm, p.maxTerm).toInt();
+}
+
 /// Kreditplaner (Pflichtenheft B12): Wunsch eingeben, Tragfähigkeit sehen, Angebote vergleichen.
 class LoanPlannerScreen extends ConsumerStatefulWidget {
-  const LoanPlannerScreen({super.key});
+  const LoanPlannerScreen({super.key, this.purpose, this.amountCents, this.equityCents, this.termMonths});
+
+  /// Vorbelegung aus der Adresse, z. B. vom Planer: /kredit/neu?purpose=AUTO&amount=1700000&equity=300000&term=48
+  /// (Beträge in Cent). Fehlende oder ungültige Werte bleiben bei den Vorgaben des Kreditzwecks.
+  factory LoanPlannerScreen.fromQuery(Map<String, String> q) => LoanPlannerScreen(
+        purpose: q['purpose'],
+        amountCents: int.tryParse(q['amount'] ?? ''),
+        equityCents: int.tryParse(q['equity'] ?? ''),
+        termMonths: int.tryParse(q['term'] ?? ''),
+      );
+
+  final String? purpose;
+  final int? amountCents;
+  final int? equityCents;
+  final int? termMonths;
 
   @override
   ConsumerState<LoanPlannerScreen> createState() => _LoanPlannerScreenState();
@@ -31,6 +55,22 @@ class _LoanPlannerScreenState extends ConsumerState<LoanPlannerScreen> {
   OfferResult? _result;
   bool _busy = false;
   String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    for (final p in loanPurposes) {
+      if (p.key == widget.purpose) {
+        _purpose = p;
+        _amount.text = '${p.defaultEuro}';
+        _term = p.defaultTerm;
+      }
+    }
+    final amount = widget.amountCents, equity = widget.equityCents, term = widget.termMonths;
+    if (amount != null && amount > 0) _amount.text = euroInput(amount);
+    if (equity != null && equity >= 0) _equity.text = euroInput(equity);
+    if (term != null) _term = snapTerm(_purpose, term);
+  }
 
   @override
   void dispose() {

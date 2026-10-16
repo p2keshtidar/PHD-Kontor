@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:girokonto_app/features/loans/loan_models.dart';
+import 'package:girokonto_app/features/loans/loan_planner_screen.dart';
 import 'package:girokonto_app/features/planner/planner_screen.dart';
 
 import 'support/fake_backend.dart';
 import 'support/harness.dart';
+
+Future<void> scrollTo(WidgetTester tester, Finder target) async {
+  final list = find.descendant(of: find.byType(ListView), matching: find.byType(Scrollable)).first;
+  await tester.scrollUntilVisible(target, 200, scrollable: list);
+  await tester.pumpAndSettle();
+}
 
 Map<String, dynamic> _result() => {
       'goal': 'AUTO', 'goalLabel': 'Auto', 'priceCents': 2500000, 'equityCents': 200000, 'months': 12,
@@ -25,7 +33,7 @@ Map<String, dynamic> _result() => {
       'disclaimer': 'Rechenbeispiele mit fiktiven Banken und deinen Durchschnittswerten – kein Angebot, keine Beratung.',
     };
 
-/// Zentraler Planer: PL01–PL03.
+/// Zentraler Planer: PL01–PL06.
 void main() {
   testWidgets('PL01 Auto vergleichen: drei Wege mit Empfehlung', (tester) async {
     final fake = await pumpScreen(tester, const PlannerScreen(), size: const Size(400, 1600), backend: FakeBackend({
@@ -66,5 +74,48 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('planner_error')), findsOneWidget);
     expect(fake.calls('POST /api/planner/compare'), isEmpty);
+  });
+
+  testWidgets('PL04 Kredit vergleichen übernimmt Zweck, Betrag, Eigenkapital und Laufzeit', (tester) async {
+    final r = _result();
+    final options = (r['options'] as List).cast<Map<String, dynamic>>();
+    options[1].addAll({'loanAmountCents': 2300000, 'loanEquityCents': 200000});
+    options[2].addAll({'loanAmountCents': 1800000, 'loanEquityCents': 700000});
+    await pumpScreen(tester, const PlannerScreen(), size: const Size(400, 1600), backend: FakeBackend({
+      'POST /api/planner/compare': (_) => r,
+    }));
+    await tester.enterText(find.byKey(const Key('planner_price')), '25000');
+    await tester.tap(find.byKey(const Key('planner_compare')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('planner_go_MIX')));
+    await tester.pumpAndSettle();
+    expect(find.text('ROUTE:/kredit/neu?purpose=AUTO&amount=1800000&equity=700000&term=48'), findsOneWidget);
+  });
+
+  testWidgets('PL05 Kreditvergleich startet mit den Werten aus dem Planer', (tester) async {
+    final fake = await pumpScreen(tester,
+        LoanPlannerScreen.fromQuery(const {'purpose': 'AUTO', 'amount': '1700000', 'equity': '300000', 'term': '48'}),
+        size: const Size(400, 1600),
+        backend: FakeBackend({'POST /api/loans/offers': (_) => FakeResponse(200, FakeBackend.offerResult())}));
+    expect(find.widgetWithText(TextField, '17000'), findsOneWidget);
+    expect(find.widgetWithText(TextField, '3000'), findsOneWidget);
+    expect(find.text('Laufzeit: 48 Monate (4 Jahre)'), findsOneWidget);
+    await scrollTo(tester, find.text('Angebote vergleichen'));
+    await tester.tap(find.text('Angebote vergleichen'));
+    await tester.pumpAndSettle();
+    final body = fake.lastBody('POST /api/loans/offers');
+    expect([body['purpose'], body['principalCents'], body['equityCents'], body['termMonths']], ['AUTO', 1700000, 300000, 48]);
+  });
+
+  test('PL06 ungültige oder fehlende Werte: Vorgaben des Kreditzwecks', () {
+    final auto = loanPurposes.firstWhere((p) => p.key == 'AUTO');
+    expect(snapTerm(auto, 48), 48);
+    expect(snapTerm(auto, 50), 48);      // auf Jahresschritte
+    expect(snapTerm(auto, 500), 96);     // höchstens die längste Laufzeit
+    expect(snapTerm(auto, 1), 12);
+    expect(euroInput(1700000), '17000');
+    expect(euroInput(1234550), '12345,50');
+    final empty = LoanPlannerScreen.fromQuery(const {'amount': 'abc', 'term': ''});
+    expect([empty.purpose, empty.amountCents, empty.equityCents, empty.termMonths], [null, null, null, null]);
   });
 }

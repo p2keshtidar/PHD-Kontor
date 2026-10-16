@@ -70,7 +70,7 @@ class _ExtraPaymentScreenState extends ConsumerState<ExtraPaymentScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(p.paysOff
-            ? tr('Kredit vollständig zurückgezahlt 🎉')
+            ? tr('Kredit vollständig zurückgezahlt')
             : tr('Sondertilgung über {0} gebucht', [formatCents(p.amountCents)])),
       ));
       Navigator.of(context).pop();

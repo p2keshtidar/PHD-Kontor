@@ -2,6 +2,7 @@ import 'dart:ui' show PlatformDispatcher;
 
 import '../core/api_client.dart';
 import '../core/key_value_store.dart';
+import '../core/messenger.dart';
 import '../features/auth/app_user.dart';
 import 'l10n.dart';
 
@@ -24,6 +25,8 @@ class LanguageController {
   /// Sprache wechseln; mit [api] wird sie beim angemeldeten Nutzer gespeichert.
   static Future<void> set(String lang, {ApiClient? api}) async {
     if (!L10n.supported.contains(lang)) return;
+    // Offene und wartende Hinweise sind noch in der alten Sprache formuliert
+    if (lang != L10n.lang) rootMessengerKey.currentState?.clearSnackBars();
     L10n.language.value = lang;
     await KeyValueStore.instance.write(_key, lang);
     if (api != null) {

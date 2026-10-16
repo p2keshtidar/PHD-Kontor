@@ -303,7 +303,7 @@ const stringsEn = <String, String>{
   'Kredit': 'Loan',
   'Kredit abschließen': 'Take out loan',
   'Kredit planen': 'Plan a loan',
-  'Kredit vollständig zurückgezahlt 🎉': 'Loan fully repaid 🎉',
+  'Kredit vollständig zurückgezahlt': 'Loan fully repaid',
   'Kreditauszahlung': 'Loan payout',
   'Kreditbetrag': 'Loan amount',
   'Kreditbetrag zwischen {0} und {1}': 'Loan amount between {0} and {1}',

@@ -11,6 +11,19 @@ import '../../core/theme.dart';
 
 int? _n(Object? v) => (v as num?)?.toInt();
 
+/// Ziel für „Kredit vergleichen“: Kreditzweck, Betrag, Eigenkapital und Laufzeit des Weges werden übernommen.
+/// Ein älterer Server ohne diese Werte öffnet den Kreditvergleich mit den Vorgaben.
+String loanCompareRoute(Map<String, dynamic> option, String? purpose) {
+  final amount = _n(option['loanAmountCents']);
+  if (amount == null || purpose == null) return '/kredit/neu';
+  return Uri(path: '/kredit/neu', queryParameters: {
+    'purpose': purpose,
+    'amount': '$amount',
+    'equity': '${_n(option['loanEquityCents']) ?? 0}',
+    if (_n(option['termMonths']) != null) 'term': '${_n(option['termMonths'])}',
+  }).toString();
+}
+
 /// Zentraler Planer: ein Vorhaben (Reise, Auto, Immobilie) ansparen, finanzieren oder beides – nebeneinander.
 class PlannerScreen extends ConsumerStatefulWidget {
   const PlannerScreen({super.key});
@@ -128,7 +141,7 @@ class _PlannerScreenState extends ConsumerState<PlannerScreen> {
               child: Text(r['recommendation'] as String, style: TextStyle(color: theme.colorScheme.onSecondaryContainer)),
             ),
           ),
-          for (final o in (r['options'] as List<dynamic>).cast<Map<String, dynamic>>()) _OptionCard(o),
+          for (final o in (r['options'] as List<dynamic>).cast<Map<String, dynamic>>()) _OptionCard(o, r['loanPurpose'] as String?),
           const SizedBox(height: 8),
           Text(r['disclaimer'] as String, style: theme.textTheme.bodySmall),
         ],
@@ -139,9 +152,10 @@ class _PlannerScreenState extends ConsumerState<PlannerScreen> {
 }
 
 class _OptionCard extends StatelessWidget {
-  const _OptionCard(this.o);
+  const _OptionCard(this.o, this.purpose);
 
   final Map<String, dynamic> o;
+  final String? purpose;
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +191,7 @@ class _OptionCard extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: TextButton(
               key: Key('planner_go_$kind'),
-              onPressed: () => context.push(kind == 'SAVE' ? '/plan/neu?type=GOAL' : '/kredit/neu'),
+              onPressed: () => context.push(kind == 'SAVE' ? '/plan/neu?type=GOAL' : loanCompareRoute(o, purpose)),
               child: Text(kind == 'SAVE' ? tr('Sparplan anlegen') : tr('Kredit vergleichen')),
             ),
           ),

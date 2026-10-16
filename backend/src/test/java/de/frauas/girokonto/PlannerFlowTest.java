@@ -47,4 +47,34 @@ class PlannerFlowTest extends FlowTestSupport {
         assertThat(option(r, "SAVE").get("feasibility").asText()).isEqualTo("UNKNOWN");
         assertThat(r.get("recommendation").asText()).contains("fehlen Einnahmen und Ausgaben");
     }
+
+    @Test
+    void T143_werteFuerDenKreditvergleich() throws Exception {
+        TestUser u = userWithDemo("Pit");
+        JsonNode r = postJson(u, "/api/planner/compare",
+                "{\"goal\":\"AUTO\",\"priceCents\":2000000,\"equityCents\":300000,\"months\":12}", 200);
+        assertThat(r.get("loanPurpose").asText()).isEqualTo("AUTO");
+        assertThat(option(r, "SAVE").get("loanAmountCents").isNull()).isTrue();
+        JsonNode fin = option(r, "FINANCE");
+        assertThat(fin.get("loanAmountCents").asLong()).isEqualTo(1_700_000);          // Preis − Eigenkapital
+        assertThat(fin.get("loanEquityCents").asLong()).isEqualTo(300_000);
+        assertThat(fin.get("termMonths").asInt()).isEqualTo(48);
+        JsonNode mix = option(r, "MIX");
+        assertThat(mix.get("loanAmountCents").asLong()).isEqualTo(1_600_000);          // 20 % Anzahlung = 4.000 €
+        assertThat(mix.get("loanEquityCents").asLong()).isEqualTo(400_000);
+
+        // Mit genau diesen Werten liefert der Kreditvergleich dieselbe günstigste Rate wie der Planer
+        JsonNode offers = postJson(u, "/api/loans/offers", "{\"purpose\":\"AUTO\",\"principalCents\":"
+                + fin.get("loanAmountCents").asLong() + ",\"equityCents\":" + fin.get("loanEquityCents").asLong()
+                + ",\"termMonths\":48,\"creditClass\":\"GUT\"}", 200);
+        long cheapest = Long.MAX_VALUE;
+        long rate = 0;
+        for (JsonNode o : offers.get("offers")) {
+            if (!o.get("declined").asBoolean() && o.get("totalCostCents").asLong() < cheapest) {
+                cheapest = o.get("totalCostCents").asLong();
+                rate = o.get("monthlyRateCents").asLong();
+            }
+        }
+        assertThat(rate).isEqualTo(fin.get("monthlyCents").asLong());
+    }
 }

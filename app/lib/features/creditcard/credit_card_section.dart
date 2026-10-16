@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/api_client.dart';
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
+import '../../core/messenger.dart';
 import '../../core/money.dart';
 import '../../core/text_dialog.dart';
 import '../../l10n/l10n.dart';
@@ -55,11 +56,9 @@ class CreditCardSection extends ConsumerWidget {
       final r = await action();
       ref.invalidate(creditCardProvider);
       final msg = r is Map && r['message'] is String ? r['message'] as String : done;
-      if (msg != null && context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-      }
+      if (msg != null && context.mounted) showNow(ScaffoldMessenger.of(context), SnackBar(content: Text(msg)));
     } catch (e) {
-      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(apiErrorMessage(e))));
+      if (context.mounted) showNow(ScaffoldMessenger.of(context), SnackBar(content: Text(apiErrorMessage(e))));
     }
   }
 

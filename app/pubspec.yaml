@@ -54,3 +54,7 @@ flutter:
           weight: 500
         - asset: assets/fonts/Roboto-Bold.ttf
           weight: 700
+    # Zeichen, die Roboto nicht hat (→ ⚠ ✓ …), sonst lädt die Web-App eine Ersatzschrift von Google nach
+    - family: GirokontoSymbols
+      fonts:
+        - asset: assets/fonts/GirokontoSymbols.ttf

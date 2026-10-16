@@ -34,9 +34,10 @@ public class PlannerService {
     /** Zieldatum oder Monate ab heute (Simulationszeit). */
     public record PlannerRequest(String goal, Long priceCents, LocalDate targetDate, Integer months, Long equityCents) {}
 
+    /** {@code loanAmountCents}/{@code loanEquityCents}: Werte für den Kreditvergleich (nur bei Finanzierung). */
     public record Option(String kind, String title, boolean possible, Long monthlyCents, Long savingMonthlyCents,
                          Long extraCostCents, Long totalCostCents, String feasibility, String bankName,
-                         Integer termMonths, String text) {}
+                         Integer termMonths, String text, Long loanAmountCents, Long loanEquityCents) {}
 
     public record PlannerResult(String goal, String goalLabel, long priceCents, long equityCents, int months,
                                 long availableCents, boolean hasData, List<Option> options, String recommendation,
@@ -88,12 +89,13 @@ public class PlannerService {
         long rate = (need + months - 1) / months;
         String feasibility = !ov.hasData() ? "UNKNOWN" : rate <= ov.availableCents() ? "GREEN" : "RED";
         options.add(new Option("SAVE", "Ansparen", "GREEN".equals(feasibility), rate, rate, 0L, need, feasibility, null,
-                months, "Bis " + Dates.de(date) + " jeden Monat " + Money.format(rate) + " zurücklegen – keine Zinsen."));
+                months, "Bis " + Dates.de(date) + " jeden Monat " + Money.format(rate) + " zurücklegen – keine Zinsen.",
+                null, null));
 
         // 2) Finanzieren (sofort, mit Laufzeit des Vorhabens)
         Optional<Offer> finance = cheapest(userId, g.purpose(), need, equity, g.term());
         options.add(financeOption("FINANCE", "Sofort finanzieren", finance, null, g.term(),
-                "Kredit über " + Money.format(need) + " für " + g.term() + " Monate"));
+                "Kredit über " + Money.format(need) + " für " + g.term() + " Monate", need, equity));
 
         // 3) Anzahlung ansparen (20 % des Preises), Rest finanzieren
         long down = Math.max(0, Math.round(price * 0.20) - equity);
@@ -102,7 +104,7 @@ public class PlannerService {
             Optional<Offer> mix = cheapest(userId, g.purpose(), need - down, equity + down, g.term());
             options.add(financeOption("MIX", "Anzahlung ansparen, Rest finanzieren", mix, downRate, g.term(),
                     Money.format(down) + " Anzahlung in " + months + " Monaten ansparen, danach Kredit über "
-                            + Money.format(need - down)));
+                            + Money.format(need - down), need - down, equity + down));
         }
 
         String recommendation = recommend(options, ov.hasData());
@@ -121,16 +123,16 @@ public class PlannerService {
     }
 
     private static Option financeOption(String kind, String title, Optional<Offer> offer, Long savingRate, int term,
-                                        String what) {
+                                        String what, long loanAmount, long loanEquity) {
         if (offer.isEmpty()) {
             return new Option(kind, title, false, null, savingRate, null, null, "RED", null, term,
-                    what + ": keine passende Bank (Betrag, Laufzeit oder Tragfähigkeit).");
+                    what + ": keine passende Bank (Betrag, Laufzeit oder Tragfähigkeit).", loanAmount, loanEquity);
         }
         Offer o = offer.get();
         return new Option(kind, title, o.affordable(), o.monthlyRateCents(), savingRate, o.totalInterestCents(),
                 o.totalCostCents(), o.affordable() ? "GREEN" : "RED", o.bankName(), term,
                 what + " bei " + o.bankName() + ": " + Money.format(o.monthlyRateCents()) + " im Monat, Zinsen "
-                        + Money.format(o.totalInterestCents()) + ".");
+                        + Money.format(o.totalInterestCents()) + ".", loanAmount, loanEquity);
     }
 
     static String recommend(List<Option> options, boolean hasData) {

@@ -56,7 +56,7 @@ final realtimeProvider = Provider.autoDispose<RealtimeService>((ref) {
       final lifecycle = WidgetsBinding.instance.lifecycleState;
       final inForeground = lifecycle == null || lifecycle == AppLifecycleState.resumed;
       if (inForeground) {
-        rootMessengerKey.currentState?.showSnackBar(SnackBar(
+        showNow(rootMessengerKey.currentState, SnackBar(
           content: Text('${n.title}: ${n.body}'),
           behavior: SnackBarBehavior.floating,
         ));

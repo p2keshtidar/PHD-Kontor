@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 
 const _seed = Color(0xFF0F8B8D);
 
+/// Mitgelieferte Ersatzschrift für Zeichen, die Roboto nicht enthält (Teilmenge von DejaVu Sans).
+const symbolFontFamily = 'GirokontoSymbols';
+
 ThemeData buildTheme(Brightness brightness) {
   final scheme = ColorScheme.fromSeed(seedColor: _seed, brightness: brightness);
   return ThemeData(
     useMaterial3: true,
     fontFamily: 'Roboto', // mitgeliefert (assets/fonts), kein Download nötig
+    // Pfeile, Haken, Warnzeichen: ebenfalls mitgeliefert, damit die Web-App ohne Internet keine Kästchen zeigt
+    fontFamilyFallback: const [symbolFontFamily],
     colorScheme: scheme,
     inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),
   );

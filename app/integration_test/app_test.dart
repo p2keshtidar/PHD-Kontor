@@ -610,6 +610,7 @@ void main() {
     await tester.tap(find.byKey(const Key('planner_goal_AUTO')));
     await pumpFor(tester, 300);
     await enterKey(tester, const Key('planner_price'), '20000');
+    await enterKey(tester, const Key('planner_equity'), '3000');
     FocusManager.instance.primaryFocus?.unfocus();
     await pumpFor(tester, 500);
     await tapButton(tester, find.byKey(const Key('planner_compare')));
@@ -617,6 +618,13 @@ void main() {
         timeout: const Duration(seconds: 30));
     await scrollTo(tester, find.byKey(const Key('planner_option_FINANCE')));
     await snap(tester, '9-planer');
+    // Weiter zum Kreditvergleich: Betrag, Eigenkapital und Laufzeit kommen aus dem Planer (Auto: 48 Monate)
+    await tapButton(tester, find.byKey(const Key('planner_go_FINANCE')));
+    await pumpUntil(tester, find.text('17000'));
+    expect(find.text('3000'), findsOneWidget);
+    expect(find.text('Laufzeit: 48 Monate (4 Jahre)', skipOffstage: false), findsOneWidget);
+    await goBack(tester);
+    await pumpFor(tester, 800);
     await goBack(tester);
     await pumpFor(tester, 800);
 
