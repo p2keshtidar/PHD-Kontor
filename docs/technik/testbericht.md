@@ -2,14 +2,14 @@
 
 [← Architektur](architektur.md) · [Übersicht](../../README.md)
 
-Stand: 16.10.2026 (Sprint 5 und Weiterentwicklung, CI-Lauf auf `5685660`) · alle Tests laufen automatisch bei jedem Push ([Actions](https://github.com/p2keshtidar/girokonto/actions)).
+Stand: 16.10.2026 (Sprint 5, Weiterentwicklung und Nacharbeiten aus der Video-Aufnahme, CI-Lauf auf `0ec3c44`) · alle Tests laufen automatisch bei jedem Push ([Actions](https://github.com/p2keshtidar/girokonto/actions)).
 
 ## Zusammenfassung
 
 | Ebene | Anzahl | Ergebnis | Testabdeckung (Zeilen) |
 |---|---|---|---|
-| Backend: Unit- und Integrationstests (echte PostgreSQL) | **316** | ✅ alle grün | **92,0 %** |
-| App: Unit- und Widget-Tests (simulierter Server) | **437** | ✅ alle grün | **77,5 %** |
+| Backend: Unit- und Integrationstests (echte PostgreSQL) | **317** | ✅ alle grün | **92,1 %** |
+| App: Unit- und Widget-Tests (simulierter Server) | **446** | ✅ alle grün | **77,6 %** |
 | Ende-zu-Ende: echte App + echter Server | **3 Abläufe**, Stand 16.10.: **Chrome, Android 11, iOS 26** grün (Ablauf 3 = Weiterentwicklung; Android brauchte einen zweiten Anlauf, weil das NDK-Paket auf dem Runner beschädigt ankam; ein einmaliger Aussetzer in Ablauf 2 auf iOS trat im nächsten Lauf nicht wieder auf) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10. mit den Abläufen 1–2 | ✅ grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
@@ -50,7 +50,7 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 |---|---|
 | `screens_layout_test.dart` | **44 Bildschirme × 4 Formate** + alle auf Englisch (kleines Handy 320×568, großes Handy, Tablet, Schrift 150 %): kein Überlauf, kein Absturz |
 | `flows_widget_test.dart` | Abläufe A01–A15 mit simuliertem Server: Anmeldung inkl. Zwei-Faktor-Code, Server-Adresse, Überweisung mit Idempotenz-Schlüssel, ungültige Beträge, Dauerauftrag anlegen/pausieren, Sondertilgung (Vorschau, Buchung, zu wenig Geld), Zwei-Faktor einrichten (QR-Code), CSV-Import mit Fehler, Unterkonto teilen/austreten, Startseite mit geteilten Konten, Spar-Erinnerung, A16 Überweisung auf 320×480 mit Schrift 130 %, A17–A22 Einnahmen & Ausgaben (Schnellauswahl, einmalig/monatlich, Tag 29–31, Serverfehler, Pausieren, Löschen, Startseite) |
-| `l10n_test.dart` | L01–L08: jeder Text hat eine englische Übersetzung, keine fest codierten Texte, Platzhalter, Beträge/Daten je Sprache, Sprachwechsel schließt Hinweise in der alten Sprache |
+| `l10n_test.dart` | L01–L09: jeder Text hat eine englische Übersetzung, keine fest codierten Texte, Platzhalter, Beträge/Daten je Sprache, Sprachwechsel schließt Hinweise in der alten Sprache und übersetzt auch `const`-Widgets offener Seiten |
 | `font_coverage_test.dart` | FC01–FC03: jedes Zeichen der App- und Server-Texte steckt in einer mitgelieferten Schrift (Roboto oder Symbolschrift) – die Web-App lädt nichts von Google nach |
 | `banking_test.dart` | BK01–BK12: Startseite mit/ohne verbundene Bank · Sandbox-Freigabe bestätigen/ablehnen · echte Bank: Bankseite öffnen, Freigabe abschließen · Status, Berechtigungen, Abruf, Widerruf mit Löschen · abgelaufene Freigabe erneuern · Umsätze mit Status, Filter, Suche · eigene Angaben speichern · Englisch |
 | `digital_accounts_test.dart` | DA01–DA08: zwei getrennte Bereiche, Girokonto als Simulation gekennzeichnet · neues digitales Konto mit Zweck und Ziel · Fortschritt und Hinweis zur Verwahrung · nur ansehen: Ein-/Auszahlen gesperrt · Rechte ändern · teilen mit Rolle · Englisch |
@@ -109,6 +109,7 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf
 | Web-App ohne Internet: „→“ (WG-Ausgleich, Umbuchungen), „✓“ und „⚠“ als Kästchen – Roboto hat diese Zeichen nicht, Flutter lud eine Ersatzschrift von Google | Aufnahme des Demo-Videos ohne Internet | eigene Symbolschrift (Teilmenge von DejaVu Sans) als Ersatzschrift mitgeliefert, Emoji entfernt (FC01–FC03) |
 | Planer: „Kredit vergleichen“ öffnete den Kreditvergleich mit Standardwerten (20.000 €, 60 Monate) statt mit den Werten des Vorhabens | Aufnahme des Demo-Videos | Server liefert Betrag und Eigenkapital je Weg, die App übergibt sie mit Zweck und Laufzeit (T143, PL04–PL06, E2E Ablauf 3) |
 | Meldung der Kreditkarten-Demo-Zahlung stand hinter der Live-Meldung an und erschien erst nach dem Sprachwechsel – noch auf Deutsch | Aufnahme des Demo-Videos | neue Meldung ersetzt die offene; Sprachwechsel schließt offene und wartende Hinweise (CS07, L08) |
+| Nach dem Wechsel auf Englisch blieben „Konto eröffnen“, „Umbuchen“, „Alle Umsätze“ auf der Startseite deutsch: Der Navigator (GlobalKey) wird beim Neuaufbau nur umgehängt, `const`-Widgets bauen nicht neu | Prüfung der Video-Aufnahme in der Web-App | Sprachwechsel baut alle Elemente neu auf (L09) |
 
 ## Selbst ausführen
 

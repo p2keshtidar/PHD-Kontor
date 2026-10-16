@@ -147,8 +147,8 @@ girokonto/
 
 Bei jedem Push prüft GitHub automatisch ([Actions](https://github.com/p2keshtidar/girokonto/actions)):
 
-- **Backend:** 316 Tests mit echter PostgreSQL-Datenbank, **92,0 % Zeilenabdeckung** – Testfälle T01–T142, Lasttest, Sicherheitsmatrix über *alle* Endpunkte, Fuzzing, gleichzeitige Überweisungen, 160 Zufallsaktionen mit Prüfung der Buchhaltung, Bankverbindungen gegen Sandbox und nachgebildeten Anbieter, parallele Sparregel-Läufe ohne doppelte Abbuchung
-- **App:** `flutter analyze` + 437 Unit-/Widget-Tests (77,5 % Zeilenabdeckung) – jeder Bildschirm in 4 Formaten (kleines Handy bis Tablet, Schrift 150 %) und auf Englisch, Abläufe mit simuliertem Server
+- **Backend:** 317 Tests mit echter PostgreSQL-Datenbank, **92,1 % Zeilenabdeckung** – Testfälle T01–T143, Lasttest, Sicherheitsmatrix über *alle* Endpunkte, Fuzzing, gleichzeitige Überweisungen, 160 Zufallsaktionen mit Prüfung der Buchhaltung, Bankverbindungen gegen Sandbox und nachgebildeten Anbieter, parallele Sparregel-Läufe ohne doppelte Abbuchung
+- **App:** `flutter analyze` + 446 Unit-/Widget-Tests (77,6 % Zeilenabdeckung) – jeder Bildschirm in 4 Formaten (kleines Handy bis Tablet, Schrift 150 %) und auf Englisch, Abläufe mit simuliertem Server
 - **Sicherheit:** gitleaks (Geheimnisse), Trivy (Abhängigkeiten, Docker), CodeQL, Dependabot
 - **Builds:** Web, Android-APK, iOS, Docker-Image
 - **Ende-zu-Ende** (manuell: *Actions → E2E → Run workflow*, Plattform, Android-Gerät und Systemversionen wählbar): echte App im Browser (Chrome), Android-Emulatoren (**Android 7, 8, 9, 11, 13, 15, 16**; Pixel 5 oder sehr kleines Display) und iPhone-Simulatoren (**iOS 16, 17, 18, 26**) gegen den echten Server, mit Bildschirmfotos je Version – registrieren, Karte, Überweisung, Beispielmonate, Finanzüberblick, Kreditvergleich, Kredit in vier Schritten (Vergleich, Anfrage, Vertrag, Auszahlung), Sondertilgung, Sandbox-Bank, **zwei Nutzer** (Live-Meldung, Überweisung, Dauerauftrag, geteiltes digitales Konto, Sparregel)
