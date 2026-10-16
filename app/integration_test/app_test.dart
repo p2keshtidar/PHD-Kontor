@@ -521,7 +521,8 @@ void main() {
 
     // Gemeinsame Ausgaben: Gruppe anlegen, Bruno hinzufügen, 30 € Einkauf je zur Hälfte
     await tester.tap(navItem('Sparen'));
-    await pumpUntil(tester, find.byKey(const Key('savings_groups'), skipOffstage: false));
+    await pumpUntil(tester, find.text('Jeden Monat übrig'));
+    await pumpFor(tester, 800);
     await tapButton(tester, find.byKey(const Key('savings_groups')));
     await pumpUntil(tester, find.byKey(const Key('groups_create')));
     await pumpFor(tester, 1000);
@@ -563,7 +564,9 @@ void main() {
       await pumpFor(tester, 800);
     }
     await tester.tap(navItem('Sparen'));
+    await pumpUntil(tester, find.text('Jeden Monat übrig'));
     await pumpFor(tester, 800);
+    await scrollToTop(tester);
     await tapButton(tester, find.byKey(const Key('savings_contracts')));
     await pumpUntil(tester, find.byKey(const Key('contracts_add')));
     await pumpFor(tester, 1000);
@@ -576,12 +579,15 @@ void main() {
     await pumpFor(tester, 500);
     await tapButton(tester, find.byKey(const Key('contract_save')));
     await pumpUntil(tester, find.text('29,99 € pro Monat'), timeout: const Duration(seconds: 30));
-    expect(find.text('Handy E2E'), findsOneWidget);
+    // Übergang abwarten: bis dahin zählt das Eingabefeld der schließenden Formularseite mit
+    await pumpFor(tester, 1500);
+    expect(find.descendant(of: find.byType(Card), matching: find.text('Handy E2E')), findsOneWidget);
     await snap(tester, '7-vertraege');
     await goBack(tester);
     await pumpFor(tester, 800);
 
     // Finanzassistent: Vorschlag antippen, Antwort mit Zahlen; Monatsbericht
+    await scrollToTop(tester);
     await tapButton(tester, find.byKey(const Key('savings_assistant')));
     await pumpUntil(tester, find.byKey(const Key('assistant_suggestion_0')), timeout: const Duration(seconds: 30));
     await pumpFor(tester, 800);
@@ -597,6 +603,7 @@ void main() {
     await pumpFor(tester, 800);
 
     // Vorhaben planen: Auto, drei Wege mit Empfehlung
+    await scrollToTop(tester);
     await tapButton(tester, find.byKey(const Key('savings_planner')));
     await pumpUntil(tester, find.byKey(const Key('planner_goal_AUTO')));
     await pumpFor(tester, 800);
