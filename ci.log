@@ -1,0 +1,86 @@
+
+Welcome to Gradle 8.14.3!
+
+Here are the highlights of this release:
+ - Java 24 support
+ - GraalVM Native Image toolchain selection
+ - Enhancements to test reporting
+ - Build Authoring improvements
+
+For more details see https://docs.gradle.org/8.14.3/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources
+> Task :testClasses
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :test
+
+BankingFlowTest > T60_ruecksprungSeiteOhneAnmeldungOhneDaten() FAILED
+    java.lang.AssertionError: 
+    Expecting actual:
+      "<!doctype html>
+    <html lang="de"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PHD Kontor – Bankfreigabe</title>
+    <style>body{font-family:system-ui,sans-serif;max-width:32rem;margin:3rem auto;padding:0 1rem;line-height:1.5}</style>
+    </head><body>
+    <h1>Fast geschafft</h1>
+    <p>Die Bank hat dich zurückgeleitet. Kehre jetzt zur App PHD Kontor zurück und tippe auf
+    <b>„Freigabe abschließen“</b>.</p>
+    <hr>
+    <p lang="en">The bank has sent you back. Return to the PHD Kontor app and tap <b>“Complete authorisation”</b>.</p>
+    </body></html>
+    "
+    to contain:
+      "Girokonto" 
+        at de.frauas.girokonto.BankingFlowTest.T60_ruecksprungSeiteOhneAnmeldungOhneDaten(BankingFlowTest.java:378)
+
+2026-10-16T13:40:02.577Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-10-16T13:40:02.579Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7fc7821]]
+2026-10-16T13:40:02.579Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-10-16T13:40:02.595Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-16T13:40:02.598Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-16T13:40:02.763Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-16T13:40:02.767Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-10-16T13:40:02.767Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@61964a1a]]
+2026-10-16T13:40:02.767Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-10-16T13:40:02.774Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-16T13:40:02.775Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-10-16T13:40:02.789Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-10-16T13:40:02.795Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2026-10-16T13:40:02.795Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7482f9ee]]
+2026-10-16T13:40:02.796Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2026-10-16T13:40:02.808Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-16T13:40:02.809Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-10-16T13:40:02.816Z  INFO [] 2594 --- [girokonto] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+
+> Task :test
+
+317 tests completed, 1 failed
+
+> Task :test FAILED
+
+[Incubating] Problems report is available at: file:///home/runner/work/girokonto/girokonto/backend/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///home/runner/work/girokonto/girokonto/backend/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 3m 2s
+5 actionable tasks: 5 executed
