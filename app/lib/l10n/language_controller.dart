@@ -1,5 +1,7 @@
 import 'dart:ui' show PlatformDispatcher;
 
+import 'package:flutter/widgets.dart';
+
 import '../core/api_client.dart';
 import '../core/key_value_store.dart';
 import '../core/messenger.dart';
@@ -26,8 +28,10 @@ class LanguageController {
   static Future<void> set(String lang, {ApiClient? api}) async {
     if (!L10n.supported.contains(lang)) return;
     // Offene und wartende Hinweise sind noch in der alten Sprache formuliert
-    if (lang != L10n.lang) rootMessengerKey.currentState?.clearSnackBars();
+    final changed = lang != L10n.lang;
+    if (changed) rootMessengerKey.currentState?.clearSnackBars();
     L10n.language.value = lang;
+    if (changed) rebuildAllElements();
     await KeyValueStore.instance.write(_key, lang);
     if (api != null) {
       try {
@@ -36,6 +40,18 @@ class LanguageController {
         // offline: lokal bleibt die Wahl erhalten, beim nächsten Wechsel wird erneut gespeichert
       }
     }
+  }
+
+  /// Baut jedes Element neu – auch `const`-Widgets in offenen Seiten. Die App wird beim Sprachwechsel zwar neu
+  /// aufgebaut, der Navigator (GlobalKey) wird dabei aber nur umgehängt und behält seine Elemente; deren `tr(…)`
+  /// liefe sonst erst beim nächsten Aufbau in der neuen Sprache (z. B. „Konto eröffnen“ auf der Startseite).
+  static void rebuildAllElements() {
+    void mark(Element e) {
+      e.markNeedsBuild();
+      e.visitChildren(mark);
+    }
+
+    WidgetsBinding.instance.rootElement?.visitChildren(mark);
   }
 
   /// Nach Anmeldung: gespeicherte Sprache des Kontos übernehmen bzw. die aktuelle dort speichern.

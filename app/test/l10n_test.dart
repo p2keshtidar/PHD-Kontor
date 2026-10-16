@@ -14,7 +14,7 @@ import 'package:girokonto_app/l10n/l10n.dart';
 import 'package:girokonto_app/l10n/language_controller.dart';
 import 'package:girokonto_app/l10n/strings_en.dart';
 
-/// Zweisprachigkeit: fehlende Übersetzungen und nicht übersetzte Texte finden (L01–L08).
+/// Zweisprachigkeit: fehlende Übersetzungen und nicht übersetzte Texte finden (L01–L09).
 List<File> _sources() => Directory('lib')
     .listSync(recursive: true)
     .whereType<File>()
@@ -140,4 +140,31 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Card unlocked'), findsOneWidget);
   });
+
+  testWidgets('L09 Sprachwechsel übersetzt auch const-Widgets in offenen Seiten', (tester) async {
+    KeyValueStore.memoryOnly = true;
+    final navigator = GlobalKey<NavigatorState>(); // wie bei go_router: der Navigator wird nur umgehängt
+    await tester.pumpWidget(ValueListenableBuilder<String>(
+      valueListenable: L10n.language,
+      builder: (_, lang, __) => MaterialApp(
+        key: ValueKey('app_$lang'),
+        navigatorKey: navigator,
+        home: const Scaffold(body: _ConstLabel()),
+      ),
+    ));
+    expect(find.text('Umbuchen'), findsOneWidget);
+    await LanguageController.set('en');
+    await tester.pumpAndSettle();
+    expect(find.text('Move money'), findsOneWidget);
+    await LanguageController.set('de');
+    await tester.pumpAndSettle();
+    expect(find.text('Umbuchen'), findsOneWidget);
+  });
+}
+
+class _ConstLabel extends StatelessWidget {
+  const _ConstLabel();
+
+  @override
+  Widget build(BuildContext context) => Text(tr('Umbuchen'));
 }
