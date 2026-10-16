@@ -2,15 +2,15 @@
 
 [← Architektur](architektur.md) · [Übersicht](../../README.md)
 
-Stand: 15.10.2026 (Sprint 5 und Weiterentwicklung, CI-Lauf auf `ea89625`) · alle Tests laufen automatisch bei jedem Push ([Actions](https://github.com/p2keshtidar/girokonto/actions)).
+Stand: 16.10.2026 (Sprint 5 und Weiterentwicklung, CI-Lauf auf `5685660`) · alle Tests laufen automatisch bei jedem Push ([Actions](https://github.com/p2keshtidar/girokonto/actions)).
 
 ## Zusammenfassung
 
 | Ebene | Anzahl | Ergebnis | Testabdeckung (Zeilen) |
 |---|---|---|---|
-| Backend: Unit- und Integrationstests (echte PostgreSQL) | **313** | ✅ alle grün | **92,1 %** |
-| App: Unit- und Widget-Tests (simulierter Server) | **430** | ✅ alle grün | **77,5 %** |
-| Ende-zu-Ende: echte App + echter Server | 2 Abläufe, Stand 15.10. (Sprint 5: Kreditvergleich in vier Schritten, Sparregel): **Chrome, Android 11, iOS 26** grün (iOS im zweiten Lauf – im ersten brauchte die erste Registrierung nach Leerlauf auf dem macOS-Runner 30 s; seitdem hält der Workflow den Server warm) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10. | ✅ grün | – |
+| Backend: Unit- und Integrationstests (echte PostgreSQL) | **316** | ✅ alle grün | **92,0 %** |
+| App: Unit- und Widget-Tests (simulierter Server) | **437** | ✅ alle grün | **77,5 %** |
+| Ende-zu-Ende: echte App + echter Server | **3 Abläufe**, Stand 16.10.: **Chrome, Android 11, iOS 26** grün (Ablauf 3 = Weiterentwicklung; Android brauchte einen zweiten Anlauf, weil das NDK-Paket auf dem Runner beschädigt ankam; ein einmaliger Aussetzer in Ablauf 2 auf iOS trat im nächsten Lauf nicht wieder auf) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10. mit den Abläufen 1–2 | ✅ grün | – |
 
 Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, inklusive der 10 am wenigsten getesteten Dateien.
 
@@ -103,6 +103,7 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf
 | Antwortvorlage „Für {0} hast du {1} {2} ausgegeben“ war mehrdeutig – Englisch vertauschte Teile | lokaler Rauchtest Englisch | eindeutige Vorlage („insgesamt“) |
 | Planer: Ansparen einer Immobilie scheiterte an der Sparplan-Obergrenze (100.000 €) | lokaler Rauchtest | Ansparrate direkt berechnet |
 | Grün für Plus-Beträge (#2E7D32) und Gelb für „knapp“ (#E0A100) hatten als Text zu wenig Kontrast – Grün im dunklen, Gelb sogar im hellen Modus | Prüfung Dark Mode (#74) | Farben je Modus (DM03) |
+| E2E Ablauf 3: Karten weiter unten in „Sparen“ wurden auf Handys nicht gefunden (Liste baut nur Sichtbares) | E2E Android/iOS | Test scrollt erst nach oben und sucht dann gezielt |
 | Spartipps teilten durch alle abgeschlossenen Monate, auch solche ohne Umsätze (Schnitt zu klein) | Aufräumen #75 | ein gemeinsamer Durchschnitt nur über Monate mit Daten (H02) |
 
 ## Selbst ausführen
