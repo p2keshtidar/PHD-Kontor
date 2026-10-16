@@ -1,0 +1,1016 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+2026-10-16T03:54:30.704Z  INFO [] 7564 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : Starting GirokontoApplication v0.1.0 using Java 21.0.12.1 with PID 7564 (/Users/runner/work/girokonto/girokonto/backend/build/libs/girokonto-backend-0.1.0.jar started by runner in /Users/runner/work/girokonto/girokonto/backend)
+2026-10-16T03:54:30.708Z  INFO [] 7564 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : No active profile set, falling back to 1 default profile: "default"
+2026-10-16T03:54:31.741Z  INFO [] 7564 --- [girokonto] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-16T03:54:31.799Z  INFO [] 7564 --- [girokonto] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 15 JPA repository interfaces.
+2026-10-16T03:54:32.344Z  INFO [] 7564 --- [girokonto] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-10-16T03:54:32.353Z  INFO [] 7564 --- [girokonto] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-16T03:54:32.353Z  INFO [] 7564 --- [girokonto] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2026-10-16T03:54:32.373Z  INFO [] 7564 --- [girokonto] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-10-16T03:54:32.374Z  INFO [] 7564 --- [girokonto] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1607 ms
+2026-10-16T03:54:32.685Z  INFO [] 7564 --- [girokonto] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-16T03:54:32.779Z  INFO [] 7564 --- [girokonto] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4f82248f
+2026-10-16T03:54:32.780Z  INFO [] 7564 --- [girokonto] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-16T03:54:32.799Z  INFO [] 7564 --- [girokonto] [           main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:5432/girokonto (PostgreSQL 16.15)
+2026-10-16T03:54:32.822Z  INFO [] 7564 --- [girokonto] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+2026-10-16T03:54:32.824Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbValidate     : Successfully validated 25 migrations (execution time 00:00.013s)
+2026-10-16T03:54:32.833Z  INFO [] 7564 --- [girokonto] [           main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+2026-10-16T03:54:32.864Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+2026-10-16T03:54:32.871Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - init"
+2026-10-16T03:54:32.899Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "2 - contacts"
+2026-10-16T03:54:32.908Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "3 - cards notifications"
+2026-10-16T03:54:32.923Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "4 - planning"
+2026-10-16T03:54:32.941Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "5 - phase5"
+2026-10-16T03:54:32.949Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "6 - standing orders"
+2026-10-16T03:54:32.957Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "7 - two factor"
+2026-10-16T03:54:32.963Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "8 - csv import"
+2026-10-16T03:54:32.972Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "9 - shared subaccounts"
+2026-10-16T03:54:32.982Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "10 - entries"
+2026-10-16T03:54:32.992Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "11 - user language"
+2026-10-16T03:54:33.001Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "12 - bank connections"
+2026-10-16T03:54:33.019Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "13 - digital accounts"
+2026-10-16T03:54:33.026Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "14 - allocations"
+2026-10-16T03:54:33.045Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "15 - loan steps"
+2026-10-16T03:54:33.055Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "16 - multi banking"
+2026-10-16T03:54:33.059Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "17 - transaction management"
+2026-10-16T03:54:33.066Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "18 - budgets"
+2026-10-16T03:54:33.074Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "19 - market"
+2026-10-16T03:54:33.086Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "20 - credit card"
+2026-10-16T03:54:33.097Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "21 - groups"
+2026-10-16T03:54:33.112Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "22 - contracts documents"
+2026-10-16T03:54:33.121Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "23 - performance indexes"
+2026-10-16T03:54:33.127Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "24 - health score consent"
+2026-10-16T03:54:33.130Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "25 - subaccount cards"
+2026-10-16T03:54:33.139Z  INFO [] 7564 --- [girokonto] [           main] o.f.core.internal.command.DbMigrate      : Successfully applied 25 migrations to schema "public", now at version v25 (execution time 00:00.147s)
+2026-10-16T03:54:33.211Z  INFO [] 7564 --- [girokonto] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-10-16T03:54:33.244Z  INFO [] 7564 --- [girokonto] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-10-16T03:54:33.268Z  INFO [] 7564 --- [girokonto] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-10-16T03:54:33.476Z  INFO [] 7564 --- [girokonto] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-16T03:54:34.340Z  INFO [] 7564 --- [girokonto] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-16T03:54:34.342Z  INFO [] 7564 --- [girokonto] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-16T03:54:34.598Z  INFO [] 7564 --- [girokonto] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-16T03:54:36.140Z  INFO [] 7564 --- [girokonto] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 4 endpoints beneath base path '/actuator'
+2026-10-16T03:54:36.537Z  INFO [] 7564 --- [girokonto] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-10-16T03:54:36.539Z  INFO [] 7564 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2026-10-16T03:54:36.539Z  INFO [] 7564 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@b439e50]]
+2026-10-16T03:54:36.539Z  INFO [] 7564 --- [girokonto] [           main] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2026-10-16T03:54:36.555Z  INFO [] 7564 --- [girokonto] [           main] d.frauas.girokonto.GirokontoApplication  : Started GirokontoApplication in 6.369 seconds (process running for 6.798)
+2026-10-16T03:54:36.640Z  WARN [] 7564 --- [girokonto] [           main] d.frauas.girokonto.config.SecretsGuard   : Entwicklungs-Schlüssel aktiv ([JWT_SECRET, CARD_KEY, ADMIN_PASSWORD]). Für den Betrieb APP_ENV=production und eigene Werte setzen.
+2026-10-16T03:54:36.961Z  INFO [] 7564 --- [girokonto] [           main] d.f.girokonto.auth.AdminInitializer      : Administrator admin@projektbank.de angelegt
+2026-10-16T03:54:38.145Z  INFO [] 7564 --- [girokonto] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-16T03:54:38.145Z  INFO [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-16T03:54:38.145Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-10-16T03:54:38.145Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-10-16T03:54:38.145Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2026-10-16T03:54:38.146Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@63214338
+2026-10-16T03:54:38.146Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@2127c46b
+2026-10-16T03:54:38.146Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-10-16T03:54:38.146Z  INFO [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-16T03:54:38.174Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/v3/api-docs", parameters={}
+2026-10-16T03:54:39.260Z  INFO [] 7564 --- [girokonto] [nio-8080-exec-1] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 1058 ms
+2026-10-16T03:54:39.288Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T03:54:39.301Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/v3/api-docs", parameters={}
+2026-10-16T03:54:39.309Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T03:54:39.323Z DEBUG [b7ee57b6acbfa74e] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-16T03:54:39.484Z DEBUG [b7ee57b6acbfa74e] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T03:54:39.484Z  INFO [b7ee57b6acbfa74e] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=POST path=/api/auth/register status=201 ms=162 requestId=b7ee57b6acbfa74e
+2026-10-16T03:54:39.498Z DEBUG [6ec5535ad63900b0] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/login", parameters={}
+2026-10-16T03:54:39.587Z DEBUG [6ec5535ad63900b0] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T03:54:39.587Z  INFO [6ec5535ad63900b0] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=POST path=/api/auth/login status=200 ms=90 requestId=6ec5535ad63900b0
+2026-10-16T03:55:36.610Z  INFO [] 7564 --- [girokonto] [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 3, active threads = 1, queued tasks = 3, completed tasks = 1]
+2026-10-16T04:00:40.762Z DEBUG [380970dcc0170c84] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/login", parameters={}
+2026-10-16T04:00:49.876Z DEBUG [380970dcc0170c84] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:00:49.949Z  WARN [380970dcc0170c84] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=slow_request method=POST path=/api/auth/login status=200 ms=14071 requestId=380970dcc0170c84
+2026-10-16T04:00:53.279Z DEBUG [a8a46800b8a4cd34] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:00:54.081Z DEBUG [a8a46800b8a4cd34] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:00:54.086Z  WARN [a8a46800b8a4cd34] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=slow_request method=GET path=/api/accounts status=200 ms=3968 requestId=a8a46800b8a4cd34
+2026-10-16T04:01:05.316Z DEBUG [44e63ce9d606e22f] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:01:05.767Z DEBUG [44e63ce9d606e22f] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:01:05.769Z  WARN [44e63ce9d606e22f] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=slow_request method=GET path=/api/accounts status=200 ms=1196 requestId=44e63ce9d606e22f
+2026-10-16T04:01:16.275Z DEBUG [bf5d45dc4f87961f] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:01:16.507Z DEBUG [bf5d45dc4f87961f] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:01:16.508Z  INFO [bf5d45dc4f87961f] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=464 requestId=bf5d45dc4f87961f
+2026-10-16T04:01:27.734Z DEBUG [0625e93ff444f1fe] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:01:28.254Z DEBUG [0625e93ff444f1fe] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:01:28.255Z  WARN [0625e93ff444f1fe] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=slow_request method=GET path=/api/accounts status=200 ms=1270 requestId=0625e93ff444f1fe
+2026-10-16T04:01:39.031Z DEBUG [63f96c8c8dccf950] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:01:39.214Z DEBUG [63f96c8c8dccf950] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:01:39.220Z  INFO [63f96c8c8dccf950] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=649 requestId=63f96c8c8dccf950
+2026-10-16T04:01:50.687Z DEBUG [11c4abd12f11cb0b] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:01:50.830Z DEBUG [11c4abd12f11cb0b] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:01:51.191Z  WARN [11c4abd12f11cb0b] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=slow_request method=GET path=/api/accounts status=200 ms=1213 requestId=11c4abd12f11cb0b
+2026-10-16T04:02:01.462Z DEBUG [2e30c17be943ccb3] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:02:01.517Z DEBUG [2e30c17be943ccb3] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:02:01.527Z  INFO [2e30c17be943ccb3] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=169 requestId=2e30c17be943ccb3
+2026-10-16T04:02:12.059Z DEBUG [251aaabcbe8a5bc1] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:02:12.123Z DEBUG [251aaabcbe8a5bc1] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:02:12.126Z  INFO [251aaabcbe8a5bc1] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=230 requestId=251aaabcbe8a5bc1
+2026-10-16T04:02:22.432Z DEBUG [00d9e326b117690e] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:02:22.689Z DEBUG [00d9e326b117690e] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:02:22.691Z  INFO [00d9e326b117690e] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=371 requestId=00d9e326b117690e
+2026-10-16T04:02:46.540Z DEBUG [dadf026843cdee7b] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:02:48.646Z DEBUG [dadf026843cdee7b] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:02:48.648Z  WARN [dadf026843cdee7b] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=slow_request method=GET path=/api/accounts status=200 ms=12285 requestId=dadf026843cdee7b
+2026-10-16T04:03:13.700Z DEBUG [7778575d1dc0b97b] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:03:17.849Z DEBUG [7778575d1dc0b97b] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:03:17.851Z  WARN [7778575d1dc0b97b] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=slow_request method=GET path=/api/accounts status=200 ms=6059 requestId=7778575d1dc0b97b
+2026-10-16T04:03:29.670Z DEBUG [3c54b34da2fc00d0] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:03:29.973Z DEBUG [3c54b34da2fc00d0] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:03:29.974Z  WARN [3c54b34da2fc00d0] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=slow_request method=GET path=/api/accounts status=200 ms=1456 requestId=3c54b34da2fc00d0
+2026-10-16T04:03:40.310Z DEBUG [ed76b0f4deeb746f] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:03:40.369Z DEBUG [ed76b0f4deeb746f] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:03:40.370Z  INFO [ed76b0f4deeb746f] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=145 requestId=ed76b0f4deeb746f
+2026-10-16T04:03:51.487Z DEBUG [9e63c606a037bb8f] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:03:51.526Z DEBUG [9e63c606a037bb8f] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:03:51.533Z  INFO [9e63c606a037bb8f] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=185 requestId=9e63c606a037bb8f
+2026-10-16T04:04:01.733Z DEBUG [463938df717806e4] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:04:01.803Z DEBUG [463938df717806e4] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:04:01.817Z  INFO [463938df717806e4] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=147 requestId=463938df717806e4
+2026-10-16T04:04:12.682Z DEBUG [4b8bb3bc3693a036] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:04:12.905Z DEBUG [4b8bb3bc3693a036] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:04:13.006Z  INFO [4b8bb3bc3693a036] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=972 requestId=4b8bb3bc3693a036
+2026-10-16T04:04:23.294Z DEBUG [3f3aa7cefa255659] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:04:23.350Z DEBUG [3f3aa7cefa255659] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:04:23.351Z  INFO [3f3aa7cefa255659] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=122 requestId=3f3aa7cefa255659
+2026-10-16T04:04:33.598Z DEBUG [a87b09fb3f21714a] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:04:33.640Z DEBUG [a87b09fb3f21714a] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:04:33.641Z  INFO [a87b09fb3f21714a] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=62 requestId=a87b09fb3f21714a
+2026-10-16T04:04:44.198Z DEBUG [069a148d5c89a888] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:04:44.259Z DEBUG [069a148d5c89a888] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:04:44.259Z  INFO [069a148d5c89a888] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=207 requestId=069a148d5c89a888
+2026-10-16T04:04:54.456Z DEBUG [6a9719a0445758f1] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:04:54.510Z DEBUG [6a9719a0445758f1] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:04:54.512Z  INFO [6a9719a0445758f1] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=107 requestId=6a9719a0445758f1
+2026-10-16T04:05:04.713Z DEBUG [0cfeb676c3df9af7] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:05:04.819Z DEBUG [0cfeb676c3df9af7] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:05:04.821Z  INFO [0cfeb676c3df9af7] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=224 requestId=0cfeb676c3df9af7
+2026-10-16T04:05:15.180Z DEBUG [950b827942b9c350] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:05:15.266Z DEBUG [950b827942b9c350] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:05:15.268Z  INFO [950b827942b9c350] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=178 requestId=950b827942b9c350
+2026-10-16T04:05:25.512Z DEBUG [b2e5449d672bbfc0] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:05:25.553Z DEBUG [b2e5449d672bbfc0] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:05:25.556Z  INFO [b2e5449d672bbfc0] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=135 requestId=b2e5449d672bbfc0
+2026-10-16T04:05:35.659Z DEBUG [7942101d9afef938] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:05:35.679Z DEBUG [7942101d9afef938] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:05:35.681Z  INFO [7942101d9afef938] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=63 requestId=7942101d9afef938
+2026-10-16T04:05:45.974Z DEBUG [ac842597bb4b8f65] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:05:46.106Z DEBUG [ac842597bb4b8f65] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:05:46.121Z  INFO [ac842597bb4b8f65] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=231 requestId=ac842597bb4b8f65
+2026-10-16T04:05:56.326Z DEBUG [aaf22d94ca2c8e2c] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:05:56.345Z DEBUG [aaf22d94ca2c8e2c] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:05:56.347Z  INFO [aaf22d94ca2c8e2c] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=66 requestId=aaf22d94ca2c8e2c
+2026-10-16T04:06:06.642Z DEBUG [57a41e9326edf87a] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:06:06.710Z DEBUG [57a41e9326edf87a] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:06.712Z  INFO [57a41e9326edf87a] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=147 requestId=57a41e9326edf87a
+2026-10-16T04:06:16.958Z DEBUG [f52dabbd739ae206] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:06:17.024Z DEBUG [f52dabbd739ae206] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:17.026Z  INFO [f52dabbd739ae206] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=151 requestId=f52dabbd739ae206
+2026-10-16T04:06:27.380Z DEBUG [fcee6adc1e84e6f3] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:06:27.518Z DEBUG [fcee6adc1e84e6f3] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:27.524Z  INFO [fcee6adc1e84e6f3] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=326 requestId=fcee6adc1e84e6f3
+2026-10-16T04:06:33.637Z DEBUG [6f0d148092419597] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-16T04:06:34.016Z DEBUG [6f0d148092419597] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:06:34.018Z  INFO [6f0d148092419597] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=POST path=/api/auth/register status=201 ms=499 requestId=6f0d148092419597
+2026-10-16T04:06:34.115Z DEBUG [e462d68635802a96] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : PUT "/api/me/language", parameters={}
+2026-10-16T04:06:34.231Z DEBUG [e462d68635802a96] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 204 NO_CONTENT
+2026-10-16T04:06:34.231Z  INFO [e462d68635802a96] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=PUT path=/api/me/language status=204 ms=126 requestId=e462d68635802a96
+2026-10-16T04:06:34.732Z DEBUG [763043e09f4a94b7] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:06:34.775Z DEBUG [3d850c70a63a8af5] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:06:34.775Z DEBUG [c2a1bcf9dd4b29c9] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:06:34.905Z DEBUG [3d850c70a63a8af5] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:34.909Z  INFO [3d850c70a63a8af5] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=189 requestId=3d850c70a63a8af5
+2026-10-16T04:06:34.924Z DEBUG [763043e09f4a94b7] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:34.928Z  INFO [763043e09f4a94b7] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=224 requestId=763043e09f4a94b7
+2026-10-16T04:06:34.944Z DEBUG [c2a1bcf9dd4b29c9] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:34.947Z  INFO [c2a1bcf9dd4b29c9] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=237 requestId=c2a1bcf9dd4b29c9
+2026-10-16T04:06:35.064Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/ws", parameters={}
+2026-10-16T04:06:35.273Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 101 SWITCHING_PROTOCOLS
+2026-10-16T04:06:35.421Z DEBUG [826a915bdd7ad673] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:06:35.426Z DEBUG [9e8f063dc9302ff1] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/banking/accounts", parameters={}
+2026-10-16T04:06:35.427Z DEBUG [a03d3684df825a48] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:06:35.458Z DEBUG [9e8f063dc9302ff1] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:35.458Z  INFO [9e8f063dc9302ff1] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/banking/accounts status=200 ms=48 requestId=9e8f063dc9302ff1
+2026-10-16T04:06:35.469Z DEBUG [a03d3684df825a48] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:35.470Z  INFO [a03d3684df825a48] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=61 requestId=a03d3684df825a48
+2026-10-16T04:06:35.503Z DEBUG [826a915bdd7ad673] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:35.504Z  INFO [826a915bdd7ad673] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=99 requestId=826a915bdd7ad673
+2026-10-16T04:06:35.743Z DEBUG [0d09eb3192dab8c1] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:06:35.796Z DEBUG [0d09eb3192dab8c1] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:35.796Z  INFO [0d09eb3192dab8c1] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=67 requestId=0d09eb3192dab8c1
+2026-10-16T04:06:36.010Z DEBUG [3f5e7524288db621] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:06:36.034Z DEBUG [3f5e7524288db621] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:36.034Z  INFO [3f5e7524288db621] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=34 requestId=3f5e7524288db621
+2026-10-16T04:06:36.087Z DEBUG [1deb47e8eaca71ee] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/contacts", parameters={}
+2026-10-16T04:06:36.100Z DEBUG [1deb47e8eaca71ee] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:36.102Z  INFO [1deb47e8eaca71ee] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/contacts status=200 ms=20 requestId=1deb47e8eaca71ee
+2026-10-16T04:06:36.340Z DEBUG [27d53a26fdc5c1f5] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:06:36.341Z DEBUG [4f42947c25176fca] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:06:36.350Z DEBUG [2df2fe1cd5dee8ce] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:06:36.363Z DEBUG [de760ca8c8293d77] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:06:36.389Z DEBUG [4f42947c25176fca] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:36.390Z  INFO [4f42947c25176fca] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=60 requestId=4f42947c25176fca
+2026-10-16T04:06:36.395Z DEBUG [de760ca8c8293d77] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:36.396Z  INFO [de760ca8c8293d77] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=56 requestId=de760ca8c8293d77
+2026-10-16T04:06:36.404Z DEBUG [2df2fe1cd5dee8ce] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:36.408Z DEBUG [27d53a26fdc5c1f5] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:36.409Z  INFO [27d53a26fdc5c1f5] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=90 requestId=27d53a26fdc5c1f5
+2026-10-16T04:06:36.415Z  INFO [2df2fe1cd5dee8ce] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=95 requestId=2df2fe1cd5dee8ce
+2026-10-16T04:06:36.931Z DEBUG [f125f8ad8fc096ea] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/demo/sample-months", parameters={}
+2026-10-16T04:06:39.217Z DEBUG [9d6e070380262f6c] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:06:39.410Z DEBUG [9d6e070380262f6c] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:39.411Z  INFO [9d6e070380262f6c] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=205 requestId=9d6e070380262f6c
+2026-10-16T04:06:42.101Z DEBUG [f125f8ad8fc096ea] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:06:42.102Z  WARN [f125f8ad8fc096ea] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=slow_request method=POST path=/api/demo/sample-months status=201 ms=5195 requestId=f125f8ad8fc096ea
+2026-10-16T04:06:42.208Z DEBUG [a5b3e01225616633] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:06:42.208Z DEBUG [b6b04b271f258e00] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:06:42.211Z DEBUG [c7a4ad62401f97a1] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:06:42.212Z DEBUG [b6b04b271f258e00] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:42.212Z  INFO [b6b04b271f258e00] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=11 requestId=b6b04b271f258e00
+2026-10-16T04:06:42.223Z DEBUG [6252b53cfb3a381b] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:06:42.235Z DEBUG [a5b3e01225616633] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:42.237Z  INFO [a5b3e01225616633] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=38 requestId=a5b3e01225616633
+2026-10-16T04:06:42.243Z DEBUG [6252b53cfb3a381b] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:42.243Z  INFO [6252b53cfb3a381b] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=44 requestId=6252b53cfb3a381b
+2026-10-16T04:06:42.250Z DEBUG [c7a4ad62401f97a1] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:42.251Z  INFO [c7a4ad62401f97a1] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=55 requestId=c7a4ad62401f97a1
+2026-10-16T04:06:43.823Z DEBUG [1b97094d55bc8d13] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:06:43.902Z DEBUG [1b97094d55bc8d13] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:43.903Z  INFO [1b97094d55bc8d13] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=167 requestId=1b97094d55bc8d13
+2026-10-16T04:06:45.807Z DEBUG [f48008ee703196c9] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/imports", parameters={}
+2026-10-16T04:06:45.825Z DEBUG [f48008ee703196c9] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:45.826Z  INFO [f48008ee703196c9] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/imports status=200 ms=24 requestId=f48008ee703196c9
+2026-10-16T04:06:48.323Z DEBUG [2bca8c48827e7403] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/imports/sample", parameters={}
+2026-10-16T04:06:48.340Z DEBUG [2bca8c48827e7403] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.342Z  INFO [2bca8c48827e7403] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/imports/sample status=200 ms=50 requestId=2bca8c48827e7403
+2026-10-16T04:06:48.347Z DEBUG [3e849f29d1f71e05] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/imports", parameters={}
+2026-10-16T04:06:48.439Z DEBUG [3e849f29d1f71e05] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:06:48.451Z  INFO [3e849f29d1f71e05] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=POST path=/api/imports status=201 ms=107 requestId=3e849f29d1f71e05
+2026-10-16T04:06:48.491Z DEBUG [eed176c8b394e36e] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/contracts", parameters={}
+2026-10-16T04:06:48.495Z DEBUG [7ac07bb77406d514] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-16T04:06:48.499Z DEBUG [f4d9288e5d7536fc] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:06:48.506Z DEBUG [fc0b3de5412dc2fa] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:06:48.514Z DEBUG [f7ac75426b4fb32a] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/budgets", parameters={}
+2026-10-16T04:06:48.516Z DEBUG [a4836e950d730fd7] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:06:48.543Z DEBUG [fc0b3de5412dc2fa] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.518Z DEBUG [0cbc19194618803f] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/forecast?days=90", parameters={masked}
+2026-10-16T04:06:48.545Z  INFO [fc0b3de5412dc2fa] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=59 requestId=fc0b3de5412dc2fa
+2026-10-16T04:06:48.554Z DEBUG [eed176c8b394e36e] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.554Z  INFO [eed176c8b394e36e] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/contracts status=200 ms=65 requestId=eed176c8b394e36e
+2026-10-16T04:06:48.557Z DEBUG [a4836e950d730fd7] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.558Z  INFO [a4836e950d730fd7] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=74 requestId=a4836e950d730fd7
+2026-10-16T04:06:48.649Z DEBUG [7b8b28ebd3042431] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:06:48.661Z DEBUG [ad4bd33ed3b9ca40] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:06:48.677Z DEBUG [7b8b28ebd3042431] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.706Z  INFO [7b8b28ebd3042431] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=61 requestId=7b8b28ebd3042431
+2026-10-16T04:06:48.716Z DEBUG [ad4bd33ed3b9ca40] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.716Z  INFO [ad4bd33ed3b9ca40] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=76 requestId=ad4bd33ed3b9ca40
+2026-10-16T04:06:48.717Z DEBUG [28b7af53be8ec3d5] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:06:48.717Z DEBUG [3b50aba952ff3eba] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:06:48.720Z DEBUG [c51331cb8e84716d] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:06:48.727Z DEBUG [c51331cb8e84716d] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.728Z  INFO [c51331cb8e84716d] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=14 requestId=c51331cb8e84716d
+2026-10-16T04:06:48.728Z DEBUG [763b392ce1e53529] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:06:48.737Z DEBUG [523142d46a56b9be] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:06:48.740Z DEBUG [39c1ac54c7dda470] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:06:48.741Z DEBUG [0c78e71863fd9813] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:06:48.744Z DEBUG [910ed7d1917d90d1] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:06:48.747Z DEBUG [20b3a8bad816b56c] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:06:48.748Z DEBUG [3b50aba952ff3eba] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.749Z DEBUG [28b7af53be8ec3d5] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.750Z  INFO [28b7af53be8ec3d5] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=66 requestId=28b7af53be8ec3d5
+2026-10-16T04:06:48.752Z DEBUG [9810d44e58846c65] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:06:48.757Z  INFO [3b50aba952ff3eba] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=90 requestId=3b50aba952ff3eba
+2026-10-16T04:06:48.758Z DEBUG [20b3a8bad816b56c] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.764Z DEBUG [763b392ce1e53529] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.764Z  INFO [763b392ce1e53529] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=88 requestId=763b392ce1e53529
+2026-10-16T04:06:48.769Z DEBUG [2fffe31f3705e6ca] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:06:48.776Z DEBUG [39c1ac54c7dda470] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.777Z  INFO [39c1ac54c7dda470] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=40 requestId=39c1ac54c7dda470
+2026-10-16T04:06:48.787Z DEBUG [523142d46a56b9be] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.792Z  INFO [523142d46a56b9be] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=58 requestId=523142d46a56b9be
+2026-10-16T04:06:48.841Z DEBUG [0c78e71863fd9813] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.841Z  INFO [0c78e71863fd9813] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=110 requestId=0c78e71863fd9813
+2026-10-16T04:06:48.844Z  INFO [20b3a8bad816b56c] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=37 requestId=20b3a8bad816b56c
+2026-10-16T04:06:48.847Z DEBUG [910ed7d1917d90d1] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.848Z  INFO [910ed7d1917d90d1] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=107 requestId=910ed7d1917d90d1
+2026-10-16T04:06:48.860Z DEBUG [2fffe31f3705e6ca] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.861Z  INFO [2fffe31f3705e6ca] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=137 requestId=2fffe31f3705e6ca
+2026-10-16T04:06:48.870Z DEBUG [7ac07bb77406d514] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.872Z  INFO [7ac07bb77406d514] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/notifications status=200 ms=396 requestId=7ac07bb77406d514
+2026-10-16T04:06:48.880Z DEBUG [0cbc19194618803f] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.881Z  INFO [0cbc19194618803f] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/forecast status=200 ms=388 requestId=0cbc19194618803f
+2026-10-16T04:06:48.887Z DEBUG [375d84601fa92fe1] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/imports", parameters={}
+2026-10-16T04:06:48.895Z DEBUG [9810d44e58846c65] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.895Z  INFO [9810d44e58846c65] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=170 requestId=9810d44e58846c65
+2026-10-16T04:06:48.898Z DEBUG [375d84601fa92fe1] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.899Z DEBUG [f4d9288e5d7536fc] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.899Z  INFO [375d84601fa92fe1] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/imports status=200 ms=164 requestId=375d84601fa92fe1
+2026-10-16T04:06:48.899Z  INFO [f4d9288e5d7536fc] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/dashboard status=200 ms=414 requestId=f4d9288e5d7536fc
+2026-10-16T04:06:48.905Z DEBUG [f7ac75426b4fb32a] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:48.906Z  INFO [f7ac75426b4fb32a] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/budgets status=200 ms=421 requestId=f7ac75426b4fb32a
+2026-10-16T04:06:49.653Z DEBUG [e781f62d6d8d5439] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:06:49.664Z DEBUG [e781f62d6d8d5439] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:49.664Z  INFO [e781f62d6d8d5439] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=15 requestId=e781f62d6d8d5439
+2026-10-16T04:06:53.177Z DEBUG [35a85fd4759cf4b4] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : POST "/api/loans/offers", parameters={}
+2026-10-16T04:06:53.316Z DEBUG [35a85fd4759cf4b4] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:53.317Z  INFO [35a85fd4759cf4b4] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=POST path=/api/loans/offers status=200 ms=159 requestId=35a85fd4759cf4b4
+2026-10-16T04:06:56.102Z DEBUG [52ee7e653cc9c818] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : POST "/api/loans/schedule", parameters={}
+2026-10-16T04:06:56.141Z DEBUG [52ee7e653cc9c818] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:56.141Z  INFO [52ee7e653cc9c818] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=POST path=/api/loans/schedule status=200 ms=67 requestId=52ee7e653cc9c818
+2026-10-16T04:06:59.855Z DEBUG [40f642765dd4f1d2] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:06:59.877Z DEBUG [40f642765dd4f1d2] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:06:59.877Z  INFO [40f642765dd4f1d2] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=30 requestId=40f642765dd4f1d2
+2026-10-16T04:07:01.577Z DEBUG [e8e60d7b98308690] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/loans/applications", parameters={}
+2026-10-16T04:07:01.997Z DEBUG [59f69fa94b7ef56a] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-16T04:07:02.001Z DEBUG [e44b0db40c5cfdca] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/budgets", parameters={}
+2026-10-16T04:07:02.007Z DEBUG [acbb55d9dc906e15] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:07:02.008Z DEBUG [bf6feccbde4f9beb] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:07:02.008Z DEBUG [312200a72ca4b946] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/contracts", parameters={}
+2026-10-16T04:07:02.020Z DEBUG [64efbd99d8fc88f8] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/forecast?days=90", parameters={masked}
+2026-10-16T04:07:02.026Z DEBUG [59f69fa94b7ef56a] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.028Z DEBUG [e7af084518c456de] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:07:02.035Z DEBUG [312200a72ca4b946] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.035Z  INFO [312200a72ca4b946] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/contracts status=200 ms=229 requestId=312200a72ca4b946
+2026-10-16T04:07:02.036Z DEBUG [6cd6d782ae92a064] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:07:02.040Z  INFO [59f69fa94b7ef56a] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/notifications status=200 ms=238 requestId=59f69fa94b7ef56a
+2026-10-16T04:07:02.046Z DEBUG [e7af084518c456de] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.047Z  INFO [e7af084518c456de] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=42 requestId=e7af084518c456de
+2026-10-16T04:07:02.041Z DEBUG [6cd6d782ae92a064] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.056Z  INFO [6cd6d782ae92a064] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=44 requestId=6cd6d782ae92a064
+2026-10-16T04:07:02.064Z DEBUG [804fee00b3611a7a] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:02.066Z DEBUG [c8017fddcb6a54c8] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:07:02.073Z DEBUG [af67b5ca943d7d01] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:07:02.073Z DEBUG [c7b19af3f3807699] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:07:02.073Z DEBUG [241d62e44d441dd2] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:02.073Z DEBUG [0f2102ae7c75c35f] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:07:02.075Z DEBUG [8901f9181f977a16] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:07:02.077Z DEBUG [af67b5ca943d7d01] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.077Z  INFO [af67b5ca943d7d01] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=60 requestId=af67b5ca943d7d01
+2026-10-16T04:07:02.081Z DEBUG [bf6feccbde4f9beb] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.081Z  INFO [bf6feccbde4f9beb] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=111 requestId=bf6feccbde4f9beb
+2026-10-16T04:07:02.082Z DEBUG [8901f9181f977a16] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.082Z  INFO [8901f9181f977a16] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=29 requestId=8901f9181f977a16
+2026-10-16T04:07:02.083Z DEBUG [804fee00b3611a7a] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.084Z DEBUG [c8017fddcb6a54c8] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.084Z  INFO [c8017fddcb6a54c8] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=30 requestId=c8017fddcb6a54c8
+2026-10-16T04:07:02.084Z  INFO [804fee00b3611a7a] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=53 requestId=804fee00b3611a7a
+2026-10-16T04:07:02.086Z DEBUG [c7b19af3f3807699] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.087Z  INFO [c7b19af3f3807699] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=69 requestId=c7b19af3f3807699
+2026-10-16T04:07:02.086Z DEBUG [fd514d1540249e7d] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:07:02.096Z DEBUG [241d62e44d441dd2] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.096Z DEBUG [e44b0db40c5cfdca] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.097Z  INFO [e44b0db40c5cfdca] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/budgets status=200 ms=130 requestId=e44b0db40c5cfdca
+2026-10-16T04:07:02.097Z DEBUG [ff3aed2327cc7917] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:07:02.102Z DEBUG [ff3aed2327cc7917] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.102Z  INFO [ff3aed2327cc7917] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=65 requestId=ff3aed2327cc7917
+2026-10-16T04:07:02.137Z DEBUG [acbb55d9dc906e15] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.138Z  INFO [acbb55d9dc906e15] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/dashboard status=200 ms=162 requestId=acbb55d9dc906e15
+2026-10-16T04:07:02.096Z  INFO [241d62e44d441dd2] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=53 requestId=241d62e44d441dd2
+2026-10-16T04:07:02.224Z DEBUG [fd514d1540249e7d] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.225Z  INFO [fd514d1540249e7d] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=177 requestId=fd514d1540249e7d
+2026-10-16T04:07:02.229Z DEBUG [e8e60d7b98308690] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:07:02.231Z  INFO [e8e60d7b98308690] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=POST path=/api/loans/applications status=201 ms=658 requestId=e8e60d7b98308690
+2026-10-16T04:07:02.234Z DEBUG [0f2102ae7c75c35f] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.236Z  INFO [0f2102ae7c75c35f] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=188 requestId=0f2102ae7c75c35f
+2026-10-16T04:07:02.239Z DEBUG [634ddf5c70fdfe40] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:07:02.243Z DEBUG [64efbd99d8fc88f8] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.245Z  INFO [64efbd99d8fc88f8] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/forecast status=200 ms=246 requestId=64efbd99d8fc88f8
+2026-10-16T04:07:02.255Z DEBUG [634ddf5c70fdfe40] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.256Z  INFO [634ddf5c70fdfe40] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=213 requestId=634ddf5c70fdfe40
+2026-10-16T04:07:02.410Z DEBUG [bc66db6faa655ec4] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications/1", parameters={}
+2026-10-16T04:07:02.411Z DEBUG [278ef2d1b8709119] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:07:02.414Z DEBUG [278ef2d1b8709119] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.414Z  INFO [278ef2d1b8709119] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=12 requestId=278ef2d1b8709119
+2026-10-16T04:07:02.417Z DEBUG [bc66db6faa655ec4] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:02.417Z  INFO [bc66db6faa655ec4] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/loans/applications/{id} status=200 ms=15 requestId=bc66db6faa655ec4
+2026-10-16T04:07:07.351Z DEBUG [d303500827a5fe82] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : POST "/api/loans/applications/1/accept", parameters={}
+2026-10-16T04:07:07.431Z DEBUG [37aec14d918f0a28] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/budgets", parameters={}
+2026-10-16T04:07:07.439Z DEBUG [917ba6144543c169] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:07:07.445Z DEBUG [981d481a2769e090] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:07:07.449Z DEBUG [699dd3253263963a] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/contracts", parameters={}
+2026-10-16T04:07:07.450Z DEBUG [60b985a0640cd7f8] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-16T04:07:07.456Z DEBUG [917ba6144543c169] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.457Z  INFO [917ba6144543c169] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=32 requestId=917ba6144543c169
+2026-10-16T04:07:07.468Z DEBUG [c56da69a3fbc4a6f] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:07:07.469Z DEBUG [699dd3253263963a] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.469Z  INFO [699dd3253263963a] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/contracts status=200 ms=31 requestId=699dd3253263963a
+2026-10-16T04:07:07.472Z DEBUG [981d481a2769e090] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.472Z  INFO [981d481a2769e090] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=37 requestId=981d481a2769e090
+2026-10-16T04:07:07.475Z DEBUG [674d43afc741e9b8] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:07:07.475Z DEBUG [3e5b908a1c6a85f2] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/forecast?days=90", parameters={masked}
+2026-10-16T04:07:07.487Z DEBUG [60b985a0640cd7f8] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.487Z  INFO [60b985a0640cd7f8] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/notifications status=200 ms=59 requestId=60b985a0640cd7f8
+2026-10-16T04:07:07.548Z DEBUG [674d43afc741e9b8] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.548Z  INFO [674d43afc741e9b8] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/dashboard status=200 ms=118 requestId=674d43afc741e9b8
+2026-10-16T04:07:07.549Z DEBUG [37aec14d918f0a28] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.549Z DEBUG [c56da69a3fbc4a6f] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.549Z  INFO [37aec14d918f0a28] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/budgets status=200 ms=127 requestId=37aec14d918f0a28
+2026-10-16T04:07:07.549Z  INFO [c56da69a3fbc4a6f] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=101 requestId=c56da69a3fbc4a6f
+2026-10-16T04:07:07.550Z DEBUG [3e5b908a1c6a85f2] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.550Z  INFO [3e5b908a1c6a85f2] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/forecast status=200 ms=110 requestId=3e5b908a1c6a85f2
+2026-10-16T04:07:07.599Z DEBUG [d303500827a5fe82] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:07:07.599Z  INFO [d303500827a5fe82] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=POST path=/api/loans/applications/{id}/accept status=201 ms=291 requestId=d303500827a5fe82
+2026-10-16T04:07:07.607Z DEBUG [2ac6924454bb1142] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:07:07.610Z DEBUG [0d40fe927584e7a0] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:07.612Z DEBUG [69dd55b0a72cf411] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:07.620Z DEBUG [70e33b32ecf370e9] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:07:07.621Z DEBUG [f724dc50d20d9a91] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:07:07.633Z DEBUG [70e33b32ecf370e9] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.634Z  INFO [70e33b32ecf370e9] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=22 requestId=70e33b32ecf370e9
+2026-10-16T04:07:07.635Z DEBUG [7d55f4e624ef7058] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:07:07.639Z DEBUG [f724dc50d20d9a91] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.639Z DEBUG [2ac6924454bb1142] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.640Z  INFO [2ac6924454bb1142] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=43 requestId=2ac6924454bb1142
+2026-10-16T04:07:07.641Z  INFO [f724dc50d20d9a91] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=40 requestId=f724dc50d20d9a91
+2026-10-16T04:07:07.647Z DEBUG [69dd55b0a72cf411] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.647Z  INFO [69dd55b0a72cf411] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=40 requestId=69dd55b0a72cf411
+2026-10-16T04:07:07.648Z DEBUG [04c5b2a1de002bbd] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:07:07.651Z DEBUG [7d55f4e624ef7058] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.651Z  INFO [7d55f4e624ef7058] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=19 requestId=7d55f4e624ef7058
+2026-10-16T04:07:07.653Z DEBUG [dd78904fb1f31f1d] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:07:07.655Z DEBUG [b077a428d804b33b] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:07:07.658Z DEBUG [04c5b2a1de002bbd] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.659Z  INFO [04c5b2a1de002bbd] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=37 requestId=04c5b2a1de002bbd
+2026-10-16T04:07:07.659Z DEBUG [b077a428d804b33b] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.660Z  INFO [b077a428d804b33b] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=25 requestId=b077a428d804b33b
+2026-10-16T04:07:07.661Z DEBUG [661b45f7b090b374] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:07:07.664Z DEBUG [0d40fe927584e7a0] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.665Z  INFO [0d40fe927584e7a0] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=70 requestId=0d40fe927584e7a0
+2026-10-16T04:07:07.673Z DEBUG [661b45f7b090b374] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.673Z  INFO [661b45f7b090b374] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=59 requestId=661b45f7b090b374
+2026-10-16T04:07:07.677Z DEBUG [dd78904fb1f31f1d] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.677Z  INFO [dd78904fb1f31f1d] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=34 requestId=dd78904fb1f31f1d
+2026-10-16T04:07:07.854Z DEBUG [6a9dad2e126ebbe9] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:07:07.860Z DEBUG [99a3406326482a53] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:07:07.860Z DEBUG [6a9dad2e126ebbe9] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.878Z  INFO [6a9dad2e126ebbe9] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=46 requestId=6a9dad2e126ebbe9
+2026-10-16T04:07:07.880Z DEBUG [a82e9f12cff3afad] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/1", parameters={}
+2026-10-16T04:07:07.884Z DEBUG [16e31b5d0682bc69] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:07.893Z DEBUG [99a3406326482a53] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.893Z  INFO [99a3406326482a53] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=64 requestId=99a3406326482a53
+2026-10-16T04:07:07.896Z DEBUG [16e31b5d0682bc69] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.897Z  INFO [16e31b5d0682bc69] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=33 requestId=16e31b5d0682bc69
+2026-10-16T04:07:07.902Z DEBUG [a82e9f12cff3afad] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:07.902Z  INFO [a82e9f12cff3afad] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/loans/{id} status=200 ms=32 requestId=a82e9f12cff3afad
+2026-10-16T04:07:10.018Z DEBUG [aed43a9fc998054b] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:10.024Z DEBUG [aed43a9fc998054b] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:10.024Z  INFO [aed43a9fc998054b] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=30 requestId=aed43a9fc998054b
+2026-10-16T04:07:11.215Z DEBUG [ed67c5c84232f3d7] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/loans/1/payout", parameters={}
+2026-10-16T04:07:11.842Z DEBUG [ed67c5c84232f3d7] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:11.875Z DEBUG [80c4ade4a6a22084] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-16T04:07:11.875Z DEBUG [2c1467170af3a065] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:07:11.884Z DEBUG [df0b76b995428e5a] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:07:11.887Z DEBUG [34e9e03a345d788f] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:07:11.903Z DEBUG [80c4ade4a6a22084] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:11.904Z  INFO [80c4ade4a6a22084] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/notifications status=200 ms=37 requestId=80c4ade4a6a22084
+2026-10-16T04:07:11.906Z DEBUG [df0b76b995428e5a] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:11.906Z DEBUG [34e9e03a345d788f] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:11.906Z  INFO [34e9e03a345d788f] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=31 requestId=34e9e03a345d788f
+2026-10-16T04:07:11.907Z  INFO [df0b76b995428e5a] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=29 requestId=df0b76b995428e5a
+2026-10-16T04:07:11.914Z DEBUG [180944eee61a59e7] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:07:11.921Z DEBUG [10e0a1469974ef35] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/forecast?days=90", parameters={masked}
+2026-10-16T04:07:11.923Z DEBUG [368f0a854dd80c56] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/contracts", parameters={}
+2026-10-16T04:07:11.928Z DEBUG [180944eee61a59e7] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:11.929Z  INFO [180944eee61a59e7] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=38 requestId=180944eee61a59e7
+2026-10-16T04:07:11.931Z DEBUG [368f0a854dd80c56] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:11.931Z  INFO [368f0a854dd80c56] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/contracts status=200 ms=48 requestId=368f0a854dd80c56
+2026-10-16T04:07:11.941Z DEBUG [ba15d69602737dd0] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/budgets", parameters={}
+2026-10-16T04:07:11.999Z DEBUG [10e0a1469974ef35] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:11.999Z DEBUG [ba15d69602737dd0] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:11.999Z  INFO [10e0a1469974ef35] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/forecast status=200 ms=118 requestId=10e0a1469974ef35
+2026-10-16T04:07:12.001Z  INFO [ba15d69602737dd0] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/budgets status=200 ms=121 requestId=ba15d69602737dd0
+2026-10-16T04:07:12.133Z DEBUG [30a0a3eea5cbe558] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:12.555Z  WARN [ed67c5c84232f3d7] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=slow_request method=POST path=/api/loans/{id}/payout status=200 ms=1402 requestId=ed67c5c84232f3d7
+2026-10-16T04:07:12.143Z DEBUG [7a8d8498523e4821] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:07:12.606Z DEBUG [ed1319caf6432746] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:12.607Z DEBUG [059a6a3654279c14] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:07:12.610Z DEBUG [d8893ba982e50592] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:07:12.606Z DEBUG [28f21685aa61b0ef] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:07:12.616Z DEBUG [d8893ba982e50592] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.657Z DEBUG [7fe4bddae21b77f7] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:07:12.664Z DEBUG [059a6a3654279c14] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.665Z  INFO [059a6a3654279c14] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=520 requestId=059a6a3654279c14
+2026-10-16T04:07:12.669Z DEBUG [30a0a3eea5cbe558] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.670Z  INFO [30a0a3eea5cbe558] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=548 requestId=30a0a3eea5cbe558
+2026-10-16T04:07:12.673Z DEBUG [ed1319caf6432746] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.674Z  INFO [ed1319caf6432746] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=531 requestId=ed1319caf6432746
+2026-10-16T04:07:12.673Z DEBUG [7a8d8498523e4821] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.675Z  INFO [7a8d8498523e4821] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=548 requestId=7a8d8498523e4821
+2026-10-16T04:07:12.678Z DEBUG [7fe4bddae21b77f7] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.679Z  INFO [7fe4bddae21b77f7] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=533 requestId=7fe4bddae21b77f7
+2026-10-16T04:07:12.665Z DEBUG [7292068b67dfc770] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:07:12.707Z DEBUG [7342c3df165d6d9d] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:07:12.711Z  INFO [d8893ba982e50592] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=113 requestId=d8893ba982e50592
+2026-10-16T04:07:12.712Z DEBUG [6d1eafd5cb61c872] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:07:12.721Z DEBUG [7342c3df165d6d9d] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.724Z DEBUG [2c1467170af3a065] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.725Z  INFO [2c1467170af3a065] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/dashboard status=200 ms=856 requestId=2c1467170af3a065
+2026-10-16T04:07:12.736Z DEBUG [7292068b67dfc770] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.737Z  INFO [7342c3df165d6d9d] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=184 requestId=7342c3df165d6d9d
+2026-10-16T04:07:12.741Z DEBUG [28f21685aa61b0ef] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.847Z DEBUG [bf8086ea9f7a60f6] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:12.855Z DEBUG [1ccfe61f06efa019] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:07:12.866Z DEBUG [6015608228b7ddb3] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:07:12.875Z DEBUG [0d31a72807a999ac] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:12.882Z DEBUG [1ccfe61f06efa019] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.887Z DEBUG [0d31a72807a999ac] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.888Z  INFO [0d31a72807a999ac] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=50 requestId=0d31a72807a999ac
+2026-10-16T04:07:12.895Z DEBUG [bf8086ea9f7a60f6] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.897Z  INFO [bf8086ea9f7a60f6] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=96 requestId=bf8086ea9f7a60f6
+2026-10-16T04:07:12.901Z DEBUG [267058633cde4f6e] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/1", parameters={}
+2026-10-16T04:07:12.901Z DEBUG [82e93689012e1745] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:07:12.914Z DEBUG [6015608228b7ddb3] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.916Z  INFO [6015608228b7ddb3] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=73 requestId=6015608228b7ddb3
+2026-10-16T04:07:12.925Z DEBUG [82e93689012e1745] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.926Z  INFO [82e93689012e1745] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=33 requestId=82e93689012e1745
+2026-10-16T04:07:12.929Z DEBUG [267058633cde4f6e] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.931Z  INFO [267058633cde4f6e] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/loans/{id} status=200 ms=77 requestId=267058633cde4f6e
+2026-10-16T04:07:12.945Z  INFO [7292068b67dfc770] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=351 requestId=7292068b67dfc770
+2026-10-16T04:07:12.948Z  INFO [28f21685aa61b0ef] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=813 requestId=28f21685aa61b0ef
+2026-10-16T04:07:12.958Z  INFO [1ccfe61f06efa019] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=159 requestId=1ccfe61f06efa019
+2026-10-16T04:07:12.967Z DEBUG [6d1eafd5cb61c872] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:12.968Z  INFO [6d1eafd5cb61c872] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=387 requestId=6d1eafd5cb61c872
+2026-10-16T04:07:18.862Z DEBUG [716a8654ab66ca97] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:07:18.933Z DEBUG [0da97d69d33fe92d] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:18.951Z DEBUG [716a8654ab66ca97] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:18.952Z  INFO [716a8654ab66ca97] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=734 requestId=716a8654ab66ca97
+2026-10-16T04:07:19.074Z DEBUG [0da97d69d33fe92d] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:19.100Z  INFO [0da97d69d33fe92d] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=879 requestId=0da97d69d33fe92d
+2026-10-16T04:07:20.129Z DEBUG [512b3d97f5a84990] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/loans/1/extra-payment/preview", parameters={}
+2026-10-16T04:07:20.870Z DEBUG [c253ba79c5498ce5] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:20.988Z DEBUG [c253ba79c5498ce5] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:20.990Z  INFO [c253ba79c5498ce5] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=170 requestId=c253ba79c5498ce5
+2026-10-16T04:07:21.416Z DEBUG [512b3d97f5a84990] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:21.427Z  WARN [512b3d97f5a84990] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=slow_request method=POST path=/api/loans/{id}/extra-payment/preview status=200 ms=1346 requestId=512b3d97f5a84990
+2026-10-16T04:07:23.345Z DEBUG [8435d220799cc230] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/api/loans/1/extra-payment", parameters={}
+2026-10-16T04:07:23.903Z DEBUG [8435d220799cc230] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:23.911Z  INFO [8435d220799cc230] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=POST path=/api/loans/{id}/extra-payment status=200 ms=626 requestId=8435d220799cc230
+2026-10-16T04:07:23.929Z DEBUG [39dd8417c0ce49b1] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-16T04:07:23.966Z DEBUG [650bb88897fb6ed6] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/contracts", parameters={}
+2026-10-16T04:07:23.983Z DEBUG [ffeecf36a0ab00f2] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:07:23.987Z DEBUG [183965e016ee116f] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/budgets", parameters={}
+2026-10-16T04:07:23.998Z DEBUG [650bb88897fb6ed6] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:23.999Z  INFO [650bb88897fb6ed6] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/contracts status=200 ms=48 requestId=650bb88897fb6ed6
+2026-10-16T04:07:24.030Z DEBUG [ab6224bdd83a10da] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/forecast?days=90", parameters={masked}
+2026-10-16T04:07:24.066Z DEBUG [5859ad76f7a9f343] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:07:24.139Z DEBUG [08b616b0462df3de] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:07:24.081Z DEBUG [39dd8417c0ce49b1] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.178Z  INFO [39dd8417c0ce49b1] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/notifications status=200 ms=258 requestId=39dd8417c0ce49b1
+2026-10-16T04:07:24.179Z DEBUG [5859ad76f7a9f343] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.193Z  INFO [5859ad76f7a9f343] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=266 requestId=5859ad76f7a9f343
+2026-10-16T04:07:24.210Z DEBUG [3ffc38ab87d4e123] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:07:24.220Z DEBUG [cd17a979276b463c] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:07:24.247Z DEBUG [c67a3692fe11604a] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:24.183Z DEBUG [35b97f72a2d78bf2] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:07:24.212Z DEBUG [d1bc7504dfeb2f46] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:07:24.213Z DEBUG [e1faebb96b6c0e29] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:07:24.295Z DEBUG [27ddda5aaf2e4a55] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:07:24.313Z DEBUG [c4068e55b9819002] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:07:24.322Z DEBUG [cd17a979276b463c] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.409Z DEBUG [c67a3692fe11604a] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.581Z  INFO [c67a3692fe11604a] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=367 requestId=c67a3692fe11604a
+2026-10-16T04:07:24.449Z DEBUG [35b97f72a2d78bf2] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.590Z  INFO [35b97f72a2d78bf2] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=521 requestId=35b97f72a2d78bf2
+2026-10-16T04:07:24.616Z DEBUG [d1bc7504dfeb2f46] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.412Z DEBUG [c0bccc3afbc392d3] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:07:24.617Z  INFO [d1bc7504dfeb2f46] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=417 requestId=d1bc7504dfeb2f46
+2026-10-16T04:07:24.413Z DEBUG [e1faebb96b6c0e29] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.624Z  INFO [e1faebb96b6c0e29] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=418 requestId=e1faebb96b6c0e29
+2026-10-16T04:07:24.627Z DEBUG [c0bccc3afbc392d3] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.628Z  INFO [c0bccc3afbc392d3] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=396 requestId=c0bccc3afbc392d3
+2026-10-16T04:07:24.413Z DEBUG [3ffc38ab87d4e123] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.629Z  INFO [3ffc38ab87d4e123] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=442 requestId=3ffc38ab87d4e123
+2026-10-16T04:07:24.464Z DEBUG [a2e61f3a90e0c956] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:07:24.630Z DEBUG [ab6224bdd83a10da] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.631Z  INFO [ab6224bdd83a10da] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/forecast status=200 ms=696 requestId=ab6224bdd83a10da
+2026-10-16T04:07:24.466Z DEBUG [f4a52065f41e11b1] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/1", parameters={}
+2026-10-16T04:07:24.466Z DEBUG [3e90eddc428ecba5] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:24.469Z DEBUG [27ddda5aaf2e4a55] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.662Z  INFO [27ddda5aaf2e4a55] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=419 requestId=27ddda5aaf2e4a55
+2026-10-16T04:07:24.667Z DEBUG [c4068e55b9819002] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.668Z  INFO [c4068e55b9819002] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=458 requestId=c4068e55b9819002
+2026-10-16T04:07:24.477Z DEBUG [ffeecf36a0ab00f2] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.703Z  INFO [ffeecf36a0ab00f2] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=745 requestId=ffeecf36a0ab00f2
+2026-10-16T04:07:24.705Z DEBUG [3e90eddc428ecba5] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.705Z  INFO [3e90eddc428ecba5] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=518 requestId=3e90eddc428ecba5
+2026-10-16T04:07:24.714Z DEBUG [a2e61f3a90e0c956] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.715Z  INFO [a2e61f3a90e0c956] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=478 requestId=a2e61f3a90e0c956
+2026-10-16T04:07:24.482Z DEBUG [183965e016ee116f] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.722Z  INFO [183965e016ee116f] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/budgets status=200 ms=798 requestId=183965e016ee116f
+2026-10-16T04:07:24.566Z DEBUG [08b616b0462df3de] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:24.567Z  INFO [cd17a979276b463c] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=376 requestId=cd17a979276b463c
+2026-10-16T04:07:24.846Z  INFO [08b616b0462df3de] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/dashboard status=200 ms=869 requestId=08b616b0462df3de
+2026-10-16T04:07:25.057Z DEBUG [f4a52065f41e11b1] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:25.067Z  INFO [f4a52065f41e11b1] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/loans/{id} status=200 ms=871 requestId=f4a52065f41e11b1
+2026-10-16T04:07:31.046Z DEBUG [b7ab361bcbeb6be9] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/banking/providers", parameters={}
+2026-10-16T04:07:31.090Z DEBUG [b7ab361bcbeb6be9] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:31.097Z  INFO [b7ab361bcbeb6be9] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/banking/providers status=200 ms=333 requestId=b7ab361bcbeb6be9
+2026-10-16T04:07:31.248Z DEBUG [62050c46e8d5c060] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/banking/institutions?provider=SANDBOX&country=DE", parameters={masked}
+2026-10-16T04:07:31.443Z DEBUG [62050c46e8d5c060] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:31.446Z  INFO [62050c46e8d5c060] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/banking/institutions status=200 ms=230 requestId=62050c46e8d5c060
+2026-10-16T04:07:31.689Z DEBUG [aa46f1397d92ed0a] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:32.127Z DEBUG [aa46f1397d92ed0a] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:32.127Z  INFO [aa46f1397d92ed0a] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=442 requestId=aa46f1397d92ed0a
+2026-10-16T04:07:34.007Z DEBUG [08c70166c2024f4b] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/banking/connections", parameters={}
+2026-10-16T04:07:34.178Z DEBUG [08c70166c2024f4b] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:07:34.179Z  INFO [08c70166c2024f4b] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=POST path=/api/banking/connections status=201 ms=176 requestId=08c70166c2024f4b
+2026-10-16T04:07:34.361Z DEBUG [12aff0afe45aeeb7] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/banking/connections/1/complete", parameters={}
+2026-10-16T04:07:35.291Z DEBUG [12aff0afe45aeeb7] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:35.295Z  INFO [12aff0afe45aeeb7] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=POST path=/api/banking/connections/{id}/complete status=200 ms=991 requestId=12aff0afe45aeeb7
+2026-10-16T04:07:35.422Z DEBUG [e0309e3f2e3eb9c2] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/banking/accounts", parameters={}
+2026-10-16T04:07:35.437Z DEBUG [ac44cfb2a52b5cc7] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:07:35.440Z DEBUG [e0309e3f2e3eb9c2] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:35.441Z  INFO [e0309e3f2e3eb9c2] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/banking/accounts status=200 ms=46 requestId=e0309e3f2e3eb9c2
+2026-10-16T04:07:35.450Z DEBUG [ac44cfb2a52b5cc7] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:35.450Z  INFO [ac44cfb2a52b5cc7] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=55 requestId=ac44cfb2a52b5cc7
+2026-10-16T04:07:38.020Z DEBUG [0fbdfb56f59c51b3] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:38.197Z DEBUG [0fbdfb56f59c51b3] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:38.199Z  INFO [0fbdfb56f59c51b3] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=234 requestId=0fbdfb56f59c51b3
+2026-10-16T04:07:40.938Z DEBUG [2b6f1b613b7d2879] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/banking/transactions?page=0&size=30&accountId=2", parameters={masked}
+2026-10-16T04:07:41.109Z DEBUG [2b6f1b613b7d2879] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:41.111Z  INFO [2b6f1b613b7d2879] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/banking/transactions status=200 ms=642 requestId=2b6f1b613b7d2879
+2026-10-16T04:07:42.454Z DEBUG [c1dc9fe2ece1e36e] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:42.537Z DEBUG [c1dc9fe2ece1e36e] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:42.537Z  INFO [c1dc9fe2ece1e36e] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=109 requestId=c1dc9fe2ece1e36e
+2026-10-16T04:07:43.166Z DEBUG [4923ed8b8ddac87f] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:07:43.887Z DEBUG [4923ed8b8ddac87f] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:43.889Z  INFO [4923ed8b8ddac87f] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/dashboard status=200 ms=730 requestId=4923ed8b8ddac87f
+2026-10-16T04:07:44.533Z DEBUG [9517c42b09166536] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:07:44.538Z DEBUG [9517c42b09166536] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:44.541Z  INFO [9517c42b09166536] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=302 requestId=9517c42b09166536
+2026-10-16T04:07:47.441Z DEBUG [bce6c2be19d0070f] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:47.510Z DEBUG [bce6c2be19d0070f] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:47.525Z  INFO [bce6c2be19d0070f] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=202 requestId=bce6c2be19d0070f
+2026-10-16T04:07:48.046Z DEBUG [9ac45f0ffba9bf7b] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/products", parameters={}
+2026-10-16T04:07:48.154Z DEBUG [9ac45f0ffba9bf7b] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:48.154Z  INFO [9ac45f0ffba9bf7b] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/accounts/products status=200 ms=251 requestId=9ac45f0ffba9bf7b
+2026-10-16T04:07:49.364Z DEBUG [c7f837ba1be31f04] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : POST "/api/accounts", parameters={}
+2026-10-16T04:07:49.734Z DEBUG [c7f837ba1be31f04] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:07:49.736Z  INFO [c7f837ba1be31f04] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=POST path=/api/accounts status=201 ms=425 requestId=c7f837ba1be31f04
+2026-10-16T04:07:49.797Z DEBUG [4b1667bef0df0f88] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:07:49.815Z DEBUG [edcfdc5b277a0fa7] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/contracts", parameters={}
+2026-10-16T04:07:49.815Z DEBUG [7e37a55469319931] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-16T04:07:49.822Z DEBUG [edcfdc5b277a0fa7] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:49.822Z  INFO [edcfdc5b277a0fa7] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/contracts status=200 ms=41 requestId=edcfdc5b277a0fa7
+2026-10-16T04:07:49.824Z DEBUG [e746029950446877] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/budgets", parameters={}
+2026-10-16T04:07:49.832Z DEBUG [37704dfae5bf4f22] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:07:49.833Z DEBUG [ea295f656839a5bf] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:07:49.836Z DEBUG [602a26b8f56e26c0] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:07:49.838Z DEBUG [7e37a55469319931] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:49.839Z  INFO [7e37a55469319931] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/notifications status=200 ms=61 requestId=7e37a55469319931
+2026-10-16T04:07:49.840Z DEBUG [37704dfae5bf4f22] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:49.842Z  INFO [37704dfae5bf4f22] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=58 requestId=37704dfae5bf4f22
+2026-10-16T04:07:49.846Z DEBUG [ea295f656839a5bf] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:49.847Z DEBUG [355f0d344bc6fe48] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/forecast?days=90", parameters={masked}
+2026-10-16T04:07:49.848Z  INFO [ea295f656839a5bf] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=47 requestId=ea295f656839a5bf
+2026-10-16T04:07:49.882Z DEBUG [4b1667bef0df0f88] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:49.882Z  INFO [4b1667bef0df0f88] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=89 requestId=4b1667bef0df0f88
+2026-10-16T04:07:50.095Z DEBUG [002030f1ce59dff7] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:07:50.096Z DEBUG [e4861e169e592ee1] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:07:50.133Z DEBUG [1640357965515c12] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:07:50.147Z DEBUG [002030f1ce59dff7] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.147Z  INFO [002030f1ce59dff7] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=65 requestId=002030f1ce59dff7
+2026-10-16T04:07:50.150Z DEBUG [d417e973fa17b86b] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:07:50.152Z DEBUG [64b1a314ef1cd125] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/10/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:50.169Z DEBUG [e60929da509a9a45] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/products", parameters={}
+2026-10-16T04:07:50.170Z DEBUG [b6cc4fb9a71a0e8e] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:07:50.171Z DEBUG [95011df4ad3f46c6] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:07:50.170Z DEBUG [4ef8106f93f4e4a0] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:07:50.172Z DEBUG [5992c14f99420dd3] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:50.174Z DEBUG [b6cc4fb9a71a0e8e] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.174Z  INFO [b6cc4fb9a71a0e8e] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=19 requestId=b6cc4fb9a71a0e8e
+2026-10-16T04:07:50.176Z DEBUG [2b2636dd230e3f74] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:07:50.208Z DEBUG [e4861e169e592ee1] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.211Z DEBUG [2b2636dd230e3f74] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.211Z  INFO [2b2636dd230e3f74] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=61 requestId=2b2636dd230e3f74
+2026-10-16T04:07:50.211Z DEBUG [d417e973fa17b86b] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.212Z  INFO [d417e973fa17b86b] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=119 requestId=d417e973fa17b86b
+2026-10-16T04:07:50.213Z DEBUG [64b1a314ef1cd125] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.215Z  INFO [64b1a314ef1cd125] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=130 requestId=64b1a314ef1cd125
+2026-10-16T04:07:50.223Z DEBUG [e746029950446877] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.224Z  INFO [e746029950446877] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/budgets status=200 ms=427 requestId=e746029950446877
+2026-10-16T04:07:50.226Z DEBUG [1640357965515c12] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.228Z DEBUG [355f0d344bc6fe48] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.231Z  INFO [355f0d344bc6fe48] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/forecast status=200 ms=407 requestId=355f0d344bc6fe48
+2026-10-16T04:07:50.275Z  INFO [1640357965515c12] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=188 requestId=1640357965515c12
+2026-10-16T04:07:50.277Z DEBUG [5992c14f99420dd3] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.277Z  INFO [5992c14f99420dd3] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=137 requestId=5992c14f99420dd3
+2026-10-16T04:07:50.275Z DEBUG [e60929da509a9a45] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.283Z  INFO [e60929da509a9a45] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/accounts/products status=200 ms=130 requestId=e60929da509a9a45
+2026-10-16T04:07:50.369Z  INFO [e4861e169e592ee1] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=275 requestId=e4861e169e592ee1
+2026-10-16T04:07:50.375Z DEBUG [95011df4ad3f46c6] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.380Z DEBUG [4ef8106f93f4e4a0] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.381Z  INFO [4ef8106f93f4e4a0] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=217 requestId=4ef8106f93f4e4a0
+2026-10-16T04:07:50.385Z  INFO [95011df4ad3f46c6] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=237 requestId=95011df4ad3f46c6
+2026-10-16T04:07:50.552Z DEBUG [602a26b8f56e26c0] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:50.553Z  INFO [602a26b8f56e26c0] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/dashboard status=200 ms=736 requestId=602a26b8f56e26c0
+2026-10-16T04:07:52.726Z DEBUG [4636b65a6e2f7979] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/transactions?source=ALL&internal=true&page=0&size=30", parameters={masked}
+2026-10-16T04:07:52.728Z DEBUG [5310a6a6102d642e] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/transactions/duplicates", parameters={}
+2026-10-16T04:07:53.134Z DEBUG [f8b9144f4220c271] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:53.162Z DEBUG [f8b9144f4220c271] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:53.165Z  INFO [f8b9144f4220c271] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=36 requestId=f8b9144f4220c271
+2026-10-16T04:07:53.170Z DEBUG [4636b65a6e2f7979] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:53.203Z  INFO [4636b65a6e2f7979] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/transactions status=200 ms=490 requestId=4636b65a6e2f7979
+2026-10-16T04:07:53.244Z DEBUG [5310a6a6102d642e] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:53.245Z  INFO [5310a6a6102d642e] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/transactions/duplicates status=200 ms=534 requestId=5310a6a6102d642e
+2026-10-16T04:07:54.073Z DEBUG [07c8e5249f244893] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-16T04:07:54.414Z DEBUG [07c8e5249f244893] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:07:54.416Z  INFO [07c8e5249f244893] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=POST path=/api/auth/register status=201 ms=344 requestId=07c8e5249f244893
+2026-10-16T04:07:54.437Z DEBUG [2d486b8872cdd1bd] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-16T04:07:54.735Z DEBUG [2d486b8872cdd1bd] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:07:54.735Z  INFO [2d486b8872cdd1bd] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=POST path=/api/auth/register status=201 ms=299 requestId=2d486b8872cdd1bd
+2026-10-16T04:07:54.758Z DEBUG [53a53ad243b940ab] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/api/subaccounts", parameters={}
+2026-10-16T04:07:54.834Z DEBUG [53a53ad243b940ab] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:07:54.836Z  INFO [53a53ad243b940ab] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=POST path=/api/subaccounts status=201 ms=91 requestId=53a53ad243b940ab
+2026-10-16T04:07:54.847Z DEBUG [74d6a38bc45c77f8] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/subaccounts/15/members", parameters={}
+2026-10-16T04:07:54.883Z DEBUG [74d6a38bc45c77f8] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:54.884Z  INFO [74d6a38bc45c77f8] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=POST path=/api/subaccounts/{id}/members status=200 ms=42 requestId=74d6a38bc45c77f8
+2026-10-16T04:07:58.572Z DEBUG [fc0c211e5b506e97] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/login", parameters={}
+2026-10-16T04:07:58.915Z DEBUG [fc0c211e5b506e97] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:58.915Z  INFO [fc0c211e5b506e97] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=POST path=/api/auth/login status=200 ms=390 requestId=fc0c211e5b506e97
+2026-10-16T04:07:58.979Z DEBUG [efc6987704fa7c64] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : PUT "/api/me/language", parameters={}
+2026-10-16T04:07:58.991Z DEBUG [efc6987704fa7c64] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 204 NO_CONTENT
+2026-10-16T04:07:58.996Z  INFO [efc6987704fa7c64] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=PUT path=/api/me/language status=204 ms=28 requestId=efc6987704fa7c64
+2026-10-16T04:07:59.325Z DEBUG [52564a0b0d89be53] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:07:59.327Z DEBUG [bac464482cb781d4] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:07:59.350Z DEBUG [05c1e4612518fe2d] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:07:59.355Z DEBUG [bac464482cb781d4] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:59.356Z  INFO [bac464482cb781d4] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=43 requestId=bac464482cb781d4
+2026-10-16T04:07:59.363Z DEBUG [52564a0b0d89be53] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:59.363Z  INFO [52564a0b0d89be53] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=52 requestId=52564a0b0d89be53
+2026-10-16T04:07:59.376Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/ws", parameters={}
+2026-10-16T04:07:59.405Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 101 SWITCHING_PROTOCOLS
+2026-10-16T04:07:59.491Z DEBUG [05c1e4612518fe2d] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:59.492Z  INFO [05c1e4612518fe2d] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=172 requestId=05c1e4612518fe2d
+2026-10-16T04:07:59.836Z DEBUG [b86024cbca2cbf6e] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:07:59.836Z DEBUG [35d38c74c414605b] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/13/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:07:59.843Z DEBUG [52d2404459840d6f] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/banking/accounts", parameters={}
+2026-10-16T04:07:59.874Z DEBUG [52d2404459840d6f] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:59.877Z  INFO [52d2404459840d6f] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/banking/accounts status=200 ms=49 requestId=52d2404459840d6f
+2026-10-16T04:07:59.881Z DEBUG [35d38c74c414605b] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:59.882Z  INFO [35d38c74c414605b] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=58 requestId=35d38c74c414605b
+2026-10-16T04:07:59.889Z DEBUG [b86024cbca2cbf6e] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:07:59.893Z  INFO [b86024cbca2cbf6e] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=69 requestId=b86024cbca2cbf6e
+2026-10-16T04:08:04.241Z DEBUG [5bcb322bd459f782] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers", parameters={}
+2026-10-16T04:08:04.237Z DEBUG [b792a87b99626a60] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/13/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:08:06.980Z DEBUG [568214ecc9a54fbe] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:08:06.994Z DEBUG [b792a87b99626a60] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:07.001Z  WARN [b792a87b99626a60] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=slow_request method=GET path=/api/accounts/{id}/bookings status=200 ms=4275 requestId=b792a87b99626a60
+2026-10-16T04:08:07.154Z DEBUG [568214ecc9a54fbe] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:07.157Z  INFO [568214ecc9a54fbe] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=208 requestId=568214ecc9a54fbe
+2026-10-16T04:08:09.703Z DEBUG [5bcb322bd459f782] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:08:09.703Z  WARN [5bcb322bd459f782] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=slow_request method=POST path=/api/transfers status=201 ms=6267 requestId=5bcb322bd459f782
+2026-10-16T04:08:09.734Z DEBUG [7a211e470962bc4e] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:08:09.735Z DEBUG [453b461abaefd81c] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-16T04:08:09.767Z DEBUG [453b461abaefd81c] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:09.768Z  INFO [453b461abaefd81c] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/notifications status=200 ms=72 requestId=453b461abaefd81c
+2026-10-16T04:08:09.774Z DEBUG [dcc42678ddf52747] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:08:09.784Z DEBUG [f1df4eb966b667b0] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:08:09.797Z DEBUG [a7bdf38048221aff] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:08:09.812Z DEBUG [dcc42678ddf52747] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:09.800Z DEBUG [638abac382c946d9] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:08:09.813Z  INFO [dcc42678ddf52747] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=83 requestId=dcc42678ddf52747
+2026-10-16T04:08:09.817Z DEBUG [1d629b80d6deb0c6] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:08:09.823Z DEBUG [a7bdf38048221aff] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:09.824Z  INFO [a7bdf38048221aff] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=82 requestId=a7bdf38048221aff
+2026-10-16T04:08:09.802Z DEBUG [71f5c147cd6a33ea] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/contracts", parameters={}
+2026-10-16T04:08:09.849Z DEBUG [1d629b80d6deb0c6] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:09.850Z  INFO [1d629b80d6deb0c6] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=47 requestId=1d629b80d6deb0c6
+2026-10-16T04:08:09.804Z DEBUG [f1df4eb966b667b0] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:09.851Z  INFO [f1df4eb966b667b0] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=113 requestId=f1df4eb966b667b0
+2026-10-16T04:08:09.853Z DEBUG [133c4422326da478] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:08:09.856Z DEBUG [638abac382c946d9] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:09.858Z  INFO [638abac382c946d9] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=59 requestId=638abac382c946d9
+2026-10-16T04:08:09.812Z DEBUG [3aa49eecd76394e9] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:08:09.817Z DEBUG [c3ce212332d05a78] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/forecast?days=90", parameters={masked}
+2026-10-16T04:08:09.872Z DEBUG [180ad82d08e251f9] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:08:09.886Z DEBUG [7fc46b6a59912c52] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:08:09.958Z DEBUG [19bfc99c9bd2bb24] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:08:09.958Z DEBUG [4d5cd9b53184c8d8] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:08:10.308Z DEBUG [19bfc99c9bd2bb24] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.314Z DEBUG [133c4422326da478] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.327Z  INFO [133c4422326da478] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=513 requestId=133c4422326da478
+2026-10-16T04:08:10.356Z DEBUG [a6748f29706b49d2] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/budgets", parameters={}
+2026-10-16T04:08:10.358Z DEBUG [71f5c147cd6a33ea] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.359Z  INFO [71f5c147cd6a33ea] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/contracts status=200 ms=588 requestId=71f5c147cd6a33ea
+2026-10-16T04:08:10.359Z DEBUG [3aa49eecd76394e9] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.360Z  INFO [3aa49eecd76394e9] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=607 requestId=3aa49eecd76394e9
+2026-10-16T04:08:10.360Z DEBUG [7fc46b6a59912c52] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.360Z  INFO [7fc46b6a59912c52] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=525 requestId=7fc46b6a59912c52
+2026-10-16T04:08:10.367Z DEBUG [8456b49583f98e8b] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:08:10.446Z DEBUG [8456b49583f98e8b] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.449Z  INFO [8456b49583f98e8b] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=492 requestId=8456b49583f98e8b
+2026-10-16T04:08:10.468Z DEBUG [c3ce212332d05a78] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.468Z  INFO [c3ce212332d05a78] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/forecast status=200 ms=694 requestId=c3ce212332d05a78
+2026-10-16T04:08:10.485Z  INFO [19bfc99c9bd2bb24] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=529 requestId=19bfc99c9bd2bb24
+2026-10-16T04:08:10.528Z DEBUG [180ad82d08e251f9] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.536Z  INFO [180ad82d08e251f9] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=830 requestId=180ad82d08e251f9
+2026-10-16T04:08:10.550Z DEBUG [4d5cd9b53184c8d8] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.550Z  INFO [4d5cd9b53184c8d8] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=595 requestId=4d5cd9b53184c8d8
+2026-10-16T04:08:10.591Z DEBUG [a6748f29706b49d2] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:10.592Z  INFO [a6748f29706b49d2] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/budgets status=200 ms=778 requestId=a6748f29706b49d2
+2026-10-16T04:08:10.874Z DEBUG [9465c9e3a6f9031d] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/contacts", parameters={}
+2026-10-16T04:08:12.178Z DEBUG [7a211e470962bc4e] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:12.199Z  WARN [7a211e470962bc4e] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=slow_request method=GET path=/api/dashboard status=200 ms=2495 requestId=7a211e470962bc4e
+2026-10-16T04:08:12.207Z DEBUG [9465c9e3a6f9031d] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:12.211Z  WARN [9465c9e3a6f9031d] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=slow_request method=GET path=/api/contacts status=200 ms=1339 requestId=9465c9e3a6f9031d
+2026-10-16T04:08:13.475Z DEBUG [60b2c688db4ba293] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers/check", parameters={}
+2026-10-16T04:08:13.803Z DEBUG [60b2c688db4ba293] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:13.806Z  INFO [60b2c688db4ba293] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=POST path=/api/transfers/check status=200 ms=382 requestId=60b2c688db4ba293
+2026-10-16T04:08:46.749Z DEBUG [e96c0dc19f8151d2] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : POST "/api/transfers", parameters={}
+2026-10-16T04:08:51.271Z DEBUG [22743dcf8f9a0ac0] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:08:51.630Z DEBUG [22743dcf8f9a0ac0] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:51.632Z  INFO [22743dcf8f9a0ac0] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=668 requestId=22743dcf8f9a0ac0
+2026-10-16T04:08:52.762Z DEBUG [9a8c641c95102d8e] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-16T04:08:52.789Z DEBUG [e96c0dc19f8151d2] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:08:52.789Z  WARN [e96c0dc19f8151d2] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=slow_request method=POST path=/api/transfers status=201 ms=28992 requestId=e96c0dc19f8151d2
+2026-10-16T04:08:53.353Z DEBUG [9a8c641c95102d8e] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:08:53.356Z  INFO [9a8c641c95102d8e] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=POST path=/api/auth/register status=201 ms=875 requestId=9a8c641c95102d8e
+2026-10-16T04:08:53.433Z DEBUG [d1d76c8ef6c75660] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/register", parameters={}
+2026-10-16T04:08:53.679Z DEBUG [d1d76c8ef6c75660] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:08:53.679Z  INFO [d1d76c8ef6c75660] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=POST path=/api/auth/register status=201 ms=260 requestId=d1d76c8ef6c75660
+2026-10-16T04:08:53.697Z DEBUG [28d9880b82e14f6c] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/me", parameters={}
+2026-10-16T04:08:53.764Z DEBUG [28d9880b82e14f6c] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:08:53.772Z  INFO [28d9880b82e14f6c] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/me status=200 ms=83 requestId=28d9880b82e14f6c
+2026-10-16T04:08:53.880Z DEBUG [bbd2db19638e17ee] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : POST "/api/demo/sample-months", parameters={}
+2026-10-16T04:08:55.926Z DEBUG [bbd2db19638e17ee] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:08:55.926Z  WARN [bbd2db19638e17ee] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=slow_request method=POST path=/api/demo/sample-months status=201 ms=2101 requestId=bbd2db19638e17ee
+2026-10-16T04:09:00.994Z DEBUG [49b85c629b735282] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/auth/login", parameters={}
+2026-10-16T04:09:05.506Z DEBUG [d1fd3b7724e8db78] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:09:05.548Z DEBUG [d1fd3b7724e8db78] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:05.557Z  INFO [d1fd3b7724e8db78] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=101 requestId=d1fd3b7724e8db78
+2026-10-16T04:09:05.601Z DEBUG [49b85c629b735282] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:05.602Z  WARN [49b85c629b735282] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=slow_request method=POST path=/api/auth/login status=200 ms=4936 requestId=49b85c629b735282
+2026-10-16T04:09:05.838Z DEBUG [07cc9a398554087f] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:09:05.850Z DEBUG [07cc9a398554087f] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:05.851Z  INFO [07cc9a398554087f] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=74 requestId=07cc9a398554087f
+2026-10-16T04:09:05.850Z DEBUG [805670ae707ddf1b] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:09:05.852Z DEBUG [3a1a2d705b62350c] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : PUT "/api/me/language", parameters={}
+2026-10-16T04:09:05.875Z DEBUG [805670ae707ddf1b] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:05.875Z  INFO [805670ae707ddf1b] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=35 requestId=805670ae707ddf1b
+2026-10-16T04:09:05.877Z DEBUG [d5bb40a435c48803] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:09:05.889Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/ws", parameters={}
+2026-10-16T04:09:05.899Z DEBUG [d5bb40a435c48803] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:05.922Z  INFO [d5bb40a435c48803] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=73 requestId=d5bb40a435c48803
+2026-10-16T04:09:06.023Z DEBUG [] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 101 SWITCHING_PROTOCOLS
+2026-10-16T04:09:06.023Z DEBUG [3a1a2d705b62350c] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 204 NO_CONTENT
+2026-10-16T04:09:06.025Z  INFO [3a1a2d705b62350c] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=PUT path=/api/me/language status=204 ms=183 requestId=3a1a2d705b62350c
+2026-10-16T04:09:06.243Z DEBUG [2fa67026d8281442] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:09:06.250Z DEBUG [b818c5d505a28547] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/16/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:09:06.310Z DEBUG [c7a1409ade89dcca] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/banking/accounts", parameters={}
+2026-10-16T04:09:06.327Z DEBUG [c7a1409ade89dcca] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:06.328Z  INFO [c7a1409ade89dcca] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/banking/accounts status=200 ms=90 requestId=c7a1409ade89dcca
+2026-10-16T04:09:06.341Z DEBUG [b818c5d505a28547] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:06.342Z  INFO [b818c5d505a28547] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=106 requestId=b818c5d505a28547
+2026-10-16T04:09:06.363Z DEBUG [2fa67026d8281442] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:06.363Z  INFO [2fa67026d8281442] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=127 requestId=2fa67026d8281442
+2026-10-16T04:09:08.255Z DEBUG [d517feed1693b132] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:09:08.508Z DEBUG [81dd181d6b8306d9] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:09:08.533Z DEBUG [b48112edce00f9f6] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:09:08.534Z DEBUG [311c3231aaa534e9] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:09:08.560Z DEBUG [d517feed1693b132] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:08.561Z  INFO [d517feed1693b132] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=369 requestId=d517feed1693b132
+2026-10-16T04:09:08.584Z DEBUG [81dd181d6b8306d9] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:08.584Z DEBUG [b48112edce00f9f6] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:08.585Z  INFO [81dd181d6b8306d9] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=383 requestId=81dd181d6b8306d9
+2026-10-16T04:09:08.586Z  INFO [b48112edce00f9f6] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=392 requestId=b48112edce00f9f6
+2026-10-16T04:09:08.628Z DEBUG [311c3231aaa534e9] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:08.629Z  INFO [311c3231aaa534e9] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=429 requestId=311c3231aaa534e9
+2026-10-16T04:09:12.511Z DEBUG [18dbf97c549c51b5] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:09:17.396Z DEBUG [18dbf97c549c51b5] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:18.323Z  WARN [18dbf97c549c51b5] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=slow_request method=GET path=/api/groups status=200 ms=6100 requestId=18dbf97c549c51b5
+2026-10-16T04:09:19.114Z DEBUG [71a27a9c5d0c0a7b] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/api/groups", parameters={}
+2026-10-16T04:09:19.281Z DEBUG [a6a7d2296c488e4e] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/16/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:09:21.230Z DEBUG [a6a7d2296c488e4e] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:21.232Z  WARN [a6a7d2296c488e4e] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=slow_request method=GET path=/api/accounts/{id}/bookings status=200 ms=5227 requestId=a6a7d2296c488e4e
+2026-10-16T04:09:24.243Z DEBUG [730f3f4a13d02f88] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:09:24.689Z DEBUG [71a27a9c5d0c0a7b] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:09:24.690Z  WARN [71a27a9c5d0c0a7b] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=slow_request method=POST path=/api/groups status=201 ms=8426 requestId=71a27a9c5d0c0a7b
+2026-10-16T04:09:25.487Z DEBUG [7eefccf7b4be4522] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/groups/1", parameters={}
+2026-10-16T04:09:25.873Z DEBUG [16472b3c8692424c] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:09:27.946Z DEBUG [7eefccf7b4be4522] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:27.961Z DEBUG [16472b3c8692424c] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:27.962Z  WARN [16472b3c8692424c] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=slow_request method=GET path=/api/groups status=200 ms=2666 requestId=16472b3c8692424c
+2026-10-16T04:09:28.001Z  WARN [7eefccf7b4be4522] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=slow_request method=GET path=/api/groups/{id} status=200 ms=2606 requestId=7eefccf7b4be4522
+2026-10-16T04:09:28.006Z DEBUG [730f3f4a13d02f88] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:28.006Z  WARN [730f3f4a13d02f88] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=slow_request method=GET path=/api/accounts status=200 ms=3867 requestId=730f3f4a13d02f88
+2026-10-16T04:09:31.017Z DEBUG [5ec19e601ffe3e7b] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/16/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:09:31.049Z DEBUG [c7b5baa9703dfdd3] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : POST "/api/groups/1/members", parameters={}
+2026-10-16T04:09:31.093Z DEBUG [5ec19e601ffe3e7b] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:31.094Z  INFO [5ec19e601ffe3e7b] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=247 requestId=5ec19e601ffe3e7b
+2026-10-16T04:09:31.259Z DEBUG [c7b5baa9703dfdd3] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:31.260Z  INFO [c7b5baa9703dfdd3] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=POST path=/api/groups/{id}/members status=200 ms=444 requestId=c7b5baa9703dfdd3
+2026-10-16T04:09:31.496Z DEBUG [813805dd6007c833] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:09:31.502Z DEBUG [e0a99911281435aa] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/groups/1", parameters={}
+2026-10-16T04:09:31.528Z DEBUG [813805dd6007c833] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:31.529Z  INFO [813805dd6007c833] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=44 requestId=813805dd6007c833
+2026-10-16T04:09:31.538Z DEBUG [e0a99911281435aa] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:31.539Z  INFO [e0a99911281435aa] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/groups/{id} status=200 ms=53 requestId=e0a99911281435aa
+2026-10-16T04:09:35.250Z DEBUG [ab9d6b853dbbc124] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/api/groups/1/expenses", parameters={}
+2026-10-16T04:09:35.359Z DEBUG [1e2e8a0e8fb91632] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/16/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:09:35.541Z DEBUG [1e2e8a0e8fb91632] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:35.550Z  INFO [1e2e8a0e8fb91632] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=917 requestId=1e2e8a0e8fb91632
+2026-10-16T04:09:36.001Z DEBUG [ab9d6b853dbbc124] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
+2026-10-16T04:09:36.002Z  INFO [ab9d6b853dbbc124] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=POST path=/api/groups/{id}/expenses status=201 ms=999 requestId=ab9d6b853dbbc124
+2026-10-16T04:09:36.274Z DEBUG [a7ff27212fe83207] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:09:36.288Z DEBUG [9f3417d1c17cec16] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/groups/1", parameters={}
+2026-10-16T04:09:36.298Z DEBUG [a7ff27212fe83207] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:36.299Z  INFO [a7ff27212fe83207] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=55 requestId=a7ff27212fe83207
+2026-10-16T04:09:36.315Z DEBUG [9f3417d1c17cec16] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:36.316Z  INFO [9f3417d1c17cec16] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/groups/{id} status=200 ms=75 requestId=9f3417d1c17cec16
+2026-10-16T04:09:37.612Z DEBUG [b62458be821f4f32] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:09:37.666Z DEBUG [b62458be821f4f32] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:37.674Z  INFO [b62458be821f4f32] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=312 requestId=b62458be821f4f32
+2026-10-16T04:09:37.713Z DEBUG [6065232a5ccf1ddc] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/api/groups/1/settlements", parameters={}
+2026-10-16T04:09:38.314Z DEBUG [6065232a5ccf1ddc] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:38.320Z  INFO [6065232a5ccf1ddc] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=POST path=/api/groups/{id}/settlements status=200 ms=618 requestId=6065232a5ccf1ddc
+2026-10-16T04:09:38.534Z DEBUG [3fc5f9278d166138] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/budgets", parameters={}
+2026-10-16T04:09:38.534Z DEBUG [64d65d3d083d34df] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/forecast?days=90", parameters={masked}
+2026-10-16T04:09:38.543Z DEBUG [68f0137db66e0d62] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/contracts", parameters={}
+2026-10-16T04:09:38.550Z DEBUG [2a9121e708a1dd37] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications?page=0&size=50", parameters={masked}
+2026-10-16T04:09:38.551Z DEBUG [e74ae664e46afd34] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/credit-card", parameters={}
+2026-10-16T04:09:38.552Z DEBUG [59e883d84c14e140] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/api/cards/me", parameters={}
+2026-10-16T04:09:38.567Z DEBUG [9534b15ff2f2d590] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : GET "/api/health-score", parameters={}
+2026-10-16T04:09:38.584Z DEBUG [3ae4d6dac404e1b1] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/dashboard", parameters={}
+2026-10-16T04:09:38.593Z DEBUG [e74ae664e46afd34] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:38.594Z  INFO [e74ae664e46afd34] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/credit-card status=200 ms=61 requestId=e74ae664e46afd34
+2026-10-16T04:09:38.595Z DEBUG [6f5adab7e4af5e97] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/months?count=6", parameters={masked}
+2026-10-16T04:09:38.768Z DEBUG [68f0137db66e0d62] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:38.934Z  INFO [68f0137db66e0d62] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/contracts status=200 ms=432 requestId=68f0137db66e0d62
+2026-10-16T04:09:38.882Z DEBUG [59e883d84c14e140] 7564 --- [girokonto] [nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.025Z  INFO [59e883d84c14e140] 7564 --- [girokonto] [nio-8080-exec-3] girokonto.request                        : event=request method=GET path=/api/cards/me status=200 ms=536 requestId=59e883d84c14e140
+2026-10-16T04:09:38.893Z DEBUG [6f5adab7e4af5e97] 7564 --- [girokonto] [io-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.029Z  INFO [6f5adab7e4af5e97] 7564 --- [girokonto] [io-8080-exec-10] girokonto.request                        : event=request method=GET path=/api/insights/months status=200 ms=480 requestId=6f5adab7e4af5e97
+2026-10-16T04:09:38.900Z DEBUG [3fc5f9278d166138] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.035Z  INFO [3fc5f9278d166138] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/budgets status=200 ms=537 requestId=3fc5f9278d166138
+2026-10-16T04:09:39.037Z DEBUG [2a9121e708a1dd37] 7564 --- [girokonto] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.037Z  INFO [2a9121e708a1dd37] 7564 --- [girokonto] [nio-8080-exec-1] girokonto.request                        : event=request method=GET path=/api/notifications status=200 ms=549 requestId=2a9121e708a1dd37
+2026-10-16T04:09:38.903Z DEBUG [9534b15ff2f2d590] 7564 --- [girokonto] [io-8080-exec-17] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.038Z  INFO [9534b15ff2f2d590] 7564 --- [girokonto] [io-8080-exec-17] girokonto.request                        : event=request method=GET path=/api/health-score status=200 ms=476 requestId=9534b15ff2f2d590
+2026-10-16T04:09:39.048Z DEBUG [64d65d3d083d34df] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.048Z  INFO [64d65d3d083d34df] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/forecast status=200 ms=555 requestId=64d65d3d083d34df
+2026-10-16T04:09:39.064Z DEBUG [1b3b92709473cf49] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:09:39.068Z DEBUG [1b3b92709473cf49] 7564 --- [girokonto] [io-8080-exec-18] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.069Z  INFO [1b3b92709473cf49] 7564 --- [girokonto] [io-8080-exec-18] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=12 requestId=1b3b92709473cf49
+2026-10-16T04:09:39.468Z DEBUG [8b2f245218512d50] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/net-worth", parameters={}
+2026-10-16T04:09:39.485Z DEBUG [bf62398a2ca73b41] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/loans", parameters={}
+2026-10-16T04:09:39.525Z DEBUG [a04f4a0c0212b97f] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : GET "/api/plans", parameters={}
+2026-10-16T04:09:39.529Z DEBUG [bf62398a2ca73b41] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.529Z  INFO [bf62398a2ca73b41] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/loans status=200 ms=122 requestId=bf62398a2ca73b41
+2026-10-16T04:09:39.533Z DEBUG [6c83b4383b103122] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : GET "/api/loans/applications", parameters={}
+2026-10-16T04:09:39.537Z DEBUG [6c83b4383b103122] 7564 --- [girokonto] [io-8080-exec-12] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.537Z  INFO [6c83b4383b103122] 7564 --- [girokonto] [io-8080-exec-12] girokonto.request                        : event=request method=GET path=/api/loans/applications status=200 ms=48 requestId=6c83b4383b103122
+2026-10-16T04:09:39.537Z DEBUG [b3d4a05ed6bf1dd0] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : GET "/api/insights/overview", parameters={}
+2026-10-16T04:09:39.549Z DEBUG [a04f4a0c0212b97f] 7564 --- [girokonto] [io-8080-exec-16] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.566Z DEBUG [b3d4a05ed6bf1dd0] 7564 --- [girokonto] [io-8080-exec-15] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.668Z DEBUG [f4ae969656f289ba] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/api/notifications/unread-count", parameters={}
+2026-10-16T04:09:39.672Z DEBUG [5e1c48493dfa1a5f] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts/16/bookings?page=0&size=5", parameters={masked}
+2026-10-16T04:09:39.674Z DEBUG [2b6ba7fef921be8f] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/api/groups/1", parameters={}
+2026-10-16T04:09:39.759Z  INFO [a04f4a0c0212b97f] 7564 --- [girokonto] [io-8080-exec-16] girokonto.request                        : event=request method=GET path=/api/plans status=200 ms=342 requestId=a04f4a0c0212b97f
+2026-10-16T04:09:39.770Z DEBUG [be3d7f911eee900f] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/groups", parameters={}
+2026-10-16T04:09:39.776Z DEBUG [b18c273f73cf601f] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:09:39.823Z DEBUG [2b6ba7fef921be8f] 7564 --- [girokonto] [nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.824Z  INFO [2b6ba7fef921be8f] 7564 --- [girokonto] [nio-8080-exec-9] girokonto.request                        : event=request method=GET path=/api/groups/{id} status=200 ms=296 requestId=2b6ba7fef921be8f
+2026-10-16T04:09:39.919Z DEBUG [8b2f245218512d50] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.918Z  INFO [b3d4a05ed6bf1dd0] 7564 --- [girokonto] [io-8080-exec-15] girokonto.request                        : event=request method=GET path=/api/insights/overview status=200 ms=135 requestId=b3d4a05ed6bf1dd0
+2026-10-16T04:09:39.922Z  INFO [8b2f245218512d50] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/insights/net-worth status=200 ms=456 requestId=8b2f245218512d50
+2026-10-16T04:09:39.936Z DEBUG [5e1c48493dfa1a5f] 7564 --- [girokonto] [io-8080-exec-11] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.986Z DEBUG [f4ae969656f289ba] 7564 --- [girokonto] [nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:39.986Z  INFO [f4ae969656f289ba] 7564 --- [girokonto] [nio-8080-exec-7] girokonto.request                        : event=request method=GET path=/api/notifications/unread-count status=200 ms=581 requestId=f4ae969656f289ba
+2026-10-16T04:09:40.108Z DEBUG [be3d7f911eee900f] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:40.134Z DEBUG [b18c273f73cf601f] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:40.135Z  INFO [b18c273f73cf601f] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=654 requestId=b18c273f73cf601f
+2026-10-16T04:09:40.139Z  INFO [5e1c48493dfa1a5f] 7564 --- [girokonto] [io-8080-exec-11] girokonto.request                        : event=request method=GET path=/api/accounts/{id}/bookings status=200 ms=541 requestId=5e1c48493dfa1a5f
+2026-10-16T04:09:40.166Z  INFO [be3d7f911eee900f] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/groups status=200 ms=634 requestId=be3d7f911eee900f
+2026-10-16T04:09:40.168Z DEBUG [3ae4d6dac404e1b1] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:40.169Z  WARN [3ae4d6dac404e1b1] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=slow_request method=GET path=/api/dashboard status=200 ms=1630 requestId=3ae4d6dac404e1b1
+2026-10-16T04:09:40.190Z DEBUG [a0d38863449b4286] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:09:40.208Z DEBUG [a0d38863449b4286] 7564 --- [girokonto] [io-8080-exec-13] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:40.209Z  INFO [a0d38863449b4286] 7564 --- [girokonto] [io-8080-exec-13] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=278 requestId=a0d38863449b4286
+2026-10-16T04:09:49.637Z DEBUG [29cc8322d50408ef] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:09:49.703Z DEBUG [29cc8322d50408ef] 7564 --- [girokonto] [nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:09:49.706Z  INFO [29cc8322d50408ef] 7564 --- [girokonto] [nio-8080-exec-2] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=123 requestId=29cc8322d50408ef
+2026-10-16T04:10:00.230Z DEBUG [6a574251c0e4010c] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:10:00.336Z DEBUG [6a574251c0e4010c] 7564 --- [girokonto] [nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:10:00.349Z  INFO [6a574251c0e4010c] 7564 --- [girokonto] [nio-8080-exec-4] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=191 requestId=6a574251c0e4010c
+2026-10-16T04:10:10.732Z DEBUG [c311efb3b0fcb034] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:10:10.788Z DEBUG [c311efb3b0fcb034] 7564 --- [girokonto] [nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:10:10.790Z  INFO [c311efb3b0fcb034] 7564 --- [girokonto] [nio-8080-exec-8] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=106 requestId=c311efb3b0fcb034
+2026-10-16T04:10:21.147Z DEBUG [f9e61eb76051c984] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:10:21.204Z DEBUG [f9e61eb76051c984] 7564 --- [girokonto] [nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:10:21.205Z  INFO [f9e61eb76051c984] 7564 --- [girokonto] [nio-8080-exec-5] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=178 requestId=f9e61eb76051c984
+2026-10-16T04:10:32.093Z DEBUG [66251665103d7cc1] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:10:32.151Z DEBUG [66251665103d7cc1] 7564 --- [girokonto] [nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:10:32.155Z  INFO [66251665103d7cc1] 7564 --- [girokonto] [nio-8080-exec-6] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=180 requestId=66251665103d7cc1
+2026-10-16T04:10:42.409Z DEBUG [e8c793c6352bd004] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : GET "/api/accounts", parameters={}
+2026-10-16T04:10:42.431Z DEBUG [e8c793c6352bd004] 7564 --- [girokonto] [io-8080-exec-14] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2026-10-16T04:10:42.432Z  INFO [e8c793c6352bd004] 7564 --- [girokonto] [io-8080-exec-14] girokonto.request                        : event=request method=GET path=/api/accounts status=200 ms=120 requestId=e8c793c6352bd004
