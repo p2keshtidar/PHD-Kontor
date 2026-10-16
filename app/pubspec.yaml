@@ -17,7 +17,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   shared_preferences: ^2.3.2
   # Gerätekontakte für das Adressbuch (/F220/), nur iOS/Android
-  flutter_contacts: ^1.1.9
+  flutter_contacts: ^2.6.0
   # Live-Benachrichtigungen über WebSocket/STOMP (/F510/)
   stomp_dart_client: ^2.0.0
   # Systembenachrichtigungen auf iOS/Android (/F510/)
