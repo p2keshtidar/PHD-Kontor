@@ -1,0 +1,733 @@
+Recreating project ....
+  ios/Runner.xcodeproj/project.pbxproj (created)
+  ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme (created)
+  ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata (created)
+  ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist (created)
+  ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png (created)
+  ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png (created)
+  ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png (created)
+  ios/Runner/Base.lproj/Main.storyboard (created)
+  ios/Runner/Base.lproj/LaunchScreen.storyboard (created)
+  ios/Runner/AppDelegate.swift (created)
+  ios/Runner/Runner-Bridging-Header.h (created)
+  ios/Runner/Info.plist (created)
+  ios/Runner/SceneDelegate.swift (created)
+  ios/Runner.xcworkspace/contents.xcworkspacedata (created)
+  ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist (created)
+  ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings (created)
+  ios/.gitignore (created)
+  ios/Flutter/Debug.xcconfig (created)
+  ios/Flutter/AppFrameworkInfo.plist (created)
+  ios/Flutter/Release.xcconfig (created)
+  ios/RunnerTests/RunnerTests.swift (created)
+  android/app/src/profile/AndroidManifest.xml (created)
+  android/app/src/main/res/values-night/styles.xml (created)
+  android/app/src/main/res/mipmap-mdpi/ic_launcher.png (created)
+  android/app/src/main/res/drawable-v21/launch_background.xml (created)
+  android/app/src/main/res/drawable/launch_background.xml (created)
+  android/app/src/main/res/values/styles.xml (created)
+  android/app/src/main/res/mipmap-hdpi/ic_launcher.png (created)
+  android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png (created)
+  android/app/src/main/res/mipmap-xhdpi/ic_launcher.png (created)
+  android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png (created)
+  android/app/src/main/AndroidManifest.xml (created)
+  android/app/src/debug/AndroidManifest.xml (created)
+  android/.gitignore (created)
+  android/settings.gradle.kts (created)
+  android/gradle.properties (created)
+  android/gradle/wrapper/gradle-wrapper.properties (created)
+  web/icons/Icon-maskable-192.png (created)
+  web/icons/Icon-192.png (created)
+  web/icons/Icon-maskable-512.png (created)
+  web/icons/Icon-512.png (created)
+  web/manifest.json (created)
+  web/favicon.png (created)
+  web/index.html (created)
+  .gitignore (created)
+  android/girokonto_app_android.iml (created)
+  android/app/build.gradle.kts (created)
+  android/app/src/main/kotlin/de/frauas/girokonto_app/MainActivity.kt (created)
+  android/build.gradle.kts (created)
+  README.md (created)
+  .idea/modules.xml (created)
+  .idea/libraries/KotlinJavaRuntime.xml (created)
+  .idea/libraries/Dart_SDK.xml (created)
+  .idea/runConfigurations/main_dart.xml (created)
+  .idea/workspace.xml (created)
+  girokonto_app.iml (created)
+Resolving dependencies...
+Downloading packages...
+Got dependencies.
+Upgrading analysis_options.yaml to exclude build and platform directories.
+Wrote 78 files.
+
+All done!
+You can find general documentation for Flutter at: https://docs.flutter.dev/
+Detailed API documentation is available at: https://api.flutter.dev/
+If you prefer video documentation, consider: https://www.youtube.com/c/flutterdev
+
+In order to run your application, type:
+
+  $ flutter run
+
+Your application code is in ./lib/main.dart.
+
+Resolving dependencies...
+Downloading packages...
+  code_assets 1.2.1 (2.1.0 available)
+  cross_file 0.3.5+5 (0.4.0 available)
+  dbus 0.7.15 (0.8.0 available)
+  flutter_contacts 1.1.9+2 (2.6.0 available)
+  flutter_lints 4.0.0 (6.0.0 available)
+  flutter_local_notifications 17.2.4 (22.3.2 available)
+  flutter_local_notifications_linux 4.0.1 (8.0.2 available)
+  flutter_local_notifications_platform_interface 7.2.0 (12.2.0 available)
+  flutter_riverpod 2.6.1 (3.4.3 available)
+  flutter_secure_storage 9.2.4 (11.2.0 available)
+  flutter_secure_storage_linux 1.2.3 (3.0.3 available)
+  flutter_secure_storage_macos 3.1.3 (4.0.0 available)
+  flutter_secure_storage_platform_interface 1.1.2 (2.1.1 available)
+  flutter_secure_storage_web 1.2.1 (2.1.1 available)
+  flutter_secure_storage_windows 3.1.2 (4.2.2 available)
+  go_router 14.8.1 (18.1.0 available)
+  hooks 2.0.2 (2.2.0 available)
+  js 0.6.7 (0.7.2 available)
+  lints 4.0.0 (6.1.0 available)
+  material_color_utilities 0.13.0 (0.13.1 available)
+  meta 1.18.3 (1.19.0 available)
+  objective_c 9.5.0 (9.6.2 available)
+  petitparser 7.0.2 (7.1.0 available)
+  qr 3.0.2 (4.0.0 available)
+  record_use 0.6.0 (1.1.1 available)
+  riverpod 2.6.1 (3.4.3 available)
+  stomp_dart_client 2.1.3 (3.0.1 available)
+  test_api 0.7.12 (0.7.15 available)
+  timezone 0.9.4 (0.11.2 available)
+  vector_math 2.4.0 (2.4.3 available)
+  win32 5.15.0 (6.4.0 available)
+  xml 7.0.1 (7.1.0 available)
+Got dependencies!
+32 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Running build hooks...Running build hooks...Angepasst: android/app/src/main/AndroidManifest.xml
+Angepasst: android/app/build.gradle.kts
+Angepasst: ios/Runner/Info.plist
+Angepasst: ios/Runner/AppDelegate.swift
+Angepasst: ios/Runner/Info.plist (UIScene entfernt)
+7 Datei(en) angepasst.
+Analyzing app...                                                
+
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/accounts/account_home_screen.dart:238:30 • prefer_const_constructors
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/accounts/transactions_screen.dart:371:15 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/assistant/assistant_screen.dart:359:11 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/auth/login_screen.dart:133:64 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/auth/login_screen.dart:169:39 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/auth/register_screen.dart:150:64 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/auth/register_screen.dart:160:39 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/auth/register_screen.dart:170:39 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/auth/register_screen.dart:180:39 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/auth/register_screen.dart:189:39 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/card/card_screen.dart:267:27 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/contacts/address_book_screen.dart:136:32 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/contacts/address_book_screen.dart:166:24 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/contacts/address_book_screen.dart:167:73 • prefer_const_constructors
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal • lib/features/contracts/contracts_screen.dart:116:19 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal • lib/features/contracts/contracts_screen.dart:117:18 • prefer_const_literals_to_create_immutables
+   info • Use 'const' literals as arguments to constructors of '@immutable' classes. Try adding 'const' before the literal • lib/features/contracts/contracts_screen.dart:118:31 • prefer_const_literals_to_create_immutables
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/contracts/contracts_screen.dart:442:11 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/contracts/contracts_screen.dart:456:11 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/contracts/contracts_screen.dart:480:15 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/entries/entry_form_screen.dart:180:52 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/entries/entry_form_screen.dart:181:25 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/entries/entry_form_screen.dart:184:51 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/entries/entry_form_screen.dart:185:25 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/entries/entry_form_screen.dart:217:95 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/entries/entry_form_screen.dart:231:81 • prefer_const_constructors
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/groups/group_screen.dart:338:13 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/insights/csv_import_screen.dart:146:34 • prefer_const_constructors
+   info • 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/insights/demo_dialog.dart:56:13 • deprecated_member_use
+   info • 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/insights/demo_dialog.dart:58:13 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/insights/insights_screen.dart:82:78 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/loans/loan_planner_screen.dart:306:64 • prefer_const_constructors
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/multibank/multibank_dialogs.dart:234:13 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/multibank/multibank_dialogs.dart:243:13 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/notifications/notifications_screen.dart:73:30 • prefer_const_constructors
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/planner/planner_screen.dart:117:11 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/planning/planning_screen.dart:362:13 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/profile/profile_screen.dart:390:24 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/profile/two_factor_screen.dart:87:21 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/profile/two_factor_screen.dart:104:22 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/profile/two_factor_screen.dart:114:80 • prefer_const_constructors
+   info • 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/savings/plan_wizard_screen.dart:320:15 • deprecated_member_use
+   info • 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/savings/plan_wizard_screen.dart:321:15 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre. Try replacing the use of the deprecated member with the replacement • lib/features/savings/plan_wizard_screen.dart:397:9 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/savings/savings_home_screen.dart:135:30 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/savings/savings_home_screen.dart:159:36 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/shell/home_shell.dart:53:21 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/shell/home_shell.dart:54:29 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/shell/home_shell.dart:57:21 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/shell/home_shell.dart:59:21 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/shell/home_shell.dart:60:29 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/shell/home_shell.dart:63:21 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/shell/home_shell.dart:64:29 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/standing_orders/standing_order_form_screen.dart:97:27 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/standing_orders/standing_order_form_screen.dart:106:95 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/standing_orders/standing_order_form_screen.dart:122:27 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/standing_orders/standing_orders_screen.dart:43:19 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/standing_orders/standing_orders_screen.dart:44:19 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/standing_orders/standing_orders_screen.dart:45:19 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/standing_orders/standing_orders_screen.dart:175:68 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/subaccounts/subaccount_screen.dart:125:28 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/subaccounts/subaccount_screen.dart:321:40 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/transfer/transfer_screen.dart:173:33 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • lib/features/transfer/transfer_screen.dart:188:33 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • test/accessibility_test.dart:44:13 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • test/accessibility_test.dart:57:46 • prefer_const_constructors
+   info • 'hasFlag' is deprecated and shouldn't be used. Use flagsCollection instead. This feature was deprecated after v3.32.0-0.0.pre. Try replacing the use of the deprecated member with the replacement • test/accessibility_test.dart:60:17 • deprecated_member_use
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • test/assistant_test.dart:68:46 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • test/contracts_test.dart:62:45 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • test/loan_steps_test.dart:72:42 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance. Try adding the 'const' keyword to the constructor invocation • test/subaccount_card_test.dart:36:47 • prefer_const_constructors
+
+71 issues found. (ran in 11.2s)
+
+::group::✅ Passing tests
+✅ /home/runner/work/girokonto/girokonto/app/test/phase3_test.dart: Kartennummer wird in Vierergruppen angezeigt
+✅ /home/runner/work/girokonto/girokonto/app/test/phase3_test.dart: Karte aus JSON
+✅ /home/runner/work/girokonto/girokonto/app/test/phase3_test.dart: Benachrichtigung aus JSON (ohne Buchung)
+✅ /home/runner/work/girokonto/girokonto/app/test/phase3_test.dart: Unbekanntes Symbol fällt auf Sparschwein zurück
+✅ /home/runner/work/girokonto/girokonto/app/test/phase3_test.dart: WebSocket-Adresse aus der API-Adresse
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Startseite BK01 ohne verbundene Bank: Hinweis und Weg zum Verbinden
+✅ /home/runner/work/girokonto/girokonto/app/test/two_factor_test.dart: Nutzer: 2FA-Status, Standard aus
+✅ /home/runner/work/girokonto/girokonto/app/test/two_factor_test.dart: Schlüssel in Vierergruppen
+✅ /home/runner/work/girokonto/girokonto/app/test/two_factor_test.dart: Fehlercode TOTP_REQUIRED wird erkannt
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Startseite BK02 verbundene Konten getrennt vom Girokonto, Sandbox gekennzeichnet
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Verbinden BK03 Sandbox: Test-Freigabe bestätigen, erster Import
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Verbinden BK04 Sandbox: Ablehnen verbindet nicht
+✅ /home/runner/work/girokonto/girokonto/app/test/entries_test.dart: Eintrag aus JSON
+✅ /home/runner/work/girokonto/girokonto/app/test/entries_test.dart: Ausgabe hat negatives Vorzeichen, einmalig ohne Monatswert
+✅ /home/runner/work/girokonto/girokonto/app/test/entries_test.dart: Ältere Antwort ohne optionale Felder
+✅ /home/runner/work/girokonto/girokonto/app/test/entries_test.dart: Übersicht trennt regelmäßig und einmalig
+✅ /home/runner/work/girokonto/girokonto/app/test/entries_test.dart: Ergebnis beim Anlegen
+✅ /home/runner/work/girokonto/girokonto/app/test/entries_test.dart: Alle Häufigkeiten und Schnellauswahlen sind gültig
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Verbinden BK05 echte Bank: Seite der Bank öffnen, danach Freigabe abschließen
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Verwalten BK06 Status, Berechtigungen, Abruf und Widerruf mit Löschen
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Verwalten BK07 abgelaufene Freigabe: Fehler sichtbar, erneuern über die Bankseite
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Umsätze BK08 Liste mit Status, Filter und Suche
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Umsätze BK09 eigene Angaben speichern, Bankdaten bleiben
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Umsätze BK10 zurückgebuchter und stornierter Umsatz erklärt
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Englisch und Modelle BK11 Bankkonten auf Englisch
+✅ /home/runner/work/girokonto/girokonto/app/test/banking_test.dart: Englisch und Modelle BK12 Modelle und Filter
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Login
+✅ /home/runner/work/girokonto/girokonto/app/test/csv_import_test.dart: UTF-8 und ISO-8859-1 werden erkannt
+✅ /home/runner/work/girokonto/girokonto/app/test/csv_import_test.dart: Importergebnis aus JSON
+✅ /home/runner/work/girokonto/girokonto/app/test/csv_import_test.dart: Ergebnis ohne neue Umsätze
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Registrierung
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Startseite
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Umsätze
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Überweisen
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Adressbuch
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Karte
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Unterkonto (eigenes, geteilt)
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Unterkonto (fremdes)
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Benachrichtigungen
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Finanzüberblick
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Finanz-Dashboard
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Alle Umsätze
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Mögliche Duplikate
+✅ /home/runner/work/girokonto/girokonto/app/test/l10n_test.dart: L01 jeder Text in tr(…) hat eine englische Übersetzung
+✅ /home/runner/work/girokonto/girokonto/app/test/l10n_test.dart: L02 keine fest codierten Texte an typischen Stellen der Oberfläche
+✅ /home/runner/work/girokonto/girokonto/app/test/l10n_test.dart: L03 Platzhalter stimmen in beiden Sprachen überein
+✅ /home/runner/work/girokonto/girokonto/app/test/l10n_test.dart: L04 Werte aus Konstanten-Tabellen sind übersetzt
+✅ /home/runner/work/girokonto/girokonto/app/test/l10n_test.dart: L05 Geldbeträge und Zahlen je Sprache
+✅ /home/runner/work/girokonto/girokonto/app/test/l10n_test.dart: L06 Datum je Sprache
+✅ /home/runner/work/girokonto/girokonto/app/test/l10n_test.dart: L07 Platzhalter und Rückfall auf Deutsch
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Budgets & Prognose
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Finanz-Marktplatz
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Meine Anträge
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Gemeinsame Ausgaben
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Finanzassistent
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Vorhaben planen
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Verträge
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Vertrag
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Vertrag anlegen
+✅ /home/runner/work/girokonto/girokonto/app/test/l10n_test.dart: L08 Sprachwechsel schließt offene und wartende Hinweise in der alten Sprache
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Gruppe (WG)
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch CSV-Import
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Sparen
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Plan-Detail
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Sparplan-Assistent
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Investplan-Assistent
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Kreditplaner
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Kredit-Detail
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Kreditangebot (Anfrage)
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Kreditanfrage (Zusage)
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Sondertilgung
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Daueraufträge
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Neuer Dauerauftrag
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Zwei-Faktor
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Profil
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Einnahmen & Ausgaben
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Einnahme eintragen
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Ausgabe eintragen
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Echte Bankkonten
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Bank verbinden
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Umsätze verbundener Konten
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Englisch Umsatz eines verbundenen Kontos
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Login klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Login Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Login Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Login große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Registrierung klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Registrierung Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/planning_test.dart: PL01 Prognose: Warnung, Verlauf, Monatsende, bekannte Buchungen, Annahmen
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Registrierung Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Registrierung große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/planning_test.dart: PL02 Budgets mit Status, Hochrechnung und Vorschlag
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Startseite klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Startseite Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Startseite Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Startseite große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsätze klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsätze Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsätze Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsätze große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Überweisen klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Überweisen Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Überweisen Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/planning_test.dart: PL03 Budget festlegen aus Vorschlag, ändern und löschen
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Überweisen große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Adressbuch klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Adressbuch Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/planning_test.dart: PL04 ungewöhnliche Ausgabe mit Begründung
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Adressbuch Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Adressbuch große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Karte klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Karte Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/planning_test.dart: PL05 ohne Budgets und ohne Warnung: Leerzustände
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Karte Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Karte große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Unterkonto (eigenes, geteilt) klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/planning_test.dart: PL06 Englisch
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Unterkonto (eigenes, geteilt) Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Unterkonto (eigenes, geteilt) Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Unterkonto (eigenes, geteilt) große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Unterkonto (fremdes) klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Unterkonto (fremdes) Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Unterkonto (fremdes) Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Unterkonto (fremdes) große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Benachrichtigungen klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Benachrichtigungen Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Benachrichtigungen Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Benachrichtigungen große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanzüberblick klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanzüberblick Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanzüberblick Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanzüberblick große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanz-Dashboard klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanz-Dashboard Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/background_check_test.dart: Erster Lauf zeigt nichts (keine alten Meldungen)
+✅ /home/runner/work/girokonto/girokonto/app/test/background_check_test.dart: Nur ungelesene, neuer als zuletzt angezeigt, älteste zuerst
+✅ /home/runner/work/girokonto/girokonto/app/test/background_check_test.dart: Nichts Neues
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanz-Dashboard Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanz-Dashboard große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Alle Umsätze klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Alle Umsätze Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Alle Umsätze Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Alle Umsätze große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Mögliche Duplikate klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Mögliche Duplikate Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Mögliche Duplikate Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Mögliche Duplikate große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Budgets & Prognose klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Budgets & Prognose Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Budgets & Prognose Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Budgets & Prognose große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanz-Marktplatz klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanz-Marktplatz Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanz-Marktplatz Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanz-Marktplatz große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Meine Anträge klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Meine Anträge Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Meine Anträge Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Meine Anträge große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Gemeinsame Ausgaben klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Gemeinsame Ausgaben Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Gemeinsame Ausgaben Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Gemeinsame Ausgaben große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanzassistent klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanzassistent Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanzassistent Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Finanzassistent große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vorhaben planen klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vorhaben planen Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vorhaben planen Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vorhaben planen große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Verträge klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Verträge Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Verträge Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Verträge große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vertrag klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vertrag Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vertrag Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vertrag große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vertrag anlegen klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vertrag anlegen Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vertrag anlegen Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Vertrag anlegen große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Gruppe (WG) klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Gruppe (WG) Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Gruppe (WG) Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Gruppe (WG) große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: CSV-Import klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: CSV-Import Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: CSV-Import Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: CSV-Import große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sparen klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sparen Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sparen Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sparen große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Plan-Detail klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Plan-Detail Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Plan-Detail Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Plan-Detail große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/subaccount_card_test.dart: SC01 Karte vorhanden: Limit, Demo-Zahlung vom digitalen Konto
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sparplan-Assistent klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/subaccount_card_test.dart: SC02 ohne Karte: einrichten mit Tageslimit
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sparplan-Assistent Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sparplan-Assistent Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sparplan-Assistent große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Investplan-Assistent klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Investplan-Assistent Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Investplan-Assistent Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Investplan-Assistent große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditplaner klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditplaner Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditplaner Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditplaner große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kredit-Detail klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kredit-Detail Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kredit-Detail Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kredit-Detail große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditangebot (Anfrage) klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditangebot (Anfrage) Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditangebot (Anfrage) Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditangebot (Anfrage) große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditanfrage (Zusage) klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditanfrage (Zusage) Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditanfrage (Zusage) Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Kreditanfrage (Zusage) große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sondertilgung klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sondertilgung Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sondertilgung Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Sondertilgung große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Daueraufträge klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Daueraufträge Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Daueraufträge Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Daueraufträge große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Neuer Dauerauftrag klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Neuer Dauerauftrag Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Neuer Dauerauftrag Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Neuer Dauerauftrag große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Zwei-Faktor klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Zwei-Faktor Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Zwei-Faktor Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Zwei-Faktor große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Profil klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Profil Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Profil Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Profil große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Einnahmen & Ausgaben klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Einnahmen & Ausgaben Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Einnahmen & Ausgaben Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Einnahmen & Ausgaben große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Einnahme eintragen klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Einnahme eintragen Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Einnahme eintragen Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Einnahme eintragen große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Ausgabe eintragen klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Ausgabe eintragen Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Ausgabe eintragen Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/planner_test.dart: PL01 Auto vergleichen: drei Wege mit Empfehlung
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Ausgabe eintragen große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Echte Bankkonten klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Echte Bankkonten Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Echte Bankkonten Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Echte Bankkonten große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/planner_test.dart: PL02 Weiter zum Kreditvergleich
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Bank verbinden klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Bank verbinden Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Bank verbinden Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/planner_test.dart: PL03 ohne Preis keine Anfrage
+::endgroup::
+::group::❌ /home/runner/work/girokonto/girokonto/app/test/planner_test.dart: PL04 Kredit vergleichen übernimmt Zweck, Betrag, Eigenkapital und Laufzeit (failed)
+══╡ EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK ╞════════════════════════════════════════════════════
+The following _TypeError was thrown running a test:
+type '_Map<String, dynamic>' is not a subtype of type 'Map<String, Object>' of 'other'
+
+When the exception was thrown, this was the stack:
+#0      _Map.addAll (dart:_compact_hash:346:25)
+#1      main.<anonymous closure> (file:///home/runner/work/girokonto/girokonto/app/test/planner_test.dart:83:16)
+#2      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:29)
+<asynchronous suspension>
+#3      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+<asynchronous suspension>
+(elided one frame from package:stack_trace)
+
+The test description was:
+  PL04 Kredit vergleichen übernimmt Zweck, Betrag, Eigenkapital und Laufzeit
+════════════════════════════════════════════════════════════════════════════════════════════════════
+Test failed. See exception logs above.
+The test description was: PL04 Kredit vergleichen übernimmt Zweck, Betrag, Eigenkapital und Laufzeit
+
+::endgroup::
+::group::✅ Passing tests
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Bank verbinden große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsätze verbundener Konten klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsätze verbundener Konten Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsätze verbundener Konten Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsätze verbundener Konten große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsatz eines verbundenen Kontos klein 320×568
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsatz eines verbundenen Kontos Handy 412×915
+✅ /home/runner/work/girokonto/girokonto/app/test/planner_test.dart: PL05 Kreditvergleich startet mit den Werten aus dem Planer
+✅ /home/runner/work/girokonto/girokonto/app/test/planner_test.dart: PL06 ungültige oder fehlende Werte: Vorgaben des Kreditzwecks
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsatz eines verbundenen Kontos Tablet 1280×800
+✅ /home/runner/work/girokonto/girokonto/app/test/screens_layout_test.dart: Umsatz eines verbundenen Kontos große Schrift 150 %
+✅ /home/runner/work/girokonto/girokonto/app/test/shared_subaccounts_test.dart: Eigenes Unterkonto, mit zwei Personen geteilt
+✅ /home/runner/work/girokonto/girokonto/app/test/shared_subaccounts_test.dart: Fremdes Unterkonto, mit mir geteilt
+✅ /home/runner/work/girokonto/girokonto/app/test/shared_subaccounts_test.dart: Ältere Antwort ohne Teilen-Felder
+✅ /home/runner/work/girokonto/girokonto/app/test/shared_subaccounts_test.dart: Mitglied aus JSON
+✅ /home/runner/work/girokonto/girokonto/app/test/widget_test.dart: Login zeigt Fehler bei leeren Feldern
+✅ /home/runner/work/girokonto/girokonto/app/test/widget_test.dart: Login erkennt ungültige E-Mail
+✅ /home/runner/work/girokonto/girokonto/app/test/phase5_test.dart: Kredit: Gesamtzahl Raten sinkt durch Sondertilgung
+✅ /home/runner/work/girokonto/girokonto/app/test/phase5_test.dart: Kredit: ältere Server-Antwort ohne neue Felder
+✅ /home/runner/work/girokonto/girokonto/app/test/phase5_test.dart: Tilgungsplan-Zeile mit und ohne Sondertilgung
+✅ /home/runner/work/girokonto/girokonto/app/test/phase5_test.dart: Vorschau einer Sondertilgung
+✅ /home/runner/work/girokonto/girokonto/app/test/phase5_test.dart: Detail mit Sondertilgungen
+✅ /home/runner/work/girokonto/girokonto/app/test/phase5_test.dart: Sparplan: Erinnerung, Standard 3 Tage
+✅ /home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart: DA01 Startseite: zwei getrennte Bereiche, Girokonto als Simulation gekennzeichnet
+✅ /home/runner/work/girokonto/girokonto/app/test/market_test.dart: MK01 Angebote mit Hinweis Simulation, Beispielrechnung, Vor- und Nachteile
+✅ /home/runner/work/girokonto/girokonto/app/test/market_test.dart: MK02 Favorit setzen und entfernen
+✅ /home/runner/work/girokonto/girokonto/app/test/market_test.dart: MK03 Vergleichsliste mit zwei Angeboten
+✅ /home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart: DA02 neues digitales Konto mit Zweck und Ziel
+✅ /home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart: DA03 Detail: Fortschritt, nötige Rate, Hinweis zur Verwahrung
+✅ /home/runner/work/girokonto/girokonto/app/test/market_test.dart: MK04 Antrag nur mit Bestätigung, dass es eine Simulation ist
+✅ /home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart: DA04 nur ansehen: Ein- und Auszahlen gesperrt, Rechte sichtbar
+✅ /home/runner/work/girokonto/girokonto/app/test/market_test.dart: MK05 Anträge: Unterlage bereitstellen, Notiz, zurückziehen
+✅ /home/runner/work/girokonto/girokonto/app/test/market_test.dart: MK06 Ergebnis der simulierten Prüfung wird angezeigt
+::endgroup::
+::group::✅ /home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart: DA05 Besitzer ändert die Rechte eines Mitglieds
+
+Warning: A call to tap() with finder "Found 1 widget with text "Nur einzahlen" (ignoring all but last): [
+  Text("Nur einzahlen", dependencies: [DefaultSelectionStyle, DefaultTextStyle, MediaQuery]),
+]" derived an Offset (Offset(236.0, 148.0)) that would not hit test on the specified widget.
+Maybe the widget is actually off-screen, or another widget is obscuring it, or the widget cannot receive pointer events.
+The finder corresponds to this RenderBox: RenderParagraph#58a06 relayoutBoundary=up40
+The hit test result at that offset is: HitTestResult(RenderPointerListener#541db@Offset(160.0, 28.0), RenderSemanticsAnnotations#278b2@Offset(160.0, 28.0), RenderMouseRegion#7c973@Offset(160.0, 28.0), RenderSemanticsAnnotations#d8efe@Offset(160.0, 28.0), RenderSemanticsAnnotations#bd772@Offset(160.0, 28.0), RenderMergeSemantics#75723@Offset(160.0, 28.0), RenderAnimatedOpacity#cc1f8@Offset(160.0, 28.0), _RenderMenuItem#cdbcb@Offset(160.0, 28.0), RenderListBody#fad15@Offset(160.0, 84.0), RenderPadding#df94b@Offset(160.0, 92.0), _RenderSingleChildViewport#574a0@Offset(160.0, 92.0), RenderIgnorePointer#ca64a@Offset(160.0, 92.0), RenderSemanticsAnnotations#97717@Offset(160.0, 92.0), RenderPointerListener#24d97@Offset(160.0, 92.0), RenderSemanticsGestureHandler#9075a@Offset(160.0, 92.0), RenderPointerListener#dec27@Offset(160.0, 92.0), _RenderScrollSemantics#6f75c@Offset(160.0, 92.0), RenderClipRect#d2aef@Offset(160.0, 92.0), RenderSemanticsAnnotations#52808@Offset(160.0, 92.0), RenderIntrinsicWidth#25eb9@Offset(160.0, 92.0), RenderConstrainedBox#8a0b3@Offset(160.0, 92.0), RenderPositionedBox#82af0@Offset(160.0, 92.0), _RenderInkFeatures#01996@Offset(160.0, 92.0), RenderCustomPaint#22ef0@Offset(160.0, 92.0), RenderPhysicalShape#d8d2e@Offset(160.0, 92.0), RenderAnimatedOpacity#ff3ce@Offset(160.0, 92.0), RenderCustomSingleChildLayoutBox#25413@Offset(236.0, 148.0), _RenderLayoutBuilder#6ce3d@Offset(236.0, 148.0), RenderRepaintBoundary#90f2c@Offset(236.0, 148.0), RenderIgnorePointer#2eb75@Offset(236.0, 148.0), RenderRepaintBoundary#e2ab4@Offset(236.0, 148.0), RenderSemanticsAnnotations#9a12e@Offset(236.0, 148.0), RenderOffstage#933f1@Offset(236.0, 148.0), RenderSemanticsAnnotations#5134a@Offset(236.0, 148.0), _RenderTheater#225da@Offset(236.0, 148.0), RenderAbsorbPointer#7205b@Offset(236.0, 148.0), RenderPointerListener#d7434@Offset(236.0, 148.0), RenderCustomPaint#32e03@Offset(236.0, 148.0), RenderSemanticsAnnotations#cec55@Offset(236.0, 148.0), RenderSemanticsAnnotations#c4287@Offset(236.0, 148.0), RenderSemanticsAnnotations#59ca4@Offset(236.0, 148.0), RenderTapRegionSurface#47275@Offset(236.0, 148.0), RenderSemanticsAnnotations#7de1e@Offset(236.0, 148.0), RenderSemanticsAnnotations#962d5@Offset(236.0, 148.0), HitTestEntry<HitTestTarget>#2b03b(_ReusableRenderView#82488), HitTestEntry<HitTestTarget>#33b7c(<AutomatedTestWidgetsFlutterBinding>))
+#0      WidgetController._getElementPoint (package:flutter_test/src/controller.dart:2165:25)
+#1      WidgetController.getCenter (package:flutter_test/src/controller.dart:1947:12)
+#2      WidgetController.tap (package:flutter_test/src/controller.dart:1080:7)
+#3      main.<anonymous closure> (file:///home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart:86:18)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+#6      StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
+<asynchronous suspension>
+To silence this warning, pass "warnIfMissed: false" to "tap()".
+To make this warning fatal, set WidgetController.hitTestWarningShouldBeFatal to true.
+
+::endgroup::
+::group::✅ Passing tests
+✅ /home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart: DA06 teilen mit Rolle "nur einzahlen"
+✅ /home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart: DA07 Englisch: Bereiche und Zweck übersetzt
+✅ /home/runner/work/girokonto/girokonto/app/test/digital_accounts_test.dart: DA08 Modell: digitale Angaben und ältere Antworten
+✅ /home/runner/work/girokonto/girokonto/app/test/api_error_test.dart: Meldung des Servers hat Vorrang
+✅ /home/runner/work/girokonto/girokonto/app/test/api_error_test.dart: Feldfehler werden zeilenweise angezeigt
+✅ /home/runner/work/girokonto/girokonto/app/test/api_error_test.dart: keine Verbindung und langsame Antwort werden unterschieden
+✅ /home/runner/work/girokonto/girokonto/app/test/api_error_test.dart: unbekannter Fehler
+✅ /home/runner/work/girokonto/girokonto/app/test/api_error_test.dart: Fehlercode
+✅ /home/runner/work/girokonto/girokonto/app/test/font_coverage_test.dart: FC01 Theme nutzt die mitgelieferte Symbolschrift als Ersatz
+✅ /home/runner/work/girokonto/girokonto/app/test/font_coverage_test.dart: FC02 jedes Zeichen in den App-Texten steckt in Roboto oder der Symbolschrift
+✅ /home/runner/work/girokonto/girokonto/app/test/font_coverage_test.dart: FC03 jedes Zeichen in den Server-Texten (Deutsch und Englisch) ist abgedeckt
+✅ /home/runner/work/girokonto/girokonto/app/test/accessibility_test.dart: BF01 Gemeinsame Ausgaben: alle Bedienelemente beschriftet und mindestens 48 × 48
+✅ /home/runner/work/girokonto/girokonto/app/test/standing_orders_test.dart: Dauerauftrag aus JSON
+✅ /home/runner/work/girokonto/girokonto/app/test/standing_orders_test.dart: Pausiert und ohne Intervall-Text vom Server
+✅ /home/runner/work/girokonto/girokonto/app/test/standing_orders_test.dart: Alle Intervalle haben einen Text
+✅ /home/runner/work/girokonto/girokonto/app/test/accessibility_test.dart: BF01 Gruppe: alle Bedienelemente beschriftet und mindestens 48 × 48
+✅ /home/runner/work/girokonto/girokonto/app/test/accessibility_test.dart: BF01 Verträge: alle Bedienelemente beschriftet und mindestens 48 × 48
+✅ /home/runner/work/girokonto/girokonto/app/test/accessibility_test.dart: BF01 Vertrag: alle Bedienelemente beschriftet und mindestens 48 × 48
+✅ /home/runner/work/girokonto/girokonto/app/test/accessibility_test.dart: BF02 Finanzassistent: alle Bedienelemente beschriftet
+✅ /home/runner/work/girokonto/girokonto/app/test/accessibility_test.dart: BF03 Fehlerzustand: Meldung und „Erneut versuchen“ lädt neu
+✅ /home/runner/work/girokonto/girokonto/app/test/accessibility_test.dart: BF04 Fehlerzustand wird Bildschirmlesern sofort angesagt
+✅ /home/runner/work/girokonto/girokonto/app/test/phase2_test.dart: Idempotenz-Schlüssel sind UUIDs und eindeutig
+✅ /home/runner/work/girokonto/girokonto/app/test/phase2_test.dart: Filter erzeugt nur gesetzte Parameter
+✅ /home/runner/work/girokonto/girokonto/app/test/phase2_test.dart: BookingItem aus JSON
+✅ /home/runner/work/girokonto/girokonto/app/test/phase2_test.dart: Tagesüberschriften
+✅ /home/runner/work/girokonto/girokonto/app/test/validators_test.dart: isAdult genau 18 am Geburtstag
+✅ /home/runner/work/girokonto/girokonto/app/test/validators_test.dart: isAdult einen Tag vor dem 18. Geburtstag
+✅ /home/runner/work/girokonto/girokonto/app/test/validators_test.dart: isAdult deutlich älter
+✅ /home/runner/work/girokonto/girokonto/app/test/validators_test.dart: validateEmail
+✅ /home/runner/work/girokonto/girokonto/app/test/validators_test.dart: validateNewPassword verlangt 10 Zeichen
+✅ /home/runner/work/girokonto/girokonto/app/test/validators_test.dart: Datumsformate
+✅ /home/runner/work/girokonto/girokonto/app/test/groups_test.dart: G01 Gruppenliste mit eigenem Saldo, antippen öffnet die Gruppe
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV01 Vergleich mit Bonität und Filtern; Kennzeichnung, Referenzzins, Anbieter
+✅ /home/runner/work/girokonto/girokonto/app/test/groups_test.dart: G02 Schuldner gleicht per Überweisung aus (mit Idempotency-Key)
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV02 Angebot: Anfrage erst mit Einwilligung, dann Weiter zur Anfrage
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV03 Zusage: Vertrag erst nach Bestätigung, dann zum Kredit
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV04 Ablehnung: Grund sichtbar, kein Vertrag möglich
+✅ /home/runner/work/girokonto/girokonto/app/test/groups_test.dart: G03 Ausgabe eintragen: nur auf Beteiligte aufteilen
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV05 Anfrage zurückziehen
+✅ /home/runner/work/girokonto/girokonto/app/test/groups_test.dart: G04 Empfänger bestätigt Barzahlung
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV06 Vertrag geschlossen: Auszahlung anfordern
+✅ /home/runner/work/girokonto/girokonto/app/test/groups_test.dart: G05 ohne Gruppen: anlegen öffnet die neue Gruppe
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV07 Vertrag vor der Auszahlung widerrufen
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV08 Englisch: Schritte und Hinweise übersetzt
+✅ /home/runner/work/girokonto/girokonto/app/test/loan_steps_test.dart: LV09 Modelle: neue Felder und ältere Antworten
+✅ /home/runner/work/girokonto/girokonto/app/test/dark_mode_test.dart: DM01 Gemeinsame Ausgaben: dunkel ohne Fehler, Text mit genug Kontrast
+✅ /home/runner/work/girokonto/girokonto/app/test/dark_mode_test.dart: DM01 Gruppe: dunkel ohne Fehler, Text mit genug Kontrast
+✅ /home/runner/work/girokonto/girokonto/app/test/dark_mode_test.dart: DM01 Verträge: dunkel ohne Fehler, Text mit genug Kontrast
+✅ /home/runner/work/girokonto/girokonto/app/test/dark_mode_test.dart: DM01 Vertrag: dunkel ohne Fehler, Text mit genug Kontrast
+✅ /home/runner/work/girokonto/girokonto/app/test/assistant_test.dart: AS01 Vorschlag antippen: Antwort mit Zahlen und Hinweis
+✅ /home/runner/work/girokonto/girokonto/app/test/dark_mode_test.dart: DM01 Vorhaben planen: dunkel ohne Fehler, Text mit genug Kontrast
+✅ /home/runner/work/girokonto/girokonto/app/test/assistant_test.dart: AS02 eigene Frage eingeben und senden
+✅ /home/runner/work/girokonto/girokonto/app/test/dark_mode_test.dart: DM02 Dashboard dunkel ohne Fehler
+✅ /home/runner/work/girokonto/girokonto/app/test/dark_mode_test.dart: DM03 Plus/Warnung: je Modus eigene Farbe mit mindestens 4,5 : 1 Kontrast
+✅ /home/runner/work/girokonto/girokonto/app/test/assistant_test.dart: AS03 Monatsbericht mit Hinweisen, vorheriger Monat
+✅ /home/runner/work/girokonto/girokonto/app/test/assistant_test.dart: AS04 Szenario: weniger für Freizeit ausgeben
+✅ /home/runner/work/girokonto/girokonto/app/test/assistant_test.dart: AS05 Szenario: Sparziel, Fehler vom Server wird angezeigt
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB01 Startseite: Tagesgeld mit fiktivem Zinssatz, weiteres Girokonto mit IBAN
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB02 Konto eröffnen: Angebote, Hinweis Simulation, weiteres Girokonto mit Namen
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB03 Grenze erreicht: Hinweis, Eröffnen gesperrt
+✅ /home/runner/work/girokonto/girokonto/app/test/transaction_management_test.dart: TM01 Notiz zu einem Umsatz hinzufügen
+✅ /home/runner/work/girokonto/girokonto/app/test/transaction_management_test.dart: TM02 CSV-Export der aktuellen Auswahl in die Zwischenablage (ohne BOM)
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB04 Umbuchen: Girokonto → Tagesgeld; Prüfungen vor dem Senden
+✅ /home/runner/work/girokonto/girokonto/app/test/transaction_management_test.dart: TM03 Hinweis auf mögliche Duplikate, Paar als „kein Duplikat“ markieren
+✅ /home/runner/work/girokonto/girokonto/app/test/transaction_management_test.dart: TM04 Umsatz der verbundenen Bank nicht mitzählen
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB05 Umbuchen: Fehlermeldung des Servers bleibt im Dialog
+✅ /home/runner/work/girokonto/girokonto/app/test/transaction_management_test.dart: TM05 keine Duplikate: kein Hinweis, leere Liste erklärt
+::endgroup::
+::group::✅ /home/runner/work/girokonto/girokonto/app/test/transaction_management_test.dart: TM06 CSV-Importe und Notizen in der Liste
+
+Warning: A call to tap() with finder "Found 1 widget with text "Bäckerei Korn": [
+  Text("Bäckerei Korn", overflow: ellipsis, maxLines: 1, dependencies: [DefaultSelectionStyle, DefaultTextStyle, MediaQuery, _ScrollableScope]),
+]" derived an Offset (Offset(166.0, 812.0)) that would not hit test on the specified widget.
+Maybe the widget is actually off-screen, or another widget is obscuring it, or the widget cannot receive pointer events.
+Indeed, Offset(166.0, 812.0) is outside the bounds of the root of the render tree, Size(400.0, 800.0).
+The finder corresponds to this RenderBox: RenderParagraph#cf54f relayoutBoundary=up13
+The hit test result at that offset is: HitTestResult(HitTestEntry<HitTestTarget>#d8ebe(_ReusableRenderView#edb0f), HitTestEntry<HitTestTarget>#c5788(<AutomatedTestWidgetsFlutterBinding>))
+#0      WidgetController._getElementPoint (package:flutter_test/src/controller.dart:2165:25)
+#1      WidgetController.getCenter (package:flutter_test/src/controller.dart:1947:12)
+#2      WidgetController.tap (package:flutter_test/src/controller.dart:1080:7)
+#3      main.<anonymous closure> (file:///home/runner/work/girokonto/girokonto/app/test/transaction_management_test.dart:102:18)
+<asynchronous suspension>
+#4      testWidgets.<anonymous closure>.<anonymous closure> (package:flutter_test/src/widget_tester.dart:192:15)
+<asynchronous suspension>
+#5      TestWidgetsFlutterBinding._runTestBody (package:flutter_test/src/binding.dart:1953:5)
+<asynchronous suspension>
+#6      StackZoneSpecification._registerCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:114:42)
+<asynchronous suspension>
+To silence this warning, pass "warnIfMissed: false" to "tap()".
+To make this warning fatal, set WidgetController.hitTestWarningShouldBeFatal to true.
+
+::endgroup::
+::group::✅ Passing tests
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB06 Alle Umsätze: beide Quellen, vorgemerkt, Umbuchung, Summen, Filter
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB07 Tagesgeld verwalten: umbenennen und auflösen
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB08 Girokonto hat kein Verwaltungsmenü
+✅ /home/runner/work/girokonto/girokonto/app/test/multibank_test.dart: MB09 Englisch
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL01 Bereich "Automatisch sparen": Regeln, Prognose, ausstehend, Vorgänge mit Status
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Anmeldung A01 leere Felder: Hinweise, keine Anfrage
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Anmeldung A02 Zwei-Faktor: Code-Feld erscheint und Code wird mitgeschickt
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL02 Sparregel vom Girokonto anlegen (wöchentlich)
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Anmeldung A03 Server-Adresse einstellen
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL03 verbundenes Bankkonto als Quelle: nur Vormerkung, gesperrte Quelle mit Grund
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A04 Überweisung: prüfen, Zusammenfassung, senden mit Idempotenz-Schlüssel
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL04 ohne Betrag keine Anfrage; Fehler vom Server wird angezeigt
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A16 Überweisung auf sehr kleinem Display mit großer Schrift: "Jetzt senden" erreichbar
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A05 Überweisung: ungültiger Betrag wird nicht geschickt
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL05 fehlgeschlagenen Vorgang erneut versuchen: Ergebnis wird gemeldet
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL06 Sparregel pausieren und beenden
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A06 Dauerauftrag anlegen
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A07 Dauerauftrag pausieren
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A08 Sondertilgung: Vorschau und Buchung
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL07 Vormerkungen: Betrag sichtbar, aufheben und neu vormerken
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A09 Sondertilgung: zu wenig Geld → Knopf gesperrt
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL08 Englisch: Bereich und Knöpfe übersetzt
+✅ /home/runner/work/girokonto/girokonto/app/test/allocations_test.dart: AL09 Modelle: vollständige und ältere Antworten
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A10 Zwei-Faktor einrichten: QR-Code und Bestätigung
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A11 CSV-Import: Beispieldatei und Fehlermeldung
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A12 digitales Konto teilen (Besitzer)
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A13 geteiltes fremdes digitales Konto: kein Auflösen, aber Austreten
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A14 Startseite zeigt geteilte digitale Konten
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: A15 Sparplan: Erinnerung auf 7 Tage stellen
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Sprache A23 Sprachumschalter: sofort Englisch, beim Konto gespeichert, zurück auf Deutsch
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB01 Gesamtvermögen mit allen Bestandteilen und Datum
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB02 verfügbar und zurückgelegt getrennt, Vormerkungen bei anderen Banken
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Sprache A25 Profil: Sprache wählen wird beim Konto gespeichert
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Sprache A24 Startseite und Überweisung auf Englisch, Accept-Language wird gesendet
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB03 Vermögensverlauf: 12 Monate, Bildschirmleser-Text, Hinweis auf unvollständige Monate
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB04 Cashflow: laufender Monat und 6 Monate als Diagramm
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Einnahmen & Ausgaben A17 Gehalt monatlich über die Schnellauswahl
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB05 größte Ausgaben mit Anteil am ganzen Monat
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Einnahmen & Ausgaben A18 einmalige Ausgabe, Kategorie automatisch; ohne Betrag keine Anfrage
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB06 Schulden: Restschuld, Raten, Verhältnis zu den Einnahmen, Kredit öffnen
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB07 Sparziele mit Fortschritt, erreichtes Ziel markiert, Ziel öffnen
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Einnahmen & Ausgaben A19 Wechsel Einnahme/Ausgabe und Fehlermeldung vom Server
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB08 Konten und Karten: veralteter Stand gekennzeichnet, Simulation erkennbar
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Einnahmen & Ausgaben A20 monatlich am 30.: Hinweis, keine Anfrage
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB09 Hinweise: Simulation und veraltete Kontostände werden genannt
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Einnahmen & Ausgaben A21 Übersicht: Monatswerte, pausieren, löschen
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB10 neuer Nutzer: leere Bereiche erklären, was fehlt
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB11 Fehler beim Laden: Meldung und erneut versuchen
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: Einnahmen & Ausgaben A22 Startseite: Knöpfe für Einnahme und Ausgabe
+✅ /home/runner/work/girokonto/girokonto/app/test/flows_widget_test.dart: FakeBackend liefert 404 für unbekannte Routen
+✅ /home/runner/work/girokonto/girokonto/app/test/dashboard_test.dart: DB12 Englisch und Einstieg von der Startseite
+✅ /home/runner/work/girokonto/girokonto/app/test/money_test.dart: formatCents Tausenderpunkt und Komma
+✅ /home/runner/work/girokonto/girokonto/app/test/money_test.dart: formatCents kleine Beträge
+✅ /home/runner/work/girokonto/girokonto/app/test/money_test.dart: formatCents negative Beträge
+✅ /home/runner/work/girokonto/girokonto/app/test/money_test.dart: parseEuroToCents deutsches Format
+✅ /home/runner/work/girokonto/girokonto/app/test/money_test.dart: parseEuroToCents Punkt als Dezimaltrenner
+✅ /home/runner/work/girokonto/girokonto/app/test/money_test.dart: parseEuroToCents ungültige Eingaben
+✅ /home/runner/work/girokonto/girokonto/app/test/money_test.dart: formatIban gruppiert in Vierern
+✅ /home/runner/work/girokonto/girokonto/app/test/phase4_test.dart: Monatsübersicht aus JSON mit Bezeichnungen
+✅ /home/runner/work/girokonto/girokonto/app/test/phase4_test.dart: Plan-Zusammenfassung mit optionalen Feldern
+✅ /home/runner/work/girokonto/girokonto/app/test/phase4_test.dart: Risikostufen-Texte unterscheiden Spar- und Investplan
+✅ /home/runner/work/girokonto/girokonto/app/test/phase4_test.dart: Kreditzwecke und Prozentformat
+✅ /home/runner/work/girokonto/girokonto/app/test/phase4_test.dart: Kategorien zum Auswählen enthalten keine festen Kategorien
+✅ /home/runner/work/girokonto/girokonto/app/test/credit_card_score_test.dart: CS01 ohne Karte: einrichten mit Limit
+✅ /home/runner/work/girokonto/girokonto/app/test/credit_card_score_test.dart: CS02 Karte mit offenen Umsätzen, Auslandseinsatz und Abrechnung
+✅ /home/runner/work/girokonto/girokonto/app/test/contracts_test.dart: CT01 Übersicht: Kosten, Frist bald, Vertrag öffnen
+✅ /home/runner/work/girokonto/girokonto/app/test/credit_card_score_test.dart: CS03 sperren und Demo-Zahlung in Fremdwährung
+✅ /home/runner/work/girokonto/girokonto/app/test/credit_card_score_test.dart: CS04 Finanz-Check mit Bestandteilen, Tipp und Hinweis „keine SCHUFA“
+✅ /home/runner/work/girokonto/girokonto/app/test/credit_card_score_test.dart: CS05 Bildschirmleser: Punkte als Text
+✅ /home/runner/work/girokonto/girokonto/app/test/credit_card_score_test.dart: CS06 Finanz-Check erst nach Einwilligung
+✅ /home/runner/work/girokonto/girokonto/app/test/credit_card_score_test.dart: CS07 Ergebnis der Demo-Zahlung ersetzt eine offene Meldung, statt sich hinten anzustellen
+✅ /home/runner/work/girokonto/girokonto/app/test/contracts_test.dart: CT02 Vertrag anlegen mit Laufzeit, Frist und Erinnerung
+✅ /home/runner/work/girokonto/girokonto/app/test/contracts_test.dart: CT03 Ungültiges Datum wird nicht gesendet
+✅ /home/runner/work/girokonto/girokonto/app/test/contracts_test.dart: CT04 Detail: Fristen, Dokument, Kündigung vermerken
+✅ /home/runner/work/girokonto/girokonto/app/test/contracts_test.dart: CT05 ohne Verträge: Hinweis
+::endgroup::
+
+::error::444 tests passed, 1 failed.
