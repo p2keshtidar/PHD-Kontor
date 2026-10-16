@@ -8,7 +8,7 @@ Stand: 16.10.2026 (Sprint 5, Weiterentwicklung und Nacharbeiten aus der Video-Au
 
 | Ebene | Anzahl | Ergebnis | Testabdeckung (Zeilen) |
 |---|---|---|---|
-| Backend: Unit- und Integrationstests (echte PostgreSQL) | **317** | ✅ alle grün | **92,1 %** |
+| Backend: Unit- und Integrationstests (echte PostgreSQL) | **317** | ✅ alle grün | **92,2 %** |
 | App: Unit- und Widget-Tests (simulierter Server) | **448** | ✅ alle grün | **77,6 %** |
 | Ende-zu-Ende: echte App + echter Server | **3 Abläufe**, Stand 16.10.: **Chrome, Android 11, iOS 26** grün (Ablauf 3 = Weiterentwicklung; Android brauchte einen zweiten Anlauf, weil das NDK-Paket auf dem Runner beschädigt ankam; ein einmaliger Aussetzer in Ablauf 2 auf iOS trat im nächsten Lauf nicht wieder auf) · alle 12 Systeme (Android 7/8/9/11/13/15/16, iOS 16/17/18/26, sehr kleines Display) zuletzt am 13.10. mit den Abläufen 1–2 | ✅ grün | – |
 
