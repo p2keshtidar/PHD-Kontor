@@ -1,6 +1,7 @@
 package de.frauas.girokonto.assistant;
 
 import de.frauas.girokonto.common.ApiException;
+import de.frauas.girokonto.common.Dates;
 import de.frauas.girokonto.common.Money;
 import de.frauas.girokonto.insights.Category;
 import de.frauas.girokonto.insights.InsightsService;
@@ -38,8 +39,6 @@ public class AssistantService {
     public static final String DISCLAIMER = "Automatische Auswertung deiner App-Daten – keine Finanzberatung.";
     public static final String SCENARIO_DISCLAIMER = "Rechenbeispiel aus deinen Durchschnittswerten – keine Prognose, keine Beratung.";
 
-    static final String[] MONTHS_DE = {"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
-            "September", "Oktober", "November", "Dezember"};
     private static final String[] MONTHS_EN = {"january", "february", "march", "april", "may", "june", "july",
             "august", "september", "october", "november", "december"};
 
@@ -150,7 +149,7 @@ public class AssistantService {
             MonthSummaryDto m = pick(months, month);
             long spent = m.categories().stream().filter(c -> c.category() == cat)
                     .mapToLong(MonthSummaryDto.CategoryAmount::cents).sum();
-            long avg = average(months, cat);
+            long avg = InsightsService.averageCents(months, cat);
             String text = cat.isIncome()
                     ? "Durch " + cat.label() + " hast du " + period(m) + " insgesamt " + Money.format(spent) + " eingenommen."
                     : "Für " + cat.label() + " hast du " + period(m) + " insgesamt " + Money.format(spent) + " ausgegeben.";
@@ -173,7 +172,7 @@ public class AssistantService {
     }
 
     private Answer savingsAnswer(String raw, List<MonthSummaryDto> months) {
-        List<MonthSummaryDto> full = fullMonths(months, 3);
+        List<MonthSummaryDto> full = InsightsService.lastFullMonths(months, InsightsService.AVERAGE_MONTHS);
         if (full.isEmpty()) {
             return answer("SAVINGS", raw, "Für Sparpotenziale brauche ich mindestens einen vollen Monat mit Ausgaben.", List.of());
         }
@@ -184,7 +183,7 @@ public class AssistantService {
             if (c.kind() != Category.Kind.VARIABLE) {
                 continue;
             }
-            long avg = average(months, c);
+            long avg = InsightsService.averageCents(months, c);
             long lastSpent = last.categories().stream().filter(x -> x.category() == c)
                     .mapToLong(MonthSummaryDto.CategoryAmount::cents).sum();
             long tenPercent = Math.round(avg * 0.10);
@@ -314,7 +313,7 @@ public class AssistantService {
             case "CUT_CATEGORY" -> {
                 Category c = parseCategory(req.category());
                 long amount = positive(req.amountCents());
-                long avg = average(insights.months(userId, 4), c);
+                long avg = InsightsService.averageCents(insights.months(userId, 7), c);
                 if (amount > avg) {
                     throw new ApiException(HttpStatus.BAD_REQUEST, "SCENARIO_TOO_HIGH",
                             "Das ist mehr, als du im Schnitt für " + c.label() + " ausgibst (" + Money.format(avg) + ").");
@@ -393,7 +392,7 @@ public class AssistantService {
             return now;
         }
         for (int i = 0; i < 12; i++) {
-            String de = normalize(MONTHS_DE[i]);
+            String de = normalize(Dates.MONTHS_DE.get(i));
             if (q.matches("(?s).*\\b(" + de + "|" + MONTHS_EN[i] + ")\\b.*")) {
                 YearMonth ym = YearMonth.of(now.getYear(), i + 1);
                 return ym.isAfter(now) ? ym.minusYears(1) : ym;
@@ -411,21 +410,6 @@ public class AssistantService {
                 .orElse(new MonthSummaryDto(ym.toString(), true, false, 0, 0, 0, 0, List.of()));
     }
 
-    private static List<MonthSummaryDto> fullMonths(List<MonthSummaryDto> months, int n) {
-        List<MonthSummaryDto> full = months.stream().filter(MonthSummaryDto::complete).filter(MonthSummaryDto::hasData).toList();
-        return full.subList(Math.max(0, full.size() - n), full.size());
-    }
-
-    /** Schnitt der letzten drei vollen Monate mit Daten in einer Kategorie. */
-    private static long average(List<MonthSummaryDto> months, Category c) {
-        List<MonthSummaryDto> full = fullMonths(months, 3);
-        if (full.isEmpty()) {
-            return 0;
-        }
-        long sum = full.stream().flatMap(m -> m.categories().stream()).filter(x -> x.category() == c)
-                .mapToLong(MonthSummaryDto.CategoryAmount::cents).sum();
-        return sum / full.size();
-    }
 
     private String period(MonthSummaryDto m) {
         return m.month().equals(YearMonth.now(clock).toString()) ? "in diesem Monat (bisher)" : "im " + label(m);
@@ -436,7 +420,7 @@ public class AssistantService {
     }
 
     static String monthLabel(YearMonth ym) {
-        return MONTHS_DE[ym.getMonthValue() - 1] + " " + ym.getYear();
+        return Dates.monthYear(ym);
     }
 
     private static long percent(long part, long total) {

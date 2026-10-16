@@ -244,6 +244,12 @@ Passwörter, Codes, vollständige IBAN oder Kartennummer, Dateinamen oder Dokume
 Langsamster Endpunkt ist das Dashboard (rechnet 12 Monatsenden); unter Last misst der Lasttest T137 Median, p95 und
 Maximum je Endpunkt im CI-Protokoll.
 
+**Wartbarkeit (doppelte Logik entfernt):** Durchschnitte „letzte drei volle Monate mit Daten“ gibt es nur noch in
+`InsightsService.lastFullMonths`/`averageCents` (Finanzüberblick, Spartipps, Finanzassistent); Datum und Monatsnamen
+nur in `common/Dates` (auch die Übersetzung nutzt dieselbe Liste); die Prüfung des `Idempotency-Key` nur in
+`common/IdempotencyKeys` (Überweisung, Ausgleich gemeinsamer Ausgaben). Vorher waren das drei bzw. zwei leicht
+unterschiedliche Kopien – die Spartipps zählten z. B. Monate ohne Umsätze mit und rechneten den Schnitt dadurch zu klein.
+
 **Indizes:** alle häufigen Abfragen laufen über Indizes (Fremdschlüssel je Nutzer/Konto, Datum). Ergänzt in V23:
 Dokumente je Vertrag, offene Kreditkartenabrechnungen, laufende Verträge mit Erinnerung, ungelesene Benachrichtigungen.
 

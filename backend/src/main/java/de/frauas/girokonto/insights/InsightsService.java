@@ -128,14 +128,30 @@ public class InsightsService {
         return new MonthSummaryDto(ym.toString(), complete, hasData, income, expense, fixed, income - expense, cats);
     }
 
+    /**
+     * Die letzten {@code n} abgeschlossenen Monate mit Umsätzen (ältester zuerst). Grundlage aller Durchschnitte
+     * (Finanzüberblick, Spartipps, Assistent, Finanz-Check) – Monate ohne Daten verfälschen den Schnitt nicht.
+     */
+    public static List<MonthSummaryDto> lastFullMonths(List<MonthSummaryDto> months, int n) {
+        List<MonthSummaryDto> full = months.stream().filter(MonthSummaryDto::complete).filter(MonthSummaryDto::hasData)
+                .toList();
+        return full.subList(Math.max(0, full.size() - n), full.size());
+    }
+
+    /** Durchschnitt einer Kategorie über die letzten {@value #AVERAGE_MONTHS} vollen Monate mit Daten (Cent). */
+    public static long averageCents(List<MonthSummaryDto> months, Category category) {
+        List<MonthSummaryDto> used = lastFullMonths(months, AVERAGE_MONTHS);
+        if (used.isEmpty()) {
+            return 0;
+        }
+        return used.stream().flatMap(m -> m.categories().stream()).filter(c -> c.category() == category)
+                .mapToLong(MonthSummaryDto.CategoryAmount::cents).sum() / used.size();
+    }
+
     /** Durchschnitt der letzten drei vollen Monate mit Daten; planRatesCents kommt vom Aufrufer. */
     @Transactional(readOnly = true)
     public OverviewDto overview(Long userId, long planRatesCents) {
-        List<MonthSummaryDto> recent = months(userId, 7).stream()
-                .filter(MonthSummaryDto::complete)
-                .filter(MonthSummaryDto::hasData)
-                .toList();
-        List<MonthSummaryDto> used = recent.subList(Math.max(0, recent.size() - AVERAGE_MONTHS), recent.size());
+        List<MonthSummaryDto> used = lastFullMonths(months(userId, 7), AVERAGE_MONTHS);
         String profile = demoData.profileOf(userId);
         if (used.isEmpty()) {
             return new OverviewDto(false, 0, 0, 0, 0, 0, planRatesCents, 0, 0, profile);
@@ -153,20 +169,20 @@ public class InsightsService {
     /** Durchschnittliche Ausgaben je Kategorie (letzte drei volle Monate) und Ausgaben im letzten vollen Monat. */
     @Transactional(readOnly = true)
     public Map<Category, long[]> categoryTrend(Long userId) {
-        List<MonthSummaryDto> recent = months(userId, 4).stream().filter(MonthSummaryDto::complete).toList();
+        List<MonthSummaryDto> months = months(userId, 7);
+        List<MonthSummaryDto> used = lastFullMonths(months, AVERAGE_MONTHS);
         Map<Category, long[]> result = new EnumMap<>(Category.class);
-        if (recent.isEmpty()) {
+        if (used.isEmpty()) {
             return result;
         }
-        MonthSummaryDto last = recent.get(recent.size() - 1);
-        for (MonthSummaryDto m : recent) {
+        MonthSummaryDto last = used.get(used.size() - 1);
+        for (MonthSummaryDto m : used) {
             for (var c : m.categories()) {
-                long[] v = result.computeIfAbsent(c.category(), k -> new long[2]);
-                v[0] += c.cents() / recent.size();             // Durchschnitt
-                if (m == last) {
-                    v[1] = c.cents();                          // letzter voller Monat
-                }
+                result.computeIfAbsent(c.category(), k -> new long[] {averageCents(months, k), 0});
             }
+        }
+        for (var c : last.categories()) {
+            result.get(c.category())[1] = c.cents();             // letzter voller Monat
         }
         return result;
     }

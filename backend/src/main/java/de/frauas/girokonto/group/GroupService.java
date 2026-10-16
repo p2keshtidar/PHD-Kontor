@@ -318,9 +318,7 @@ public class GroupService {
     @Transactional
     public GroupDetail settleByTransfer(Long userId, Long groupId, Long toUserId, long amountCents, String idempotencyKey) {
         requireMember(userId, groupId);
-        if (idempotencyKey == null || idempotencyKey.isBlank() || idempotencyKey.length() > 40) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "IDEMPOTENCY_KEY_MISSING", "Header Idempotency-Key fehlt oder ist zu lang.");
-        }
+        de.frauas.girokonto.common.IdempotencyKeys.require(idempotencyKey, 40);
         String key = "group:" + groupId + ":" + idempotencyKey;
         Integer done = jdbc.queryForObject(
                 "SELECT count(*) FROM group_settlement s JOIN booking b ON b.id = s.booking_id "

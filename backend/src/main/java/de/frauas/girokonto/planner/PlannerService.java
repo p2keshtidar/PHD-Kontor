@@ -1,6 +1,7 @@
 package de.frauas.girokonto.planner;
 
 import de.frauas.girokonto.common.ApiException;
+import de.frauas.girokonto.common.Dates;
 import de.frauas.girokonto.common.Money;
 import de.frauas.girokonto.loan.LoanDtos.Offer;
 import de.frauas.girokonto.loan.LoanDtos.OfferResult;
@@ -87,7 +88,7 @@ public class PlannerService {
         long rate = (need + months - 1) / months;
         String feasibility = !ov.hasData() ? "UNKNOWN" : rate <= ov.availableCents() ? "GREEN" : "RED";
         options.add(new Option("SAVE", "Ansparen", "GREEN".equals(feasibility), rate, rate, 0L, need, feasibility, null,
-                months, "Bis " + de(date) + " jeden Monat " + Money.format(rate) + " zurücklegen – keine Zinsen."));
+                months, "Bis " + Dates.de(date) + " jeden Monat " + Money.format(rate) + " zurücklegen – keine Zinsen."));
 
         // 2) Finanzieren (sofort, mit Laufzeit des Vorhabens)
         Optional<Offer> finance = cheapest(userId, g.purpose(), need, equity, g.term());
@@ -145,9 +146,5 @@ public class PlannerService {
         return best.map(o -> "Ansparen bis zum Termin passt nicht in dein Budget. Günstigste tragbare Variante: "
                         + o.title() + " (Zinsen " + Money.format(o.extraCostCents()) + ").")
                 .orElse("Keine Variante passt in dein Budget – später, günstiger oder mit mehr Eigenkapital planen.");
-    }
-
-    private static String de(LocalDate d) {
-        return String.format("%02d.%02d.%d", d.getDayOfMonth(), d.getMonthValue(), d.getYear());
     }
 }

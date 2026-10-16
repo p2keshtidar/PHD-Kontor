@@ -35,6 +35,7 @@ Die Abdeckung steht nach jedem Lauf oben in der Zusammenfassung des CI-Laufs, in
 | **Verträge und Dokumente T129–T133, K01–K04** | `ContractFlowTest`, `ContractMathTest` | Fristen und Kosten, Erinnerung genau einmal, Kündigung nur als Vermerk · Dokumente verschlüsselt, nur für den Besitzer, nur PDF/PNG/JPEG am Inhalt erkannt, 5 MB, sichere Dateinamen |
 | **API-Version, Prüfprotokoll T134–T136, Lasttest T137** | `ApiVersionAndAuditTest`, `LoadTest` | `/api/v1` = Kurzform, Header · Protokoll ohne Passwörter/IBAN · 12 Nutzer, 8 Endpunkte parallel: keine Fehler, p95 < 3 s |
 | **Planer T138–T139, Karten digitaler Konten T141–T142** | `PlannerFlowTest`, `SubaccountCardFlowTest` | drei Wege mit Empfehlung, Eingabeprüfung · Zahlung vom digitalen Konto, Limit, Sperre, nur volle Rechte |
+| **Gemeinsame Helfer H01–H03** | `SharedHelpersTest` | Datum/Monatsnamen, Durchschnitt nur über volle Monate mit Daten, Idempotency-Key |
 | **Sicherheit neue Funktionen S11–S12, Logs P01–P04** | `SecurityNewFeaturesTest`, `RequestLogFilterTest` | fremde Gruppen/Verträge/Dokumente/Anträge → 403/404 · keine Geheimnisse in Antworten · Logzeile ohne Query/Token, Request-ID, Versionspfade, Datenbankpasswort im Betrieb |
 | Kannkriterien T26–T40 | `Phase5FlowTest`, `StandingOrderFlowTest`, `TwoFactorFlowTest`, `CsvImportFlowTest`, `SharedSubaccountFlowTest` | Sondertilgung, Erinnerung, Dauerauftrag, Zwei-Faktor, CSV-Import, Teilen |
 | **Sicherheit S01–S10** | `SecurityMatrixTest` | *jeder* `/api`-Endpunkt ohne Anmeldung → 401 (automatisch aufgezählt) · gefälschte/abgelaufene Tokens · Abmelden/Refresh-Wiederverwendung · Admin-Bereich → 403 · fremde Konten, Karten, Pläne, Kredite, Kreditanfragen, Daueraufträge, Unterkonten, Sparregeln, Vormerkungen, Importe → 403/404 · keine Passwort-Hashes oder Kartendaten in Antworten · SQL-Injection in der Suche · CORS · Sperre nach Fehlversuchen |
@@ -99,6 +100,7 @@ Echte App gegen echten Server mit echter Datenbank, im **Browser (Chrome)**, auf
 | Dokument abrufen gab 500: Prüfprotokoll schrieb in einer nur-lesenden Transaktion | T132 | Abruf als schreibende Transaktion |
 | Antwortvorlage „Für {0} hast du {1} {2} ausgegeben“ war mehrdeutig – Englisch vertauschte Teile | lokaler Rauchtest Englisch | eindeutige Vorlage („insgesamt“) |
 | Planer: Ansparen einer Immobilie scheiterte an der Sparplan-Obergrenze (100.000 €) | lokaler Rauchtest | Ansparrate direkt berechnet |
+| Spartipps teilten durch alle abgeschlossenen Monate, auch solche ohne Umsätze (Schnitt zu klein) | Aufräumen #75 | ein gemeinsamer Durchschnitt nur über Monate mit Daten (H02) |
 
 ## Selbst ausführen
 

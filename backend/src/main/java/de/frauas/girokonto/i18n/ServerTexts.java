@@ -34,8 +34,7 @@ public class ServerTexts {
     private static final Pattern DATE = Pattern.compile("\\b(\\d{2})\\.(\\d{2})\\.(\\d{4})\\b");
     private static final Pattern DAY_MONTH = Pattern.compile("\\b(\\d{2})\\.(\\d{2})\\.(?!\\d)");
     private static final Pattern PERCENT = Pattern.compile("(\\d+),(\\d+) %|(\\d+) %");
-    private static final String[] MONTHS_DE = {"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
-            "September", "Oktober", "November", "Dezember"};
+    private static final String[] MONTHS_DE = de.frauas.girokonto.common.Dates.MONTHS_DE.toArray(new String[0]);
     private static final String[] MONTHS_EN = {"January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"};
     private static final String[] SHORT_EN = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",

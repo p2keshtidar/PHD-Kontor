@@ -82,10 +82,7 @@ public class TransferService {
 
     @Transactional
     public TransferResultDto execute(Long userId, String idempotencyKey, TransferRequest req) {
-        if (idempotencyKey == null || idempotencyKey.isBlank() || idempotencyKey.length() > 64) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, "IDEMPOTENCY_KEY_MISSING",
-                    "Header Idempotency-Key fehlt oder ist zu lang.");
-        }
+        de.frauas.girokonto.common.IdempotencyKeys.require(idempotencyKey, 64);
         Account sender = accounts.findByIdForUpdate(accountService.mainAccount(userId).getId()).orElseThrow();
 
         String fullKey = "transfer:" + userId + ":" + idempotencyKey;

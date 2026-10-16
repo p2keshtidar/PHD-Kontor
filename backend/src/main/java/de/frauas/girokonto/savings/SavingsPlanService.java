@@ -520,9 +520,7 @@ public class SavingsPlanService implements DailyJob {
     }
 
     private static String monthText(LocalDate d) {
-        String[] names = {"Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September",
-                "Oktober", "November", "Dezember"};
-        return names[d.getMonthValue() - 1] + " " + d.getYear();
+        return de.frauas.girokonto.common.Dates.monthYear(YearMonth.from(d));
     }
 
     private SavingsPlan requireOpen(Long userId, Long planId) {

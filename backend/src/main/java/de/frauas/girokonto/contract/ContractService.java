@@ -2,6 +2,7 @@ package de.frauas.girokonto.contract;
 
 import de.frauas.girokonto.audit.AuditLog;
 import de.frauas.girokonto.common.ApiException;
+import de.frauas.girokonto.common.Dates;
 import de.frauas.girokonto.notification.NotificationService;
 import de.frauas.girokonto.notification.NotificationType;
 import de.frauas.girokonto.simulation.DailyJob;
@@ -11,7 +12,6 @@ import java.sql.Timestamp;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,6 @@ public class ContractService implements DailyJob {
 
     public static final int MAX_CONTRACTS = 100;
     public static final String NOTE = "Die App merkt sich Verträge und Fristen nur. Kündigen musst du selbst beim Anbieter.";
-    private static final DateTimeFormatter DE = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     static final Map<String, String> KINDS = Map.of(
             "STROM_GAS", "Strom & Gas", "HANDY_INTERNET", "Handy & Internet", "STREAMING", "Streaming & Abos",
@@ -164,9 +163,9 @@ public class ContractService implements DailyJob {
         if ("CANCELLED".equals(status)) {
             if (endsOn != null && endsOn.isBefore(today)) {
                 status = "ENDED";
-                hint = "Beendet am " + DE.format(endsOn) + ".";
+                hint = "Beendet am " + Dates.de(endsOn) + ".";
             } else {
-                hint = "Gekündigt zum " + DE.format(endsOn) + ".";
+                hint = "Gekündigt zum " + Dates.de(endsOn) + ".";
             }
             nextEnd = endsOn;
         } else {
@@ -174,8 +173,8 @@ public class ContractService implements DailyJob {
             nextEnd = t.end();
             by = t.cancelBy();
             days = ChronoUnit.DAYS.between(today, by);
-            hint = days == 0 ? "Heute ist der letzte Tag zum Kündigen (Vertragsende " + DE.format(nextEnd) + ")."
-                    : "Kündigen bis " + DE.format(by) + " (Vertragsende " + DE.format(nextEnd) + "), sonst Verlängerung um "
+            hint = days == 0 ? "Heute ist der letzte Tag zum Kündigen (Vertragsende " + Dates.de(nextEnd) + ")."
+                    : "Kündigen bis " + Dates.de(by) + " (Vertragsende " + Dates.de(nextEnd) + "), sonst Verlängerung um "
                     + months(renewal) + ".";
         }
         String kind = rs.getString("kind");
@@ -374,8 +373,8 @@ public class ContractService implements DailyJob {
                 long id = rs.getLong("id");
                 jdbc.update("UPDATE contract SET reminded_for = ? WHERE id = ?", t.end(), id);
                 notifications.send(rs.getLong("user_id"), NotificationType.INFO, "Kündigungsfrist",
-                        "„" + rs.getString("name") + "“ kann noch bis " + DE.format(t.cancelBy())
-                                + " gekündigt werden (Vertragsende " + DE.format(t.end()) + ").", null);
+                        "„" + rs.getString("name") + "“ kann noch bis " + Dates.de(t.cancelBy())
+                                + " gekündigt werden (Vertragsende " + Dates.de(t.end()) + ").", null);
             }
         });
     }
