@@ -564,9 +564,9 @@ void main() {
       await pumpFor(tester, 800);
     }
     await tester.tap(navItem('Sparen'));
+    await pumpFor(tester, 1500);
+    await scrollToTop(tester);    // die Liste steht noch weiter unten (bei „Gemeinsame Ausgaben“)
     await pumpUntil(tester, find.text('Jeden Monat übrig'));
-    await pumpFor(tester, 800);
-    await scrollToTop(tester);
     await tapButton(tester, find.byKey(const Key('savings_contracts')));
     await pumpUntil(tester, find.byKey(const Key('contracts_add')));
     await pumpFor(tester, 1000);
