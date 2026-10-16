@@ -9,7 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/api_error.dart';
-import '../../core/charts.dart';
 import '../../core/dates.dart';
 import '../../core/money.dart';
 import '../../l10n/l10n.dart';

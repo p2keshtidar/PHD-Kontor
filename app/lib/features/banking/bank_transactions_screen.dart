@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import '../../core/api_error.dart';
 import '../../core/dates.dart';
 import '../../l10n/l10n.dart';
-import '../accounts/booking_tile.dart';
 import '../insights/insights_models.dart';
 import 'bank_models.dart';
 import 'bank_repository.dart';

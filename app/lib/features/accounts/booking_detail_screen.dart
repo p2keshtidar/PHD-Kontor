@@ -10,7 +10,6 @@ import '../../core/text_dialog.dart';
 import '../insights/insights_models.dart';
 import '../insights/insights_repository.dart';
 import 'booking_item.dart';
-import 'booking_tile.dart';
 import 'bookings_repository.dart';
 import '../../core/layout.dart';
 import '../../core/theme.dart';
